@@ -98,7 +98,6 @@
 		A191F1C51A85A36C0076C8C5 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				A191F1C61A85A3A20076C8C5 /* TopNavigationViewController.swift */,
 				A18A85CD1A85AA370078436D /* PageManageViewController.swift */,
 				A18A85CF1A85AAC10078436D /* EntryCollectionViewController.swift */,
 			);
@@ -133,6 +132,7 @@
 				A18A85D11A85D4C50078436D /* Entities */,
 				A191F1C51A85A36C0076C8C5 /* ViewControllers */,
 				A1A8D9DF1A82F92C00231D84 /* AppDelegate.swift */,
+				A191F1C61A85A3A20076C8C5 /* TopNavigationViewController.swift */,
 				A1A8D9E31A82F92C00231D84 /* Main.storyboard */,
 				A1A8D9E61A82F92C00231D84 /* Images.xcassets */,
 				A1A8D9E81A82F92C00231D84 /* LaunchScreen.xib */,

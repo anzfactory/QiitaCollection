@@ -15,7 +15,7 @@ class EntryCollectionViewController: UIViewController, UICollectionViewDataSourc
     
     // MARK: プロパティ
     var entries: [EntryEntity] = []
-    var page: Int = 0;
+    var page: Int = 0
     var qiitaManager: QiitaApiManager = QiitaApiManager()
     
     // MARK: ライフサイクル
@@ -47,8 +47,10 @@ class EntryCollectionViewController: UIViewController, UICollectionViewDataSourc
             }
             
             if items.count == 0 {
-                return;
+                self.page = NSNotFound      // オートページング止めるために
+                return
             } else if (self.page == 1) {
+                // リフレッシュ対象なのでリストクリア
                 self.entries.removeAll(keepCapacity: false)
             }
             
@@ -82,13 +84,14 @@ class EntryCollectionViewController: UIViewController, UICollectionViewDataSourc
         let entry: EntryEntity = self.entries[indexPath.row]
         cell.display(entry)
         
-        return cell;
+        return cell
         
     }
     
     // MARK: UICollectionViewDelegate
+    
     func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
-        if (indexPath.row + 1) >= self.entries.count {
+        if self.page != NSNotFound && (indexPath.row + 1) >= self.entries.count {
             self.load()
         }
     }

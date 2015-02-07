@@ -10,10 +10,11 @@ import UIKit
 
 class EntryCollectionViewCell: UICollectionViewCell {
     
-    // MARK:
+    // MARK: UI
     @IBOutlet weak var backgroundImage: UIImageView!
     @IBOutlet weak var title: UILabel!
     
+    // MARK: メソッド
     func display(entry: EntryEntity) {
         
         // TODO: 背景ロード
