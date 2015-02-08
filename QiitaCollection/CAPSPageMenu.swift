@@ -3,7 +3,7 @@
 //  Niklas Fahl
 //
 //  Copyright (c) 2014 The Board of Trustees of The University of Alabama All rights reserved.
-//    
+//
 //  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 //
 //  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
@@ -19,7 +19,7 @@
 
 import UIKit
 
-@objc protocol CAPSPageMenuDelegate {
+@objc public protocol CAPSPageMenuDelegate {
     // MARK: - Delegate functions
     
     optional func willMoveToPage(controller: UIViewController, index: Int)
@@ -57,7 +57,7 @@ class MenuItemView: UIView {
     }
 }
 
-class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate {
+public class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate {
     
     // MARK: - Properties
     
@@ -67,12 +67,12 @@ class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
     var menuItems : [MenuItemView] = []
     var menuItemWidths : [CGFloat] = []
     
-    var menuHeight : CGFloat = 34.0
-    var menuMargin : CGFloat = 15.0
-    var menuItemWidth : CGFloat = 111.0
-    var selectionIndicatorHeight : CGFloat = 3.0
+    public var menuHeight : CGFloat = 34.0
+    public var menuMargin : CGFloat = 15.0
+    public var menuItemWidth : CGFloat = 111.0
+    public var selectionIndicatorHeight : CGFloat = 3.0
     var totalMenuItemWidthIfDifferentWidths : CGFloat = 0.0
-    var scrollAnimationDurationOnMenuItemTap : Int = 500 // Millisecons
+    public var scrollAnimationDurationOnMenuItemTap : Int = 500 // Millisecons
     var startingMenuMargin : CGFloat = 0.0
     
     var selectionIndicatorView : UIView = UIView()
@@ -80,25 +80,25 @@ class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
     var currentPageIndex : Int = 0
     var lastPageIndex : Int = 0
     
-    var selectionIndicatorColor : UIColor = UIColor.whiteColor()
-    var selectedMenuItemLabelColor : UIColor = UIColor.whiteColor()
-    var unselectedMenuItemLabelColor : UIColor = UIColor.lightGrayColor()
-    var scrollMenuBackgroundColor : UIColor = UIColor.blackColor()
-    var viewBackgroundColor : UIColor = UIColor.whiteColor()
-    var bottomMenuHairlineColor : UIColor = UIColor.whiteColor()
-    var menuItemSeparatorColor : UIColor = UIColor.lightGrayColor()
+    public var selectionIndicatorColor : UIColor = UIColor.whiteColor()
+    public var selectedMenuItemLabelColor : UIColor = UIColor.whiteColor()
+    public var unselectedMenuItemLabelColor : UIColor = UIColor.lightGrayColor()
+    public var scrollMenuBackgroundColor : UIColor = UIColor.blackColor()
+    public var viewBackgroundColor : UIColor = UIColor.whiteColor()
+    public var bottomMenuHairlineColor : UIColor = UIColor.whiteColor()
+    public var menuItemSeparatorColor : UIColor = UIColor.lightGrayColor()
     
-    var menuItemFont : UIFont = UIFont(name: "HelveticaNeue", size: 15.0)!
-    var menuItemSeparatorPercentageHeight : CGFloat = 0.2
-    var menuItemSeparatorWidth : CGFloat = 0.5
-    var menuItemSeparatorRoundEdges : Bool = false
+    public var menuItemFont : UIFont = UIFont(name: "HelveticaNeue", size: 15.0)!
+    public var menuItemSeparatorPercentageHeight : CGFloat = 0.2
+    public var menuItemSeparatorWidth : CGFloat = 0.5
+    public var menuItemSeparatorRoundEdges : Bool = false
     
-    var addBottomMenuHairline : Bool = true
-    var menuItemWidthBasedOnTitleTextWidth : Bool = false
-    var useMenuLikeSegmentedControl : Bool = false
-    var centerMenuItems : Bool = false
-    var enableHorizontalBounce : Bool = true
-    var hideTopMenuBar : Bool = false
+    public var addBottomMenuHairline : Bool = true
+    public var menuItemWidthBasedOnTitleTextWidth : Bool = false
+    public var useMenuLikeSegmentedControl : Bool = false
+    public var centerMenuItems : Bool = false
+    public var enableHorizontalBounce : Bool = true
+    public var hideTopMenuBar : Bool = false
     
     var currentOrientationIsPortrait : Bool = true
     var pageIndexForOrientationChange : Int = 0
@@ -113,7 +113,7 @@ class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
     
     var pagesAddedDictionary : [Int : Int] = [:]
     
-    var delegate : CAPSPageMenuDelegate?
+    public var delegate : CAPSPageMenuDelegate?
     
     var tapTimer : NSTimer?
     
@@ -126,7 +126,7 @@ class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
     :param: frame Frame for page menu view
     :param: options Dictionary holding any customization options user might want to set
     */
-    init(viewControllers: [AnyObject], frame: CGRect, options: [String: AnyObject]?) {
+    public init(viewControllers: [AnyObject], frame: CGRect, options: [String: AnyObject]?) {
         super.init(nibName: nil, bundle: nil)
         
         controllerArray = viewControllers
@@ -178,12 +178,13 @@ class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
                 } else if key == "centerMenuItems" {
                     centerMenuItems = options![key] as Bool
                 } else if key == "hideTopMenuBar" {
-                    var hide = options![key] as Bool
-                    if hide {
-                        addBottomMenuHairline = false
-                        menuHeight = 0.0
-                    }
+                    hideTopMenuBar = options![key] as Bool
                 }
+            }
+            
+            if hideTopMenuBar {
+                addBottomMenuHairline = false
+                menuHeight = 0.0
             }
         }
         
@@ -194,7 +195,7 @@ class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
         }
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required public init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -332,7 +333,7 @@ class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
                 } else {
                     menuItemView.setUpMenuItemView(menuItemWidth, menuScrollViewHeight: menuHeight, indicatorHeight: selectionIndicatorHeight, separatorPercentageHeight: menuItemSeparatorPercentageHeight, separatorWidth: menuItemSeparatorWidth, separatorRoundEdges: menuItemSeparatorRoundEdges, menuItemSeparatorColor: menuItemSeparatorColor)
                 }
-                    
+                
                 // Configure menu item label font if font is set by user
                 menuItemView.titleLabel!.font = menuItemFont
                 
@@ -360,7 +361,7 @@ class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
                 index++
             }
         }
-
+        
         // Set new content size for menu scroll view if needed
         if menuItemWidthBasedOnTitleTextWidth {
             menuScrollView.contentSize = CGSizeMake((totalMenuItemWidthIfDifferentWidths + menuMargin) + CGFloat(controllerArray.count) * menuMargin, menuHeight)
@@ -396,7 +397,7 @@ class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
     
     // MARK: - Scroll view delegate
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    public func scrollViewDidScroll(scrollView: UIScrollView) {
         if !didLayoutSubviewsAfterRotation {
             if scrollView.isEqual(controllerScrollView) {
                 if scrollView.contentOffset.x >= 0.0 && scrollView.contentOffset.x <= (CGFloat(controllerArray.count - 1) * self.view.frame.width) {
@@ -461,7 +462,7 @@ class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
                             
                             lastControllerScrollViewContentOffset = scrollView.contentOffset.x
                         }
-                    
+                        
                         var ratio : CGFloat = 1.0
                         
                         
@@ -531,7 +532,7 @@ class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
         }
     }
     
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+    public func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         if scrollView.isEqual(controllerScrollView) {
             // Call didMoveToPage delegate function
             var currentController : UIViewController = controllerArray[currentPageIndex] as UIViewController
@@ -664,7 +665,7 @@ class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
                     // Add pages in between current and tapped page if necessary
                     var smallerIndex : Int = lastPageIndex < currentPageIndex ? lastPageIndex : currentPageIndex
                     var largerIndex : Int = lastPageIndex > currentPageIndex ? lastPageIndex : currentPageIndex
-                   
+                    
                     if smallerIndex + 1 != largerIndex {
                         for index in (smallerIndex + 1)...(largerIndex - 1) {
                             if pagesAddedDictionary[index] != index {
@@ -730,7 +731,7 @@ class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
     
     // MARK: - Orientation Change
     
-    override func viewDidLayoutSubviews() {
+    override public func viewDidLayoutSubviews() {
         var oldCurrentOrientationIsPortrait : Bool = currentOrientationIsPortrait
         currentOrientationIsPortrait = self.interfaceOrientation.isPortrait
         
@@ -808,7 +809,7 @@ class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureRecognizerD
     
     :param: index Index of the page to move to
     */
-    func moveToPage(index: Int) {
+    public func moveToPage(index: Int) {
         if index >= 0 && index < controllerArray.count {
             // Update page if changed
             if index != currentPageIndex {
