@@ -10,22 +10,36 @@ import SwiftyJSON
 
 struct EntryEntity {
     
-    let id: String;
-    let title: String;
-    let body: String;
-    let htmlBody: String;
-    let urlString: String;
+    let id: String
+    let title: String
+    let body: String
+    let htmlBody: String
+    let urlString: String
+    let updateDate: String
+    let postUser: UserEntity
+    var tags: [TagEntity]
     
     init (data: JSON) {
-        id = data["id"].string!;
-        title = data["title"].string!;
-        body = data["body"].string!;
-        htmlBody = data["rendered_body"].string!;
-        urlString = data["url"].string!;
         
-        // TOOD Tags
+        id = data["id"].string!
+        title = data["title"].string!
+        body = data["body"].string!
+        htmlBody = data["rendered_body"].string!
+        urlString = data["url"].string!
+        updateDate = data["updated_at"].string!
         
-        // TODO 投稿者
+        tags = [TagEntity]()
+        for tagObject: JSON in data["tags"].array! {
+            let tag: TagEntity = TagEntity(data: tagObject)
+            tags.append(tag)
+        }
+        
+        postUser = UserEntity(data: data["user"].dictionary!)
+        
+    }
+    
+    var shortUpdateDate: String {
+        get { return updateDate.componentsSeparatedByString("T")[0] }
     }
     
 }

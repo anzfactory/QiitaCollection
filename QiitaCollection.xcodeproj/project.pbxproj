@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		8B9C88C9AF22F6B7D64935A3 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 939537E42F84BB812A2B5FC2 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		A103AF3A1A86141200FF0B24 /* EntryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A103AF391A86141200FF0B24 /* EntryCollectionViewCell.swift */; };
+		A103AF401A86553000FF0B24 /* UserEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A103AF3F1A86553000FF0B24 /* UserEntity.swift */; };
+		A103AF431A865DE700FF0B24 /* UIColor+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A103AF421A865DE700FF0B24 /* UIColor+App.swift */; };
+		A103AF451A866A0D00FF0B24 /* UIImage+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A103AF441A866A0D00FF0B24 /* UIImage+App.swift */; };
+		A103AF471A867A9100FF0B24 /* TagEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A103AF461A867A9100FF0B24 /* TagEntity.swift */; };
 		A18A85CE1A85AA370078436D /* PageManageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18A85CD1A85AA370078436D /* PageManageViewController.swift */; };
 		A18A85D01A85AAC10078436D /* EntryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18A85CF1A85AAC10078436D /* EntryCollectionViewController.swift */; };
 		A18A85D41A85D4EA0078436D /* QiitaApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18A85D31A85D4EA0078436D /* QiitaApiManager.swift */; };
@@ -19,6 +23,8 @@
 		A1A8D9E71A82F92C00231D84 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1A8D9E61A82F92C00231D84 /* Images.xcassets */; };
 		A1A8D9EA1A82F92C00231D84 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1A8D9E81A82F92C00231D84 /* LaunchScreen.xib */; };
 		A1A8D9F61A82F92C00231D84 /* QiitaCollectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A8D9F51A82F92C00231D84 /* QiitaCollectionTests.swift */; };
+		A1D8A8351A8750240040C195 /* UIImageView+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D8A8341A8750240040C195 /* UIImageView+App.swift */; };
+		A1D8A83A1A87917F0040C195 /* UIView+Constraint.m in Sources */ = {isa = PBXBuildFile; fileRef = A1D8A8391A87917F0040C195 /* UIView+Constraint.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +42,11 @@
 		838D04FEA8FB0D070F2360E6 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		939537E42F84BB812A2B5FC2 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A103AF391A86141200FF0B24 /* EntryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryCollectionViewCell.swift; sourceTree = "<group>"; };
+		A103AF3B1A86238B00FF0B24 /* QiitaCollection-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QiitaCollection-Bridging-Header.h"; sourceTree = "<group>"; };
+		A103AF3F1A86553000FF0B24 /* UserEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserEntity.swift; sourceTree = "<group>"; };
+		A103AF421A865DE700FF0B24 /* UIColor+App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+App.swift"; sourceTree = "<group>"; };
+		A103AF441A866A0D00FF0B24 /* UIImage+App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+App.swift"; sourceTree = "<group>"; };
+		A103AF461A867A9100FF0B24 /* TagEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagEntity.swift; sourceTree = "<group>"; };
 		A18A85CD1A85AA370078436D /* PageManageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageManageViewController.swift; sourceTree = "<group>"; };
 		A18A85CF1A85AAC10078436D /* EntryCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryCollectionViewController.swift; sourceTree = "<group>"; };
 		A18A85D31A85D4EA0078436D /* QiitaApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QiitaApiManager.swift; sourceTree = "<group>"; };
@@ -50,6 +61,9 @@
 		A1A8D9EF1A82F92C00231D84 /* QiitaCollectionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QiitaCollectionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1A8D9F41A82F92C00231D84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1A8D9F51A82F92C00231D84 /* QiitaCollectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QiitaCollectionTests.swift; sourceTree = "<group>"; };
+		A1D8A8341A8750240040C195 /* UIImageView+App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+App.swift"; sourceTree = "<group>"; };
+		A1D8A8381A87917F0040C195 /* UIView+Constraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Constraint.h"; sourceTree = "<group>"; };
+		A1D8A8391A87917F0040C195 /* UIView+Constraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Constraint.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,10 +93,22 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		A103AF411A865DAF00FF0B24 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A103AF421A865DE700FF0B24 /* UIColor+App.swift */,
+				A103AF441A866A0D00FF0B24 /* UIImage+App.swift */,
+				A1D8A8341A8750240040C195 /* UIImageView+App.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
 		A18A85D11A85D4C50078436D /* Entities */ = {
 			isa = PBXGroup;
 			children = (
 				A18A85D51A85D5190078436D /* EntryEntity.swift */,
+				A103AF3F1A86553000FF0B24 /* UserEntity.swift */,
+				A103AF461A867A9100FF0B24 /* TagEntity.swift */,
 			);
 			name = Entities;
 			sourceTree = "<group>";
@@ -107,6 +133,7 @@
 		A1A8D9D11A82F92C00231D84 = {
 			isa = PBXGroup;
 			children = (
+				A1D8A8361A87914B0040C195 /* ObjC */,
 				A1A8D9DC1A82F92C00231D84 /* QiitaCollection */,
 				A1A8D9F21A82F92C00231D84 /* QiitaCollectionTests */,
 				A1A8D9DB1A82F92C00231D84 /* Products */,
@@ -127,6 +154,7 @@
 		A1A8D9DC1A82F92C00231D84 /* QiitaCollection */ = {
 			isa = PBXGroup;
 			children = (
+				A103AF411A865DAF00FF0B24 /* Extensions */,
 				A103AF381A8613DA00FF0B24 /* Views */,
 				A18A85D21A85D4D90078436D /* Managers */,
 				A18A85D11A85D4C50078436D /* Entities */,
@@ -145,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				A1A8D9DE1A82F92C00231D84 /* Info.plist */,
+				A103AF3B1A86238B00FF0B24 /* QiitaCollection-Bridging-Header.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -164,6 +193,23 @@
 				A1A8D9F41A82F92C00231D84 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A1D8A8361A87914B0040C195 /* ObjC */ = {
+			isa = PBXGroup;
+			children = (
+				A1D8A8371A87916C0040C195 /* UIView-Constraint */,
+			);
+			path = ObjC;
+			sourceTree = "<group>";
+		};
+		A1D8A8371A87916C0040C195 /* UIView-Constraint */ = {
+			isa = PBXGroup;
+			children = (
+				A1D8A8381A87917F0040C195 /* UIView+Constraint.h */,
+				A1D8A8391A87917F0040C195 /* UIView+Constraint.m */,
+			);
+			path = "UIView-Constraint";
 			sourceTree = "<group>";
 		};
 		A63F41D73B84466369DCEC70 /* Frameworks */ = {
@@ -336,11 +382,17 @@
 			files = (
 				A191F1C71A85A3A20076C8C5 /* TopNavigationViewController.swift in Sources */,
 				A1A8D9E01A82F92C00231D84 /* AppDelegate.swift in Sources */,
+				A103AF431A865DE700FF0B24 /* UIColor+App.swift in Sources */,
 				A18A85CE1A85AA370078436D /* PageManageViewController.swift in Sources */,
+				A1D8A83A1A87917F0040C195 /* UIView+Constraint.m in Sources */,
+				A1D8A8351A8750240040C195 /* UIImageView+App.swift in Sources */,
+				A103AF471A867A9100FF0B24 /* TagEntity.swift in Sources */,
 				A18A85D61A85D5190078436D /* EntryEntity.swift in Sources */,
+				A103AF451A866A0D00FF0B24 /* UIImage+App.swift in Sources */,
 				A18A85D01A85AAC10078436D /* EntryCollectionViewController.swift in Sources */,
 				A103AF3A1A86141200FF0B24 /* EntryCollectionViewCell.swift in Sources */,
 				A18A85D41A85D4EA0078436D /* QiitaApiManager.swift in Sources */,
+				A103AF401A86553000FF0B24 /* UserEntity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -465,10 +517,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = QiitaCollection/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "QiitaCollection/QiitaCollection-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -478,10 +533,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = QiitaCollection/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "QiitaCollection/QiitaCollection-Bridging-Header.h";
 			};
 			name = Release;
 		};

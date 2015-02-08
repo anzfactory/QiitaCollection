@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EntryCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class EntryCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     // MARK: UI
     @IBOutlet weak var collectionView: UICollectionView!
@@ -94,6 +94,13 @@ class EntryCollectionViewController: UIViewController, UICollectionViewDataSourc
         if self.page != NSNotFound && (indexPath.row + 1) >= self.entries.count {
             self.load()
         }
+    }
+    
+    // MARK: UICollectionViewDelegateFlowLayout
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        let width: CGFloat = (self.collectionView.frame.size.width - 3.0) / 2.0
+        return CGSize(width: width, height: width)
     }
 
 }
