@@ -9,51 +9,72 @@
         <scene sceneID="BL8-iR-bRw">
             <objects>
                 <navigationController id="Cts-Ai-uux" customClass="TopNavigationViewController" customModule="QiitaCollection" customModuleProvider="target" sceneMemberID="viewController">
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="6Qh-qg-Mel">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="6Qh-qg-Mel">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="abs-OP-69e" kind="relationship" relationship="rootViewController" id="izS-Yh-KgN"/>
+                        <segue destination="ia5-vP-tDC" kind="relationship" relationship="rootViewController" id="BEk-zA-Nah"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K9c-fy-yeo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1334" y="-174"/>
+            <point key="canvasLocation" x="-1330" y="-174"/>
         </scene>
         <!--Page Manage View Controller-->
         <scene sceneID="mka-tE-m0Q">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" automaticallyAdjustsScrollViewInsets="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="abs-OP-69e" customClass="PageManageViewController" customModule="QiitaCollection" customModuleProvider="target" sceneMemberID="viewController">
+                <pageViewController storyboardIdentifier="UnUse" autoresizesArchivedViewToFullSize="NO" automaticallyAdjustsScrollViewInsets="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="abs-OP-69e" customClass="PageManageViewController" customModule="QiitaCollection" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="e15-S2-t8q"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="57J-OH-0Mv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-945" y="-174"/>
+            <point key="canvasLocation" x="-1339" y="494"/>
+        </scene>
+        <!--Pager View Controller-->
+        <scene sceneID="Zw4-YL-ahZ">
+            <objects>
+                <viewController id="ia5-vP-tDC" customClass="PagerViewController" customModule="QiitaCollection" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Rg3-9b-aPz"/>
+                        <viewControllerLayoutGuide type="bottom" id="bsJ-MJ-RPu"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="b7V-iB-46H">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="8jm-vZ-RGG"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0Og-o4-wn1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-948" y="-174"/>
         </scene>
         <!--Entry Collection View Controller-->
         <scene sceneID="gzo-nX-qK1">
             <objects>
-                <viewController storyboardIdentifier="EntryCollectionVC" automaticallyAdjustsScrollViewInsets="NO" id="MMX-qJ-uuO" customClass="EntryCollectionViewController" customModule="QiitaCollection" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EntryCollectionVC" id="MMX-qJ-uuO" customClass="EntryCollectionViewController" customModule="QiitaCollection" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="UFb-d2-blu"/>
                         <viewControllerLayoutGuide type="bottom" id="rTo-oF-pFs"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Wvu-mI-YJy">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="mcx-2r-xGS">
-                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="0.0" id="GUb-EH-07Q">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="1" id="GUb-EH-07Q">
                                     <size key="itemSize" width="160" height="160"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="1" maxX="0.0" maxY="1"/>
+                                    <inset key="sectionInset" minX="1" minY="1" maxX="1" maxY="1"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CELL" id="5en-NT-jN0" customClass="EntryCollectionViewCell" customModule="QiitaCollection" customModuleProvider="target">
@@ -219,6 +240,7 @@
                                             <constraint firstItem="ey1-cR-s46" firstAttribute="top" secondItem="5en-NT-jN0" secondAttribute="topMargin" constant="-8" id="xFO-3O-5Fd"/>
                                             <constraint firstItem="h3L-sU-UNe" firstAttribute="top" secondItem="5en-NT-jN0" secondAttribute="topMargin" constant="-8" id="yOk-SU-8aB"/>
                                         </constraints>
+                                        <size key="customSize" width="160" height="160"/>
                                         <connections>
                                             <outlet property="author" destination="qiu-Pl-AfN" id="Qbt-D3-lzs"/>
                                             <outlet property="backgroundImage" destination="h3L-sU-UNe" id="7t2-oD-ZbY"/>
@@ -241,12 +263,12 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="rTo-oF-pFs" firstAttribute="top" secondItem="mcx-2r-xGS" secondAttribute="bottom" id="28Y-9K-Pjb"/>
-                            <constraint firstItem="mcx-2r-xGS" firstAttribute="leading" secondItem="Wvu-mI-YJy" secondAttribute="leadingMargin" constant="-16" id="hXS-LA-3yc"/>
+                            <constraint firstItem="mcx-2r-xGS" firstAttribute="leading" secondItem="Wvu-mI-YJy" secondAttribute="leading" id="hXS-LA-3yc"/>
                             <constraint firstItem="mcx-2r-xGS" firstAttribute="top" secondItem="UFb-d2-blu" secondAttribute="bottom" id="mLx-xk-Xjf"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="mcx-2r-xGS" secondAttribute="trailing" constant="-16" id="t5i-9j-UdC"/>
+                            <constraint firstAttribute="trailing" secondItem="mcx-2r-xGS" secondAttribute="trailing" id="t5i-9j-UdC"/>
                         </constraints>
                     </view>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="collectionView" destination="mcx-2r-xGS" id="Qyf-hZ-7lR"/>

@@ -24,7 +24,6 @@ class EntryCollectionViewController: UIViewController, UICollectionViewDataSourc
         
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
-        
         refresh()
     }
 
@@ -99,7 +98,7 @@ class EntryCollectionViewController: UIViewController, UICollectionViewDataSourc
     // MARK: UICollectionViewDelegateFlowLayout
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let width: CGFloat = (self.collectionView.frame.size.width - 3.0) / 2.0
+        let width: CGFloat = (self.view.frame.size.width - 3.0) / 2.0
         return CGSize(width: width, height: width)
     }
 
