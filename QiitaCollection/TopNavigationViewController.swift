@@ -12,6 +12,8 @@ class TopNavigationViewController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.textNavigationBar()]
+        self.navigationBar.barTintColor = UIColor.backgroundNavigationBar()
     }
 
     override func didReceiveMemoryWarning() {

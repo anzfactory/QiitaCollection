@@ -33,7 +33,7 @@
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="57J-OH-0Mv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1339" y="494"/>
+            <point key="canvasLocation" x="-1330" y="-804"/>
         </scene>
         <!--Pager View Controller-->
         <scene sceneID="Zw4-YL-ahZ">
@@ -54,6 +54,23 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Og-o4-wn1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-948" y="-174"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="fBH-vg-Lgu">
+            <objects>
+                <navigationController storyboardIdentifier="ContentNavigationController" navigationBarHidden="YES" id="Llv-ui-pqD" sceneMemberID="viewController">
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="tXA-35-NjS">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="MMX-qJ-uuO" kind="relationship" relationship="rootViewController" id="TEV-Gc-CRT"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bra-HA-hrn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-948" y="458"/>
         </scene>
         <!--Entry Collection View Controller-->
         <scene sceneID="gzo-nX-qK1">
@@ -255,6 +272,7 @@
                                             <outlet property="stockCount" destination="let-Ar-XiK" id="rTl-2i-crr"/>
                                             <outlet property="tagImage" destination="tEQ-NH-l2n" id="GtO-qK-zoE"/>
                                             <outlet property="title" destination="ey1-cR-s46" id="1M5-Jd-GmV"/>
+                                            <segue destination="Kjw-s4-AKn" kind="show" id="2Ey-92-7MW"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -268,6 +286,7 @@
                             <constraint firstAttribute="trailing" secondItem="mcx-2r-xGS" secondAttribute="trailing" id="t5i-9j-UdC"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="yZ7-Ns-bzt"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
@@ -276,7 +295,26 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tpa-B6-hve" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-569" y="-174"/>
+            <point key="canvasLocation" x="-584" y="458"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="z0O-1e-VJN">
+            <objects>
+                <viewController id="Kjw-s4-AKn" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="avs-Gr-bbH"/>
+                        <viewControllerLayoutGuide type="bottom" id="CqE-ve-w7z"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rCS-78-zsx">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="c6s-U0-Xaf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-221" y="458"/>
         </scene>
     </scenes>
     <resources>

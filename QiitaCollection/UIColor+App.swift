@@ -21,9 +21,22 @@ extension UIColor {
     class func backgroundDefaultImage() -> UIColor {
         return factory(0, g:0, b:0, a:1);
     }
+    class func backgroundNavigationBar() -> UIColor {
+        return backgroundBase();
+    }
+    
+    class func textNavigationBar() -> UIColor {
+        return UIColor.whiteColor()
+    }
+    class func textPageMenuLabel() -> UIColor {
+        return backgroundBase()
+    }
     
     class func borderImageViewCircle() -> UIColor {
         return backgroundBase()
+    }
+    class func borderPageMenuIndicator() -> UIColor {
+        return UIColor.orangeColor()
     }
     
     class func factory(r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) -> UIColor {
