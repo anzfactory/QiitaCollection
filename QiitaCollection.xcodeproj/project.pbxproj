@@ -27,6 +27,7 @@
 		A1A8D9F61A82F92C00231D84 /* QiitaCollectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A8D9F51A82F92C00231D84 /* QiitaCollectionTests.swift */; };
 		A1D8A8351A8750240040C195 /* UIImageView+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D8A8341A8750240040C195 /* UIImageView+App.swift */; };
 		A1D8A83A1A87917F0040C195 /* UIView+Constraint.m in Sources */ = {isa = PBXBuildFile; fileRef = A1D8A8391A87917F0040C195 /* UIView+Constraint.m */; };
+		A1F8D5091A88FC3C00660741 /* UIView+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F8D5081A88FC3C00660741 /* UIView+App.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,7 @@
 		A1D8A8341A8750240040C195 /* UIImageView+App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+App.swift"; sourceTree = "<group>"; };
 		A1D8A8381A87917F0040C195 /* UIView+Constraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Constraint.h"; sourceTree = "<group>"; };
 		A1D8A8391A87917F0040C195 /* UIView+Constraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Constraint.m"; sourceTree = "<group>"; };
+		A1F8D5081A88FC3C00660741 /* UIView+App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+App.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				A103AF421A865DE700FF0B24 /* UIColor+App.swift */,
 				A103AF441A866A0D00FF0B24 /* UIImage+App.swift */,
 				A1D8A8341A8750240040C195 /* UIImageView+App.swift */,
+				A1F8D5081A88FC3C00660741 /* UIView+App.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -386,6 +389,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1F8D5091A88FC3C00660741 /* UIView+App.swift in Sources */,
 				A191F1C71A85A3A20076C8C5 /* TopNavigationViewController.swift in Sources */,
 				A1A8D9E01A82F92C00231D84 /* AppDelegate.swift in Sources */,
 				A142479C1A87BB6D00E8D262 /* CAPSPageMenu.swift in Sources */,
