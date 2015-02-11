@@ -22,6 +22,9 @@ class EntryCollectionViewController: UIViewController, UICollectionViewDataSourc
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let longPressGesture: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: "longPress:")
+        self.collectionView.addGestureRecognizer(longPressGesture)
+        
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
         refresh()
@@ -30,6 +33,16 @@ class EntryCollectionViewController: UIViewController, UICollectionViewDataSourc
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+    /*
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
+    }
+    */
     
     // MARK: メソッド
     func refresh() {
@@ -60,16 +73,40 @@ class EntryCollectionViewController: UIViewController, UICollectionViewDataSourc
             self.collectionView.reloadData()
         })
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    func longPress(gesture: UILongPressGestureRecognizer) {
+        if gesture.state != UIGestureRecognizerState.Began {
+            return
+        }
+        let tapPoint: CGPoint = gesture.locationInView(self.collectionView)
+        let tapIndexPath: NSIndexPath = self.collectionView.indexPathForItemAtPoint(tapPoint)!
+        let tapEntry: EntryEntity = self.entries[tapIndexPath.row]
+        
+        let actions: [UIAlertAction] = [
+            UIAlertAction(title: "記事詳細", style: .Default, handler: { (UIAlertAction) -> Void in
+                self.moveEntryDetail(tapEntry)
+            }),
+            UIAlertAction(title: "キャンセル", style: .Cancel, handler: { (UIAlertAction) -> Void in
+                
+            })
+        ]
+        
+        // TODO: そのほかメニュー表示
+        NSNotificationCenter.defaultCenter()
+            .postNotificationName(QCKeys.Notification.ShowActionSheet.rawValue,
+                object: nil,
+                userInfo: [
+                    QCKeys.ActionSheet.Title.rawValue: tapEntry.title + " " + tapEntry.postUser.displayName,
+                    QCKeys.ActionSheet.Description.rawValue: tapEntry.beginning,
+                    QCKeys.ActionSheet.Actions.rawValue: actions
+                ])
     }
-    */
+    
+    func moveEntryDetail(entry: EntryEntity) {
+        let vc: EntryDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryDetailVC") as EntryDetailViewController
+        vc.displayEntry = entry
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     
     // MARK: UICollectionViewDataSource
     
@@ -93,6 +130,11 @@ class EntryCollectionViewController: UIViewController, UICollectionViewDataSourc
         if self.page != NSNotFound && (indexPath.row + 1) >= self.entries.count {
             self.load()
         }
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let tapEntry: EntryEntity = self.entries[indexPath.row]
+        self.moveEntryDetail(tapEntry)
     }
     
     // MARK: UICollectionViewDelegateFlowLayout

@@ -25,6 +25,9 @@
 		A1A8D9E71A82F92C00231D84 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1A8D9E61A82F92C00231D84 /* Images.xcassets */; };
 		A1A8D9EA1A82F92C00231D84 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1A8D9E81A82F92C00231D84 /* LaunchScreen.xib */; };
 		A1A8D9F61A82F92C00231D84 /* QiitaCollectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A8D9F51A82F92C00231D84 /* QiitaCollectionTests.swift */; };
+		A1CF433D1A8B06190016209C /* QCKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CF433C1A8B06190016209C /* QCKeys.swift */; };
+		A1CF433F1A8B1E350016209C /* EntryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CF433E1A8B1E350016209C /* EntryDetailViewController.swift */; };
+		A1CF43421A8B54620016209C /* entry.html in Resources */ = {isa = PBXBuildFile; fileRef = A1CF43411A8B54620016209C /* entry.html */; };
 		A1D8A8351A8750240040C195 /* UIImageView+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D8A8341A8750240040C195 /* UIImageView+App.swift */; };
 		A1D8A83A1A87917F0040C195 /* UIView+Constraint.m in Sources */ = {isa = PBXBuildFile; fileRef = A1D8A8391A87917F0040C195 /* UIView+Constraint.m */; };
 		A1F8D5091A88FC3C00660741 /* UIView+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F8D5081A88FC3C00660741 /* UIView+App.swift */; };
@@ -66,6 +69,9 @@
 		A1A8D9EF1A82F92C00231D84 /* QiitaCollectionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QiitaCollectionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1A8D9F41A82F92C00231D84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1A8D9F51A82F92C00231D84 /* QiitaCollectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QiitaCollectionTests.swift; sourceTree = "<group>"; };
+		A1CF433C1A8B06190016209C /* QCKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QCKeys.swift; sourceTree = "<group>"; };
+		A1CF433E1A8B1E350016209C /* EntryDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryDetailViewController.swift; sourceTree = "<group>"; };
+		A1CF43411A8B54620016209C /* entry.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = entry.html; sourceTree = "<group>"; };
 		A1D8A8341A8750240040C195 /* UIImageView+App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+App.swift"; sourceTree = "<group>"; };
 		A1D8A8381A87917F0040C195 /* UIView+Constraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Constraint.h"; sourceTree = "<group>"; };
 		A1D8A8391A87917F0040C195 /* UIView+Constraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Constraint.m"; sourceTree = "<group>"; };
@@ -134,6 +140,7 @@
 				A18A85CD1A85AA370078436D /* PageManageViewController.swift */,
 				A18A85CF1A85AAC10078436D /* EntryCollectionViewController.swift */,
 				A124A21F1A87BF99007A42E9 /* PagerViewController.swift */,
+				A1CF433E1A8B1E350016209C /* EntryDetailViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -162,6 +169,8 @@
 		A1A8D9DC1A82F92C00231D84 /* QiitaCollection */ = {
 			isa = PBXGroup;
 			children = (
+				A1CF43401A8B54450016209C /* Resources */,
+				A1CF43391A8B04200016209C /* Const */,
 				A142479B1A87BB6D00E8D262 /* CAPSPageMenu.swift */,
 				A103AF411A865DAF00FF0B24 /* Extensions */,
 				A103AF381A8613DA00FF0B24 /* Views */,
@@ -202,6 +211,22 @@
 				A1A8D9F41A82F92C00231D84 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A1CF43391A8B04200016209C /* Const */ = {
+			isa = PBXGroup;
+			children = (
+				A1CF433C1A8B06190016209C /* QCKeys.swift */,
+			);
+			name = Const;
+			sourceTree = "<group>";
+		};
+		A1CF43401A8B54450016209C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A1CF43411A8B54620016209C /* entry.html */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		A1D8A8361A87914B0040C195 /* ObjC */ = {
@@ -324,6 +349,7 @@
 				A1A8D9E51A82F92C00231D84 /* Main.storyboard in Resources */,
 				A1A8D9EA1A82F92C00231D84 /* LaunchScreen.xib in Resources */,
 				A1A8D9E71A82F92C00231D84 /* Images.xcassets in Resources */,
+				A1CF43421A8B54620016209C /* entry.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -391,6 +417,7 @@
 			files = (
 				A1F8D5091A88FC3C00660741 /* UIView+App.swift in Sources */,
 				A191F1C71A85A3A20076C8C5 /* TopNavigationViewController.swift in Sources */,
+				A1CF433D1A8B06190016209C /* QCKeys.swift in Sources */,
 				A1A8D9E01A82F92C00231D84 /* AppDelegate.swift in Sources */,
 				A142479C1A87BB6D00E8D262 /* CAPSPageMenu.swift in Sources */,
 				A103AF431A865DE700FF0B24 /* UIColor+App.swift in Sources */,
@@ -404,6 +431,7 @@
 				A18A85D01A85AAC10078436D /* EntryCollectionViewController.swift in Sources */,
 				A103AF3A1A86141200FF0B24 /* EntryCollectionViewCell.swift in Sources */,
 				A18A85D41A85D4EA0078436D /* QiitaApiManager.swift in Sources */,
+				A1CF433F1A8B1E350016209C /* EntryDetailViewController.swift in Sources */,
 				A103AF401A86553000FF0B24 /* UserEntity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

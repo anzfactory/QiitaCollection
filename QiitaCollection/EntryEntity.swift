@@ -42,4 +42,13 @@ struct EntryEntity {
         get { return updateDate.componentsSeparatedByString("T")[0] }
     }
     
+    var beginning: String {
+        get {
+            let str: NSString = NSString(string: body)
+            let result = body.substringToIndex(advance(body.startIndex, min(50, str.length)))
+            return body.substringToIndex(advance(body.startIndex, min(50, str.length)))
+                .stringByReplacingOccurrencesOfString("\n", withString: " ", options: nil, range: nil) + "…"
+        }
+    }
+    
 }

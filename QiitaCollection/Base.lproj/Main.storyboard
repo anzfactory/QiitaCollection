@@ -75,7 +75,7 @@
         <!--Entry Collection View Controller-->
         <scene sceneID="gzo-nX-qK1">
             <objects>
-                <viewController storyboardIdentifier="EntryCollectionVC" id="MMX-qJ-uuO" customClass="EntryCollectionViewController" customModule="QiitaCollection" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EntryCollectionVC" automaticallyAdjustsScrollViewInsets="NO" id="MMX-qJ-uuO" customClass="EntryCollectionViewController" customModule="QiitaCollection" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="UFb-d2-blu"/>
                         <viewControllerLayoutGuide type="bottom" id="rTo-oF-pFs"/>
@@ -272,7 +272,6 @@
                                             <outlet property="stockCount" destination="let-Ar-XiK" id="rTl-2i-crr"/>
                                             <outlet property="tagImage" destination="tEQ-NH-l2n" id="GtO-qK-zoE"/>
                                             <outlet property="title" destination="ey1-cR-s46" id="1M5-Jd-GmV"/>
-                                            <segue destination="Kjw-s4-AKn" kind="show" id="2Ey-92-7MW"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -297,20 +296,35 @@
             </objects>
             <point key="canvasLocation" x="-584" y="458"/>
         </scene>
-        <!--View Controller-->
+        <!--Entry Detail View Controller-->
         <scene sceneID="z0O-1e-VJN">
             <objects>
-                <viewController id="Kjw-s4-AKn" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EntryDetailVC" automaticallyAdjustsScrollViewInsets="NO" id="Kjw-s4-AKn" customClass="EntryDetailViewController" customModule="QiitaCollection" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="avs-Gr-bbH"/>
                         <viewControllerLayoutGuide type="bottom" id="CqE-ve-w7z"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="rCS-78-zsx">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9hg-jk-fza">
+                                <rect key="frame" x="0.0" y="20" width="320" height="528"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="9hg-jk-fza" secondAttribute="bottom" constant="20" id="2Oy-nP-HHr"/>
+                            <constraint firstItem="9hg-jk-fza" firstAttribute="leading" secondItem="rCS-78-zsx" secondAttribute="leading" id="Wdd-b7-hMC"/>
+                            <constraint firstItem="9hg-jk-fza" firstAttribute="top" secondItem="avs-Gr-bbH" secondAttribute="bottom" id="xdz-VP-uCn"/>
+                            <constraint firstAttribute="trailing" secondItem="9hg-jk-fza" secondAttribute="trailing" id="y2J-Fx-CP7"/>
+                        </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="webView" destination="9hg-jk-fza" id="aQr-Nj-PpS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c6s-U0-Xaf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
