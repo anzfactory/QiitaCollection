@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EntryCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class EntryCollectionViewController: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     // MARK: UI
     @IBOutlet weak var collectionView: UICollectionView!
@@ -105,7 +105,7 @@ class EntryCollectionViewController: UIViewController, UICollectionViewDataSourc
     func moveEntryDetail(entry: EntryEntity) {
         let vc: EntryDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryDetailVC") as EntryDetailViewController
         vc.displayEntry = entry
-        self.navigationController?.pushViewController(vc, animated: true)
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: vc)
     }
     
     // MARK: UICollectionViewDataSource

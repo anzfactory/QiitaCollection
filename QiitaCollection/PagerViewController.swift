@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PagerViewController: UIViewController, UINavigationControllerDelegate {
+class PagerViewController: BaseViewController {
 
     // MARK: プロパティ
     var leftBarItem: UIBarButtonItem?
@@ -21,8 +21,7 @@ class PagerViewController: UIViewController, UINavigationControllerDelegate {
         
         self.title = "(ﾟ∀ﾟ)ｷﾀｺﾚ!!"
         
-        let vc : UINavigationController = self.storyboard?.instantiateViewControllerWithIdentifier("ContentNavigationController") as UINavigationController
-        vc.delegate = self
+        let vc : UIViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryCollectionVC") as UIViewController
         vc.title = "新着"
         controllerArray.append(vc)
         
@@ -54,35 +53,7 @@ class PagerViewController: UIViewController, UINavigationControllerDelegate {
         // Pass the selected object to the new view controller.
     }
     */
+
     
-    // MARK: メソッド
-    
-    func makeLeftBarItem () {
-        let barButton: UIButton = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
-        barButton.frame = CGRectMake(0, 0, 32.0, 32.0)
-        barButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
-        barButton.setImage(UIImage(named: "arrow_left")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: UIControlState.Normal)
-        barButton.tintColor = UIColor.textNavigationBar()
-        barButton.addTarget(self, action: "tapBack", forControlEvents: UIControlEvents.TouchUpInside)
-        self.leftBarItem = UIBarButtonItem(customView: barButton)
-        self.navigationItem.leftBarButtonItem = self.leftBarItem
-    }
-    
-    func tapBack() {
-        let current: UINavigationController = self.controllerArray[self.pageMenu.currentPageIndex] as UINavigationController
-        current.popViewControllerAnimated(true)
-    }
-    
-    // MARK: UINavigationControllerDelegate
-    func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
-        
-        if navigationController.childViewControllers.count > 1 && self.leftBarItem == nil {
-            self.makeLeftBarItem()
-        } else if navigationController.childViewControllers.count == 1 {
-            self.navigationItem.leftBarButtonItem = nil
-            self.leftBarItem = nil
-        }
-        
-    }
 
 }

@@ -8,14 +8,15 @@
 
 import UIKit
 
-class TopNavigationViewController: UINavigationController {
-    
+class TopNavigationViewController: UINavigationController, UINavigationControllerDelegate {
 
     // MARK: ライフサイクル
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.delegate = self;
         self.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.textNavigationBar()]
         self.navigationBar.barTintColor = UIColor.backgroundNavigationBar()
+        self.navigationBar.tintColor = UIColor.textNavigationBar()
     }
 
     override func didReceiveMemoryWarning() {
@@ -26,6 +27,7 @@ class TopNavigationViewController: UINavigationController {
         super.viewWillAppear(animated)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveShowActionSheet:", name: QCKeys.Notification.ShowActionSheet.rawValue, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivePushViewController:", name: QCKeys.Notification.PushViewController.rawValue, object: nil)
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -64,5 +66,16 @@ class TopNavigationViewController: UINavigationController {
         }
         
     }
+    
+    func receivePushViewController(notification: NSNotification) {
+        let vc: UIViewController = notification.object! as UIViewController
+        self.pushViewController(vc, animated: true)
+    }
 
+    // MARK: UINavigationControllerDelegate
+    func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
+        let backButton: UIBarButtonItem = UIBarButtonItem()
+        backButton.title = ""
+        viewController.navigationItem.backBarButtonItem = backButton;
+    }
 }

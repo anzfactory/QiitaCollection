@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EntryDetailViewController: UIViewController {
+class EntryDetailViewController: BaseViewController {
 
     // MARK: UI
     @IBOutlet weak var webView: UIWebView!
@@ -17,6 +17,10 @@ class EntryDetailViewController: UIViewController {
     var displayEntry: EntryEntity?
     
     // MARK: ライフサイクル
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.automaticallyAdjustsScrollViewInsets = false
+    }
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -24,10 +28,11 @@ class EntryDetailViewController: UIViewController {
         let path: NSString = NSBundle.mainBundle().pathForResource("entry", ofType: "html")!
         let template: NSString = NSString(contentsOfFile: path, encoding: NSUTF8StringEncoding, error: nil)!
         // テンプレートに組み込んで表示
-        self.webView.loadHTMLString(NSString(format: template, self.displayEntry!.body), baseURL: nil)
-        
-        println("\(self.displayEntry?.htmlBody)")
+        self.webView.loadHTMLString(NSString(format: template, self.displayEntry!.title, self.displayEntry!.htmlBody), baseURL: nil)
         
     }
-    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        println("\(self.view.frame)")
+    }
 }

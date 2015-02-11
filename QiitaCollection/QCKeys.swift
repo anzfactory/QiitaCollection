@@ -10,6 +10,7 @@ struct QCKeys {
     
     enum Notification: String {
         case ShowActionSheet = "QC_NotificationKey_ShowActionSheet"
+        case PushViewController = "QC_NotificationKey_PushViewController"
     }
     
     enum ActionSheet: String {
