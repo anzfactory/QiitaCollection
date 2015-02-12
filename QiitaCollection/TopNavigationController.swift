@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TopNavigationViewController: UINavigationController, UINavigationControllerDelegate {
+class TopNavigationController: UINavigationController, UINavigationControllerDelegate {
 
     // MARK: ライフサイクル
     override func viewDidLoad() {

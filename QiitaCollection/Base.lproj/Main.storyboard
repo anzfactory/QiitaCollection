@@ -5,10 +5,10 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Top Navigation View Controller-->
+        <!--Top Navigation Controller-->
         <scene sceneID="BL8-iR-bRw">
             <objects>
-                <navigationController id="Cts-Ai-uux" customClass="TopNavigationViewController" customModule="QiitaCollection" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController id="Cts-Ai-uux" customClass="TopNavigationController" customModule="QiitaCollection" customModuleProvider="target" sceneMemberID="viewController">
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="6Qh-qg-Mel">

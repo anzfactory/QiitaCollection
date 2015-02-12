@@ -18,7 +18,7 @@
 		A18A85D01A85AAC10078436D /* EntryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18A85CF1A85AAC10078436D /* EntryCollectionViewController.swift */; };
 		A18A85D41A85D4EA0078436D /* QiitaApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18A85D31A85D4EA0078436D /* QiitaApiManager.swift */; };
 		A18A85D61A85D5190078436D /* EntryEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18A85D51A85D5190078436D /* EntryEntity.swift */; };
-		A191F1C71A85A3A20076C8C5 /* TopNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A191F1C61A85A3A20076C8C5 /* TopNavigationViewController.swift */; };
+		A191F1C71A85A3A20076C8C5 /* TopNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A191F1C61A85A3A20076C8C5 /* TopNavigationController.swift */; };
 		A1A8D9E01A82F92C00231D84 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A8D9DF1A82F92C00231D84 /* AppDelegate.swift */; };
 		A1A8D9E51A82F92C00231D84 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1A8D9E31A82F92C00231D84 /* Main.storyboard */; };
 		A1A8D9E71A82F92C00231D84 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1A8D9E61A82F92C00231D84 /* Images.xcassets */; };
@@ -58,7 +58,7 @@
 		A18A85CF1A85AAC10078436D /* EntryCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryCollectionViewController.swift; sourceTree = "<group>"; };
 		A18A85D31A85D4EA0078436D /* QiitaApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QiitaApiManager.swift; sourceTree = "<group>"; };
 		A18A85D51A85D5190078436D /* EntryEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryEntity.swift; sourceTree = "<group>"; };
-		A191F1C61A85A3A20076C8C5 /* TopNavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopNavigationViewController.swift; sourceTree = "<group>"; };
+		A191F1C61A85A3A20076C8C5 /* TopNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopNavigationController.swift; sourceTree = "<group>"; };
 		A1A8D9DA1A82F92C00231D84 /* QiitaCollection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QiitaCollection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1A8D9DE1A82F92C00231D84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1A8D9DF1A82F92C00231D84 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -178,7 +178,7 @@
 				A18A85D11A85D4C50078436D /* Entities */,
 				A191F1C51A85A36C0076C8C5 /* ViewControllers */,
 				A1A8D9DF1A82F92C00231D84 /* AppDelegate.swift */,
-				A191F1C61A85A3A20076C8C5 /* TopNavigationViewController.swift */,
+				A191F1C61A85A3A20076C8C5 /* TopNavigationController.swift */,
 				A1A8D9E31A82F92C00231D84 /* Main.storyboard */,
 				A1A8D9E61A82F92C00231D84 /* Images.xcassets */,
 				A1A8D9E81A82F92C00231D84 /* LaunchScreen.xib */,
@@ -416,7 +416,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1F8D5091A88FC3C00660741 /* UIView+App.swift in Sources */,
-				A191F1C71A85A3A20076C8C5 /* TopNavigationViewController.swift in Sources */,
+				A191F1C71A85A3A20076C8C5 /* TopNavigationController.swift in Sources */,
 				A1CF433D1A8B06190016209C /* QCKeys.swift in Sources */,
 				A1A8D9E01A82F92C00231D84 /* AppDelegate.swift in Sources */,
 				A1CF43511A8BBE380016209C /* BaseViewController.swift in Sources */,
