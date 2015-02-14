@@ -13,6 +13,10 @@
 		A103AF431A865DE700FF0B24 /* UIColor+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A103AF421A865DE700FF0B24 /* UIColor+App.swift */; };
 		A103AF451A866A0D00FF0B24 /* UIImage+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A103AF441A866A0D00FF0B24 /* UIImage+App.swift */; };
 		A103AF471A867A9100FF0B24 /* TagEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A103AF461A867A9100FF0B24 /* TagEntity.swift */; };
+		A118A61A1A8F49A600350841 /* VLDContextSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = A118A6151A8F49A600350841 /* VLDContextSheet.m */; };
+		A118A61B1A8F49A600350841 /* VLDContextSheetItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A118A6171A8F49A600350841 /* VLDContextSheetItem.m */; };
+		A118A61C1A8F49A600350841 /* VLDContextSheetItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = A118A6191A8F49A600350841 /* VLDContextSheetItemView.m */; };
+		A118A61E1A8F4AA600350841 /* EntryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A118A61D1A8F4AA600350841 /* EntryDetailView.swift */; };
 		A124A2201A87BF99007A42E9 /* PagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A124A21F1A87BF99007A42E9 /* PagerViewController.swift */; };
 		A142479C1A87BB6D00E8D262 /* CAPSPageMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A142479B1A87BB6D00E8D262 /* CAPSPageMenu.swift */; };
 		A18A85D01A85AAC10078436D /* EntryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18A85CF1A85AAC10078436D /* EntryCollectionViewController.swift */; };
@@ -53,6 +57,13 @@
 		A103AF421A865DE700FF0B24 /* UIColor+App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+App.swift"; sourceTree = "<group>"; };
 		A103AF441A866A0D00FF0B24 /* UIImage+App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+App.swift"; sourceTree = "<group>"; };
 		A103AF461A867A9100FF0B24 /* TagEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagEntity.swift; sourceTree = "<group>"; };
+		A118A6141A8F49A600350841 /* VLDContextSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLDContextSheet.h; path = VLDContextSheet/VLDContextSheet.h; sourceTree = "<group>"; };
+		A118A6151A8F49A600350841 /* VLDContextSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLDContextSheet.m; path = VLDContextSheet/VLDContextSheet.m; sourceTree = "<group>"; };
+		A118A6161A8F49A600350841 /* VLDContextSheetItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLDContextSheetItem.h; path = VLDContextSheet/VLDContextSheetItem.h; sourceTree = "<group>"; };
+		A118A6171A8F49A600350841 /* VLDContextSheetItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLDContextSheetItem.m; path = VLDContextSheet/VLDContextSheetItem.m; sourceTree = "<group>"; };
+		A118A6181A8F49A600350841 /* VLDContextSheetItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLDContextSheetItemView.h; path = VLDContextSheet/VLDContextSheetItemView.h; sourceTree = "<group>"; };
+		A118A6191A8F49A600350841 /* VLDContextSheetItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLDContextSheetItemView.m; path = VLDContextSheet/VLDContextSheetItemView.m; sourceTree = "<group>"; };
+		A118A61D1A8F4AA600350841 /* EntryDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryDetailView.swift; sourceTree = "<group>"; };
 		A124A21F1A87BF99007A42E9 /* PagerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagerViewController.swift; sourceTree = "<group>"; };
 		A142479B1A87BB6D00E8D262 /* CAPSPageMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAPSPageMenu.swift; sourceTree = "<group>"; };
 		A18A85CF1A85AAC10078436D /* EntryCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryCollectionViewController.swift; sourceTree = "<group>"; };
@@ -101,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				A103AF391A86141200FF0B24 /* EntryCollectionViewCell.swift */,
+				A118A61D1A8F4AA600350841 /* EntryDetailView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -114,6 +126,35 @@
 				A1F8D5081A88FC3C00660741 /* UIView+App.swift */,
 			);
 			name = Extensions;
+			sourceTree = "<group>";
+		};
+		A118A6071A8F48A200350841 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				A118A6081A8F490600350841 /* Swift */,
+				A1D8A8361A87914B0040C195 /* ObjC */,
+			);
+			path = Libraries;
+			sourceTree = "<group>";
+		};
+		A118A6081A8F490600350841 /* Swift */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Swift;
+			sourceTree = "<group>";
+		};
+		A118A6131A8F499800350841 /* VLDContextSheet */ = {
+			isa = PBXGroup;
+			children = (
+				A118A6141A8F49A600350841 /* VLDContextSheet.h */,
+				A118A6151A8F49A600350841 /* VLDContextSheet.m */,
+				A118A6161A8F49A600350841 /* VLDContextSheetItem.h */,
+				A118A6171A8F49A600350841 /* VLDContextSheetItem.m */,
+				A118A6181A8F49A600350841 /* VLDContextSheetItemView.h */,
+				A118A6191A8F49A600350841 /* VLDContextSheetItemView.m */,
+			);
+			name = VLDContextSheet;
 			sourceTree = "<group>";
 		};
 		A18A85D11A85D4C50078436D /* Entities */ = {
@@ -148,7 +189,7 @@
 		A1A8D9D11A82F92C00231D84 = {
 			isa = PBXGroup;
 			children = (
-				A1D8A8361A87914B0040C195 /* ObjC */,
+				A118A6071A8F48A200350841 /* Libraries */,
 				A1A8D9DC1A82F92C00231D84 /* QiitaCollection */,
 				A1A8D9F21A82F92C00231D84 /* QiitaCollectionTests */,
 				A1A8D9DB1A82F92C00231D84 /* Products */,
@@ -232,6 +273,7 @@
 		A1D8A8361A87914B0040C195 /* ObjC */ = {
 			isa = PBXGroup;
 			children = (
+				A118A6131A8F499800350841 /* VLDContextSheet */,
 				A1D8A8371A87916C0040C195 /* UIView-Constraint */,
 			);
 			path = ObjC;
@@ -419,10 +461,13 @@
 				A191F1C71A85A3A20076C8C5 /* TopNavigationController.swift in Sources */,
 				A1CF433D1A8B06190016209C /* QCKeys.swift in Sources */,
 				A1A8D9E01A82F92C00231D84 /* AppDelegate.swift in Sources */,
+				A118A61C1A8F49A600350841 /* VLDContextSheetItemView.m in Sources */,
 				A1CF43511A8BBE380016209C /* BaseViewController.swift in Sources */,
 				A142479C1A87BB6D00E8D262 /* CAPSPageMenu.swift in Sources */,
 				A103AF431A865DE700FF0B24 /* UIColor+App.swift in Sources */,
+				A118A61B1A8F49A600350841 /* VLDContextSheetItem.m in Sources */,
 				A1D8A83A1A87917F0040C195 /* UIView+Constraint.m in Sources */,
+				A118A61A1A8F49A600350841 /* VLDContextSheet.m in Sources */,
 				A1D8A8351A8750240040C195 /* UIImageView+App.swift in Sources */,
 				A103AF471A867A9100FF0B24 /* TagEntity.swift in Sources */,
 				A18A85D61A85D5190078436D /* EntryEntity.swift in Sources */,
@@ -432,6 +477,7 @@
 				A103AF3A1A86141200FF0B24 /* EntryCollectionViewCell.swift in Sources */,
 				A18A85D41A85D4EA0078436D /* QiitaApiManager.swift in Sources */,
 				A1CF433F1A8B1E350016209C /* EntryDetailViewController.swift in Sources */,
+				A118A61E1A8F4AA600350841 /* EntryDetailView.swift in Sources */,
 				A103AF401A86553000FF0B24 /* UserEntity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
