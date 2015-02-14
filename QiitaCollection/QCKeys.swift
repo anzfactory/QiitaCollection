@@ -11,6 +11,7 @@ struct QCKeys {
     enum Notification: String {
         case ShowActionSheet = "QC_NotificationKey_ShowActionSheet"
         case PushViewController = "QC_NotificationKey_PushViewController"
+        case ShowMinimumNotification = "QC_NotificationKey_MinimumNtofice"
     }
     
     enum ActionSheet: String {
@@ -18,5 +19,12 @@ struct QCKeys {
         Title = "Title",
         Description = "Description",
         Actions = "Actions"
+    }
+    
+    enum MinimumNotification: String {
+        case
+        Title = "Title",
+        SubTitle = "SubTitle",
+        Style = "Style"
     }
 }

@@ -9,6 +9,9 @@
 import UIKit
 
 class TopNavigationController: UINavigationController, UINavigationControllerDelegate {
+    
+    // MARK: プロパティ
+    lazy var notice: JFMinimalNotification = self.makeNotice()
 
     // MARK: ライフサイクル
     override func viewDidLoad() {
@@ -26,8 +29,10 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveShowActionSheet:", name: QCKeys.Notification.ShowActionSheet.rawValue, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivePushViewController:", name: QCKeys.Notification.PushViewController.rawValue, object: nil)
+        let center: NSNotificationCenter = NSNotificationCenter.defaultCenter()
+        center.addObserver(self, selector: "receiveShowActionSheet:", name: QCKeys.Notification.ShowActionSheet.rawValue, object: nil)
+        center.addObserver(self, selector: "receivePushViewController:", name: QCKeys.Notification.PushViewController.rawValue, object: nil)
+        center.addObserver(self, selector: "receiveShowMinimumNotification:", name: QCKeys.Notification.ShowMinimumNotification.rawValue, object: nil)
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -46,6 +51,19 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
     */
     
     // MARK: メソッド
+    
+    func makeNotice() -> JFMinimalNotification {
+        let notice: JFMinimalNotification = JFMinimalNotification(style: JFMinimalNotificationStytle.StyleDefault, title: " ", subTitle: " ", dismissalDelay: 3.0) { () -> Void in
+            self.notice.dismiss()
+        }
+        notice.setTitleFont(UIFont(name: "HiraKakuProN-W6", size: 14.0))
+        notice.setSubTitleFont(UIFont(name: "Hiragino Kaku Gothic ProN", size: 12.0))
+        self.view.addSubview(notice)
+        notice.layoutIfNeeded()
+        notice.presentFromTop = false
+        return notice
+    }
+    
     func receiveShowActionSheet(notification: NSNotification) {
         let args: [NSObject: AnyObject] = notification.userInfo!
 
@@ -71,6 +89,36 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         let vc: UIViewController = notification.object! as UIViewController
         self.pushViewController(vc, animated: true)
     }
+    
+    func receiveShowMinimumNotification(notification: NSNotification) {
+        
+        let userInfo = notification.userInfo!
+        var title: String = userInfo[QCKeys.MinimumNotification.Title.rawValue] as? String ?? ""
+        let subTitle: String = userInfo[QCKeys.MinimumNotification.SubTitle.rawValue] as? String ?? ""
+        let styleNumber: NSNumber = userInfo[QCKeys.MinimumNotification.Style.rawValue] as NSNumber
+        let style: JFMinimalNotificationStytle = JFMinimalNotificationStytle(rawValue: styleNumber.integerValue) ?? JFMinimalNotificationStytle.StyleDefault
+        
+        if (title.isEmpty) {
+            switch style {
+            case .StyleDefault:
+                title = "(´・ω・`)"
+            case .StyleInfo:
+                title = "(｡･ω･｡)"
+            case .StyleSuccess:
+                title = "(๑˃́ꇴ˂̀๑)"
+            case .StyleWarning:
+                title = "(´；ω；｀)"
+            case .StyleError:
+                title = "( ‘д‘⊂彡☆))Д´) ﾊﾟｰﾝ"
+            }
+        }
+        
+        self.notice.titleLabel.text = title;
+        self.notice.subTitleLabel.text = subTitle
+        self.notice.setStyle(style, animated: false)
+        
+        self.notice.show()
+    }
 
     // MARK: UINavigationControllerDelegate
     func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
@@ -78,4 +126,5 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         backButton.title = ""
         viewController.navigationItem.backBarButtonItem = backButton;
     }
+    
 }

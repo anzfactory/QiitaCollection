@@ -68,7 +68,14 @@ class EntryDetailViewController: BaseViewController {
     func openLinks() {
         
         if self.links.count == 0 {
-            // TODO: アラート表示
+            
+            NSNotificationCenter.defaultCenter()
+                .postNotificationName(QCKeys.Notification.ShowMinimumNotification.rawValue,
+                    object: nil,
+                    userInfo: [
+                        QCKeys.MinimumNotification.SubTitle.rawValue: "開けるリンクがありません...",
+                        QCKeys.MinimumNotification.Style.rawValue: NSNumber(integer: JFMinimalNotificationStytle.StyleWarning.rawValue)
+                    ])
             return
         }
         
@@ -118,9 +125,27 @@ class EntryDetailViewController: BaseViewController {
     
     func openURL(urlString: String) {
         if let url = NSURL(string: urlString) {
-            UIApplication.sharedApplication().openURL(url)
+            if UIApplication.sharedApplication().canOpenURL(url) {
+                UIApplication.sharedApplication().openURL(url)
+            } else {
+                NSNotificationCenter.defaultCenter()
+                    .postNotificationName(QCKeys.Notification.ShowMinimumNotification.rawValue,
+                        object: nil,
+                        userInfo: [
+                            QCKeys.MinimumNotification.SubTitle.rawValue: "開くことが出来るURLではないようです…",
+                            QCKeys.MinimumNotification.Style.rawValue: NSNumber(integer: JFMinimalNotificationStytle.StyleWarning.rawValue)
+                        ])
+            }
+            
         } else {
-            // TODO alert
+            NSNotificationCenter.defaultCenter()
+                .postNotificationName(QCKeys.Notification.ShowMinimumNotification.rawValue,
+                    object: nil,
+                    userInfo: [
+                        QCKeys.MinimumNotification.SubTitle.rawValue: "開くことが出来るURLではないようです…",
+                        QCKeys.MinimumNotification.Style.rawValue: NSNumber(integer: JFMinimalNotificationStytle.StyleWarning.rawValue)
+                    ])
+            return
         }
         
     }
