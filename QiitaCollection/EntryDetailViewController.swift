@@ -11,7 +11,7 @@ import UIKit
 class EntryDetailViewController: BaseViewController {
 
     // MARK: UI
-    @IBOutlet weak var webView: UIWebView!
+    @IBOutlet weak var webView: EntryDetailView!
     
     // MARK: プロパティ
     var displayEntry: EntryEntity?
@@ -20,6 +20,10 @@ class EntryDetailViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.automaticallyAdjustsScrollViewInsets = false
+        
+        self.webView.callbackSelectedMenu = { (item: VLDContextSheetItem) -> Void in
+            self.selectedContextMenu(item)
+        }
     }
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -33,6 +37,28 @@ class EntryDetailViewController: BaseViewController {
     }
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        println("\(self.view.frame)")
     }
+    
+    // MARK: メソッド
+    func selectedContextMenu(menuItem: VLDContextSheetItem) {
+        
+        if menuItem.title == self.webView.menuTitleShare {
+            self.shareEntry()
+        }
+        
+    }
+    
+    func shareEntry() {
+        
+        var shareItems: [AnyObject] = [
+            NSString(string: self.displayEntry!.title),
+            NSURL(string: self.displayEntry!.urlString)!
+        ]
+        
+        let shareVC: UIActivityViewController = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
+        self.presentViewController(shareVC, animated: true) { () -> Void in
+            
+        }
+    }
+    
 }

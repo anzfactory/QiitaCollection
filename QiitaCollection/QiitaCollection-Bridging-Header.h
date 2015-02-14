@@ -5,4 +5,5 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "UIView+Constraint.h"
 #import "VLDContextSheet.h"
+#import "VLDContextSheetItem.h"
 #import "VLDContextSheetItemView.h"

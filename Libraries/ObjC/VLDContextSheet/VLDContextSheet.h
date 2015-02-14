@@ -5,7 +5,7 @@
 //  Copyright (c) 2014 Vladimir Angelov. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @class VLDContextSheet;
 @class VLDContextSheetItem;
@@ -29,5 +29,7 @@
 - (void) startWithGestureRecognizer: (UIGestureRecognizer *) gestureRecognizer
                              inView: (UIView *) view;
 - (void) end;
+
+- (void) updateItemViewsForTouchPoint: (CGPoint) touchPoint;
 
 @end
