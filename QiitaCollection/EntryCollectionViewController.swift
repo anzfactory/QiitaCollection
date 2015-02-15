@@ -94,7 +94,7 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
             })
         ]
         
-        // TODO: そのほかメニュー表示
+        // TODO: そのほかメニュー表示 (記事をストックしているユーザーリスト)
         NSNotificationCenter.defaultCenter()
             .postNotificationName(QCKeys.Notification.ShowActionSheet.rawValue,
                 object: nil,

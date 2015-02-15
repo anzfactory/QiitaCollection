@@ -47,7 +47,7 @@ struct UserEntity {
     }
     
     init (data: JSON) {
-        println("data:\(data)")
+        
         id = data["id"].string!
         name = data["name"].string!
         introduction = data["description"].string ?? ""

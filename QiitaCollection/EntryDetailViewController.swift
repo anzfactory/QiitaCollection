@@ -56,6 +56,8 @@ class EntryDetailViewController: BaseViewController {
             self.openLinks()
         } else if menuItem.title == self.webView.menuTitleClipboard {
             self.copyCode()
+        } else if menuItem.title == self.webView.menuTitlePerson {
+            self.moveUserDetail()
         }
         
     }
@@ -221,6 +223,12 @@ class EntryDetailViewController: BaseViewController {
             return
         }
         
+    }
+    
+    func moveUserDetail() {
+        let vc: UserDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UserDetailVC") as UserDetailViewController
+        vc.displayUserId = self.displayEntry!.postUser.id
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: vc)
     }
     
 }

@@ -15,7 +15,7 @@ class UserDetailViewController: UIViewController, UserDetailViewDelegate {
     @IBOutlet weak var listContainer: UIView!
     
     // MARK: プロパティ
-    var pageMenu: CAPSPageMenu?
+    lazy var pageMenu: CAPSPageMenu = self.makePageMenu()
     var displayUserId: String?
     var displayUser: UserEntity? = nil {
         didSet {
@@ -29,21 +29,6 @@ class UserDetailViewController: UIViewController, UserDetailViewDelegate {
         super.viewDidLoad()
         
         self.userInfoContainer.delegate = self
-
-        let arr = []
-        
-        var parameters: [String: AnyObject] = ["menuItemSeparatorWidth": 4.3,
-            "useMenuLikeSegmentedControl": true,
-            "menuItemSeparatorPercentageHeight": 0.1,
-            "bottomMenuHairlineColor" : UIColor.borderPageMenuIndicator(),
-            "selectionIndicatorColor" : UIColor.borderPageMenuIndicator(),
-            "selectedMenuItemLabelColor" : UIColor.textPageMenuLabel(),
-            "unselectedMenuItemLabelColor" : UIColor.textPageMenuLabel(),
-            "menuItemFont" : UIFont.boldSystemFontOfSize(14.0)]
-        
-        self.pageMenu = CAPSPageMenu(viewControllers: arr, frame: CGRectMake(0.0, 0.0, self.view.frame.width, self.view.frame.height), options: parameters)
-        self.listContainer.addSubview(self.pageMenu!.view)
-        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -63,10 +48,31 @@ class UserDetailViewController: UIViewController, UserDetailViewDelegate {
             self.displayUser = item
             self.userInfoContainer.showUser(self.displayUser!)
         })
+        
+        self.listContainer.addSubview(self.pageMenu.view)
+        self.pageMenu.view.layoutIfNeeded()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    // MARK: メソッド
+    func makePageMenu() -> CAPSPageMenu {
+        
+        let entryListVC: EntryListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryListVC") as EntryListViewController
+        entryListVC.displayItem = EntryListViewController.DisplayItem(type: EntryListViewController.ListType.UserEntries, self.displayUserId!)
+        
+        var parameters: [String: AnyObject] = ["menuItemSeparatorWidth": 4.3,
+            "useMenuLikeSegmentedControl": true,
+            "menuItemSeparatorPercentageHeight": 0.1,
+            "bottomMenuHairlineColor" : UIColor.borderPageMenuIndicator(),
+            "selectionIndicatorColor" : UIColor.borderPageMenuIndicator(),
+            "selectedMenuItemLabelColor" : UIColor.textPageMenuLabel(),
+            "unselectedMenuItemLabelColor" : UIColor.textPageMenuLabel(),
+            "menuItemFont" : UIFont.boldSystemFontOfSize(14.0)]
+        
+        return CAPSPageMenu(viewControllers: [entryListVC], frame: CGRectMake(0.0, 0.0, self.listContainer.frame.width, self.listContainer.frame.height), options: parameters)
     }
     
     // MARK: UserDetailViewDelegate

@@ -58,7 +58,7 @@ class ANZContextSheet: VLDContextSheet {
     
 }
 
-class EntryDetailView: UIWebView, UIGestureRecognizerDelegate, VLDContextSheetDelegate {
+class EntryDetailView: UIWebView, UIGestureRecognizerDelegate, VLDContextSheetDelegate, UIWebViewDelegate {
     
     
     // MARK: プロパティ
@@ -67,12 +67,16 @@ class EntryDetailView: UIWebView, UIGestureRecognizerDelegate, VLDContextSheetDe
     let menuTitleShare: String = "Share"
     let menuTitleLinks: String = "Links"
     let menuTitleClipboard: String = "ClipBoard"
+    let menuTitlePerson: String = "Person"
     
     var callbackSelectedMenu: ((VLDContextSheetItem)->Void)?
 
     // MARK: ライフサイクル
     
     override func awakeFromNib() {
+        
+        self.delegate = self
+        
         let longTapGesture = UITapGestureRecognizer(target: self, action: "tapView:")
         longTapGesture.delegate = self;
         self.addGestureRecognizer(longTapGesture)
@@ -84,10 +88,14 @@ class EntryDetailView: UIWebView, UIGestureRecognizerDelegate, VLDContextSheetDe
     // MARK: メソッド
     
     func makeContextMenu() -> ANZContextSheet {
+        // TODO: コメントリストを開くメニュー
+        // TODO: ストック ON / OFFのメニュー
+        // TODO: 各種ボタンの色み指定
         let menuItemShare: VLDContextSheetItem = VLDContextSheetItem(title: self.menuTitleShare, image:UIImage(named: "icon_share") , highlightedImage: nil)
         let menuItemLinks: VLDContextSheetItem = VLDContextSheetItem(title: self.menuTitleLinks, image: UIImage(named: "icon_link"), highlightedImage: nil)
         let menuItemClipboard: VLDContextSheetItem = VLDContextSheetItem(title: self.menuTitleClipboard, image: UIImage(named: "icon_clipboard"), highlightedImage: nil)
-        return ANZContextSheet(items: [menuItemShare, menuItemLinks, menuItemClipboard])
+        let menuItemPerson: VLDContextSheetItem = VLDContextSheetItem(title: self.menuTitlePerson, image: UIImage(named: "icon_person"), highlightedImage: nil)
+        return ANZContextSheet(items: [menuItemShare, menuItemLinks, menuItemClipboard, menuItemPerson])
     }
     
     func tapView(gesture: UILongPressGestureRecognizer) {
@@ -111,6 +119,15 @@ class EntryDetailView: UIWebView, UIGestureRecognizerDelegate, VLDContextSheetDe
     
     func contextSheet(contextSheet: VLDContextSheet!, didSelectItem item: VLDContextSheetItem!) {
         self.callbackSelectedMenu?(item)
+    }
+    
+    // MARK: UIWebViewDelegate
+    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        
+        if navigationType == UIWebViewNavigationType.LinkClicked {
+            return false
+        }
+        return true
     }
 
 }

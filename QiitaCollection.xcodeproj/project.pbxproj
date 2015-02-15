@@ -31,6 +31,8 @@
 		A1A8D9EA1A82F92C00231D84 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1A8D9E81A82F92C00231D84 /* LaunchScreen.xib */; };
 		A1A8D9F61A82F92C00231D84 /* QiitaCollectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A8D9F51A82F92C00231D84 /* QiitaCollectionTests.swift */; };
 		A1B1C6BB1A90928E001419E9 /* UILabel+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B1C6BA1A90928E001419E9 /* UILabel+App.swift */; };
+		A1B1C6BD1A90C0EB001419E9 /* EntryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B1C6BC1A90C0EB001419E9 /* EntryListViewController.swift */; };
+		A1B1C6BF1A90E55D001419E9 /* EntryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B1C6BE1A90E55D001419E9 /* EntryTableViewCell.swift */; };
 		A1CF433D1A8B06190016209C /* QCKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CF433C1A8B06190016209C /* QCKeys.swift */; };
 		A1CF433F1A8B1E350016209C /* EntryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CF433E1A8B1E350016209C /* EntryDetailViewController.swift */; };
 		A1CF43421A8B54620016209C /* entry.html in Resources */ = {isa = PBXBuildFile; fileRef = A1CF43411A8B54620016209C /* entry.html */; };
@@ -90,6 +92,8 @@
 		A1A8D9F41A82F92C00231D84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1A8D9F51A82F92C00231D84 /* QiitaCollectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QiitaCollectionTests.swift; sourceTree = "<group>"; };
 		A1B1C6BA1A90928E001419E9 /* UILabel+App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+App.swift"; sourceTree = "<group>"; };
+		A1B1C6BC1A90C0EB001419E9 /* EntryListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryListViewController.swift; sourceTree = "<group>"; };
+		A1B1C6BE1A90E55D001419E9 /* EntryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryTableViewCell.swift; sourceTree = "<group>"; };
 		A1CF433C1A8B06190016209C /* QCKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QCKeys.swift; sourceTree = "<group>"; };
 		A1CF433E1A8B1E350016209C /* EntryDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryDetailViewController.swift; sourceTree = "<group>"; };
 		A1CF43411A8B54620016209C /* entry.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = entry.html; sourceTree = "<group>"; };
@@ -135,6 +139,7 @@
 				A103AF391A86141200FF0B24 /* EntryCollectionViewCell.swift */,
 				A118A61D1A8F4AA600350841 /* EntryDetailView.swift */,
 				A1A16E331A90842C0052A7C6 /* UserDetailView.swift */,
+				A1B1C6BE1A90E55D001419E9 /* EntryTableViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -206,6 +211,7 @@
 				A1CF433E1A8B1E350016209C /* EntryDetailViewController.swift */,
 				A124A21F1A87BF99007A42E9 /* PagerViewController.swift */,
 				A1A16E311A90757C0052A7C6 /* UserDetailViewController.swift */,
+				A1B1C6BC1A90C0EB001419E9 /* EntryListViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -507,6 +513,7 @@
 				A1A8D9E01A82F92C00231D84 /* AppDelegate.swift in Sources */,
 				A118A61C1A8F49A600350841 /* VLDContextSheetItemView.m in Sources */,
 				A1CF43511A8BBE380016209C /* BaseViewController.swift in Sources */,
+				A1B1C6BF1A90E55D001419E9 /* EntryTableViewCell.swift in Sources */,
 				A142479C1A87BB6D00E8D262 /* CAPSPageMenu.swift in Sources */,
 				A103AF431A865DE700FF0B24 /* UIColor+App.swift in Sources */,
 				A118A61B1A8F49A600350841 /* VLDContextSheetItem.m in Sources */,
@@ -519,6 +526,7 @@
 				A124A2201A87BF99007A42E9 /* PagerViewController.swift in Sources */,
 				A1A16E341A90842C0052A7C6 /* UserDetailView.swift in Sources */,
 				A103AF451A866A0D00FF0B24 /* UIImage+App.swift in Sources */,
+				A1B1C6BD1A90C0EB001419E9 /* EntryListViewController.swift in Sources */,
 				A1F157ED1A8FB1490064EA47 /* JFMinimalNotification.m in Sources */,
 				A1F157F01A8FB1490064EA47 /* UIColor+JFMinimalNotificationColors.m in Sources */,
 				A18A85D01A85AAC10078436D /* EntryCollectionViewController.swift in Sources */,

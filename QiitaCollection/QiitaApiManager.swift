@@ -25,11 +25,18 @@ class QiitaApiManager: NSObject {
     }
     
     func getEntriesNew(page: Int, completion:(items:[EntryEntity], isError: Bool) -> Void) {
-        
-        let params = [
+        self.getEntriesSearch(nil, page: page, completion: completion)
+    }
+    
+    func getEntriesSearch(query: String?, page: Int, completion:(items:[EntryEntity], isError: Bool) -> Void) {
+        var params: [String: String] = [
             "page" : String(page),
             "per_page" : "20"
         ]
+        if let q = query {
+            params["query"] = q
+        }
+        
         Alamofire.request(Alamofire.Method.GET, self.apiUrl + PathItems, parameters: params, encoding: ParameterEncoding.URL)
             .responseJSON { (request, response, jsonData, error) -> Void in
                 
