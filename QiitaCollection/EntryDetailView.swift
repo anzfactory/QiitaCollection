@@ -66,6 +66,7 @@ class EntryDetailView: UIWebView, UIGestureRecognizerDelegate, VLDContextSheetDe
 
     let menuTitleShare: String = "Share"
     let menuTitleLinks: String = "Links"
+    let menuTitleClipboard: String = "ClipBoard"
     var callbackSelectedMenu: ((VLDContextSheetItem)->Void)?
 
     // MARK: ライフサイクル
@@ -84,7 +85,8 @@ class EntryDetailView: UIWebView, UIGestureRecognizerDelegate, VLDContextSheetDe
     func makeContextMenu() -> ANZContextSheet {
         let menuItemShare: VLDContextSheetItem = VLDContextSheetItem(title: self.menuTitleShare, image:UIImage(named: "icon_share") , highlightedImage: nil)
         let menuItemLinks: VLDContextSheetItem = VLDContextSheetItem(title: self.menuTitleLinks, image: UIImage(named: "icon_link"), highlightedImage: nil)
-        return ANZContextSheet(items: [menuItemShare, menuItemLinks])
+        let menuItemClipboard: VLDContextSheetItem = VLDContextSheetItem(title: self.menuTitleClipboard, image: UIImage(named: "icon_clipboard"), highlightedImage: nil)
+        return ANZContextSheet(items: [menuItemShare, menuItemLinks, menuItemClipboard])
     }
     
     func tapView(gesture: UILongPressGestureRecognizer) {

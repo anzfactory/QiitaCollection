@@ -105,11 +105,11 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
             case .StyleInfo:
                 title = "(｡･ω･｡)"
             case .StyleSuccess:
-                title = "(๑˃́ꇴ˂̀๑)"
+                title = "٩( 'ω' )و"
             case .StyleWarning:
-                title = "(´；ω；｀)"
+                title = "ヾ(･ω･´;)ﾉ"
             case .StyleError:
-                title = "( ‘д‘⊂彡☆))Д´) ﾊﾟｰﾝ"
+                title = "Σ(°Д°；≡；°д°)"
             }
         }
         

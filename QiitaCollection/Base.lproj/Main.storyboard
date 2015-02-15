@@ -296,7 +296,7 @@
                     <navigationItem key="navigationItem" id="WM3-cC-Qki"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
-                        <outlet property="webView" destination="9hg-jk-fza" id="aQr-Nj-PpS"/>
+                        <outlet property="webView" destination="9hg-jk-fza" id="sXb-Oh-o7Q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c6s-U0-Xaf" userLabel="First Responder" sceneMemberID="firstResponder"/>
