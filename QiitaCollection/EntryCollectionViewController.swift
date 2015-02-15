@@ -86,6 +86,9 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
             UIAlertAction(title: "記事詳細", style: .Default, handler: { (UIAlertAction) -> Void in
                 self.moveEntryDetail(tapEntry)
             }),
+            UIAlertAction(title: tapEntry.postUser.displayName, style: .Default, handler: { (UIAlertAction) -> Void in
+                self.moveUserDetail(tapEntry.postUser.id)
+            }),
             UIAlertAction(title: "キャンセル", style: .Cancel, handler: { (UIAlertAction) -> Void in
                 
             })
@@ -105,6 +108,12 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
     func moveEntryDetail(entry: EntryEntity) {
         let vc: EntryDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryDetailVC") as EntryDetailViewController
         vc.displayEntry = entry
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: vc)
+    }
+    
+    func moveUserDetail(userId: String) {
+        let vc: UserDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UserDetailVC") as UserDetailViewController
+        vc.displayUserId = userId
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: vc)
     }
     

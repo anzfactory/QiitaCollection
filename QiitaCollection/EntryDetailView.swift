@@ -67,6 +67,7 @@ class EntryDetailView: UIWebView, UIGestureRecognizerDelegate, VLDContextSheetDe
     let menuTitleShare: String = "Share"
     let menuTitleLinks: String = "Links"
     let menuTitleClipboard: String = "ClipBoard"
+    
     var callbackSelectedMenu: ((VLDContextSheetItem)->Void)?
 
     // MARK: ライフサイクル

@@ -17,7 +17,8 @@ class QiitaApiManager: NSObject {
     let ApiVersion: String = "v2"
     
     let PathItems: String = "/items"
-    let PathTag: String = "/tags/%s"
+    let PathTag: String = "/tags/%@"
+    let PathUser: String = "/users/%@"
     
     var apiUrl: String {
         get { return "https://" + Host + "/api/" + ApiVersion}
@@ -49,7 +50,7 @@ class QiitaApiManager: NSObject {
     }
     
     func getTag(tagId: String, completion:(item: TagEntity?, isError: Bool) -> Void) {
-        // テストアクセス
+        
         Alamofire.request(Alamofire.Method.GET, self.apiUrl + String(format: PathTag, tagId), parameters: nil, encoding: ParameterEncoding.URL)
             .responseJSON { (request, response, jsonData, error) -> Void in
                 
@@ -66,4 +67,24 @@ class QiitaApiManager: NSObject {
                 completion(item: tag, isError: isError);
         }
     }
+    
+    func getUser(userId: String, completion:(item: UserEntity?, isError: Bool) -> Void) {
+        
+        Alamofire.request(Alamofire.Method.GET, self.apiUrl + String(format: PathUser, userId), parameters: nil, encoding: ParameterEncoding.URL)
+            .responseJSON { (request, response, jsonData, error) -> Void in
+                let isError: Bool = error == nil ? false : true
+                
+                if isError {
+                    completion(item:nil, isError: isError);
+                    return;
+                }
+                
+                let json = JSON(jsonData!)
+                let user: UserEntity = UserEntity(data: json )
+                
+                completion(item: user, isError: isError);
+        }
+        
+    }
+    
 }

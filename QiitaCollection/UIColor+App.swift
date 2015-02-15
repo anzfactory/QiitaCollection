@@ -24,6 +24,9 @@ extension UIColor {
     class func backgroundNavigationBar() -> UIColor {
         return backgroundBase();
     }
+    class func backgroundUserInfo() -> UIColor {
+        return factory(243, g: 246, b: 241, a: 1)
+    }
     
     class func textNavigationBar() -> UIColor {
         return UIColor.whiteColor()

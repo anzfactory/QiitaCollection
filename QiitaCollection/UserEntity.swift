@@ -17,6 +17,10 @@ struct UserEntity {
     let introduction: String
     let organization: String
     let web: String
+    let github: String
+    let twitter: String
+    let facebook: String
+    let linkedin: String
     let location: String
     let profImage: String
     var profUrl: NSURL { get { return NSURL(string: profImage)! } }
@@ -25,16 +29,39 @@ struct UserEntity {
     let followeesCount: Int
     
     init (data: [String : JSON]) {
+        
         id = data["id"]!.string!
         name = data["name"]!.string!
         introduction = data["description"]?.string ?? ""
         organization = data["organization"]?.string ?? ""
         web = data["website_url"]?.string ?? ""
+        github = data["github_login_name"]?.string ?? ""
+        twitter = data["twitter_screen_name"]?.string ?? ""
+        facebook = data["facebook_id"]?.string ?? ""
+        linkedin = data["linkedin_id"]?.string ?? ""
         location = data["location"]?.string ?? ""
         profImage = data["profile_image_url"]?.string ?? ""
         itemCount = data["items_count"]?.intValue ?? 0
         followersCount = data["followers_count"]?.intValue ?? 0
         followeesCount = data["followees_count"]?.intValue ?? 0
+    }
+    
+    init (data: JSON) {
+        println("data:\(data)")
+        id = data["id"].string!
+        name = data["name"].string!
+        introduction = data["description"].string ?? ""
+        organization = data["organization"].string ?? ""
+        web = data["website_url"].string ?? ""
+        github = data["github_login_name"].string ?? ""
+        twitter = data["twitter_screen_name"].string ?? ""
+        facebook = data["facebook_id"].string ?? ""
+        linkedin = data["linkedin_id"].string ?? ""
+        location = data["location"].string ?? ""
+        profImage = data["profile_image_url"].string ?? ""
+        itemCount = data["items_count"].intValue ?? 0
+        followersCount = data["followers_count"].intValue ?? 0
+        followeesCount = data["followees_count"].intValue ?? 0
     }
     
     func loadThumb(imageView: UIImageView) {
