@@ -42,6 +42,10 @@ extension UIColor {
         return UIColor.orangeColor()
     }
     
+    class func tintSegmented() -> UIColor {
+        return self.backgroundBase()
+    }
+    
     class func factory(r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) -> UIColor {
         return UIColor(red: r/255, green: g/255, blue: b/255, alpha: a);
     }

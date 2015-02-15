@@ -45,6 +45,10 @@ class QiitaApiManager: NSObject {
                 if isError {
                     completion(items: [], isError: isError);
                     return;
+                } else if !(jsonData is NSArray) {
+                    println("response:\(jsonData)")
+                    completion(items: [], isError: isError);
+                    return;
                 }
                 let json = jsonData as NSArray
                 var items = [EntryEntity]()

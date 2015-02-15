@@ -39,7 +39,7 @@ class EntryListViewController: UIViewController, UITableViewDataSource, UITableV
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.loadData()
+        self.refresh()
     }
 
     override func didReceiveMemoryWarning() {
@@ -47,6 +47,10 @@ class EntryListViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     // MARK: メソッド
+    func refresh() {
+        self.page = 1
+        self.loadData()
+    }
     func loadData() {
         // リストタイプによってクエリ作成
         var query: String = ""
@@ -73,6 +77,7 @@ class EntryListViewController: UIViewController, UITableViewDataSource, UITableV
             for item: EntryEntity in items {
                 self.entries.append(item)
             }
+            
             self.page++
             self.tableView.reloadData()
             
@@ -92,9 +97,16 @@ class EntryListViewController: UIViewController, UITableViewDataSource, UITableV
     
     // MARK: UITableViewDelegate
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.row + 1 == self.entries.count {
+        if self.page != NSNotFound && indexPath.row + 1 == self.entries.count {
             self.loadData()
         }
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        println("seletect item")
+        let vc: EntryDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryDetailVC") as EntryDetailViewController
+        vc.displayEntry = self.entries[indexPath.row]
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: vc)
     }
 
 }

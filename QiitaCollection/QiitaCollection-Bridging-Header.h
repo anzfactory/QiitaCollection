@@ -8,4 +8,3 @@
 #import "VLDContextSheetItem.h"
 #import "VLDContextSheetItemView.h"
 #import "JFMinimalNotification.h"
-#import <ICViewPager/ViewPagerController.h>

@@ -65,12 +65,6 @@ class EntryCollectionViewCell: UICollectionViewCell {
         
         // title
         self.title.text = entry.title
-//        let maxTitleSize: CGSize = CGSize(width: self.title.bounds.size.width, height: self.frame.size.height)
-//        let options = unsafeBitCast(NSStringDrawingOptions.UsesLineFragmentOrigin.rawValue | NSStringDrawingOptions.UsesFontLeading.rawValue,NSStringDrawingOptions.self)
-//        let actualTitleSize: CGSize = NSString(string: entry.title).boundingRectWithSize(CGSize(width: maxTitleSize.width, height: maxTitleSize.height),
-//            options: options,
-//            attributes: [NSFontAttributeName: self.title.font],
-//            context: nil).size
         self.constraintTitleHeight.constant = self.title.calcAdjustHeight(self.frame.size.height)
         // 著者
         self.author.text = entry.postUser.displayName

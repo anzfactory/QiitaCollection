@@ -13,9 +13,10 @@ class UserDetailViewController: UIViewController, UserDetailViewDelegate {
     // MARK: UI
     @IBOutlet weak var userInfoContainer: UserDetailView!
     @IBOutlet weak var listContainer: UIView!
+    @IBOutlet weak var listSwitchContainer: UIView!
+    @IBOutlet weak var triggerListType: UISegmentedControl!
     
     // MARK: プロパティ
-    lazy var pageMenu: CAPSPageMenu = self.makePageMenu()
     var displayUserId: String?
     var displayUser: UserEntity? = nil {
         didSet {
@@ -23,12 +24,16 @@ class UserDetailViewController: UIViewController, UserDetailViewDelegate {
         }
     }
     let qiitaManager: QiitaApiManager = QiitaApiManager()
+    lazy var entryListVC: EntryListViewController = self.makeEntryListVC()
     
     // MARK: ライフサイクル
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.userInfoContainer.delegate = self
+        self.listSwitchContainer.backgroundColor = UIColor.backgroundUserInfo()
+        self.triggerListType.tintColor = UIColor.tintSegmented()
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -49,30 +54,29 @@ class UserDetailViewController: UIViewController, UserDetailViewDelegate {
             self.userInfoContainer.showUser(self.displayUser!)
         })
         
-        self.listContainer.addSubview(self.pageMenu.view)
-        self.pageMenu.view.layoutIfNeeded()
+        self.listContainer.addSubview(self.entryListVC.view)
+        entryListVC.view.addConstraintFill()
+        self.entryListVC.viewWillAppear(false)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
+    // MARK: Actions
+    @IBAction func changeTrigger(sender: AnyObject) {
+        // TODO: リスト表示切り替え
+    }
+    
     // MARK: メソッド
-    func makePageMenu() -> CAPSPageMenu {
-        
-        let entryListVC: EntryListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryListVC") as EntryListViewController
-        entryListVC.displayItem = EntryListViewController.DisplayItem(type: EntryListViewController.ListType.UserEntries, self.displayUserId!)
-        
-        var parameters: [String: AnyObject] = ["menuItemSeparatorWidth": 4.3,
-            "useMenuLikeSegmentedControl": true,
-            "menuItemSeparatorPercentageHeight": 0.1,
-            "bottomMenuHairlineColor" : UIColor.borderPageMenuIndicator(),
-            "selectionIndicatorColor" : UIColor.borderPageMenuIndicator(),
-            "selectedMenuItemLabelColor" : UIColor.textPageMenuLabel(),
-            "unselectedMenuItemLabelColor" : UIColor.textPageMenuLabel(),
-            "menuItemFont" : UIFont.boldSystemFontOfSize(14.0)]
-        
-        return CAPSPageMenu(viewControllers: [entryListVC], frame: CGRectMake(0.0, 0.0, self.listContainer.frame.width, self.listContainer.frame.height), options: parameters)
+    func makeEntryListVC() -> EntryListViewController {
+        let vc: EntryListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryListVC") as EntryListViewController
+        vc.displayItem = EntryListViewController.DisplayItem(type: EntryListViewController.ListType.UserEntries, self.displayUserId!)
+        return vc
     }
     
     // MARK: UserDetailViewDelegate
