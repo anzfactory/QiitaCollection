@@ -38,15 +38,13 @@ class QiitaApiManager: NSObject {
         }
         
         Alamofire.request(Alamofire.Method.GET, self.apiUrl + PathItems, parameters: params, encoding: ParameterEncoding.URL)
+            .validate(statusCode: 200..<300)    // ステータスコードの200台以外をエラーとするように
             .responseJSON { (request, response, jsonData, error) -> Void in
                 
                 let isError: Bool = error == nil ? false : true
                 
                 if isError {
-                    completion(items: [], isError: isError);
-                    return;
-                } else if !(jsonData is NSArray) {
-                    println("response:\(jsonData)")
+                    println("error:\(error)")
                     completion(items: [], isError: isError);
                     return;
                 }
@@ -63,6 +61,7 @@ class QiitaApiManager: NSObject {
     func getTag(tagId: String, completion:(item: TagEntity?, isError: Bool) -> Void) {
         
         Alamofire.request(Alamofire.Method.GET, self.apiUrl + String(format: PathTag, tagId), parameters: nil, encoding: ParameterEncoding.URL)
+            .validate(statusCode: 200..<300)    // ステータスコードの200台以外をエラーとするように
             .responseJSON { (request, response, jsonData, error) -> Void in
                 
                 let isError: Bool = error == nil ? false : true
@@ -82,6 +81,7 @@ class QiitaApiManager: NSObject {
     func getUser(userId: String, completion:(item: UserEntity?, isError: Bool) -> Void) {
         
         Alamofire.request(Alamofire.Method.GET, self.apiUrl + String(format: PathUser, userId), parameters: nil, encoding: ParameterEncoding.URL)
+            .validate(statusCode: 200..<300)    // ステータスコードの200台以外をエラーとするように
             .responseJSON { (request, response, jsonData, error) -> Void in
                 let isError: Bool = error == nil ? false : true
                 
