@@ -136,7 +136,7 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
     func receiveShowLoading() {
         
         if let view = self.loadingView {
-//            view.hideView()
+            view.hideView()
         }
         
         self.loadingView = SCLAlertView()

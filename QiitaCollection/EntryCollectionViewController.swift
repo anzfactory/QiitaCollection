@@ -52,8 +52,13 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
             NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoading.rawValue, object: nil)
             
             if isError {
-                println("error")
-                // TODO: アラートなりトーストなりでユーザー通知 (リトライとか？)
+                NSNotificationCenter.defaultCenter()
+                    .postNotificationName(QCKeys.Notification.ShowMinimumNotification.rawValue,
+                        object: nil,
+                        userInfo: [
+                            QCKeys.MinimumNotification.SubTitle.rawValue: "取得に失敗しました...時間をあけて試してみてください",
+                            QCKeys.MinimumNotification.Style.rawValue: NSNumber(integer: JFMinimalNotificationStytle.StyleWarning.rawValue)
+                        ])
                 return
             }
             
