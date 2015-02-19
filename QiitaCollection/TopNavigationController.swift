@@ -8,12 +8,12 @@
 
 import UIKit
 
-import SCLAlertView
-
 class TopNavigationController: UINavigationController, UINavigationControllerDelegate {
     
     // MARK: プロパティ
     lazy var notice: JFMinimalNotification = self.makeNotice()
+    var loadingView: SCLAlertView?
+    var isDidAppear: Bool = false
 
     // MARK: ライフサイクル
     override func viewDidLoad() {
@@ -35,6 +35,16 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         center.addObserver(self, selector: "receiveShowActionSheet:", name: QCKeys.Notification.ShowActionSheet.rawValue, object: nil)
         center.addObserver(self, selector: "receivePushViewController:", name: QCKeys.Notification.PushViewController.rawValue, object: nil)
         center.addObserver(self, selector: "receiveShowMinimumNotification:", name: QCKeys.Notification.ShowMinimumNotification.rawValue, object: nil)
+        center.addObserver(self, selector: "receiveShowLoading", name: QCKeys.Notification.ShowLoading.rawValue, object: nil)
+        center.addObserver(self, selector: "receiveHideLoading", name: QCKeys.Notification.HideLoading.rawValue, object: nil)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.isDidAppear = true
+        if self.loadingView != nil {
+            self.receiveShowLoading()
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -120,6 +130,26 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         self.notice.setStyle(style, animated: false)
         
         self.notice.show()
+    }
+    
+    
+    func receiveShowLoading() {
+        
+        if let view = self.loadingView {
+//            view.hideView()
+        }
+        
+        self.loadingView = SCLAlertView()
+        if !self.isDidAppear {
+            return
+        }
+        self.loadingView!.showWaiting(self, title: "Loading...", subTitle: "少々お待ちください...m(_ _)m", closeButtonTitle: nil, duration: 0.0);
+    }
+    func receiveHideLoading() {
+        if let view = self.loadingView {
+            view.hideView()
+        }
+        self.loadingView = nil
     }
 
     // MARK: UINavigationControllerDelegate

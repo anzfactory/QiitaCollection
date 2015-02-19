@@ -39,24 +39,11 @@ class UserDetailViewController: UIViewController, UserDetailViewDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.qiitaManager.getUser(self.displayUserId!, completion: { (item, isError) -> Void in
-            if isError {
-                NSNotificationCenter.defaultCenter()
-                    .postNotificationName(QCKeys.Notification.ShowMinimumNotification.rawValue,
-                        object: nil,
-                        userInfo: [
-                            QCKeys.MinimumNotification.SubTitle.rawValue: "ユーザーデータを取得できませんでした…",
-                            QCKeys.MinimumNotification.Style.rawValue: NSNumber(integer: JFMinimalNotificationStytle.StyleWarning.rawValue)
-                        ])
-                return
-            }
-            self.displayUser = item
-            self.userInfoContainer.showUser(self.displayUser!)
-        })
-        
         self.listContainer.addSubview(self.entryListVC.view)
         entryListVC.view.addConstraintFill()
         self.entryListVC.viewWillAppear(false)
+        
+        self.refreshUser()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -69,10 +56,45 @@ class UserDetailViewController: UIViewController, UserDetailViewDelegate {
     
     // MARK: Actions
     @IBAction func changeTrigger(sender: AnyObject) {
-        // TODO: リスト表示切り替え
+        switch self.triggerListType.selectedSegmentIndex {
+        case 0:
+            self.entryListVC.displayItem = EntryListViewController.DisplayItem(type: EntryListViewController.ListType.UserEntries, self.displayUserId!)
+        case 1:
+            self.entryListVC.displayItem = EntryListViewController.DisplayItem(type: EntryListViewController.ListType.UserStocks, self.displayUserId!)
+        default:
+            return
+        }
+        self.entryListVC.refresh()
+        
     }
     
     // MARK: メソッド
+    func refreshUser() {
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowLoading.rawValue, object: nil);
+        
+        self.qiitaManager.getUser(self.displayUserId!, completion: { (item, isError) -> Void in
+            
+            NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoading.rawValue, object: nil);
+            
+            if isError {
+                NSNotificationCenter.defaultCenter()
+                    .postNotificationName(QCKeys.Notification.ShowMinimumNotification.rawValue,
+                        object: nil,
+                        userInfo: [
+                            QCKeys.MinimumNotification.SubTitle.rawValue: "ユーザーデータを取得できませんでした…",
+                            QCKeys.MinimumNotification.Style.rawValue: NSNumber(integer: JFMinimalNotificationStytle.StyleWarning.rawValue)
+                        ])
+                return
+            }
+            
+            self.displayUser = item
+            self.userInfoContainer.showUser(self.displayUser!)
+            
+            self.entryListVC.refresh()
+        })
+    }
+    
     func makeEntryListVC() -> EntryListViewController {
         let vc: EntryListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryListVC") as EntryListViewController
         vc.displayItem = EntryListViewController.DisplayItem(type: EntryListViewController.ListType.UserEntries, self.displayUserId!)

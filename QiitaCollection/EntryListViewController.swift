@@ -12,6 +12,7 @@ class EntryListViewController: UIViewController, UITableViewDataSource, UITableV
     
     enum ListType : String {
         case UserEntries = "投稿したもの"
+        case UserStocks = "ストックしたもの"
     }
     typealias DisplayItem = (type: ListType, query: String)
 
@@ -38,8 +39,6 @@ class EntryListViewController: UIViewController, UITableViewDataSource, UITableV
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
-        self.refresh()
     }
 
     override func didReceiveMemoryWarning() {
@@ -48,17 +47,17 @@ class EntryListViewController: UIViewController, UITableViewDataSource, UITableV
     
     // MARK: メソッド
     func refresh() {
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowLoading.rawValue, object: nil);
+        
         self.page = 1
         self.loadData()
+        
     }
     func loadData() {
-        // リストタイプによってクエリ作成
-        var query: String = ""
-        switch self.displayItem!.type {
-        case .UserEntries:
-            query = "user:" + self.displayItem!.query
-        }
-        self.qiitaManager.getEntriesSearch(query, page: self.page) { (items, isError) -> Void in
+        
+        let callback = {(items: [EntryEntity], isError: Bool) -> Void in
+            NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoading.rawValue, object: nil);
             
             if isError {
                 println("error")
@@ -81,8 +80,20 @@ class EntryListViewController: UIViewController, UITableViewDataSource, UITableV
             self.page++
             self.tableView.reloadData()
             
+            
         }
-    }
+        
+        // リストタイプによってクエリ作成
+        var query: String = ""
+        switch self.displayItem!.type {
+        case .UserEntries:
+            query = "user:" + self.displayItem!.query
+            self.qiitaManager.getEntriesSearch(query, page: self.page, completion: callback)
+        case .UserStocks:
+            self.qiitaManager.getEntriesUserStocks(self.displayItem!.query, page: self.page, completion: callback)
+        }
+        
+}
     
     // MARK: UITableViewDataSource
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

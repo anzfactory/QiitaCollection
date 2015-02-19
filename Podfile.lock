@@ -1,6 +1,5 @@
 PODS:
   - Alamofire (1.1.4)
-  - SCLAlertView (0.3)
   - SDWebImage (3.7.1):
     - SDWebImage/Core (= 3.7.1)
   - SDWebImage/Core (3.7.1)
@@ -8,22 +7,11 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 1.1)
-  - SCLAlertView (from `https://github.com/vikmeup/SCLAlertView-Swift.git`)
   - SDWebImage (~> 3.6)
   - SwiftyJSON (= 2.1.3)
 
-EXTERNAL SOURCES:
-  SCLAlertView:
-    :git: https://github.com/vikmeup/SCLAlertView-Swift.git
-
-CHECKOUT OPTIONS:
-  SCLAlertView:
-    :commit: 9465e3ef7c05976d36341c08c33f4728cdf0c1c9
-    :git: https://github.com/vikmeup/SCLAlertView-Swift.git
-
 SPEC CHECKSUMS:
   Alamofire: 524225da382071ee3e6d0badd0ee4b4dc36740de
-  SCLAlertView: 7d1910ae5137626797d1a8e5ca9166964801881e
   SDWebImage: 116e88633b5b416ea0ca4b334a4ac59cf72dd38d
   SwiftyJSON: 48be7490a3989a58a3f511cd54167f0a2b466e76
 

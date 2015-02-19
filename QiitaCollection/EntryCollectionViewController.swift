@@ -27,30 +27,29 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
         
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         refresh()
     }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    /*
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
-    }
-    */
-    
     // MARK: メソッド
     func refresh() {
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowLoading.rawValue, object: nil)
+        
         self.page = 1
         self.load()
     }
     func load() {
         self.qiitaManager.getEntriesNew(self.page, completion: { (items, isError) -> Void in
+            
+            NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoading.rawValue, object: nil)
             
             if isError {
                 println("error")

@@ -19,6 +19,11 @@
 		A118A61E1A8F4AA600350841 /* EntryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A118A61D1A8F4AA600350841 /* EntryDetailView.swift */; };
 		A124A2201A87BF99007A42E9 /* PagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A124A21F1A87BF99007A42E9 /* PagerViewController.swift */; };
 		A142479C1A87BB6D00E8D262 /* CAPSPageMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A142479B1A87BB6D00E8D262 /* CAPSPageMenu.swift */; };
+		A17D0C551A963A510020229B /* SCLAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = A17D0C4C1A963A510020229B /* SCLAlertView.m */; };
+		A17D0C561A963A510020229B /* SCLAlertViewResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = A17D0C4E1A963A510020229B /* SCLAlertViewResponder.m */; };
+		A17D0C571A963A510020229B /* SCLAlertViewStyleKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A17D0C501A963A510020229B /* SCLAlertViewStyleKit.m */; };
+		A17D0C581A963A510020229B /* SCLButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A17D0C521A963A510020229B /* SCLButton.m */; };
+		A17D0C591A963A510020229B /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = A17D0C541A963A510020229B /* UIImage+ImageEffects.m */; };
 		A18A85D01A85AAC10078436D /* EntryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18A85CF1A85AAC10078436D /* EntryCollectionViewController.swift */; };
 		A18A85D41A85D4EA0078436D /* QiitaApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18A85D31A85D4EA0078436D /* QiitaApiManager.swift */; };
 		A18A85D61A85D5190078436D /* EntryEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18A85D51A85D5190078436D /* EntryEntity.swift */; };
@@ -76,6 +81,16 @@
 		A118A61D1A8F4AA600350841 /* EntryDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryDetailView.swift; sourceTree = "<group>"; };
 		A124A21F1A87BF99007A42E9 /* PagerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagerViewController.swift; sourceTree = "<group>"; };
 		A142479B1A87BB6D00E8D262 /* CAPSPageMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAPSPageMenu.swift; sourceTree = "<group>"; };
+		A17D0C4B1A963A510020229B /* SCLAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCLAlertView.h; path = SCLAlertView/SCLAlertView.h; sourceTree = "<group>"; };
+		A17D0C4C1A963A510020229B /* SCLAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCLAlertView.m; path = SCLAlertView/SCLAlertView.m; sourceTree = "<group>"; };
+		A17D0C4D1A963A510020229B /* SCLAlertViewResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCLAlertViewResponder.h; path = SCLAlertView/SCLAlertViewResponder.h; sourceTree = "<group>"; };
+		A17D0C4E1A963A510020229B /* SCLAlertViewResponder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCLAlertViewResponder.m; path = SCLAlertView/SCLAlertViewResponder.m; sourceTree = "<group>"; };
+		A17D0C4F1A963A510020229B /* SCLAlertViewStyleKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCLAlertViewStyleKit.h; path = SCLAlertView/SCLAlertViewStyleKit.h; sourceTree = "<group>"; };
+		A17D0C501A963A510020229B /* SCLAlertViewStyleKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCLAlertViewStyleKit.m; path = SCLAlertView/SCLAlertViewStyleKit.m; sourceTree = "<group>"; };
+		A17D0C511A963A510020229B /* SCLButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCLButton.h; path = SCLAlertView/SCLButton.h; sourceTree = "<group>"; };
+		A17D0C521A963A510020229B /* SCLButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCLButton.m; path = SCLAlertView/SCLButton.m; sourceTree = "<group>"; };
+		A17D0C531A963A510020229B /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+ImageEffects.h"; path = "SCLAlertView/UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		A17D0C541A963A510020229B /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+ImageEffects.m"; path = "SCLAlertView/UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		A18A85CF1A85AAC10078436D /* EntryCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryCollectionViewController.swift; sourceTree = "<group>"; };
 		A18A85D31A85D4EA0078436D /* QiitaApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QiitaApiManager.swift; sourceTree = "<group>"; };
 		A18A85D51A85D5190078436D /* EntryEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryEntity.swift; sourceTree = "<group>"; };
@@ -183,6 +198,23 @@
 				A118A6191A8F49A600350841 /* VLDContextSheetItemView.m */,
 			);
 			name = VLDContextSheet;
+			sourceTree = "<group>";
+		};
+		A17D0C4A1A963A410020229B /* SCLAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				A17D0C4B1A963A510020229B /* SCLAlertView.h */,
+				A17D0C4C1A963A510020229B /* SCLAlertView.m */,
+				A17D0C4D1A963A510020229B /* SCLAlertViewResponder.h */,
+				A17D0C4E1A963A510020229B /* SCLAlertViewResponder.m */,
+				A17D0C4F1A963A510020229B /* SCLAlertViewStyleKit.h */,
+				A17D0C501A963A510020229B /* SCLAlertViewStyleKit.m */,
+				A17D0C511A963A510020229B /* SCLButton.h */,
+				A17D0C521A963A510020229B /* SCLButton.m */,
+				A17D0C531A963A510020229B /* UIImage+ImageEffects.h */,
+				A17D0C541A963A510020229B /* UIImage+ImageEffects.m */,
+			);
+			name = SCLAlertView;
 			sourceTree = "<group>";
 		};
 		A18A85D11A85D4C50078436D /* Entities */ = {
@@ -303,6 +335,7 @@
 		A1D8A8361A87914B0040C195 /* ObjC */ = {
 			isa = PBXGroup;
 			children = (
+				A17D0C4A1A963A410020229B /* SCLAlertView */,
 				A1F157E21A8FB12D0064EA47 /* JFMinimalNotification */,
 				A118A6131A8F499800350841 /* VLDContextSheet */,
 				A1D8A8371A87916C0040C195 /* UIView-Constraint */,
@@ -516,6 +549,7 @@
 				A1B1C6BF1A90E55D001419E9 /* EntryTableViewCell.swift in Sources */,
 				A142479C1A87BB6D00E8D262 /* CAPSPageMenu.swift in Sources */,
 				A103AF431A865DE700FF0B24 /* UIColor+App.swift in Sources */,
+				A17D0C551A963A510020229B /* SCLAlertView.m in Sources */,
 				A118A61B1A8F49A600350841 /* VLDContextSheetItem.m in Sources */,
 				A1D8A83A1A87917F0040C195 /* UIView+Constraint.m in Sources */,
 				A118A61A1A8F49A600350841 /* VLDContextSheet.m in Sources */,
@@ -526,13 +560,17 @@
 				A124A2201A87BF99007A42E9 /* PagerViewController.swift in Sources */,
 				A1A16E341A90842C0052A7C6 /* UserDetailView.swift in Sources */,
 				A103AF451A866A0D00FF0B24 /* UIImage+App.swift in Sources */,
+				A17D0C591A963A510020229B /* UIImage+ImageEffects.m in Sources */,
 				A1B1C6BD1A90C0EB001419E9 /* EntryListViewController.swift in Sources */,
 				A1F157ED1A8FB1490064EA47 /* JFMinimalNotification.m in Sources */,
 				A1F157F01A8FB1490064EA47 /* UIColor+JFMinimalNotificationColors.m in Sources */,
 				A18A85D01A85AAC10078436D /* EntryCollectionViewController.swift in Sources */,
 				A1F157EE1A8FB1490064EA47 /* JFMinimalNotificationArt.m in Sources */,
 				A1B1C6BB1A90928E001419E9 /* UILabel+App.swift in Sources */,
+				A17D0C581A963A510020229B /* SCLButton.m in Sources */,
 				A103AF3A1A86141200FF0B24 /* EntryCollectionViewCell.swift in Sources */,
+				A17D0C561A963A510020229B /* SCLAlertViewResponder.m in Sources */,
+				A17D0C571A963A510020229B /* SCLAlertViewStyleKit.m in Sources */,
 				A18A85D41A85D4EA0078436D /* QiitaApiManager.swift in Sources */,
 				A1CF433F1A8B1E350016209C /* EntryDetailViewController.swift in Sources */,
 				A118A61E1A8F4AA600350841 /* EntryDetailView.swift in Sources */,

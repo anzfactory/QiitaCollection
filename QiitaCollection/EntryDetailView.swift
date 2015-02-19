@@ -125,9 +125,11 @@ class EntryDetailView: UIWebView, UIGestureRecognizerDelegate, VLDContextSheetDe
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         
         if navigationType == UIWebViewNavigationType.LinkClicked {
+            // リンククリックを無効化
             return false
         }
         return true
     }
+    
 
 }

@@ -12,6 +12,8 @@ struct QCKeys {
         case ShowActionSheet = "QC_NotificationKey_ShowActionSheet"
         case PushViewController = "QC_NotificationKey_PushViewController"
         case ShowMinimumNotification = "QC_NotificationKey_MinimumNtofice"
+        case ShowLoading = "QC_NotificationKey_ShowLoading"
+        case HideLoading = "QC_NotificationKey_HideLoading"
     }
     
     enum ActionSheet: String {

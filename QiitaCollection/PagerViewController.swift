@@ -38,12 +38,15 @@ class PagerViewController: BaseViewController {
         self.view.addSubview(self.pageMenu!.view)
 
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-
     /*
     // MARK: - Navigation
 

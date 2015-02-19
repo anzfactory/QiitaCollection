@@ -19,6 +19,7 @@ class QiitaApiManager: NSObject {
     let PathItems: String = "/items"
     let PathTag: String = "/tags/%@"
     let PathUser: String = "/users/%@"
+    let PathUserStocks: String = "/users/%@/stocks"
     
     var apiUrl: String {
         get { return "https://" + Host + "/api/" + ApiVersion}
@@ -38,6 +39,32 @@ class QiitaApiManager: NSObject {
         }
         
         Alamofire.request(Alamofire.Method.GET, self.apiUrl + PathItems, parameters: params, encoding: ParameterEncoding.URL)
+            .validate(statusCode: 200..<300)    // ステータスコードの200台以外をエラーとするように
+            .responseJSON { (request, response, jsonData, error) -> Void in
+                
+                let isError: Bool = error == nil ? false : true
+                
+                if isError {
+                    println("error:\(error)")
+                    completion(items: [], isError: isError);
+                    return;
+                }
+                let json = jsonData as NSArray
+                var items = [EntryEntity]()
+                for obj in json {
+                    items.append(EntryEntity(data:JSON(obj)));
+                }
+                
+                completion(items: items, isError: isError);
+        }
+    }
+    
+    func getEntriesUserStocks(userId: String, page: Int, completion:(items:[EntryEntity], isError: Bool) -> Void) {
+        var params: [String: String] = [
+            "page" : String(page)
+        ]
+
+        Alamofire.request(Alamofire.Method.GET, self.apiUrl + String(format: PathUserStocks, userId) , parameters: params, encoding: ParameterEncoding.URL)
             .validate(statusCode: 200..<300)    // ステータスコードの200台以外をエラーとするように
             .responseJSON { (request, response, jsonData, error) -> Void in
                 
