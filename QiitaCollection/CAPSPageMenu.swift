@@ -290,9 +290,9 @@ public class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureReco
             if controller.isKindOfClass(UIViewController) {
                 if index == 0.0 {
                     // Add first two controllers to scrollview and as child view controller
-                    (controller as UIViewController).viewWillAppear(true)
+//                    (controller as UIViewController).viewWillAppear(true)
                     addPageAtIndex(0)
-                    (controller as UIViewController).viewDidAppear(true)
+//                    (controller as UIViewController).viewDidAppear(true)
                 }
                 
                 // Set up menu item for menu scroll view
@@ -614,6 +614,15 @@ public class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureReco
         }
     }
     
+    public override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        (self.controllerArray[self.currentPageIndex] as UIViewController).viewWillAppear(true)
+    }
+    
+    public override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        (self.controllerArray[self.currentPageIndex] as UIViewController).viewDidAppear(true)
+    }
     
     // MARK: - Tap gesture recognizer selector
     

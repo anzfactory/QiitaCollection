@@ -17,17 +17,15 @@ class EntryListViewController: UIViewController, UITableViewDataSource, UITableV
     typealias DisplayItem = (type: ListType, query: String)
 
     // MARK: UI
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableView: BaseTableView!
     
     // MARK: プロパティ
-    var entries: [EntryEntity] = [EntryEntity]()
     var displayItem: DisplayItem? = nil {
         didSet {
             self.title = self.displayItem!.type.rawValue
         }
     }
     let qiitaManager: QiitaApiManager = QiitaApiManager()
-    var page: Int = 1
     
     // MARK: ライフサイクル
     override func viewDidLoad() {
@@ -50,42 +48,14 @@ class EntryListViewController: UIViewController, UITableViewDataSource, UITableV
         
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowLoading.rawValue, object: nil);
         
-        self.page = 1
+        self.tableView.page = 1
         self.loadData()
         
     }
     func loadData() {
         
         let callback = {(items: [EntryEntity], isError: Bool) -> Void in
-            NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoading.rawValue, object: nil);
-            
-            if isError {
-                NSNotificationCenter.defaultCenter()
-                    .postNotificationName(QCKeys.Notification.ShowMinimumNotification.rawValue,
-                        object: nil,
-                        userInfo: [
-                            QCKeys.MinimumNotification.SubTitle.rawValue: "取得に失敗しました...時間をあけて試してみてください",
-                            QCKeys.MinimumNotification.Style.rawValue: NSNumber(integer: JFMinimalNotificationStytle.StyleWarning.rawValue)
-                        ])
-                return
-            }
-            
-            if items.count == 0 {
-                self.page = NSNotFound      // オートページング止めるために
-                return
-            } else if (self.page == 1) {
-                // リフレッシュ対象なのでリストクリア
-                self.entries.removeAll(keepCapacity: false)
-            }
-            
-            for item: EntryEntity in items {
-                self.entries.append(item)
-            }
-            
-            self.page++
-            self.tableView.reloadData()
-            
-            
+            self.tableView.loadedItems(items, isError: isError)
         }
         
         // リストタイプによってクエリ作成
@@ -93,34 +63,34 @@ class EntryListViewController: UIViewController, UITableViewDataSource, UITableV
         switch self.displayItem!.type {
         case .UserEntries:
             query = "user:" + self.displayItem!.query
-            self.qiitaManager.getEntriesSearch(query, page: self.page, completion: callback)
+            self.qiitaManager.getEntriesSearch(query, page: self.tableView.page, completion: callback)
         case .UserStocks:
-            self.qiitaManager.getEntriesUserStocks(self.displayItem!.query, page: self.page, completion: callback)
+            self.qiitaManager.getEntriesUserStocks(self.displayItem!.query, page: self.tableView.page, completion: callback)
         }
         
 }
     
     // MARK: UITableViewDataSource
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.entries.count
+        return self.tableView.items.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: EntryTableViewCell = self.tableView.dequeueReusableCellWithIdentifier("CELL") as EntryTableViewCell
-        cell.showEntry(self.entries[indexPath.row])
+        cell.showEntry(self.tableView.items[indexPath.row] as EntryEntity)
         return cell
     }
     
     // MARK: UITableViewDelegate
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        if self.page != NSNotFound && indexPath.row + 1 == self.entries.count {
+        if self.tableView.page != NSNotFound && indexPath.row + 1 == self.tableView.items.count {
             self.loadData()
         }
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let vc: EntryDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryDetailVC") as EntryDetailViewController
-        vc.displayEntry = self.entries[indexPath.row]
+        vc.displayEntry = self.tableView.items[indexPath.row] as? EntryEntity
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: vc)
     }
 

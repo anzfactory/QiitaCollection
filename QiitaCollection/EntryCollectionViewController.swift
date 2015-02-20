@@ -11,17 +11,15 @@ import UIKit
 class EntryCollectionViewController: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     // MARK: UI
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var collectionView: BaseCollectionView!
     
     // MARK: プロパティ
-    var entries: [EntryEntity] = []
-    var page: Int = 0
     var qiitaManager: QiitaApiManager = QiitaApiManager()
     
     // MARK: ライフサイクル
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        println("view didload")
         let longPressGesture: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: "longPress:")
         self.collectionView.addGestureRecognizer(longPressGesture)
         
@@ -32,6 +30,7 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        println("view will appear")
         refresh()
     }
     override func didReceiveMemoryWarning() {
@@ -40,41 +39,14 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
     
     // MARK: メソッド
     func refresh() {
-        
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowLoading.rawValue, object: nil)
-        
-        self.page = 1
+        if !self.isViewLoaded() {return}
+        self.collectionView.page = 1
         self.load()
     }
     func load() {
-        self.qiitaManager.getEntriesNew(self.page, completion: { (items, isError) -> Void in
-            
-            NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoading.rawValue, object: nil)
-            
-            if isError {
-                NSNotificationCenter.defaultCenter()
-                    .postNotificationName(QCKeys.Notification.ShowMinimumNotification.rawValue,
-                        object: nil,
-                        userInfo: [
-                            QCKeys.MinimumNotification.SubTitle.rawValue: "取得に失敗しました...時間をあけて試してみてください",
-                            QCKeys.MinimumNotification.Style.rawValue: NSNumber(integer: JFMinimalNotificationStytle.StyleWarning.rawValue)
-                        ])
-                return
-            }
-            
-            if items.count == 0 {
-                self.page = NSNotFound      // オートページング止めるために
-                return
-            } else if (self.page == 1) {
-                // リフレッシュ対象なのでリストクリア
-                self.entries.removeAll(keepCapacity: false)
-            }
-            
-            for item: EntryEntity in items {
-                self.entries.append(item)
-            }
-            self.page++
-            self.collectionView.reloadData()
+        self.qiitaManager.getEntriesNew(self.collectionView.page, completion: { (items, isError) -> Void in
+            self.collectionView.loadedItems(items, isError:isError)
         })
     }
     
@@ -84,7 +56,7 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
         }
         let tapPoint: CGPoint = gesture.locationInView(self.collectionView)
         let tapIndexPath: NSIndexPath = self.collectionView.indexPathForItemAtPoint(tapPoint)!
-        let tapEntry: EntryEntity = self.entries[tapIndexPath.row]
+        let tapEntry: EntryEntity = self.collectionView.items[tapIndexPath.row] as EntryEntity
         
         let actions: [UIAlertAction] = [
             UIAlertAction(title: "記事詳細", style: .Default, handler: { (UIAlertAction) -> Void in
@@ -124,13 +96,13 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
     // MARK: UICollectionViewDataSource
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.entries.count
+        return self.collectionView.items.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell: EntryCollectionViewCell = self.collectionView.dequeueReusableCellWithReuseIdentifier("CELL", forIndexPath: indexPath) as EntryCollectionViewCell
         
-        let entry: EntryEntity = self.entries[indexPath.row]
+        let entry: EntryEntity = self.collectionView.items[indexPath.row] as EntryEntity
         cell.display(entry)
         
         return cell
@@ -140,13 +112,13 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
     // MARK: UICollectionViewDelegate
     
     func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
-        if self.page != NSNotFound && (indexPath.row + 1) >= self.entries.count {
+        if self.collectionView.page != NSNotFound && (indexPath.row + 1) >= self.collectionView.items.count {
             self.load()
         }
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let tapEntry: EntryEntity = self.entries[indexPath.row]
+        let tapEntry: EntryEntity = self.collectionView.items[indexPath.row] as EntryEntity
         self.moveEntryDetail(tapEntry)
     }
     

@@ -31,7 +31,7 @@ class QiitaApiManager: NSObject {
     
     func getEntriesSearch(query: String?, page: Int, completion:(items:[EntryEntity], isError: Bool) -> Void) {
         var params: [String: String] = [
-            "page" : String(page),
+            "page"     : String(page),
             "per_page" : "20"
         ]
         if let q = query {

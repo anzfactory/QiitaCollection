@@ -8,7 +8,7 @@
 
 import SwiftyJSON
 
-struct EntryEntity {
+struct EntryEntity: EntityProtocol {
     
     let id: String
     let title: String
