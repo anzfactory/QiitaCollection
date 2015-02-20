@@ -18,7 +18,6 @@
 		A118A61C1A8F49A600350841 /* VLDContextSheetItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = A118A6191A8F49A600350841 /* VLDContextSheetItemView.m */; };
 		A118A61E1A8F4AA600350841 /* EntryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A118A61D1A8F4AA600350841 /* EntryDetailView.swift */; };
 		A124A2201A87BF99007A42E9 /* PagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A124A21F1A87BF99007A42E9 /* PagerViewController.swift */; };
-		A142479C1A87BB6D00E8D262 /* CAPSPageMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A142479B1A87BB6D00E8D262 /* CAPSPageMenu.swift */; };
 		A16BA04C1A96EA4800FF7ACA /* BaseTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16BA04B1A96EA4800FF7ACA /* BaseTableView.swift */; };
 		A17D0C551A963A510020229B /* SCLAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = A17D0C4C1A963A510020229B /* SCLAlertView.m */; };
 		A17D0C561A963A510020229B /* SCLAlertViewResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = A17D0C4E1A963A510020229B /* SCLAlertViewResponder.m */; };
@@ -52,6 +51,7 @@
 		A1F157EF1A8FB1490064EA47 /* NSInvocation+Constructors.m in Sources */ = {isa = PBXBuildFile; fileRef = A1F157E81A8FB1490064EA47 /* NSInvocation+Constructors.m */; };
 		A1F157F01A8FB1490064EA47 /* UIColor+JFMinimalNotificationColors.m in Sources */ = {isa = PBXBuildFile; fileRef = A1F157EA1A8FB1490064EA47 /* UIColor+JFMinimalNotificationColors.m */; };
 		A1F157F11A8FB1490064EA47 /* UIView+Round.m in Sources */ = {isa = PBXBuildFile; fileRef = A1F157EC1A8FB1490064EA47 /* UIView+Round.m */; };
+		A1F294DA1A979FC5005E1C02 /* CAPSPageMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F294D71A979FC5005E1C02 /* CAPSPageMenu.swift */; };
 		A1F8D5091A88FC3C00660741 /* UIView+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F8D5081A88FC3C00660741 /* UIView+App.swift */; };
 /* End PBXBuildFile section */
 
@@ -83,7 +83,6 @@
 		A118A6191A8F49A600350841 /* VLDContextSheetItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLDContextSheetItemView.m; path = VLDContextSheet/VLDContextSheetItemView.m; sourceTree = "<group>"; };
 		A118A61D1A8F4AA600350841 /* EntryDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryDetailView.swift; sourceTree = "<group>"; };
 		A124A21F1A87BF99007A42E9 /* PagerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagerViewController.swift; sourceTree = "<group>"; };
-		A142479B1A87BB6D00E8D262 /* CAPSPageMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAPSPageMenu.swift; sourceTree = "<group>"; };
 		A16BA04B1A96EA4800FF7ACA /* BaseTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableView.swift; sourceTree = "<group>"; };
 		A17D0C4B1A963A510020229B /* SCLAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCLAlertView.h; path = SCLAlertView/SCLAlertView.h; sourceTree = "<group>"; };
 		A17D0C4C1A963A510020229B /* SCLAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCLAlertView.m; path = SCLAlertView/SCLAlertView.m; sourceTree = "<group>"; };
@@ -132,6 +131,7 @@
 		A1F157EA1A8FB1490064EA47 /* UIColor+JFMinimalNotificationColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+JFMinimalNotificationColors.m"; sourceTree = "<group>"; };
 		A1F157EB1A8FB1490064EA47 /* UIView+Round.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Round.h"; sourceTree = "<group>"; };
 		A1F157EC1A8FB1490064EA47 /* UIView+Round.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Round.m"; sourceTree = "<group>"; };
+		A1F294D71A979FC5005E1C02 /* CAPSPageMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAPSPageMenu.swift; sourceTree = "<group>"; };
 		A1F8D5081A88FC3C00660741 /* UIView+App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+App.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -230,7 +230,6 @@
 				A18A85D51A85D5190078436D /* EntryEntity.swift */,
 				A103AF3F1A86553000FF0B24 /* UserEntity.swift */,
 				A103AF461A867A9100FF0B24 /* TagEntity.swift */,
-				A1C0B5BA1A96C8000086F92E /* EntityProtocol.swift */,
 			);
 			name = Entities;
 			sourceTree = "<group>";
@@ -280,9 +279,9 @@
 		A1A8D9DC1A82F92C00231D84 /* QiitaCollection */ = {
 			isa = PBXGroup;
 			children = (
+				A1F294D51A979EC9005E1C02 /* Protocols */,
 				A1CF43401A8B54450016209C /* Resources */,
 				A1CF43391A8B04200016209C /* Const */,
-				A142479B1A87BB6D00E8D262 /* CAPSPageMenu.swift */,
 				A103AF411A865DAF00FF0B24 /* Extensions */,
 				A103AF381A8613DA00FF0B24 /* Views */,
 				A18A85D21A85D4D90078436D /* Managers */,
@@ -360,6 +359,7 @@
 		A1D8A8361A87914B0040C195 /* ObjC */ = {
 			isa = PBXGroup;
 			children = (
+				A1F294D61A979F9A005E1C02 /* PageMenu */,
 				A17D0C4A1A963A410020229B /* SCLAlertView */,
 				A1F157E21A8FB12D0064EA47 /* JFMinimalNotification */,
 				A118A6131A8F499800350841 /* VLDContextSheet */,
@@ -392,6 +392,22 @@
 				A1F157EC1A8FB1490064EA47 /* UIView+Round.m */,
 			);
 			path = JFMinimalNotification;
+			sourceTree = "<group>";
+		};
+		A1F294D51A979EC9005E1C02 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				A1C0B5BA1A96C8000086F92E /* EntityProtocol.swift */,
+			);
+			name = Protocols;
+			sourceTree = "<group>";
+		};
+		A1F294D61A979F9A005E1C02 /* PageMenu */ = {
+			isa = PBXGroup;
+			children = (
+				A1F294D71A979FC5005E1C02 /* CAPSPageMenu.swift */,
+			);
+			path = PageMenu;
 			sourceTree = "<group>";
 		};
 		A63F41D73B84466369DCEC70 /* Frameworks */ = {
@@ -575,7 +591,6 @@
 				A118A61C1A8F49A600350841 /* VLDContextSheetItemView.m in Sources */,
 				A1CF43511A8BBE380016209C /* BaseViewController.swift in Sources */,
 				A1B1C6BF1A90E55D001419E9 /* EntryTableViewCell.swift in Sources */,
-				A142479C1A87BB6D00E8D262 /* CAPSPageMenu.swift in Sources */,
 				A103AF431A865DE700FF0B24 /* UIColor+App.swift in Sources */,
 				A17D0C551A963A510020229B /* SCLAlertView.m in Sources */,
 				A118A61B1A8F49A600350841 /* VLDContextSheetItem.m in Sources */,
@@ -588,6 +603,7 @@
 				A124A2201A87BF99007A42E9 /* PagerViewController.swift in Sources */,
 				A1A16E341A90842C0052A7C6 /* UserDetailView.swift in Sources */,
 				A103AF451A866A0D00FF0B24 /* UIImage+App.swift in Sources */,
+				A1F294DA1A979FC5005E1C02 /* CAPSPageMenu.swift in Sources */,
 				A17D0C591A963A510020229B /* UIImage+ImageEffects.m in Sources */,
 				A1B1C6BD1A90C0EB001419E9 /* EntryListViewController.swift in Sources */,
 				A1F157ED1A8FB1490064EA47 /* JFMinimalNotification.m in Sources */,
