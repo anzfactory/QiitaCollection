@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SimpleListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class SimpleListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SWTableViewCellDelegate {
     
     typealias ItemTapCallback = (SimpleListViewController, Int) -> Void
 
@@ -35,6 +35,7 @@ class SimpleListViewController: UIViewController, UITableViewDataSource, UITable
         
         let dummy: UIView = UIView(frame: CGRect.zeroRect)
         self.tableView.tableFooterView = dummy
+        self.tableView.separatorColor = UIColor.borderTableView()
         
         self.tableView.dataSource = self
         self.tableView.delegate = self
@@ -52,15 +53,23 @@ class SimpleListViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     // MARK: UITableViewDataSource
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 44.0
+    }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.items.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: UITableViewCell = self.tableView.dequeueReusableCellWithIdentifier("CELL") as UITableViewCell
+        let cell: SlideTableViewCell = self.tableView.dequeueReusableCellWithIdentifier("CELL") as SlideTableViewCell
+        
+        if !cell.isReused {
+            cell.delegate = self
+        }
         
         cell.textLabel?.text = self.items[indexPath.row]
+        cell.tag = indexPath.row
         
         return cell
     }
@@ -70,5 +79,12 @@ class SimpleListViewController: UIViewController, UITableViewDataSource, UITable
         if let callback = self.tapCallback {
             callback(self, indexPath.row)
         }
+    }
+    
+    // MARK: SWTableViewCellDelegate
+    func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerRightUtilityButtonWithIndex index: Int) {
+        self.items = UserDataManager.sharedInstance.clearMutedUser(self.items[cell.tag])
+        self.tableView.reloadData()
+        Toast.show("ミュートを解除しました", style: JFMinimalNotificationStytle.StyleSuccess, title: "", targetView: self.view)
     }
 }

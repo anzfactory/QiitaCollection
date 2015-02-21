@@ -36,6 +36,8 @@
 		A1824FD71A98AD03009604B2 /* SWTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A1824FCF1A98AD03009604B2 /* SWTableViewCell.m */; };
 		A1824FD81A98AD03009604B2 /* SWUtilityButtonTapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = A1824FD11A98AD03009604B2 /* SWUtilityButtonTapGestureRecognizer.m */; };
 		A1824FD91A98AD03009604B2 /* SWUtilityButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = A1824FD31A98AD03009604B2 /* SWUtilityButtonView.m */; };
+		A1824FDB1A98D0B3009604B2 /* SlideTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1824FDA1A98D0B3009604B2 /* SlideTableViewCell.swift */; };
+		A1824FDD1A98D816009604B2 /* Array+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1824FDC1A98D816009604B2 /* Array+App.swift */; };
 		A18A85D01A85AAC10078436D /* EntryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18A85CF1A85AAC10078436D /* EntryCollectionViewController.swift */; };
 		A18A85D41A85D4EA0078436D /* QiitaApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18A85D31A85D4EA0078436D /* QiitaApiManager.swift */; };
 		A18A85D61A85D5190078436D /* EntryEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18A85D51A85D5190078436D /* EntryEntity.swift */; };
@@ -131,6 +133,8 @@
 		A1824FD11A98AD03009604B2 /* SWUtilityButtonTapGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWUtilityButtonTapGestureRecognizer.m; path = SWTableViewCell/SWUtilityButtonTapGestureRecognizer.m; sourceTree = "<group>"; };
 		A1824FD21A98AD03009604B2 /* SWUtilityButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWUtilityButtonView.h; path = SWTableViewCell/SWUtilityButtonView.h; sourceTree = "<group>"; };
 		A1824FD31A98AD03009604B2 /* SWUtilityButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWUtilityButtonView.m; path = SWTableViewCell/SWUtilityButtonView.m; sourceTree = "<group>"; };
+		A1824FDA1A98D0B3009604B2 /* SlideTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideTableViewCell.swift; sourceTree = "<group>"; };
+		A1824FDC1A98D816009604B2 /* Array+App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+App.swift"; sourceTree = "<group>"; };
 		A18A85CF1A85AAC10078436D /* EntryCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryCollectionViewController.swift; sourceTree = "<group>"; };
 		A18A85D31A85D4EA0078436D /* QiitaApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QiitaApiManager.swift; sourceTree = "<group>"; };
 		A18A85D51A85D5190078436D /* EntryEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryEntity.swift; sourceTree = "<group>"; };
@@ -201,6 +205,7 @@
 				A118A61D1A8F4AA600350841 /* EntryDetailView.swift */,
 				A1A16E331A90842C0052A7C6 /* UserDetailView.swift */,
 				A1B1C6BE1A90E55D001419E9 /* EntryTableViewCell.swift */,
+				A1824FDA1A98D0B3009604B2 /* SlideTableViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -213,6 +218,7 @@
 				A1D8A8341A8750240040C195 /* UIImageView+App.swift */,
 				A1F8D5081A88FC3C00660741 /* UIView+App.swift */,
 				A1B1C6BA1A90928E001419E9 /* UILabel+App.swift */,
+				A1824FDC1A98D816009604B2 /* Array+App.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -688,6 +694,7 @@
 				A1F294E51A986875005E1C02 /* SimpleListViewController.swift in Sources */,
 				A1824FD41A98AD03009604B2 /* NSMutableArray+SWUtilityButtons.m in Sources */,
 				A1824FBF1A9878A5009604B2 /* RECommonFunctions.m in Sources */,
+				A1824FDD1A98D816009604B2 /* Array+App.swift in Sources */,
 				A118A61B1A8F49A600350841 /* VLDContextSheetItem.m in Sources */,
 				A1D8A83A1A87917F0040C195 /* UIView+Constraint.m in Sources */,
 				A118A61A1A8F49A600350841 /* VLDContextSheet.m in Sources */,
@@ -713,6 +720,7 @@
 				A17D0C581A963A510020229B /* SCLButton.m in Sources */,
 				A103AF3A1A86141200FF0B24 /* EntryCollectionViewCell.swift in Sources */,
 				A17D0C561A963A510020229B /* SCLAlertViewResponder.m in Sources */,
+				A1824FDB1A98D0B3009604B2 /* SlideTableViewCell.swift in Sources */,
 				A17D0C571A963A510020229B /* SCLAlertViewStyleKit.m in Sources */,
 				A18A85D41A85D4EA0078436D /* QiitaApiManager.swift in Sources */,
 				A1CF433F1A8B1E350016209C /* EntryDetailViewController.swift in Sources */,

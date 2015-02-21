@@ -57,4 +57,14 @@ class UserDataManager {
     func isMutedUser(userId: String) -> Bool {
         return contains(self.muteUsers, userId)
     }
+    
+    func clearMutedUser(userId: String) -> [String] {
+        if !isMutedUser(userId) {
+            return self.muteUsers
+        }
+        
+        self.muteUsers.removeObject(userId)
+        
+        return self.muteUsers
+    }
 }

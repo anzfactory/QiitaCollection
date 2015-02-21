@@ -36,8 +36,11 @@ class UserDetailView: UIView {
         
         self.profImage.backgroundColor = UIColor.backgroundBase()
 
+        self.userId.textColor = UIColor.textBase()
         self.userId.text = ""
+        self.name.textColor = UIColor.textBase()
         self.name.text = ""
+        self.introduction.textColor = UIColor.textBase()
         self.introduction.text = ""
         
         self.attention.setImage(self.attention.imageView?.image?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: UIControlState.Normal)

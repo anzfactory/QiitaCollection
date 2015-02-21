@@ -15,7 +15,8 @@ struct QCKeys {
         ShowMinimumNotification = "QC_NotificationKey_MinimumNtofice",
         ShowLoading = "QC_NotificationKey_ShowLoading",
         HideLoading = "QC_NotificationKey_HideLoading",
-        ShowAlertYesNo = "QC_NotificationKey_ShowAlertYesNo"
+        ShowAlertYesNo = "QC_NotificationKey_ShowAlertYesNo",
+        PresentedViewController = "QC_NotificationKey_PresentedViewController"
         
     }
     

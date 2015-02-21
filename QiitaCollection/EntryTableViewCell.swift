@@ -27,6 +27,9 @@ class EntryTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         self.mainTag.backgroundColor = UIColor.backgroundDefaultImage()
+        self.title.textColor = UIColor.textBase()
+        self.date.textColor = UIColor.textBase()
+        
         self.prepare()
 
     }

@@ -30,12 +30,18 @@ extension UIColor {
     class func backgroundNavigationMenu() -> UIColor {
         return factory(119, g: 184, b: 66, a: 0.9)
     }
+    class func backgroundSwipeCellDelete() -> UIColor {
+        return UIColor.redColor()
+    }
     
     class func textNavigationBar() -> UIColor {
         return UIColor.whiteColor()
     }
     class func textPageMenuLabel() -> UIColor {
         return backgroundBase()
+    }
+    class func textBase() -> UIColor {
+        return UIColor.darkGrayColor()
     }
     
     class func borderImageViewCircle() -> UIColor {
@@ -46,6 +52,9 @@ extension UIColor {
     }
     class func borderNavigationMenuSeparator() -> UIColor {
         return backgroundBase();
+    }
+    class func borderTableView() -> UIColor {
+        return backgroundBase()
     }
     
     class func tintSegmented() -> UIColor {

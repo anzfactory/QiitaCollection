@@ -31,6 +31,15 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         self.navigationBar.barTintColor = UIColor.backgroundNavigationBar()
         self.navigationBar.tintColor = UIColor.textNavigationBar()
         
+        let center: NSNotificationCenter = NSNotificationCenter.defaultCenter()
+        center.addObserver(self, selector: "receiveShowActionSheet:", name: QCKeys.Notification.ShowActionSheet.rawValue, object: nil)
+        center.addObserver(self, selector: "receivePushViewController:", name: QCKeys.Notification.PushViewController.rawValue, object: nil)
+        center.addObserver(self, selector: "receiveShowMinimumNotification:", name: QCKeys.Notification.ShowMinimumNotification.rawValue, object: nil)
+        center.addObserver(self, selector: "receiveShowLoading", name: QCKeys.Notification.ShowLoading.rawValue, object: nil)
+        center.addObserver(self, selector: "receiveHideLoading", name: QCKeys.Notification.HideLoading.rawValue, object: nil)
+        center.addObserver(self, selector: "receiveConfirmYesNoAlert:", name: QCKeys.Notification.ShowAlertYesNo.rawValue, object: nil)
+        center.addObserver(self, selector: "receivePresentedViewController:", name: QCKeys.Notification.PresentedViewController.rawValue, object: nil)
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -39,14 +48,6 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
-        let center: NSNotificationCenter = NSNotificationCenter.defaultCenter()
-        center.addObserver(self, selector: "receiveShowActionSheet:", name: QCKeys.Notification.ShowActionSheet.rawValue, object: nil)
-        center.addObserver(self, selector: "receivePushViewController:", name: QCKeys.Notification.PushViewController.rawValue, object: nil)
-        center.addObserver(self, selector: "receiveShowMinimumNotification:", name: QCKeys.Notification.ShowMinimumNotification.rawValue, object: nil)
-        center.addObserver(self, selector: "receiveShowLoading", name: QCKeys.Notification.ShowLoading.rawValue, object: nil)
-        center.addObserver(self, selector: "receiveHideLoading", name: QCKeys.Notification.HideLoading.rawValue, object: nil)
-        center.addObserver(self, selector: "receiveConfirmYesNoAlert:", name: QCKeys.Notification.ShowAlertYesNo.rawValue, object: nil)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -58,21 +59,23 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
     }
     
     override func viewWillDisappear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        self.isDidAppear = false
         super.viewWillDisappear(animated)
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     // MARK: メソッド
     
     func makeNotice() -> JFMinimalNotification {
-        let notice: JFMinimalNotification = JFMinimalNotification(style: JFMinimalNotificationStytle.StyleDefault, title: " ", subTitle: " ", dismissalDelay: 3.0) { () -> Void in
-            self.notice.dismiss()
+        let notice: JFMinimalNotification = JFMinimalNotification(style: JFMinimalNotificationStytle.StyleDefault, title: " ", subTitle: " ", dismissalDelay: 2.0) { () -> Void in
         }
         notice.setTitleFont(UIFont(name: "HiraKakuProN-W6", size: 14.0))
         notice.setSubTitleFont(UIFont(name: "Hiragino Kaku Gothic ProN", size: 12.0))
         self.view.addSubview(notice)
         notice.layoutIfNeeded()
-        notice.presentFromTop = false
         return notice
     }
     
@@ -100,7 +103,9 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
     func hideAlert() {
         if let view = self.alertView {
             if self.alertViewStatus == .Show {
-                view.hideView()
+                if view.view.superview != nil {
+                    view.hideView()
+                }
                 self.alertViewStatus = .Dismiss
             } else if self.alertViewStatus == .Wait {
                 self.alertViewStatus = .Dismiss
@@ -140,9 +145,27 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         self.pushViewController(vc, animated: true)
     }
     
+    func receivePresentedViewController(notification: NSNotification) {
+        let vc: UIViewController = notification.object! as UIViewController
+        self.presentViewController(vc, animated: true) { () -> Void in
+            
+        }
+    }
+    
     func receiveShowMinimumNotification(notification: NSNotification) {
         
         let userInfo = notification.userInfo!
+        
+        // 表示対象viewガ設定されていたらそっちにうつす
+        if let targetView: UIView = notification.object as? UIView {
+            println("changed target view....")
+            self.notice.removeFromSuperview()
+            targetView.addSubview(self.notice)
+        } else if self.notice.superview == nil || self.notice.superview! != self.view {
+            self.notice.removeFromSuperview()
+            self.view.addSubview(self.notice)
+        }
+        
         var title: String = userInfo[QCKeys.MinimumNotification.Title.rawValue] as? String ?? ""
         let subTitle: String = userInfo[QCKeys.MinimumNotification.SubTitle.rawValue] as? String ?? ""
         let styleNumber: NSNumber = userInfo[QCKeys.MinimumNotification.Style.rawValue] as NSNumber
@@ -205,6 +228,7 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
 
     // MARK: UINavigationControllerDelegate
     func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
+        
         let backButton: UIBarButtonItem = UIBarButtonItem()
         backButton.title = ""
         viewController.navigationItem.backBarButtonItem = backButton;

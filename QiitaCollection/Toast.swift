@@ -10,10 +10,10 @@ import UIKit
 
 class Toast: NSObject {
    
-    class func show(message: String, style: JFMinimalNotificationStytle, title: String = "") {
+    class func show(message: String, style: JFMinimalNotificationStytle, title: String = "", targetView: UIView? = nil) {
         NSNotificationCenter.defaultCenter()
             .postNotificationName(QCKeys.Notification.ShowMinimumNotification.rawValue,
-                object: nil,
+                object: targetView,
                 userInfo: [
                     QCKeys.MinimumNotification.Title.rawValue: title,
                     QCKeys.MinimumNotification.SubTitle.rawValue: message,

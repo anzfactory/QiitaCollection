@@ -105,10 +105,9 @@ class PagerViewController: BaseViewController {
             })
             
         }
-        let nc: UINavigationController = UINavigationController(rootViewController: vc)
-        self.presentViewController(nc, animated: true) { () -> Void in
-            
-        }
+        let nc: UINavigationController = self.storyboard?.instantiateViewControllerWithIdentifier("BlankNC") as UINavigationController
+        nc.setViewControllers([vc], animated: false)
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PresentedViewController.rawValue, object: nc)
     }
 
 }
