@@ -149,6 +149,12 @@ static CGFloat const kNotificationAccessoryPadding = 10.0f;
 
 - (void)didMoveToSuperview
 {
+    
+    if (!self.superview && [self.dismissalTimer isValid]) {
+        // 削除されたり映されたりされたってことなので、timerをキャンセル
+        [self.dismissalTimer invalidate];
+    }
+    
     if (self.isReadyToDisplay) {
         [self configureInitialNotificationConstraintsForTopPresentation:self.presentFromTop];
     }
