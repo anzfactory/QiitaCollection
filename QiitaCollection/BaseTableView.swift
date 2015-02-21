@@ -13,6 +13,11 @@ class BaseTableView: UITableView {
     var items: [EntityProtocol] = [EntityProtocol]()
     var page: Int = 1
     
+    override func awakeFromNib() {
+        let dummy: UIView = UIView(frame: CGRect.zeroRect)
+        self.tableFooterView = dummy
+    }
+    
     func loadedItems<T:EntityProtocol>(items: [T], isError: Bool, isAppendable: ((T) -> Bool)?) {
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoading.rawValue, object: nil);
         

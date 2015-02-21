@@ -27,6 +27,9 @@ extension UIColor {
     class func backgroundUserInfo() -> UIColor {
         return factory(243, g: 246, b: 241, a: 1)
     }
+    class func backgroundNavigationMenu() -> UIColor {
+        return factory(119, g: 184, b: 66, a: 0.9)
+    }
     
     class func textNavigationBar() -> UIColor {
         return UIColor.whiteColor()
@@ -40,6 +43,9 @@ extension UIColor {
     }
     class func borderPageMenuIndicator() -> UIColor {
         return UIColor.orangeColor()
+    }
+    class func borderNavigationMenuSeparator() -> UIColor {
+        return backgroundBase();
     }
     
     class func tintSegmented() -> UIColor {

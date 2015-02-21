@@ -78,7 +78,7 @@ class UserDetailViewController: UIViewController, UserDetailViewDelegate {
             NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoading.rawValue, object: nil);
             
             if isError {
-                self.showToast("ユーザーデータを取得できませんでした…", style: JFMinimalNotificationStytle.StyleWarning)
+                Toast.show("ユーザーデータを取得できませんでした…", style: JFMinimalNotificationStytle.StyleWarning)
                 return
             }
             
@@ -102,25 +102,13 @@ class UserDetailViewController: UIViewController, UserDetailViewDelegate {
         let action: SCLActionBlock = {() -> Void in
             UserDataManager.sharedInstance.appendMuteUserId(self.displayUserId!)
             self.userInfoContainer.attention.hidden = true
-            self.showToast("ミュートユーザーに追加しました", style: JFMinimalNotificationStytle.StyleSuccess)
+            Toast.show("ミュートユーザーに追加しました", style: JFMinimalNotificationStytle.StyleSuccess)
             return
         }
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowAlertYesNo.rawValue, object: nil, userInfo: [
             QCKeys.AlertView.Message.rawValue: "ミュートユーザーに入れると、すべての記事リストから表示されなくなります\n本当に良いので？",
             QCKeys.AlertView.YesAction.rawValue: AlertViewSender(action: action, title: "追加する")
         ])
-    }
-    
-    
-    func showToast(message: String, style: JFMinimalNotificationStytle, title: String = "") {
-        NSNotificationCenter.defaultCenter()
-            .postNotificationName(QCKeys.Notification.ShowMinimumNotification.rawValue,
-                object: nil,
-                userInfo: [
-                    QCKeys.MinimumNotification.Title.rawValue: title,
-                    QCKeys.MinimumNotification.SubTitle.rawValue: message,
-                    QCKeys.MinimumNotification.Style.rawValue: NSNumber(integer: style.rawValue)
-                ])
     }
     
     // MARK: UserDetailViewDelegate

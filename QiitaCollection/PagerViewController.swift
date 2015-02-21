@@ -14,6 +14,7 @@ class PagerViewController: BaseViewController {
     var leftBarItem: UIBarButtonItem?
     var pageMenu : CAPSPageMenu!
     var controllerArray : [UIViewController] = []
+    lazy var menu: REMenu = self.makeMenu()
     
     // MARK: ライフサイクル
     override func viewDidLoad() {
@@ -56,7 +57,58 @@ class PagerViewController: BaseViewController {
     }
 
     // MARK: メソッド
+    func makeMenu() -> REMenu {
+        let menuItemMuteUsers: REMenuItem = REMenuItem(title: "ミュートリスト", image: nil, highlightedImage: nil) { (menuItem) -> Void in
+            self.openMuteUserList()
+        }
+        let menu: REMenu = REMenu(items: [menuItemMuteUsers])
+        menu.backgroundColor = UIColor.backgroundNavigationMenu()
+        menu.textColor = UIColor.textNavigationBar()
+        menu.highlightedBackgroundColor = UIColor.backgroundBase()
+        menu.borderWidth = 0
+        menu.separatorHeight = 0.5
+        menu.separatorColor = UIColor.borderNavigationMenuSeparator()
+        menu.highlightedTextColor = UIColor.textNavigationBar()
+        menu.font = UIFont.boldSystemFontOfSize(12.0)
+        return menu
+    }
+    
     func tapSetting() {
+        
+        if self.menu.isOpen {
+            self.menu.close()
+            return
+        }
+        
+        self.menu.showFromNavigationController(self.navigationController)
+    }
+    
+    func openMuteUserList() {
+        
+        let mutedUsers: [String] = UserDataManager.sharedInstance.muteUsers
+        if (mutedUsers.isEmpty) {
+            Toast.show("ミュートユーザーが追加されていません", style: JFMinimalNotificationStytle.StyleInfo)
+            return
+        }
+        
+        let vc: SimpleListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SimpleListVC") as SimpleListViewController
+        vc.items = UserDataManager.sharedInstance.muteUsers
+        vc.title = "ミュートリスト"
+        vc.tapCallback = {(vc: SimpleListViewController, index: Int) -> Void in
+            
+            // まずは閉じる
+            vc.dismissViewControllerAnimated(true, completion: { () -> Void in
+                // user詳細
+                let userVC: UserDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UserDetailVC") as UserDetailViewController
+                userVC.displayUserId = mutedUsers[index]
+                NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: userVC)
+            })
+            
+        }
+        let nc: UINavigationController = UINavigationController(rootViewController: vc)
+        self.presentViewController(nc, animated: true) { () -> Void in
+            
+        }
     }
 
 }

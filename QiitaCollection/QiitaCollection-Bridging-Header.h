@@ -9,3 +9,4 @@
 #import "VLDContextSheetItemView.h"
 #import "JFMinimalNotification.h"
 #import "SCLAlertView.h"
+#import "REMenu.h"

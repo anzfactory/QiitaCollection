@@ -581,7 +581,7 @@
         <!--Simple List View Controller-->
         <scene sceneID="LHr-z8-vD1">
             <objects>
-                <viewController storyboardIdentifier="SimpleListVC" id="eYc-Yk-GQh" customClass="SimpleListViewController" customModule="QiitaCollection" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SimpleListVC" automaticallyAdjustsScrollViewInsets="NO" id="eYc-Yk-GQh" customClass="SimpleListViewController" customModule="QiitaCollection" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2Oj-d7-bLi"/>
                         <viewControllerLayoutGuide type="bottom" id="QNM-lz-JYU"/>
@@ -605,10 +605,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="aij-Fb-WB4" firstAttribute="top" secondItem="2Oj-d7-bLi" secondAttribute="bottom" id="5S9-cB-Lfb"/>
                             <constraint firstAttribute="trailing" secondItem="aij-Fb-WB4" secondAttribute="trailing" id="7zt-PC-rkJ"/>
-                            <constraint firstItem="QNM-lz-JYU" firstAttribute="top" secondItem="aij-Fb-WB4" secondAttribute="bottom" id="Iqo-yB-lWT"/>
                             <constraint firstItem="aij-Fb-WB4" firstAttribute="leading" secondItem="32G-og-dNQ" secondAttribute="leading" id="Lwm-hz-srR"/>
-                            <constraint firstItem="aij-Fb-WB4" firstAttribute="top" secondItem="2Oj-d7-bLi" secondAttribute="bottom" id="x6Z-KS-Zmd"/>
+                            <constraint firstItem="QNM-lz-JYU" firstAttribute="top" secondItem="aij-Fb-WB4" secondAttribute="bottom" id="quy-8o-QNf"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>

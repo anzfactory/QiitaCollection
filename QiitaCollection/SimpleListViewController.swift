@@ -9,16 +9,32 @@
 import UIKit
 
 class SimpleListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    typealias ItemTapCallback = (SimpleListViewController, Int) -> Void
 
     // MARK: UI
     @IBOutlet weak var tableView: UITableView!
     
     // MARK: プロパティ
     var items: [String] = [String]()
+    var tapCallback: ItemTapCallback? = nil
     
     // MARK: ライフサイクル
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let nav = self.navigationController {
+            // ナビゲーションコントローラー
+            nav.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.textNavigationBar()]
+            nav.navigationBar.barTintColor = UIColor.backgroundNavigationBar()
+            nav.navigationBar.tintColor = UIColor.textNavigationBar()
+            
+            let close: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon_x"), style: UIBarButtonItemStyle.Plain, target: self, action: "tapClose")
+            self.navigationItem.leftBarButtonItem = close
+        }
+        
+        let dummy: UIView = UIView(frame: CGRect.zeroRect)
+        self.tableView.tableFooterView = dummy
         
         self.tableView.dataSource = self
         self.tableView.delegate = self
@@ -29,6 +45,11 @@ class SimpleListViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     // MARK: メソッド
+    func tapClose() {
+        self.dismissViewControllerAnimated(true, completion: { () -> Void in
+            
+        })
+    }
     
     // MARK: UITableViewDataSource
 
@@ -44,4 +65,10 @@ class SimpleListViewController: UIViewController, UITableViewDataSource, UITable
         return cell
     }
     
+    // MARK: UITableViewDelegate
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if let callback = self.tapCallback {
+            callback(self, indexPath.row)
+        }
+    }
 }
