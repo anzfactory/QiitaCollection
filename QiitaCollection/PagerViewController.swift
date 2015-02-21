@@ -21,6 +21,8 @@ class PagerViewController: BaseViewController {
         
         self.title = "(ﾟ∀ﾟ)ｷﾀｺﾚ!!"
         
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon_setting"), style: UIBarButtonItemStyle.Plain, target: self, action: "tapSetting")
+        
         let vc : UIViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryCollectionVC") as UIViewController
         vc.title = "新着"
         controllerArray.append(vc)
@@ -52,17 +54,9 @@ class PagerViewController: BaseViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // MARK: メソッド
+    func tapSetting() {
     }
-    */
-
-    
 
 }

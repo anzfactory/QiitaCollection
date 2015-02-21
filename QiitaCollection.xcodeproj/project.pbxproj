@@ -53,6 +53,7 @@
 		A1F157F11A8FB1490064EA47 /* UIView+Round.m in Sources */ = {isa = PBXBuildFile; fileRef = A1F157EC1A8FB1490064EA47 /* UIView+Round.m */; };
 		A1F294DA1A979FC5005E1C02 /* CAPSPageMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F294D71A979FC5005E1C02 /* CAPSPageMenu.swift */; };
 		A1F294DE1A97A270005E1C02 /* UserDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F294DD1A97A270005E1C02 /* UserDataManager.swift */; };
+		A1F294E51A986875005E1C02 /* SimpleListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F294E41A986875005E1C02 /* SimpleListViewController.swift */; };
 		A1F8D5091A88FC3C00660741 /* UIView+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F8D5081A88FC3C00660741 /* UIView+App.swift */; };
 /* End PBXBuildFile section */
 
@@ -134,6 +135,7 @@
 		A1F157EC1A8FB1490064EA47 /* UIView+Round.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Round.m"; sourceTree = "<group>"; };
 		A1F294D71A979FC5005E1C02 /* CAPSPageMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAPSPageMenu.swift; sourceTree = "<group>"; };
 		A1F294DD1A97A270005E1C02 /* UserDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataManager.swift; sourceTree = "<group>"; };
+		A1F294E41A986875005E1C02 /* SimpleListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleListViewController.swift; sourceTree = "<group>"; };
 		A1F8D5081A88FC3C00660741 /* UIView+App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+App.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -254,6 +256,7 @@
 				A124A21F1A87BF99007A42E9 /* PagerViewController.swift */,
 				A1A16E311A90757C0052A7C6 /* UserDetailViewController.swift */,
 				A1B1C6BC1A90C0EB001419E9 /* EntryListViewController.swift */,
+				A1F294E41A986875005E1C02 /* SimpleListViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -596,6 +599,7 @@
 				A1B1C6BF1A90E55D001419E9 /* EntryTableViewCell.swift in Sources */,
 				A103AF431A865DE700FF0B24 /* UIColor+App.swift in Sources */,
 				A17D0C551A963A510020229B /* SCLAlertView.m in Sources */,
+				A1F294E51A986875005E1C02 /* SimpleListViewController.swift in Sources */,
 				A118A61B1A8F49A600350841 /* VLDContextSheetItem.m in Sources */,
 				A1D8A83A1A87917F0040C195 /* UIView+Constraint.m in Sources */,
 				A118A61A1A8F49A600350841 /* VLDContextSheet.m in Sources */,

@@ -578,6 +578,48 @@
             </objects>
             <point key="canvasLocation" x="-948" y="1090"/>
         </scene>
+        <!--Simple List View Controller-->
+        <scene sceneID="LHr-z8-vD1">
+            <objects>
+                <viewController storyboardIdentifier="SimpleListVC" id="eYc-Yk-GQh" customClass="SimpleListViewController" customModule="QiitaCollection" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="2Oj-d7-bLi"/>
+                        <viewControllerLayoutGuide type="bottom" id="QNM-lz-JYU"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="32G-og-dNQ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="aij-Fb-WB4">
+                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" restorationIdentifier="CELL" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CELL" id="QAG-r7-hA1">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QAG-r7-hA1" id="HaY-dQ-N0d">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="aij-Fb-WB4" secondAttribute="trailing" id="7zt-PC-rkJ"/>
+                            <constraint firstItem="QNM-lz-JYU" firstAttribute="top" secondItem="aij-Fb-WB4" secondAttribute="bottom" id="Iqo-yB-lWT"/>
+                            <constraint firstItem="aij-Fb-WB4" firstAttribute="leading" secondItem="32G-og-dNQ" secondAttribute="leading" id="Lwm-hz-srR"/>
+                            <constraint firstItem="aij-Fb-WB4" firstAttribute="top" secondItem="2Oj-d7-bLi" secondAttribute="bottom" id="x6Z-KS-Zmd"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="tableView" destination="aij-Fb-WB4" id="N8F-IM-0ZB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oer-RM-Y01" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-601" y="-174"/>
+        </scene>
         <!--Entry Detail View Controller-->
         <scene sceneID="z0O-1e-VJN">
             <objects>

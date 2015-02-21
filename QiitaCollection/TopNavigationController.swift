@@ -25,10 +25,12 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
     // MARK: ライフサイクル
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.delegate = self;
         self.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.textNavigationBar()]
         self.navigationBar.barTintColor = UIColor.backgroundNavigationBar()
         self.navigationBar.tintColor = UIColor.textNavigationBar()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -59,16 +61,6 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         NSNotificationCenter.defaultCenter().removeObserver(self)
         super.viewWillDisappear(animated)
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
     // MARK: メソッド
     
