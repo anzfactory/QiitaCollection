@@ -10,3 +10,4 @@
 #import "JFMinimalNotification.h"
 #import "SCLAlertView.h"
 #import "REMenu.h"
+#import "SWTableViewCell.h"

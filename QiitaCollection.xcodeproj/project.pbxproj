@@ -30,6 +30,12 @@
 		A1824FC21A9878A5009604B2 /* REMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A1824FBC1A9878A5009604B2 /* REMenuItem.m */; };
 		A1824FC31A9878A5009604B2 /* REMenuItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = A1824FBE1A9878A5009604B2 /* REMenuItemView.m */; };
 		A1824FC61A987FEE009604B2 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1824FC51A987FEE009604B2 /* Toast.swift */; };
+		A1824FD41A98AD03009604B2 /* NSMutableArray+SWUtilityButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = A1824FC91A98AD03009604B2 /* NSMutableArray+SWUtilityButtons.m */; };
+		A1824FD51A98AD03009604B2 /* SWCellScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = A1824FCB1A98AD03009604B2 /* SWCellScrollView.m */; };
+		A1824FD61A98AD03009604B2 /* SWLongPressGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = A1824FCD1A98AD03009604B2 /* SWLongPressGestureRecognizer.m */; };
+		A1824FD71A98AD03009604B2 /* SWTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A1824FCF1A98AD03009604B2 /* SWTableViewCell.m */; };
+		A1824FD81A98AD03009604B2 /* SWUtilityButtonTapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = A1824FD11A98AD03009604B2 /* SWUtilityButtonTapGestureRecognizer.m */; };
+		A1824FD91A98AD03009604B2 /* SWUtilityButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = A1824FD31A98AD03009604B2 /* SWUtilityButtonView.m */; };
 		A18A85D01A85AAC10078436D /* EntryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18A85CF1A85AAC10078436D /* EntryCollectionViewController.swift */; };
 		A18A85D41A85D4EA0078436D /* QiitaApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18A85D31A85D4EA0078436D /* QiitaApiManager.swift */; };
 		A18A85D61A85D5190078436D /* EntryEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18A85D51A85D5190078436D /* EntryEntity.swift */; };
@@ -113,6 +119,18 @@
 		A1824FBD1A9878A5009604B2 /* REMenuItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REMenuItemView.h; sourceTree = "<group>"; };
 		A1824FBE1A9878A5009604B2 /* REMenuItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REMenuItemView.m; sourceTree = "<group>"; };
 		A1824FC51A987FEE009604B2 /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
+		A1824FC81A98AD03009604B2 /* NSMutableArray+SWUtilityButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableArray+SWUtilityButtons.h"; path = "SWTableViewCell/NSMutableArray+SWUtilityButtons.h"; sourceTree = "<group>"; };
+		A1824FC91A98AD03009604B2 /* NSMutableArray+SWUtilityButtons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableArray+SWUtilityButtons.m"; path = "SWTableViewCell/NSMutableArray+SWUtilityButtons.m"; sourceTree = "<group>"; };
+		A1824FCA1A98AD03009604B2 /* SWCellScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWCellScrollView.h; path = SWTableViewCell/SWCellScrollView.h; sourceTree = "<group>"; };
+		A1824FCB1A98AD03009604B2 /* SWCellScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWCellScrollView.m; path = SWTableViewCell/SWCellScrollView.m; sourceTree = "<group>"; };
+		A1824FCC1A98AD03009604B2 /* SWLongPressGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWLongPressGestureRecognizer.h; path = SWTableViewCell/SWLongPressGestureRecognizer.h; sourceTree = "<group>"; };
+		A1824FCD1A98AD03009604B2 /* SWLongPressGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWLongPressGestureRecognizer.m; path = SWTableViewCell/SWLongPressGestureRecognizer.m; sourceTree = "<group>"; };
+		A1824FCE1A98AD03009604B2 /* SWTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWTableViewCell.h; path = SWTableViewCell/SWTableViewCell.h; sourceTree = "<group>"; };
+		A1824FCF1A98AD03009604B2 /* SWTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWTableViewCell.m; path = SWTableViewCell/SWTableViewCell.m; sourceTree = "<group>"; };
+		A1824FD01A98AD03009604B2 /* SWUtilityButtonTapGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWUtilityButtonTapGestureRecognizer.h; path = SWTableViewCell/SWUtilityButtonTapGestureRecognizer.h; sourceTree = "<group>"; };
+		A1824FD11A98AD03009604B2 /* SWUtilityButtonTapGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWUtilityButtonTapGestureRecognizer.m; path = SWTableViewCell/SWUtilityButtonTapGestureRecognizer.m; sourceTree = "<group>"; };
+		A1824FD21A98AD03009604B2 /* SWUtilityButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWUtilityButtonView.h; path = SWTableViewCell/SWUtilityButtonView.h; sourceTree = "<group>"; };
+		A1824FD31A98AD03009604B2 /* SWUtilityButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWUtilityButtonView.m; path = SWTableViewCell/SWUtilityButtonView.m; sourceTree = "<group>"; };
 		A18A85CF1A85AAC10078436D /* EntryCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryCollectionViewController.swift; sourceTree = "<group>"; };
 		A18A85D31A85D4EA0078436D /* QiitaApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QiitaApiManager.swift; sourceTree = "<group>"; };
 		A18A85D51A85D5190078436D /* EntryEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryEntity.swift; sourceTree = "<group>"; };
@@ -272,6 +290,25 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
+		A1824FC71A98ACF2009604B2 /* SWTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				A1824FC81A98AD03009604B2 /* NSMutableArray+SWUtilityButtons.h */,
+				A1824FC91A98AD03009604B2 /* NSMutableArray+SWUtilityButtons.m */,
+				A1824FCA1A98AD03009604B2 /* SWCellScrollView.h */,
+				A1824FCB1A98AD03009604B2 /* SWCellScrollView.m */,
+				A1824FCC1A98AD03009604B2 /* SWLongPressGestureRecognizer.h */,
+				A1824FCD1A98AD03009604B2 /* SWLongPressGestureRecognizer.m */,
+				A1824FCE1A98AD03009604B2 /* SWTableViewCell.h */,
+				A1824FCF1A98AD03009604B2 /* SWTableViewCell.m */,
+				A1824FD01A98AD03009604B2 /* SWUtilityButtonTapGestureRecognizer.h */,
+				A1824FD11A98AD03009604B2 /* SWUtilityButtonTapGestureRecognizer.m */,
+				A1824FD21A98AD03009604B2 /* SWUtilityButtonView.h */,
+				A1824FD31A98AD03009604B2 /* SWUtilityButtonView.m */,
+			);
+			name = SWTableViewCell;
+			sourceTree = "<group>";
+		};
 		A18A85D11A85D4C50078436D /* Entities */ = {
 			isa = PBXGroup;
 			children = (
@@ -408,6 +445,7 @@
 		A1D8A8361A87914B0040C195 /* ObjC */ = {
 			isa = PBXGroup;
 			children = (
+				A1824FC71A98ACF2009604B2 /* SWTableViewCell */,
 				A1824FB41A987890009604B2 /* REMenu */,
 				A1F294D61A979F9A005E1C02 /* PageMenu */,
 				A17D0C4A1A963A410020229B /* SCLAlertView */,
@@ -630,6 +668,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1824FC31A9878A5009604B2 /* REMenuItemView.m in Sources */,
+				A1824FD81A98AD03009604B2 /* SWUtilityButtonTapGestureRecognizer.m in Sources */,
+				A1824FD71A98AD03009604B2 /* SWTableViewCell.m in Sources */,
 				A1824FC61A987FEE009604B2 /* Toast.swift in Sources */,
 				A1F157F11A8FB1490064EA47 /* UIView+Round.m in Sources */,
 				A1F8D5091A88FC3C00660741 /* UIView+App.swift in Sources */,
@@ -646,6 +686,7 @@
 				A103AF431A865DE700FF0B24 /* UIColor+App.swift in Sources */,
 				A17D0C551A963A510020229B /* SCLAlertView.m in Sources */,
 				A1F294E51A986875005E1C02 /* SimpleListViewController.swift in Sources */,
+				A1824FD41A98AD03009604B2 /* NSMutableArray+SWUtilityButtons.m in Sources */,
 				A1824FBF1A9878A5009604B2 /* RECommonFunctions.m in Sources */,
 				A118A61B1A8F49A600350841 /* VLDContextSheetItem.m in Sources */,
 				A1D8A83A1A87917F0040C195 /* UIView+Constraint.m in Sources */,
@@ -654,6 +695,7 @@
 				A1A16E321A90757C0052A7C6 /* UserDetailViewController.swift in Sources */,
 				A103AF471A867A9100FF0B24 /* TagEntity.swift in Sources */,
 				A18A85D61A85D5190078436D /* EntryEntity.swift in Sources */,
+				A1824FD61A98AD03009604B2 /* SWLongPressGestureRecognizer.m in Sources */,
 				A124A2201A87BF99007A42E9 /* PagerViewController.swift in Sources */,
 				A1A16E341A90842C0052A7C6 /* UserDetailView.swift in Sources */,
 				A103AF451A866A0D00FF0B24 /* UIImage+App.swift in Sources */,
@@ -674,7 +716,9 @@
 				A17D0C571A963A510020229B /* SCLAlertViewStyleKit.m in Sources */,
 				A18A85D41A85D4EA0078436D /* QiitaApiManager.swift in Sources */,
 				A1CF433F1A8B1E350016209C /* EntryDetailViewController.swift in Sources */,
+				A1824FD91A98AD03009604B2 /* SWUtilityButtonView.m in Sources */,
 				A118A61E1A8F4AA600350841 /* EntryDetailView.swift in Sources */,
+				A1824FD51A98AD03009604B2 /* SWCellScrollView.m in Sources */,
 				A103AF401A86553000FF0B24 /* UserEntity.swift in Sources */,
 				A1824FC11A9878A5009604B2 /* REMenuContainerView.m in Sources */,
 			);
