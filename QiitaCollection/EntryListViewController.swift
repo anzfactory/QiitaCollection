@@ -55,7 +55,9 @@ class EntryListViewController: UIViewController, UITableViewDataSource, UITableV
     func loadData() {
         
         let callback = {(items: [EntryEntity], isError: Bool) -> Void in
-            self.tableView.loadedItems(items, isError: isError)
+            self.tableView.loadedItems(items, isError: isError, isAppendable: { (item: EntryEntity) -> Bool in
+                return !contains(UserDataManager.sharedInstance.muteUsers, item.postUser.id)
+            })
         }
         
         // リストタイプによってクエリ作成

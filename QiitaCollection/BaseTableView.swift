@@ -13,7 +13,7 @@ class BaseTableView: UITableView {
     var items: [EntityProtocol] = [EntityProtocol]()
     var page: Int = 1
     
-    func loadedItems<T:EntityProtocol>(items: [T], isError: Bool) {
+    func loadedItems<T:EntityProtocol>(items: [T], isError: Bool, isAppendable: ((T) -> Bool)?) {
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoading.rawValue, object: nil);
         
         if isError {
@@ -36,7 +36,9 @@ class BaseTableView: UITableView {
         }
         
         for item: T in items {
-            self.items.append(item)
+            if (isAppendable == nil || isAppendable!(item)) {
+                self.items.append(item)
+            }
         }
         
         self.page++

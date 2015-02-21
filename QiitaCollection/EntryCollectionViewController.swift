@@ -19,7 +19,6 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
     // MARK: ライフサイクル
     override func viewDidLoad() {
         super.viewDidLoad()
-        println("view didload")
         let longPressGesture: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: "longPress:")
         self.collectionView.addGestureRecognizer(longPressGesture)
         
@@ -30,7 +29,6 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        println("view will appear")
         refresh()
     }
     override func didReceiveMemoryWarning() {
@@ -46,7 +44,9 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
     }
     func load() {
         self.qiitaManager.getEntriesNew(self.collectionView.page, completion: { (items, isError) -> Void in
-            self.collectionView.loadedItems(items, isError:isError)
+            self.collectionView.loadedItems(items, isError: isError, isAppendable: { (item: EntryEntity) -> Bool in
+                return !contains(UserDataManager.sharedInstance.muteUsers, item.postUser.id)
+            })
         })
     }
     

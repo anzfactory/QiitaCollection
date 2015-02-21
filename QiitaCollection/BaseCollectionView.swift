@@ -13,7 +13,7 @@ class BaseCollectionView: UICollectionView {
     var items: [EntityProtocol] = [EntityProtocol]()
     var page: Int = 1
 
-    func loadedItems<T:EntityProtocol>(items: [T], isError: Bool) {
+    func loadedItems<T:EntityProtocol>(items: [T], isError: Bool, isAppendable: ((T) -> Bool)?) {
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoading.rawValue, object: nil)
         
         if isError {
@@ -34,10 +34,13 @@ class BaseCollectionView: UICollectionView {
             // リフレッシュ対象なのでリストクリア
             self.items.removeAll(keepCapacity: false)
         }
-
         
         for item: T in items {
-            self.items.append(item)
+            
+            if (isAppendable == nil || isAppendable!(item)) {
+                self.items.append(item)
+            }
+            
         }
         
         self.page++

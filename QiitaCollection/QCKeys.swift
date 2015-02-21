@@ -9,11 +9,14 @@
 struct QCKeys {
     
     enum Notification: String {
-        case ShowActionSheet = "QC_NotificationKey_ShowActionSheet"
-        case PushViewController = "QC_NotificationKey_PushViewController"
-        case ShowMinimumNotification = "QC_NotificationKey_MinimumNtofice"
-        case ShowLoading = "QC_NotificationKey_ShowLoading"
-        case HideLoading = "QC_NotificationKey_HideLoading"
+        case
+        ShowActionSheet = "QC_NotificationKey_ShowActionSheet",
+        PushViewController = "QC_NotificationKey_PushViewController",
+        ShowMinimumNotification = "QC_NotificationKey_MinimumNtofice",
+        ShowLoading = "QC_NotificationKey_ShowLoading",
+        HideLoading = "QC_NotificationKey_HideLoading",
+        ShowAlertYesNo = "QC_NotificationKey_ShowAlertYesNo"
+        
     }
     
     enum ActionSheet: String {
@@ -28,5 +31,13 @@ struct QCKeys {
         Title = "Title",
         SubTitle = "SubTitle",
         Style = "Style"
+    }
+    
+    enum AlertView: String {
+        case
+        Title = "Title",
+        Message = "Message",
+        YesAction = "Yes-Action",
+        NoTitle = "No-Title"
     }
 }

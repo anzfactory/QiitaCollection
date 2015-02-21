@@ -78,13 +78,7 @@ class UserDetailViewController: UIViewController, UserDetailViewDelegate {
             NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoading.rawValue, object: nil);
             
             if isError {
-                NSNotificationCenter.defaultCenter()
-                    .postNotificationName(QCKeys.Notification.ShowMinimumNotification.rawValue,
-                        object: nil,
-                        userInfo: [
-                            QCKeys.MinimumNotification.SubTitle.rawValue: "ユーザーデータを取得できませんでした…",
-                            QCKeys.MinimumNotification.Style.rawValue: NSNumber(integer: JFMinimalNotificationStytle.StyleWarning.rawValue)
-                        ])
+                self.showToast("ユーザーデータを取得できませんでした…", style: JFMinimalNotificationStytle.StyleWarning)
                 return
             }
             
@@ -101,6 +95,34 @@ class UserDetailViewController: UIViewController, UserDetailViewDelegate {
         return vc
     }
     
+    func confirmAddedMuteUser() {
+        // TODO: 認証処理をくわえたら自身じゃないかちぇっく
+        
+        // アラート表示
+        let action: SCLActionBlock = {() -> Void in
+            UserDataManager.sharedInstance.appendMuteUserId(self.displayUserId!)
+            self.userInfoContainer.attention.hidden = true
+            self.showToast("ミュートユーザーに追加しました", style: JFMinimalNotificationStytle.StyleSuccess)
+            return
+        }
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowAlertYesNo.rawValue, object: nil, userInfo: [
+            QCKeys.AlertView.Message.rawValue: "ミュートユーザーに入れると、すべての記事リストから表示されなくなります\n本当に良いので？",
+            QCKeys.AlertView.YesAction.rawValue: AlertViewSender(action: action, title: "追加する")
+        ])
+    }
+    
+    
+    func showToast(message: String, style: JFMinimalNotificationStytle, title: String = "") {
+        NSNotificationCenter.defaultCenter()
+            .postNotificationName(QCKeys.Notification.ShowMinimumNotification.rawValue,
+                object: nil,
+                userInfo: [
+                    QCKeys.MinimumNotification.Title.rawValue: title,
+                    QCKeys.MinimumNotification.SubTitle.rawValue: message,
+                    QCKeys.MinimumNotification.Style.rawValue: NSNumber(integer: style.rawValue)
+                ])
+    }
+    
     // MARK: UserDetailViewDelegate
     func userDetailView(view: UserDetailView, sender: UIButton) {
         var urlString: String = ""
@@ -114,6 +136,8 @@ class UserDetailViewController: UIViewController, UserDetailViewDelegate {
             urlString = "https://www.facebook.com/" + self.displayUser!.facebook
         } else if sender == view.linkedin && !self.displayUser!.linkedin.isEmpty {
             urlString = "https://www.linkedin.com/in/" + self.displayUser!.linkedin
+        } else if (sender == view.attention) {
+            self.confirmAddedMuteUser()
         }
         
         if urlString.isEmpty {

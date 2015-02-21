@@ -289,6 +289,13 @@ public class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureReco
         for controller in controllerArray {
             if controller.isKindOfClass(UIViewController) {
                 if index == 0.0 {
+                    
+                    /* MEMO 2015.02.21
+                       このタイミングでviewWill〜 viewDid〜 よぶと 追加したvcの viewDidLoad より先に呼ばれるので無し
+                       自身のviewWillAppearがよばれたときに呼ぶように変更する
+                       ただし、自身の viewWillAppear もそのままじゃ呼ばれない(こいつ自体がaddSubviewのため)ので
+                       追加したVC側で明示的によんでやる
+                    */
                     // Add first two controllers to scrollview and as child view controller
 //                    (controller as UIViewController).viewWillAppear(true)
                     addPageAtIndex(0)
