@@ -24,6 +24,7 @@ class UserDetailView: UIView {
     @IBOutlet weak var facebook: UIButton!
     @IBOutlet weak var linkedin: UIButton!
     @IBOutlet weak var attention: UIButton!
+    @IBOutlet weak var eye: UIButton!
     
     // MARK: 制約
     @IBOutlet weak var constraintIntroductionHeight: NSLayoutConstraint!
@@ -60,6 +61,7 @@ class UserDetailView: UIView {
         self.facebook.enabled = !info.facebook.isEmpty
         self.linkedin.enabled = !info.linkedin.isEmpty
         self.attention.hidden = UserDataManager.sharedInstance.isMutedUser(info.id)
+        self.eye.hidden = !self.attention.hidden
     }
     
     @IBAction func tap(sender: UIButton) {

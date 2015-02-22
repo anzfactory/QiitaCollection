@@ -102,12 +102,27 @@ class UserDetailViewController: UIViewController, UserDetailViewDelegate {
         let action: SCLActionBlock = {() -> Void in
             UserDataManager.sharedInstance.appendMuteUserId(self.displayUserId!)
             self.userInfoContainer.attention.hidden = true
+            self.userInfoContainer.eye.hidden = !self.userInfoContainer.attention.hidden
             Toast.show("ミュートユーザーに追加しました", style: JFMinimalNotificationStytle.StyleSuccess)
             return
         }
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowAlertYesNo.rawValue, object: nil, userInfo: [
-            QCKeys.AlertView.Message.rawValue: "ミュートユーザーに入れると、すべての記事リストから表示されなくなります\n本当に良いので？",
+            QCKeys.AlertView.Message.rawValue: "ミュートユーザーに入れると、すべての投稿リストから表示されなくなります\n本当に良いので？",
             QCKeys.AlertView.YesAction.rawValue: AlertViewSender(action: action, title: "追加する")
+        ])
+    }
+    
+    func confirmClearMuted() {
+        let action: SCLActionBlock = {() -> Void in
+            UserDataManager.sharedInstance.clearMutedUser(self.displayUserId!)
+            self.userInfoContainer.attention.hidden = false
+            self.userInfoContainer.eye.hidden = !self.userInfoContainer.attention.hidden
+            Toast.show("ミュートを解除しました", style: JFMinimalNotificationStytle.StyleSuccess)
+            return
+        }
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowAlertYesNo.rawValue, object: nil, userInfo: [
+            QCKeys.AlertView.Message.rawValue: "ミュートを解除すると、投稿リストに表示されるようになります",
+            QCKeys.AlertView.YesAction.rawValue: AlertViewSender(action: action, title: "解除する")
         ])
     }
     
@@ -124,8 +139,10 @@ class UserDetailViewController: UIViewController, UserDetailViewDelegate {
             urlString = "https://www.facebook.com/" + self.displayUser!.facebook
         } else if sender == view.linkedin && !self.displayUser!.linkedin.isEmpty {
             urlString = "https://www.linkedin.com/in/" + self.displayUser!.linkedin
-        } else if (sender == view.attention) {
+        } else if sender == view.attention {
             self.confirmAddedMuteUser()
+        } else if sender == view.eye {
+            self.confirmClearMuted()
         }
         
         if urlString.isEmpty {
