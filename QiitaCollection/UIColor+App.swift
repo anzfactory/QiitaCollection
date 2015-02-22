@@ -15,6 +15,9 @@ extension UIColor {
     class func backgroundBase() -> UIColor {
         return factory(119, g: 184, b: 66, a: 1)
     }
+    class func backgroundSub() -> UIColor {
+        return factory(51, g: 122, b: 183, a: 1)
+    }
     
     // MARK: 各種
     
@@ -32,6 +35,12 @@ extension UIColor {
     }
     class func backgroundSwipeCellDelete() -> UIColor {
         return UIColor.redColor()
+    }
+    class func backgroundSwipeCellEdit() -> UIColor {
+        return backgroundSub()
+    }
+    class func backgroundSearchCondition() -> UIColor {
+        return backgroundUserInfo()
     }
     
     class func textNavigationBar() -> UIColor {
@@ -56,9 +65,15 @@ extension UIColor {
     class func borderTableView() -> UIColor {
         return backgroundBase()
     }
+    class func borderButton() -> UIColor {
+        return backgroundBase()
+    }
     
     class func tintSegmented() -> UIColor {
         return self.backgroundBase()
+    }
+    class func tintAttention() -> UIColor {
+        return factory(240, g: 173, b: 78, a: 1)
     }
     
     class func factory(r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) -> UIColor {

@@ -35,6 +35,7 @@ class EntryTableViewCell: UITableViewCell {
     }
     
     override func prepareForReuse() {
+        super.prepareForReuse()
         self.prepare()
     }
 

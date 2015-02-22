@@ -22,7 +22,11 @@ class PagerViewController: BaseViewController {
         
         self.title = "(ﾟ∀ﾟ)ｷﾀｺﾚ!!"
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon_setting"), style: UIBarButtonItemStyle.Plain, target: self, action: "tapSetting")
+        let rightButtons: [UIBarButtonItem] = [
+            UIBarButtonItem(image: UIImage(named: "icon_setting"), style: UIBarButtonItemStyle.Plain, target: self, action: "tapSetting"),
+            UIBarButtonItem(image: UIImage(named: "icon_search"), style: UIBarButtonItemStyle.Plain, target: self, action: "tapSearch")
+        ]
+        self.navigationItem.rightBarButtonItems = rightButtons
         
         let vc : UIViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryCollectionVC") as UIViewController
         vc.title = "新着"
@@ -81,6 +85,23 @@ class PagerViewController: BaseViewController {
         }
         
         self.menu.showFromNavigationController(self.navigationController)
+    }
+    
+    func tapSearch() {
+        let vc: SearchViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SearchVC") as SearchViewController
+        vc.callback = {(searchVC: SearchViewController, q: String) -> Void in
+            
+            let entriesVC: EntryCollectionViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryCollectionVC") as EntryCollectionViewController
+            entriesVC.query = q
+            entriesVC.title = "検索結果"
+            NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: entriesVC)
+            
+            searchVC.dismissViewControllerAnimated(true, completion: { () -> Void in
+                
+            })
+            
+        }
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PresentedViewController.rawValue, object: vc)
     }
     
     func openMuteUserList() {

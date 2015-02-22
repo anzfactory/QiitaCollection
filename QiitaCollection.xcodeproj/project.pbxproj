@@ -24,6 +24,9 @@
 		A17D0C571A963A510020229B /* SCLAlertViewStyleKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A17D0C501A963A510020229B /* SCLAlertViewStyleKit.m */; };
 		A17D0C581A963A510020229B /* SCLButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A17D0C521A963A510020229B /* SCLButton.m */; };
 		A17D0C591A963A510020229B /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = A17D0C541A963A510020229B /* UIImage+ImageEffects.m */; };
+		A18030621A99C83800EA8D4A /* SearchConditionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18030611A99C83800EA8D4A /* SearchConditionView.swift */; };
+		A18030641A99CFF600EA8D4A /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18030631A99CFF600EA8D4A /* SearchViewController.swift */; };
+		A18030661A9A21CA00EA8D4A /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18030651A9A21CA00EA8D4A /* SearchTableViewCell.swift */; };
 		A1824FBF1A9878A5009604B2 /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = A1824FB61A9878A5009604B2 /* RECommonFunctions.m */; };
 		A1824FC01A9878A5009604B2 /* REMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = A1824FB81A9878A5009604B2 /* REMenu.m */; };
 		A1824FC11A9878A5009604B2 /* REMenuContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = A1824FBA1A9878A5009604B2 /* REMenuContainerView.m */; };
@@ -110,6 +113,9 @@
 		A17D0C521A963A510020229B /* SCLButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCLButton.m; path = SCLAlertView/SCLButton.m; sourceTree = "<group>"; };
 		A17D0C531A963A510020229B /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+ImageEffects.h"; path = "SCLAlertView/UIImage+ImageEffects.h"; sourceTree = "<group>"; };
 		A17D0C541A963A510020229B /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+ImageEffects.m"; path = "SCLAlertView/UIImage+ImageEffects.m"; sourceTree = "<group>"; };
+		A18030611A99C83800EA8D4A /* SearchConditionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchConditionView.swift; sourceTree = "<group>"; };
+		A18030631A99CFF600EA8D4A /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		A18030651A9A21CA00EA8D4A /* SearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		A1824FB51A9878A5009604B2 /* RECommonFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RECommonFunctions.h; sourceTree = "<group>"; };
 		A1824FB61A9878A5009604B2 /* RECommonFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RECommonFunctions.m; sourceTree = "<group>"; };
 		A1824FB71A9878A5009604B2 /* REMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REMenu.h; sourceTree = "<group>"; };
@@ -206,6 +212,8 @@
 				A1A16E331A90842C0052A7C6 /* UserDetailView.swift */,
 				A1B1C6BE1A90E55D001419E9 /* EntryTableViewCell.swift */,
 				A1824FDA1A98D0B3009604B2 /* SlideTableViewCell.swift */,
+				A18030611A99C83800EA8D4A /* SearchConditionView.swift */,
+				A18030651A9A21CA00EA8D4A /* SearchTableViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -344,6 +352,7 @@
 				A1A16E311A90757C0052A7C6 /* UserDetailViewController.swift */,
 				A1B1C6BC1A90C0EB001419E9 /* EntryListViewController.swift */,
 				A1F294E41A986875005E1C02 /* SimpleListViewController.swift */,
+				A18030631A99CFF600EA8D4A /* SearchViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -701,6 +710,7 @@
 				A1D8A8351A8750240040C195 /* UIImageView+App.swift in Sources */,
 				A1A16E321A90757C0052A7C6 /* UserDetailViewController.swift in Sources */,
 				A103AF471A867A9100FF0B24 /* TagEntity.swift in Sources */,
+				A18030641A99CFF600EA8D4A /* SearchViewController.swift in Sources */,
 				A18A85D61A85D5190078436D /* EntryEntity.swift in Sources */,
 				A1824FD61A98AD03009604B2 /* SWLongPressGestureRecognizer.m in Sources */,
 				A124A2201A87BF99007A42E9 /* PagerViewController.swift in Sources */,
@@ -716,6 +726,7 @@
 				A1F157EE1A8FB1490064EA47 /* JFMinimalNotificationArt.m in Sources */,
 				A1824FC21A9878A5009604B2 /* REMenuItem.m in Sources */,
 				A1B1C6BB1A90928E001419E9 /* UILabel+App.swift in Sources */,
+				A18030661A9A21CA00EA8D4A /* SearchTableViewCell.swift in Sources */,
 				A1824FC01A9878A5009604B2 /* REMenu.m in Sources */,
 				A17D0C581A963A510020229B /* SCLButton.m in Sources */,
 				A103AF3A1A86141200FF0B24 /* EntryCollectionViewCell.swift in Sources */,
@@ -724,6 +735,7 @@
 				A17D0C571A963A510020229B /* SCLAlertViewStyleKit.m in Sources */,
 				A18A85D41A85D4EA0078436D /* QiitaApiManager.swift in Sources */,
 				A1CF433F1A8B1E350016209C /* EntryDetailViewController.swift in Sources */,
+				A18030621A99C83800EA8D4A /* SearchConditionView.swift in Sources */,
 				A1824FD91A98AD03009604B2 /* SWUtilityButtonView.m in Sources */,
 				A118A61E1A8F4AA600350841 /* EntryDetailView.swift in Sources */,
 				A1824FD51A98AD03009604B2 /* SWCellScrollView.m in Sources */,

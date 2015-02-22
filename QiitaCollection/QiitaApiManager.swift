@@ -35,7 +35,9 @@ class QiitaApiManager: NSObject {
             "per_page" : "20"
         ]
         if let q = query {
-            params["query"] = q
+            if !q.isEmpty {
+                params["query"] = q
+            }
         }
         
         Alamofire.request(Alamofire.Method.GET, self.apiUrl + PathItems, parameters: params, encoding: ParameterEncoding.URL)

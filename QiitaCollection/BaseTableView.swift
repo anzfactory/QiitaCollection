@@ -14,6 +14,7 @@ class BaseTableView: UITableView {
     var page: Int = 1
     
     override func awakeFromNib() {
+        super.awakeFromNib()
         let dummy: UIView = UIView(frame: CGRect.zeroRect)
         self.tableFooterView = dummy
     }

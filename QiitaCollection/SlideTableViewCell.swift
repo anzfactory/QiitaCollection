@@ -24,7 +24,7 @@ class SlideTableViewCell: SWTableViewCell {
     }
 
     override func prepareForReuse() {
-        
+        super.prepareForReuse()
         isReused = true
         self.hideUtilityButtonsAnimated(false)
         

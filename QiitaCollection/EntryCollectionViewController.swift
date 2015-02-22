@@ -14,6 +14,7 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
     @IBOutlet weak var collectionView: BaseCollectionView!
     
     // MARK: プロパティ
+    var query: String = ""
     var qiitaManager: QiitaApiManager = QiitaApiManager()
     
     // MARK: ライフサイクル
@@ -43,7 +44,7 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
         self.load()
     }
     func load() {
-        self.qiitaManager.getEntriesNew(self.collectionView.page, completion: { (items, isError) -> Void in
+        self.qiitaManager.getEntriesSearch(self.query, page: self.collectionView.page, completion: { (items, isError) -> Void in
             self.collectionView.loadedItems(items, isError: isError, isAppendable: { (item: EntryEntity) -> Bool in
                 return !contains(UserDataManager.sharedInstance.muteUsers, item.postUser.id)
             })
@@ -55,8 +56,12 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
             return
         }
         let tapPoint: CGPoint = gesture.locationInView(self.collectionView)
-        let tapIndexPath: NSIndexPath = self.collectionView.indexPathForItemAtPoint(tapPoint)!
-        let tapEntry: EntryEntity = self.collectionView.items[tapIndexPath.row] as EntryEntity
+        let tapIndexPath: NSIndexPath? = self.collectionView.indexPathForItemAtPoint(tapPoint)
+        if tapIndexPath == nil {
+            // collection view 領域外をタップしたってこと
+            return
+        }
+        let tapEntry: EntryEntity = self.collectionView.items[tapIndexPath!.row] as EntryEntity
         
         let actions: [UIAlertAction] = [
             UIAlertAction(title: "記事詳細", style: .Default, handler: { (UIAlertAction) -> Void in

@@ -30,6 +30,7 @@ class EntryCollectionViewCell: UICollectionViewCell {
     // MARK: ライフサイクル
     
     override func awakeFromNib() {
+        super.awakeFromNib()
         
         self.backgroundImage.backgroundColor = UIColor.backgroundDefaultImage()
         self.backgroundImage.setBlurView()
@@ -42,6 +43,7 @@ class EntryCollectionViewCell: UICollectionViewCell {
     }
     
     override func prepareForReuse() {
+        super.prepareForReuse()
         // 各パーツの初期化
         self.prepare()
     }

@@ -33,6 +33,8 @@ class UserDetailView: UIView {
     weak var delegate: UserDetailViewDelegate?
     
     override func awakeFromNib() {
+        super.awakeFromNib()
+        
         self.backgroundColor = UIColor.backgroundUserInfo()
         
         self.profImage.backgroundColor = UIColor.backgroundBase()

@@ -74,6 +74,7 @@ class EntryDetailView: UIWebView, UIGestureRecognizerDelegate, VLDContextSheetDe
     // MARK: ライフサイクル
     
     override func awakeFromNib() {
+        super.awakeFromNib()
         
         self.delegate = self
         
