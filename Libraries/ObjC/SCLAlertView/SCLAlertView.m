@@ -1015,6 +1015,12 @@ NSTimer *durationTimer;
     }
 }
 
+- (void)removeView {
+    [self.backgroundView removeFromSuperview];
+    [self.view removeFromSuperview];
+    [self removeFromParentViewController];
+}
+
 #pragma mark - Hide Animations
 
 - (void)fadeOut

@@ -80,12 +80,17 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
     }
     
     func preShowAlert() -> Bool {
-        if self.alertView != nil && self.alertViewStatus == .Show {
-            self.alertView!.hideView()
-            self.alertViewStatus = .Dismiss
+
+        if let alert = self.alertView {
+            alert.removeView()
         }
+//        if self.alertView != nil && self.alertViewStatus == .Show {
+//            self.alertView!.hideView()
+//            self.alertViewStatus = .Dismiss
+//        }
         
         self.alertView = SCLAlertView()
+        self.alertViewStatus = .Dismiss
         self.alertView!.alertIsDismissed({ () -> Void in
             self.alertViewStatus = .Dismiss
         })

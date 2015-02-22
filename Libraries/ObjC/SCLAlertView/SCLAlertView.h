@@ -174,6 +174,8 @@ typedef NS_ENUM(NSInteger, SCLAlertViewBackground)
  */
 - (void)hideView;
 
+- (void)removeView;
+
 /** Remove Top Circle
  *
  * Remove top circle from SCLAlertView.
