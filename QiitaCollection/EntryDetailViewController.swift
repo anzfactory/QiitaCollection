@@ -21,6 +21,9 @@ class EntryDetailViewController: BaseViewController {
             self.title = newValue?.title
         }
     }
+    var displayEntryId: String? = nil
+    var qiitaManager: QiitaApiManager = QiitaApiManager()
+    
     lazy var links: [ParseItem] = self.parseLink()
     lazy var codes: [ParseItem] = self.parseCode()
     let patternLink: String = "<a.*?href=\\\"([http|https].*?)\\\".*?>(.*?)</a>"
@@ -34,20 +37,36 @@ class EntryDetailViewController: BaseViewController {
         self.webView.callbackSelectedMenu = { (item: VLDContextSheetItem) -> Void in
             self.selectedContextMenu(item)
         }
+        
+        let rightButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon_pin"), style: UIBarButtonItemStyle.Bordered, target: self, action: "tapPin")
+        self.navigationItem.rightBarButtonItem = rightButton
+        
     }
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
-        // テンプレート読み込み
-        let path: NSString = NSBundle.mainBundle().pathForResource("entry", ofType: "html")!
-        let template: NSString = NSString(contentsOfFile: path, encoding: NSUTF8StringEncoding, error: nil)!
-        // テンプレートに組み込んで表示
-        self.webView.loadHTMLString(NSString(format: template, self.displayEntry!.title, self.displayEntry!.htmlBody), baseURL: nil)
+        if let entry = self.displayEntry {
+            self.displayEntryId = entry.id
+            self.loadLocalHtml()
+        } else if let entryId = self.displayEntryId {
+            // 投稿IDだけ渡されてる状況なので、とってくる
+            self.qiitaManager.getEntry(entryId, completion: { (item, isError) -> Void in
+                if isError {
+                    Toast.show("投稿を取得できませんでした...", style: JFMinimalNotificationStytle.StyleWarning)
+                    return
+                }
+                self.displayEntry = item
+                self.loadLocalHtml()
+            })
+        } else {
+            fatalError("unknown entry....")
+        }
         
     }
     
     
     // MARK: メソッド
+    
     func selectedContextMenu(menuItem: VLDContextSheetItem) {
         
         if menuItem.title == self.webView.menuTitleShare {
@@ -60,6 +79,14 @@ class EntryDetailViewController: BaseViewController {
             self.moveUserDetail()
         }
         
+    }
+    
+    func loadLocalHtml() {
+        // テンプレート読み込み
+        let path: NSString = NSBundle.mainBundle().pathForResource("entry", ofType: "html")!
+        let template: NSString = NSString(contentsOfFile: path, encoding: NSUTF8StringEncoding, error: nil)!
+        // テンプレートに組み込んで表示
+        self.webView.loadHTMLString(NSString(format: template, self.displayEntry!.title, self.displayEntry!.htmlBody), baseURL: nil)
     }
     
     func shareEntry() {
@@ -229,6 +256,21 @@ class EntryDetailViewController: BaseViewController {
         let vc: UserDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UserDetailVC") as UserDetailViewController
         vc.displayUserId = self.displayEntry!.postUser.id
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: vc)
+    }
+    
+    func tapPin() {
+        let action: AlertViewSender = AlertViewSender(action: { () -> Void in
+            UserDataManager.sharedInstance.appendPinEntry(self.displayEntry!.id, entryTitle: self.displayEntry!.title)
+            Toast.show("この投稿をpinしました", style: JFMinimalNotificationStytle.StyleSuccess)
+            return
+        }, title: "OK")
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowAlertYesNo.rawValue, object: nil, userInfo: [
+            QCKeys.AlertView.Title.rawValue    : "確認",
+            QCKeys.AlertView.Message.rawValue  : "この投稿をpinしますか？",
+            QCKeys.AlertView.YesAction.rawValue: action,
+            QCKeys.AlertView.NoTitle.rawValue  : "Cancel"
+        ])
     }
     
 }

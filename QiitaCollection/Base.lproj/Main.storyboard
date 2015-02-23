@@ -829,10 +829,10 @@
             </objects>
             <point key="canvasLocation" x="-948" y="1090"/>
         </scene>
-        <!--Simple List View Controller-->
+        <!--Mute List View Controller-->
         <scene sceneID="LHr-z8-vD1">
             <objects>
-                <viewController storyboardIdentifier="SimpleListVC" automaticallyAdjustsScrollViewInsets="NO" id="eYc-Yk-GQh" customClass="SimpleListViewController" customModule="QiitaCollection" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MuteListVC" automaticallyAdjustsScrollViewInsets="NO" id="eYc-Yk-GQh" customClass="MuteListViewController" customModule="QiitaCollection" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2Oj-d7-bLi"/>
                         <viewControllerLayoutGuide type="bottom" id="QNM-lz-JYU"/>
@@ -870,6 +870,48 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oer-RM-Y01" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-601" y="-174"/>
+        </scene>
+        <!--Pin List View Controller-->
+        <scene sceneID="qij-OP-2EW">
+            <objects>
+                <viewController storyboardIdentifier="PinListVC" automaticallyAdjustsScrollViewInsets="NO" id="kWj-Po-iKD" customClass="PinListViewController" customModule="QiitaCollection" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="a84-cb-ybh"/>
+                        <viewControllerLayoutGuide type="bottom" id="07z-u7-PZf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="RlK-i8-OOQ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="d3M-ID-3n2">
+                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CELL" id="RZ7-kQ-0Ei" customClass="SlideTableViewCell" customModule="QiitaCollection" customModuleProvider="target">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RZ7-kQ-0Ei" id="C87-86-AhV">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="07z-u7-PZf" firstAttribute="top" secondItem="d3M-ID-3n2" secondAttribute="bottom" id="5fh-E8-pj9"/>
+                            <constraint firstItem="d3M-ID-3n2" firstAttribute="leading" secondItem="RlK-i8-OOQ" secondAttribute="leading" id="Gci-Me-9kC"/>
+                            <constraint firstItem="d3M-ID-3n2" firstAttribute="top" secondItem="a84-cb-ybh" secondAttribute="bottom" id="jZu-HR-HEw"/>
+                            <constraint firstAttribute="trailing" secondItem="d3M-ID-3n2" secondAttribute="trailing" id="ysc-uC-pae"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="tableView" destination="d3M-ID-3n2" id="HN4-WC-SwI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9K1-Aq-Mb3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-258" y="-174"/>
         </scene>
         <!--Entry Detail View Controller-->
         <scene sceneID="z0O-1e-VJN">

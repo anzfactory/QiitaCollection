@@ -74,6 +74,10 @@ class SimpleListViewController: UIViewController, UITableViewDataSource, UITable
         return cell
     }
     
+    func tapSwipeableCellRight(cell: SWTableViewCell, didTriggerRightUtilityButtonWithIndex index: Int) {
+        
+    }
+    
     // MARK: UITableViewDelegate
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if let callback = self.tapCallback {
@@ -83,8 +87,6 @@ class SimpleListViewController: UIViewController, UITableViewDataSource, UITable
     
     // MARK: SWTableViewCellDelegate
     func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerRightUtilityButtonWithIndex index: Int) {
-        self.items = UserDataManager.sharedInstance.clearMutedUser(self.items[cell.tag])
-        self.tableView.reloadData()
-        Toast.show("ミュートを解除しました", style: JFMinimalNotificationStytle.StyleSuccess, title: "", targetView: self.view)
+        self.tapSwipeableCellRight(cell, didTriggerRightUtilityButtonWithIndex: index)
     }
 }

@@ -77,7 +77,10 @@ class PagerViewController: BaseViewController {
         let menuItemMuteUsers: REMenuItem = REMenuItem(title: "ミュートリスト", image: nil, highlightedImage: nil) { (menuItem) -> Void in
             self.openMuteUserList()
         }
-        let menu: REMenu = REMenu(items: [menuItemMuteUsers])
+        let menuItemPinEntries: REMenuItem = REMenuItem(title: "pin投稿リスト", image: nil, highlightedImage: nil) { (menuItem) -> Void in
+            self.openPinEntryList()
+        }
+        let menu: REMenu = REMenu(items: [menuItemMuteUsers, menuItemPinEntries])
         menu.backgroundColor = UIColor.backgroundNavigationMenu()
         menu.textColor = UIColor.textNavigationBar()
         menu.highlightedBackgroundColor = UIColor.backgroundBase()
@@ -124,7 +127,7 @@ class PagerViewController: BaseViewController {
             return
         }
         
-        let vc: SimpleListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SimpleListVC") as SimpleListViewController
+        let vc: MuteListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("MuteListVC") as MuteListViewController
         vc.items = UserDataManager.sharedInstance.muteUsers
         vc.title = "ミュートリスト"
         vc.tapCallback = {(vc: SimpleListViewController, index: Int) -> Void in
@@ -133,7 +136,7 @@ class PagerViewController: BaseViewController {
             vc.dismissViewControllerAnimated(true, completion: { () -> Void in
                 // user詳細
                 let userVC: UserDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UserDetailVC") as UserDetailViewController
-                userVC.displayUserId = mutedUsers[index]
+                userVC.displayUserId = UserDataManager.sharedInstance.muteUsers[index]
                 NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: userVC)
             })
             
@@ -141,6 +144,43 @@ class PagerViewController: BaseViewController {
         let nc: UINavigationController = self.storyboard?.instantiateViewControllerWithIdentifier("BlankNC") as UINavigationController
         nc.setViewControllers([vc], animated: false)
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PresentedViewController.rawValue, object: nc)
+    }
+    
+    func openPinEntryList() {
+        
+        let pinEntries: [[String: String]] = UserDataManager.sharedInstance.pins
+        if (pinEntries.isEmpty) {
+            Toast.show("pinした投稿がありません", style: JFMinimalNotificationStytle.StyleInfo)
+            return
+        }
+        
+        // 渡すようのリストをつくる
+        var pins: [String] = [String]()
+        for pinEntry in pinEntries {
+            if let title = pinEntry["title"] {
+                pins.append(title)
+            }
+            
+        }
+        
+        let vc: PinListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("PinListVC") as PinListViewController
+        vc.items = pins
+        vc.title = "pinリスト"
+        vc.tapCallback = {(vc: SimpleListViewController, index: Int) -> Void in
+            
+            // まずは閉じる
+            vc.dismissViewControllerAnimated(true, completion: { () -> Void in
+                // 記事詳細
+                let entryVC: EntryDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryDetailVC") as EntryDetailViewController
+                entryVC.displayEntryId = UserDataManager.sharedInstance.pins[index]["id"]
+                NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: entryVC)
+            })
+            
+        }
+        let nc: UINavigationController = self.storyboard?.instantiateViewControllerWithIdentifier("BlankNC") as UINavigationController
+        nc.setViewControllers([vc], animated: false)
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PresentedViewController.rawValue, object: nc)
+        
     }
 
 }

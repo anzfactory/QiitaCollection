@@ -17,6 +17,7 @@ class QiitaApiManager: NSObject {
     let ApiVersion: String = "v2"
     
     let PathItems: String = "/items"
+    let PathItem: String = "/items/%@"
     let PathTag: String = "/tags/%@"
     let PathUser: String = "/users/%@"
     let PathUserStocks: String = "/users/%@/stocks"
@@ -125,6 +126,24 @@ class QiitaApiManager: NSObject {
                 completion(item: user, isError: isError);
         }
         
+    }
+    
+    func getEntry(entryId: String, completion:(item: EntryEntity?, isError: Bool) -> Void) {
+        
+        Alamofire.request(Alamofire.Method.GET, self.apiUrl + String(format: PathItem, entryId), parameters: nil, encoding: ParameterEncoding.URL)
+            .validate(statusCode: 200..<300)    // ステータスコードの200台以外をエラーとするように
+            .responseJSON { (request, response, jsonData, error) -> Void in
+                
+                let isError: Bool = error == nil ? false : true
+                
+                if isError {
+                    println("error:\(error)")
+                    completion(item: nil, isError: isError);
+                    return;
+                }
+                let json = JSON(jsonData!)
+                completion(item: EntryEntity(data: json), isError: isError);
+        }
     }
     
 }

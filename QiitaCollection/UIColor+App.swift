@@ -57,7 +57,7 @@ extension UIColor {
         return backgroundBase()
     }
     class func borderPageMenuIndicator() -> UIColor {
-        return UIColor.orangeColor()
+        return backgroundSub()
     }
     class func borderNavigationMenuSeparator() -> UIColor {
         return backgroundBase();
