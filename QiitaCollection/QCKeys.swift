@@ -16,8 +16,8 @@ struct QCKeys {
         ShowLoading = "QC_NotificationKey_ShowLoading",
         HideLoading = "QC_NotificationKey_HideLoading",
         ShowAlertYesNo = "QC_NotificationKey_ShowAlertYesNo",
+        ShowAlertInputText = "QC_NotificationKey_ShowAlertInputText",
         PresentedViewController = "QC_NotificationKey_PresentedViewController"
-        
     }
     
     enum ActionSheet: String {
@@ -39,6 +39,7 @@ struct QCKeys {
         Title = "Title",
         Message = "Message",
         YesAction = "Yes-Action",
-        NoTitle = "No-Title"
+        NoTitle = "No-Title",
+        PlaceHolder = "Place-Holder"
     }
 }

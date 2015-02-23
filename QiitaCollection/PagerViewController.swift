@@ -28,11 +28,23 @@ class PagerViewController: BaseViewController {
         ]
         self.navigationItem.rightBarButtonItems = rightButtons
         
+        // デフォルトVC
         let vc : UIViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryCollectionVC") as UIViewController
         vc.title = "新着"
         controllerArray.append(vc)
         
-        var parameters: [String: AnyObject] = ["menuItemSeparatorWidth": 4.3,
+        // 保存しているクエリがあれば
+        let queries: [String: String] = UserDataManager.sharedInstance.queries
+        if !queries.isEmpty {
+            for query in queries {
+                let queryVC : EntryCollectionViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryCollectionVC") as EntryCollectionViewController
+                queryVC.title = query.1
+                queryVC.query = query.0
+                controllerArray.append(queryVC)
+            }
+        }
+        
+        var parameters: [String: AnyObject] = ["menuItemSeparatorWidth": 0.0,
             "useMenuLikeSegmentedControl": true,
             "menuItemSeparatorPercentageHeight": 0.1,
             "bottomMenuHairlineColor" : UIColor.borderPageMenuIndicator(),
@@ -43,7 +55,7 @@ class PagerViewController: BaseViewController {
         
         self.pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, 0.0, self.view.frame.width, self.view.frame.height), options: parameters)
         self.view.addSubview(self.pageMenu!.view)
-
+        
     }
     
     override func viewWillAppear(animated: Bool) {

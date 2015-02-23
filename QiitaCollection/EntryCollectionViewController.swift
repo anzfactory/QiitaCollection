@@ -30,6 +30,12 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        // クエリが指定されていたら、保存用のボタンを表示
+        if !self.query.isEmpty {
+            self.displaySaveSearchCondition()
+        }
+        
         refresh()
     }
     override func didReceiveMemoryWarning() {
@@ -37,6 +43,11 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
     }
     
     // MARK: メソッド
+    func displaySaveSearchCondition() {
+        let save: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon_lock"), style: UIBarButtonItemStyle.Bordered, target: self, action: "confirmSaveSearchCondition")
+        self.navigationItem.rightBarButtonItem = save
+    }
+    
     func refresh() {
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowLoading.rawValue, object: nil)
         if !self.isViewLoaded() {return}
@@ -97,6 +108,30 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
         vc.displayUserId = userId
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: vc)
     }
+    
+    func confirmSaveSearchCondition() {
+
+        let doAciton: AlertViewSender.AlertActionWithText = {(sender: UITextField) -> Void in
+            UserDataManager.sharedInstance.appendQuery(self.query, label: sender.text)
+            Toast.show("検索条件を保存しました", style: JFMinimalNotificationStytle.StyleSuccess)
+        }
+        let validation: AlertViewSender.AlertValidation = {(sender: UITextField) -> Bool in
+            return !sender.text.isEmpty
+        }
+        let action: AlertViewSender = AlertViewSender(validation: validation, action: doAciton, title: "OK")
+        
+        let args: [NSString: AnyObject] = [
+            QCKeys.AlertView.Title.rawValue: "入力",
+            QCKeys.AlertView.Message.rawValue: "保存名を入力してください。以降、この名前で表示されるようになります",
+            QCKeys.AlertView.YesAction.rawValue: action,
+            QCKeys.AlertView.NoTitle.rawValue: "Cancel",
+            QCKeys.AlertView.PlaceHolder.rawValue: "保存名入力"
+        ]
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowAlertInputText.rawValue, object: nil, userInfo: args)
+    }
+    
+    
     
     // MARK: UICollectionViewDataSource
     

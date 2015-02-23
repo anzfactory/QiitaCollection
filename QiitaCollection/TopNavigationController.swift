@@ -39,6 +39,7 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         center.addObserver(self, selector: "receiveHideLoading", name: QCKeys.Notification.HideLoading.rawValue, object: nil)
         center.addObserver(self, selector: "receiveConfirmYesNoAlert:", name: QCKeys.Notification.ShowAlertYesNo.rawValue, object: nil)
         center.addObserver(self, selector: "receivePresentedViewController:", name: QCKeys.Notification.PresentedViewController.rawValue, object: nil)
+        center.addObserver(self, selector: "receiveShowAlertInputText:", name: QCKeys.Notification.ShowAlertInputText.rawValue, object: nil)
         
     }
 
@@ -230,6 +231,38 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         self.alertViewStatus = .Show
         
     }
+    
+    func receiveShowAlertInputText(notification: NSNotification) {
+        
+        self.preShowAlert()
+        
+        let userInfo = notification.userInfo!
+        
+        let editField: UITextField = self.alertView!.addTextField(userInfo[QCKeys.AlertView.PlaceHolder.rawValue] as? String ?? "")
+        let title: String = userInfo[QCKeys.AlertView.Title.rawValue] as? String ?? "info"
+        let message: String = userInfo[QCKeys.AlertView.Message.rawValue]! as String    // 必須なんで想定外だったら落とす
+        let noTiltle: String = userInfo[QCKeys.AlertView.NoTitle.rawValue] as? String ?? "いいえ"
+        
+        // yesアクションは必須
+        let yesAction = userInfo[QCKeys.AlertView.YesAction.rawValue]! as AlertViewSender
+        var validationBlock: SCLValidationBlock = {() -> Bool in
+            return true
+        }
+        if let validation = yesAction.validation {
+            validationBlock = {() -> Bool in
+                return validation(editField)
+            }
+        }
+        let action: SCLActionBlock = {() -> Void in
+            yesAction.actionWithText?(editField)
+            return
+        }
+        self.alertView!.addButton(yesAction.title, validationBlock: validationBlock, actionBlock: action)
+        
+        self.alertView!.showEdit(self, title: title, subTitle: message, closeButtonTitle: noTiltle, duration: 0.0);
+        self.alertViewStatus = .Show
+        
+    }
 
     // MARK: UINavigationControllerDelegate
     func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
@@ -244,12 +277,27 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
 
 // NSObjectのサブクラスじゃないと NSNotification に乗っけられない
 class AlertViewSender: NSObject {
+    
+    typealias AlertValidation = (UITextField) -> Bool
+    typealias AlertActionWithText = (UITextField) -> Void
+    
     let action: SCLActionBlock?
+    let actionWithText: AlertActionWithText?
     let title: String
+    let validation: AlertValidation? = nil
     
     init (action: SCLActionBlock?, title: String) {
         self.action = action
         self.title = title
+        self.validation = nil
+        self.actionWithText = nil
+    }
+    
+    init (validation: AlertValidation, action: AlertActionWithText?, title: String) {
+        self.validation = validation
+        self.actionWithText = action
+        self.title = title
+        self.action = nil
     }
 }
 
