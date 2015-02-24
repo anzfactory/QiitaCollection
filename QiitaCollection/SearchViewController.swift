@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchViewController: UIViewController, SearchConditionViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, SWTableViewCellDelegate {
+class SearchViewController: BaseViewController, SearchConditionViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, SWTableViewCellDelegate {
 
     typealias SearchConditionItem = (query:String, isExclude:Bool, type: SearchConditionView.SearchType)
     typealias SearchCallback = (SearchViewController, String) -> Void

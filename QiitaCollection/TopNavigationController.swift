@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TopNavigationController: UINavigationController, UINavigationControllerDelegate {
+class TopNavigationController: UINavigationController, UINavigationControllerDelegate, PathMenuDelegate {
     
     enum AlertViewStatus {
         case Dismiss,
@@ -21,6 +21,7 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
     var alertView: SCLAlertView?
     var alertViewStatus: AlertViewStatus = .Dismiss
     var isDidAppear: Bool = false
+    lazy var publicMenu: PathMenu = self.makePublicMenu()
 
     // MARK: ライフサイクル
     override func viewDidLoad() {
@@ -40,7 +41,10 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         center.addObserver(self, selector: "receiveConfirmYesNoAlert:", name: QCKeys.Notification.ShowAlertYesNo.rawValue, object: nil)
         center.addObserver(self, selector: "receivePresentedViewController:", name: QCKeys.Notification.PresentedViewController.rawValue, object: nil)
         center.addObserver(self, selector: "receiveShowAlertInputText:", name: QCKeys.Notification.ShowAlertInputText.rawValue, object: nil)
+        center.addObserver(self, selector: "receiveResetPublicMenuItems:", name: QCKeys.Notification.ResetPublicMenuItems.rawValue, object: nil)
         
+        self.view.addSubview(self.publicMenu)
+        self.publicMenu.startPoint = CGPoint(x: self.view.frame.size.width * 0.5, y: self.view.frame.height - 22)
     }
 
     override func didReceiveMemoryWarning() {
@@ -50,13 +54,22 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
     }
-    
+    func hoge() -> Bool {
+        let s: String? = ""
+        if s?.hasPrefix("http://") ?? false {
+            
+        }
+        return true
+    }
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.isDidAppear = true
         if self.alertView != nil && self.alertViewStatus == .Wait {
             self.receiveShowLoading()
         }
+        
+        self.view.bringSubviewToFront(self.publicMenu)
+        
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -69,6 +82,16 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
     }
     
     // MARK: メソッド
+    
+    func makePublicMenu() -> PathMenu {
+        let startItem: PathMenuItem = PathMenuItem(image: UIImage(named: "icon_three_bar_white"), highlightedImage: UIImage(named: "icon_three_bar_white"), ContentImage: UIImage(named: "icon_three_bar_white"), highlightedContentImage: UIImage(named: "icon_three_bar_white"))
+        startItem.backgroundColor = UIColor.backgroundSub()
+        let menu: PathMenu = PathMenu(frame: self.view.bounds, startItem: startItem, optionMenus: [])
+        menu.delegate = self
+        menu.startButton.alpha = 0.4
+        menu.rotateAddButton = nil
+        return menu
+    }
     
     func makeNotice() -> JFMinimalNotification {
         let notice: JFMinimalNotification = JFMinimalNotification(style: JFMinimalNotificationStytle.StyleDefault, title: " ", subTitle: " ", dismissalDelay: 2.0) { () -> Void in
@@ -85,10 +108,6 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         if let alert = self.alertView {
             alert.removeView()
         }
-//        if self.alertView != nil && self.alertViewStatus == .Show {
-//            self.alertView!.hideView()
-//            self.alertViewStatus = .Dismiss
-//        }
         
         self.alertView = SCLAlertView()
         self.alertViewStatus = .Dismiss
@@ -116,6 +135,16 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
             } else if self.alertViewStatus == .Wait {
                 self.alertViewStatus = .Dismiss
             }
+        }
+    }
+    
+    func resetPublicMenuItems(viewController: BaseViewController) {
+        self.publicMenu.menusArray = (viewController as BaseViewController).publicMenuItems()
+        self.publicMenu.hidden = self.publicMenu.menusArray.isEmpty
+        if !self.publicMenu.hidden {
+            
+            self.publicMenu.menuWholeAngle = CGFloat(M_PI) - CGFloat(M_PI/Double(self.publicMenu.menusArray.count))
+            self.publicMenu.rotateAngle = -CGFloat(M_PI_2) + CGFloat(M_PI/Double(self.publicMenu.menusArray.count)) * 1/2
         }
     }
     
@@ -206,7 +235,7 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
             return
         }
         
-        self.alertView!.showWaiting(self, title: "Loading...", subTitle: "少々お待ちください...m(_ _)m", closeButtonTitle: nil, duration: 0.0);
+        self.alertView!.showWaiting(self.topViewController, title: "Loading...", subTitle: "少々お待ちください...m(_ _)m", closeButtonTitle: nil, duration: 0.0);
         self.alertViewStatus = .Show
     }
     func receiveHideLoading() {
@@ -227,7 +256,7 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         let yesAction = userInfo[QCKeys.AlertView.YesAction.rawValue]! as AlertViewSender
         self.alertView!.addButton(yesAction.title.isEmpty ? "はい" : yesAction.title, actionBlock: yesAction.action)
         
-        self.alertView!.showWarning(self, title: title, subTitle: message, closeButtonTitle: noTiltle, duration: 0.0);
+        self.alertView!.showWarning(self.topViewController, title: title, subTitle: message, closeButtonTitle: noTiltle, duration: 0.0);
         self.alertViewStatus = .Show
         
     }
@@ -263,6 +292,14 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         self.alertViewStatus = .Show
         
     }
+    
+    func receiveResetPublicMenuItems(notification: NSNotification) {
+        if let vc: AnyObject = notification.object {
+            if vc is BaseViewController {
+                self.resetPublicMenuItems(vc as BaseViewController)
+            }
+        }
+    }
 
     // MARK: UINavigationControllerDelegate
     func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
@@ -270,6 +307,31 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         let backButton: UIBarButtonItem = UIBarButtonItem()
         backButton.title = ""
         viewController.navigationItem.backBarButtonItem = backButton;
+        if viewController is BaseViewController {
+            
+            self.resetPublicMenuItems(viewController as BaseViewController)
+            
+        } else {
+            self.publicMenu.hidden = true
+        }
+        
+    }
+    
+    // MARK: PathMenuDelegate
+    func pathMenu(menu: PathMenu, didSelectIndex idx: Int) {
+        (menu.menusArray[idx] as QCPathMenuItem).action?()
+    }
+    func pathMenuDidFinishAnimationClose(menu: PathMenu) {
+        for item in menu.menusArray {
+            item.hidden = true
+        }
+        menu.startButton.alpha = 0.4
+    }
+    func pathMenuWillAnimateOpen(menu: PathMenu) {
+        menu.startButton.alpha = 1.0
+        for item in menu.menusArray {
+            item.hidden = false
+        }
     }
     
 }

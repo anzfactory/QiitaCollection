@@ -34,12 +34,8 @@ class EntryDetailViewController: BaseViewController {
         super.viewDidLoad()
         self.automaticallyAdjustsScrollViewInsets = false
         
-        self.webView.callbackSelectedMenu = { (item: VLDContextSheetItem) -> Void in
-            self.selectedContextMenu(item)
-        }
-        
-        let rightButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon_pin"), style: UIBarButtonItemStyle.Bordered, target: self, action: "tapPin")
-        self.navigationItem.rightBarButtonItem = rightButton
+        // したに固定メニューボタンがあるんで、bottom padding をセットしておく
+        self.webView.scrollView.contentInset = UIEdgeInsetsMake(0, 0, 44.0, 0)
         
     }
     override func viewWillAppear(animated: Bool) {
@@ -66,19 +62,33 @@ class EntryDetailViewController: BaseViewController {
     
     
     // MARK: メソッド
-    
-    func selectedContextMenu(menuItem: VLDContextSheetItem) {
-        
-        if menuItem.title == self.webView.menuTitleShare {
+    override func publicMenuItems() -> [PathMenuItem] {
+        let menuItemShare: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "icon_share")!)
+        menuItemShare.action = {() -> Void in
             self.shareEntry()
-        } else if menuItem.title == self.webView.menuTitleLinks {
-            self.openLinks()
-        } else if menuItem.title == self.webView.menuTitleClipboard {
-            self.copyCode()
-        } else if menuItem.title == self.webView.menuTitlePerson {
-            self.moveUserDetail()
+            return
         }
-        
+        let menuItemLink: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "icon_link")!)
+        menuItemLink.action = {() -> Void in
+            self.openLinks()
+            return
+        }
+        let menuItemClip: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "icon_clipboard")!)
+        menuItemClip.action = {() -> Void in
+            self.copyCode()
+            return
+        }
+        let menuPerson: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "icon_person")!)
+        menuPerson.action = {() -> Void in
+            self.moveUserDetail()
+            return
+        }
+        let menuPin: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "icon_pin")!)
+        menuPin.action = {() -> Void in
+            self.confirmPinEntry()
+            return
+        }
+        return [menuItemShare, menuItemLink, menuItemClip, menuPerson, menuPin]
     }
     
     func loadLocalHtml() {
@@ -258,7 +268,7 @@ class EntryDetailViewController: BaseViewController {
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: vc)
     }
     
-    func tapPin() {
+    func confirmPinEntry() {
         let action: AlertViewSender = AlertViewSender(action: { () -> Void in
             UserDataManager.sharedInstance.appendPinEntry(self.displayEntry!.id, entryTitle: self.displayEntry!.title)
             Toast.show("この投稿をpinしました", style: JFMinimalNotificationStytle.StyleSuccess)

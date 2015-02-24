@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SimpleListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SWTableViewCellDelegate {
+class SimpleListViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate, SWTableViewCellDelegate {
     
     typealias ItemTapCallback = (SimpleListViewController, Int) -> Void
 

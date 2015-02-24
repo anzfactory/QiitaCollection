@@ -2,13 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "icon_pin.png"
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "icon_pin-1.png"
+      "filename" : "icon_circle_slash.png"
     },
     {
       "idiom" : "universal",

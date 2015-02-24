@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UserDetailViewController: UIViewController, UserDetailViewDelegate {
+class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
 
     // MARK: UI
     @IBOutlet weak var userInfoContainer: UserDetailView!
@@ -69,6 +69,29 @@ class UserDetailViewController: UIViewController, UserDetailViewDelegate {
     }
     
     // MARK: メソッド
+    override func publicMenuItems() -> [PathMenuItem] {
+        
+        var items: [PathMenuItem] = [PathMenuItem]()
+        if UserDataManager.sharedInstance.isMutedUser(self.displayUserId!) {
+            let menuItemMute: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "icon_eye")!)
+            menuItemMute.action = {() -> Void in
+                self.confirmClearMuted()
+                return
+            }
+            items.append(menuItemMute)
+        } else {
+            let menuItemMute: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "icon_circle_slash")!)
+            menuItemMute.action = {() -> Void in
+                self.confirmAddedMuteUser()
+                return
+            }
+            items.append(menuItemMute)
+        }
+        
+        
+        return items
+
+    }
     func refreshUser() {
         
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowLoading.rawValue, object: nil);
@@ -101,11 +124,11 @@ class UserDetailViewController: UIViewController, UserDetailViewDelegate {
         // アラート表示
         let action: SCLActionBlock = {() -> Void in
             UserDataManager.sharedInstance.appendMuteUserId(self.displayUserId!)
-            self.userInfoContainer.attention.hidden = true
-            self.userInfoContainer.eye.hidden = !self.userInfoContainer.attention.hidden
             Toast.show("ミュートユーザーに追加しました", style: JFMinimalNotificationStytle.StyleSuccess)
+            NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ResetPublicMenuItems.rawValue, object: self)
             return
         }
+        
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowAlertYesNo.rawValue, object: nil, userInfo: [
             QCKeys.AlertView.Message.rawValue: "ミュートユーザーに入れると、すべての投稿リストから表示されなくなります\n本当に良いので？",
             QCKeys.AlertView.YesAction.rawValue: AlertViewSender(action: action, title: "追加する")
@@ -115,9 +138,8 @@ class UserDetailViewController: UIViewController, UserDetailViewDelegate {
     func confirmClearMuted() {
         let action: SCLActionBlock = {() -> Void in
             UserDataManager.sharedInstance.clearMutedUser(self.displayUserId!)
-            self.userInfoContainer.attention.hidden = false
-            self.userInfoContainer.eye.hidden = !self.userInfoContainer.attention.hidden
             Toast.show("ミュートを解除しました", style: JFMinimalNotificationStytle.StyleSuccess)
+            NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ResetPublicMenuItems.rawValue, object: self)
             return
         }
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowAlertYesNo.rawValue, object: nil, userInfo: [
@@ -139,10 +161,6 @@ class UserDetailViewController: UIViewController, UserDetailViewDelegate {
             urlString = "https://www.facebook.com/" + self.displayUser!.facebook
         } else if sender == view.linkedin && !self.displayUser!.linkedin.isEmpty {
             urlString = "https://www.linkedin.com/in/" + self.displayUser!.linkedin
-        } else if sender == view.attention {
-            self.confirmAddedMuteUser()
-        } else if sender == view.eye {
-            self.confirmClearMuted()
         }
         
         if urlString.isEmpty {

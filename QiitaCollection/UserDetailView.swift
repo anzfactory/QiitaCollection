@@ -23,8 +23,6 @@ class UserDetailView: UIView {
     @IBOutlet weak var twitter: UIButton!
     @IBOutlet weak var facebook: UIButton!
     @IBOutlet weak var linkedin: UIButton!
-    @IBOutlet weak var attention: UIButton!
-    @IBOutlet weak var eye: UIButton!
     
     // MARK: 制約
     @IBOutlet weak var constraintIntroductionHeight: NSLayoutConstraint!
@@ -46,7 +44,6 @@ class UserDetailView: UIView {
         self.introduction.textColor = UIColor.textBase()
         self.introduction.text = ""
         
-        self.attention.setImage(self.attention.imageView?.image?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: UIControlState.Normal)
     }
     
     func showUser(info: UserEntity) {
@@ -62,8 +59,6 @@ class UserDetailView: UIView {
         self.twitter.enabled = !info.twitter.isEmpty
         self.facebook.enabled = !info.facebook.isEmpty
         self.linkedin.enabled = !info.linkedin.isEmpty
-        self.attention.hidden = UserDataManager.sharedInstance.isMutedUser(info.id)
-        self.eye.hidden = !self.attention.hidden
     }
     
     @IBAction func tap(sender: UIButton) {

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EntryListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class EntryListViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
     
     enum ListType : String {
         case UserEntries = "投稿したもの"

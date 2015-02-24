@@ -702,33 +702,6 @@
                                             <action selector="tap:" destination="u3j-et-Hlr" eventType="touchUpInside" id="krM-Zk-8SF"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wdd-Dh-kRV" userLabel="Attention">
-                                        <rect key="frame" x="280" y="112" width="32" height="32"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="32" id="TIr-Ct-thE"/>
-                                            <constraint firstAttribute="width" constant="32" id="mDH-Gr-ljb"/>
-                                        </constraints>
-                                        <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" image="icon_attention">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="tap:" destination="u3j-et-Hlr" eventType="touchUpInside" id="O1U-ng-3uY"/>
-                                        </connections>
-                                    </button>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aMS-UE-wpa" userLabel="eye">
-                                        <rect key="frame" x="280" y="112" width="32" height="32"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="32" id="ij1-E2-t27"/>
-                                            <constraint firstAttribute="width" constant="32" id="lCh-QG-1RM"/>
-                                        </constraints>
-                                        <state key="normal" image="icon_eye">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="tap:" destination="u3j-et-Hlr" eventType="touchUpInside" id="ndb-cm-ihM"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="0.43529412150382996" blue="0.81176471710205078" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -740,29 +713,23 @@
                                     <constraint firstItem="0uw-fF-MDr" firstAttribute="leading" secondItem="wHy-Kw-E7A" secondAttribute="trailing" constant="8" id="LGA-0l-iqw"/>
                                     <constraint firstAttribute="trailing" secondItem="RQc-Bu-CFk" secondAttribute="trailing" constant="8" id="M1K-GV-USC"/>
                                     <constraint firstItem="8Se-oA-iSb" firstAttribute="leading" secondItem="u3j-et-Hlr" secondAttribute="leading" constant="8" id="Mbj-r7-dd8"/>
-                                    <constraint firstItem="0uw-fF-MDr" firstAttribute="centerY" secondItem="aMS-UE-wpa" secondAttribute="centerY" id="NLf-UK-42y"/>
                                     <constraint firstItem="naC-3q-Qiw" firstAttribute="top" secondItem="Aff-6a-fjo" secondAttribute="bottom" constant="4" id="Z6C-jl-syH"/>
                                     <constraint firstItem="nnv-a0-Vg4" firstAttribute="top" secondItem="Fn5-AC-r00" secondAttribute="bottom" constant="4" id="a3X-PI-jNf"/>
                                     <constraint firstItem="R94-WT-g9P" firstAttribute="leading" secondItem="nnv-a0-Vg4" secondAttribute="trailing" constant="8" id="c2r-Ds-MZW"/>
                                     <constraint firstItem="Fn5-AC-r00" firstAttribute="top" secondItem="u3j-et-Hlr" secondAttribute="top" constant="8" id="dPu-uf-8BA"/>
                                     <constraint firstAttribute="trailing" secondItem="naC-3q-Qiw" secondAttribute="trailing" constant="8" id="dfJ-SQ-pvH"/>
-                                    <constraint firstAttribute="trailing" secondItem="Wdd-Dh-kRV" secondAttribute="trailing" constant="8" id="eGF-oF-Qbt"/>
                                     <constraint firstItem="wHy-Kw-E7A" firstAttribute="leading" secondItem="R94-WT-g9P" secondAttribute="trailing" constant="8" id="fFR-mq-FNY"/>
                                     <constraint firstItem="RQc-Bu-CFk" firstAttribute="leading" secondItem="Fn5-AC-r00" secondAttribute="trailing" constant="8" id="hlu-FL-kSH"/>
                                     <constraint firstItem="wHy-Kw-E7A" firstAttribute="centerY" secondItem="0uw-fF-MDr" secondAttribute="centerY" id="idP-gO-E2v"/>
                                     <constraint firstAttribute="trailing" secondItem="Aff-6a-fjo" secondAttribute="trailing" constant="8" id="j2S-YA-gXa"/>
                                     <constraint firstItem="RQc-Bu-CFk" firstAttribute="top" secondItem="naC-3q-Qiw" secondAttribute="bottom" constant="4" id="lGY-c1-c24"/>
-                                    <constraint firstAttribute="trailing" secondItem="aMS-UE-wpa" secondAttribute="trailing" constant="8" id="lPP-kF-XEJ"/>
                                     <constraint firstItem="R94-WT-g9P" firstAttribute="centerY" secondItem="wHy-Kw-E7A" secondAttribute="centerY" id="n1m-O6-laX"/>
                                     <constraint firstItem="Aff-6a-fjo" firstAttribute="leading" secondItem="Fn5-AC-r00" secondAttribute="trailing" constant="8" id="qWd-0T-RHu"/>
-                                    <constraint firstItem="Wdd-Dh-kRV" firstAttribute="centerY" secondItem="0uw-fF-MDr" secondAttribute="centerY" id="vIs-1E-c2P"/>
                                     <constraint firstItem="Fn5-AC-r00" firstAttribute="leading" secondItem="u3j-et-Hlr" secondAttribute="leading" constant="8" id="vRw-7m-UFq"/>
                                     <constraint firstItem="nnv-a0-Vg4" firstAttribute="centerY" secondItem="R94-WT-g9P" secondAttribute="centerY" id="yLL-xF-aGY"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="attention" destination="Wdd-Dh-kRV" id="ubh-9W-YRX"/>
                                     <outlet property="constraintIntroductionHeight" destination="tpf-Ii-iS8" id="oQv-Yd-bYO"/>
-                                    <outlet property="eye" destination="aMS-UE-wpa" id="F1f-Wj-Jep"/>
                                     <outlet property="facebook" destination="wHy-Kw-E7A" id="Sp2-P8-d4a"/>
                                     <outlet property="github" destination="nnv-a0-Vg4" id="LIb-S0-eFF"/>
                                     <outlet property="introduction" destination="RQc-Bu-CFk" id="zSE-5W-GeM"/>
@@ -951,10 +918,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="icon_attention" width="22" height="22"/>
         <image name="icon_check" width="22" height="22"/>
         <image name="icon_comment" width="22" height="22"/>
-        <image name="icon_eye" width="22" height="22"/>
         <image name="icon_facebook" width="22" height="22"/>
         <image name="icon_github" width="22" height="22"/>
         <image name="icon_linkedin" width="22" height="22"/>
