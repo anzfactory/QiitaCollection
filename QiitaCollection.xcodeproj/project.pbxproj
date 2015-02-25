@@ -65,12 +65,12 @@
 		A1CF43511A8BBE380016209C /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CF43501A8BBE380016209C /* BaseViewController.swift */; };
 		A1D8A8351A8750240040C195 /* UIImageView+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D8A8341A8750240040C195 /* UIImageView+App.swift */; };
 		A1D8A83A1A87917F0040C195 /* UIView+Constraint.m in Sources */ = {isa = PBXBuildFile; fileRef = A1D8A8391A87917F0040C195 /* UIView+Constraint.m */; };
+		A1EB79171A9E1F32007E931E /* ViewPagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1EB79161A9E1F32007E931E /* ViewPagerController.m */; };
 		A1F157ED1A8FB1490064EA47 /* JFMinimalNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = A1F157E41A8FB1490064EA47 /* JFMinimalNotification.m */; };
 		A1F157EE1A8FB1490064EA47 /* JFMinimalNotificationArt.m in Sources */ = {isa = PBXBuildFile; fileRef = A1F157E61A8FB1490064EA47 /* JFMinimalNotificationArt.m */; };
 		A1F157EF1A8FB1490064EA47 /* NSInvocation+Constructors.m in Sources */ = {isa = PBXBuildFile; fileRef = A1F157E81A8FB1490064EA47 /* NSInvocation+Constructors.m */; };
 		A1F157F01A8FB1490064EA47 /* UIColor+JFMinimalNotificationColors.m in Sources */ = {isa = PBXBuildFile; fileRef = A1F157EA1A8FB1490064EA47 /* UIColor+JFMinimalNotificationColors.m */; };
 		A1F157F11A8FB1490064EA47 /* UIView+Round.m in Sources */ = {isa = PBXBuildFile; fileRef = A1F157EC1A8FB1490064EA47 /* UIView+Round.m */; };
-		A1F294DA1A979FC5005E1C02 /* CAPSPageMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F294D71A979FC5005E1C02 /* CAPSPageMenu.swift */; };
 		A1F294DE1A97A270005E1C02 /* UserDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F294DD1A97A270005E1C02 /* UserDataManager.swift */; };
 		A1F294E51A986875005E1C02 /* SimpleListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F294E41A986875005E1C02 /* SimpleListViewController.swift */; };
 		A1F8D5091A88FC3C00660741 /* UIView+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F8D5081A88FC3C00660741 /* UIView+App.swift */; };
@@ -169,6 +169,8 @@
 		A1D8A8341A8750240040C195 /* UIImageView+App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+App.swift"; sourceTree = "<group>"; };
 		A1D8A8381A87917F0040C195 /* UIView+Constraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Constraint.h"; sourceTree = "<group>"; };
 		A1D8A8391A87917F0040C195 /* UIView+Constraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Constraint.m"; sourceTree = "<group>"; };
+		A1EB79151A9E1F32007E931E /* ViewPagerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewPagerController.h; sourceTree = "<group>"; };
+		A1EB79161A9E1F32007E931E /* ViewPagerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewPagerController.m; sourceTree = "<group>"; };
 		A1F157E31A8FB1490064EA47 /* JFMinimalNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JFMinimalNotification.h; sourceTree = "<group>"; };
 		A1F157E41A8FB1490064EA47 /* JFMinimalNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JFMinimalNotification.m; sourceTree = "<group>"; };
 		A1F157E51A8FB1490064EA47 /* JFMinimalNotificationArt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JFMinimalNotificationArt.h; sourceTree = "<group>"; };
@@ -179,7 +181,6 @@
 		A1F157EA1A8FB1490064EA47 /* UIColor+JFMinimalNotificationColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+JFMinimalNotificationColors.m"; sourceTree = "<group>"; };
 		A1F157EB1A8FB1490064EA47 /* UIView+Round.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Round.h"; sourceTree = "<group>"; };
 		A1F157EC1A8FB1490064EA47 /* UIView+Round.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Round.m"; sourceTree = "<group>"; };
-		A1F294D71A979FC5005E1C02 /* CAPSPageMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAPSPageMenu.swift; sourceTree = "<group>"; };
 		A1F294DD1A97A270005E1C02 /* UserDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataManager.swift; sourceTree = "<group>"; };
 		A1F294E41A986875005E1C02 /* SimpleListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleListViewController.swift; sourceTree = "<group>"; };
 		A1F8D5081A88FC3C00660741 /* UIView+App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+App.swift"; sourceTree = "<group>"; };
@@ -460,10 +461,10 @@
 		A1D8A8361A87914B0040C195 /* ObjC */ = {
 			isa = PBXGroup;
 			children = (
+				A1EB79141A9E1F1F007E931E /* ICViewPager */,
 				A14149351A9C1544003B7898 /* PathMenu */,
 				A1824FC71A98ACF2009604B2 /* SWTableViewCell */,
 				A1824FB41A987890009604B2 /* REMenu */,
-				A1F294D61A979F9A005E1C02 /* PageMenu */,
 				A17D0C4A1A963A410020229B /* SCLAlertView */,
 				A1F157E21A8FB12D0064EA47 /* JFMinimalNotification */,
 				A1D8A8371A87916C0040C195 /* UIView-Constraint */,
@@ -478,6 +479,15 @@
 				A1D8A8391A87917F0040C195 /* UIView+Constraint.m */,
 			);
 			path = "UIView-Constraint";
+			sourceTree = "<group>";
+		};
+		A1EB79141A9E1F1F007E931E /* ICViewPager */ = {
+			isa = PBXGroup;
+			children = (
+				A1EB79151A9E1F32007E931E /* ViewPagerController.h */,
+				A1EB79161A9E1F32007E931E /* ViewPagerController.m */,
+			);
+			path = ICViewPager;
 			sourceTree = "<group>";
 		};
 		A1F157E21A8FB12D0064EA47 /* JFMinimalNotification */ = {
@@ -503,14 +513,6 @@
 				A1C0B5BA1A96C8000086F92E /* EntityProtocol.swift */,
 			);
 			name = Protocols;
-			sourceTree = "<group>";
-		};
-		A1F294D61A979F9A005E1C02 /* PageMenu */ = {
-			isa = PBXGroup;
-			children = (
-				A1F294D71A979FC5005E1C02 /* CAPSPageMenu.swift */,
-			);
-			path = PageMenu;
 			sourceTree = "<group>";
 		};
 		A63F41D73B84466369DCEC70 /* Frameworks */ = {
@@ -714,7 +716,6 @@
 				A124A2201A87BF99007A42E9 /* PagerViewController.swift in Sources */,
 				A1A16E341A90842C0052A7C6 /* UserDetailView.swift in Sources */,
 				A103AF451A866A0D00FF0B24 /* UIImage+App.swift in Sources */,
-				A1F294DA1A979FC5005E1C02 /* CAPSPageMenu.swift in Sources */,
 				A17D0C591A963A510020229B /* UIImage+ImageEffects.m in Sources */,
 				A1B1C6BD1A90C0EB001419E9 /* EntryListViewController.swift in Sources */,
 				A143C0E31A9B87CD00C531B4 /* MuteListViewController.swift in Sources */,
@@ -730,6 +731,7 @@
 				A1824FC01A9878A5009604B2 /* REMenu.m in Sources */,
 				A17D0C581A963A510020229B /* SCLButton.m in Sources */,
 				A103AF3A1A86141200FF0B24 /* EntryCollectionViewCell.swift in Sources */,
+				A1EB79171A9E1F32007E931E /* ViewPagerController.m in Sources */,
 				A17D0C561A963A510020229B /* SCLAlertViewResponder.m in Sources */,
 				A141493B1A9C2985003B7898 /* QCPathMenuItem.swift in Sources */,
 				A1824FDB1A98D0B3009604B2 /* SlideTableViewCell.swift in Sources */,

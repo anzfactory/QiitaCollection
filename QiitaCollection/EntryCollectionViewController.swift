@@ -114,6 +114,7 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
         let doAciton: AlertViewSender.AlertActionWithText = {(sender: UITextField) -> Void in
             UserDataManager.sharedInstance.appendQuery(self.query, label: sender.text)
             Toast.show("検索条件を保存しました", style: JFMinimalNotificationStytle.StyleSuccess)
+            NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ReloadViewPager.rawValue, object: nil)
         }
         let validation: AlertViewSender.AlertValidation = {(sender: UITextField) -> Bool in
             return !sender.text.isEmpty

@@ -8,3 +8,4 @@
 #import "SCLAlertView.h"
 #import "REMenu.h"
 #import "SWTableViewCell.h"
+#import "ViewPagerController.h"

@@ -18,7 +18,8 @@ struct QCKeys {
         ShowAlertYesNo = "QC_NotificationKey_ShowAlertYesNo",
         ShowAlertInputText = "QC_NotificationKey_ShowAlertInputText",
         PresentedViewController = "QC_NotificationKey_PresentedViewController",
-        ResetPublicMenuItems = "QC_NotificationKey_ResetPublicMenuItems"
+        ResetPublicMenuItems = "QC_NotificationKey_ResetPublicMenuItems",
+        ReloadViewPager = "QC_NotificationKey_ReloadViewPager"
     }
     
     enum ActionSheet: String {

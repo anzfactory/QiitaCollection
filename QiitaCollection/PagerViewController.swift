@@ -8,14 +8,16 @@
 
 import UIKit
 
-class PagerViewController: BaseViewController {
+class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerDataSource {
+    
+    typealias ViewPagerItem = (title:String, identifier:String, query:String)
 
     // MARK: プロパティ
     var leftBarItem: UIBarButtonItem?
-    var pageMenu : CAPSPageMenu!
-    var controllerArray : [UIViewController] = []
+    var viewPagerItems: [ViewPagerItem] = [ViewPagerItem]()
     lazy var menu: REMenu = self.makeMenu()
-    
+    var reloadViewPager: Bool = false
+ 
     // MARK: ライフサイクル
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,44 +30,31 @@ class PagerViewController: BaseViewController {
         ]
         self.navigationItem.rightBarButtonItems = rightButtons
         
+        self.setupViewControllers()
+        
         // デフォルトVC
-        let vc : UIViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryCollectionVC") as UIViewController
-        vc.title = "新着"
-        controllerArray.append(vc)
+        self.dataSource = self
+        self.delegate = self
         
-        // 保存しているクエリがあれば
-        let queries: [String: String] = UserDataManager.sharedInstance.queries
-        if !queries.isEmpty {
-            for query in queries {
-                let queryVC : EntryCollectionViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryCollectionVC") as EntryCollectionViewController
-                queryVC.title = query.1
-                queryVC.query = query.0
-                controllerArray.append(queryVC)
-            }
-        }
-        
-        var parameters: [String: AnyObject] = ["menuItemSeparatorWidth": 0.0,
-            "useMenuLikeSegmentedControl": true,
-            "menuItemSeparatorPercentageHeight": 0.1,
-            "bottomMenuHairlineColor" : UIColor.borderPageMenuIndicator(),
-            "selectionIndicatorColor" : UIColor.borderPageMenuIndicator(),
-            "selectedMenuItemLabelColor" : UIColor.textPageMenuLabel(),
-            "unselectedMenuItemLabelColor" : UIColor.textPageMenuLabel(),
-            "menuItemFont" : UIFont.boldSystemFontOfSize(14.0)]
-        
-        self.pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, 0.0, self.view.frame.width, self.view.frame.height), options: parameters)
-        self.view.addSubview(self.pageMenu!.view)
-        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveReloadViewPager", name: QCKeys.Notification.ReloadViewPager.rawValue, object: nil)
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.pageMenu.viewWillAppear(animated)
+        
+        if self.reloadViewPager {
+            self.reloadViewPager = false
+            self.setupViewControllers()
+            self.reloadData()
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        self.pageMenu.viewDidAppear(animated)
     }
     
     override func didReceiveMemoryWarning() {
@@ -73,6 +62,20 @@ class PagerViewController: BaseViewController {
     }
 
     // MARK: メソッド
+    func setupViewControllers() {
+        self.viewPagerItems.removeAll(keepCapacity: false)
+        self.viewPagerItems.append(ViewPagerItem(title: "新着", identifier:"EntryCollectionVC", query:""))
+        
+        // クエリで回す
+        let queries: [String: String] = UserDataManager.sharedInstance.queries
+        if !queries.isEmpty {
+            for query in queries {
+                let queryVC : EntryCollectionViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryCollectionVC") as EntryCollectionViewController
+                self.viewPagerItems.append(ViewPagerItem(title: query.1, identifier:"EntryCollectionVC", query:query.0))
+            }
+        }
+
+    }
     func makeMenu() -> REMenu {
         let menuItemMuteUsers: REMenuItem = REMenuItem(title: "ミュートリスト", image: nil, highlightedImage: nil) { (menuItem) -> Void in
             self.openMuteUserList()
@@ -182,5 +185,45 @@ class PagerViewController: BaseViewController {
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PresentedViewController.rawValue, object: nc)
         
     }
-
+    
+    // MARK: NSNotification
+    func receiveReloadViewPager() {
+        self.reloadViewPager = true
+    }
+    
+    // MARK: ViewPagerDatasource
+    func numberOfTabsForViewPager(viewPager: ViewPagerController!) -> UInt {
+        return UInt(self.viewPagerItems.count)
+    }
+    func viewPager(viewPager: ViewPagerController!, viewForTabAtIndex index: UInt) -> UIView! {
+        let current: ViewPagerItem = self.viewPagerItems[Int(index)]
+        
+        let title: UILabel = UILabel(frame: CGRectZero)
+        title.text = current.title
+        title.font = UIFont.boldSystemFontOfSize(14.0)
+        title.textColor = UIColor.textBase()
+        title.sizeToFit()
+        return title
+    }
+    func viewPager(viewPager: ViewPagerController!, contentViewControllerForTabAtIndex index: UInt) -> UIViewController! {
+        let current: ViewPagerItem = self.viewPagerItems[Int(index)]
+        let vc: UIViewController = self.storyboard?.instantiateViewControllerWithIdentifier(current.identifier) as UIViewController
+        if vc is EntryCollectionViewController {
+            (vc as EntryCollectionViewController).query = current.query
+        }
+        return vc
+    }
+    
+    // MARK: ViewPagerDelegate
+    func viewPager(viewPager: ViewPagerController!, colorForComponent component: ViewPagerComponent, withDefault color: UIColor!) -> UIColor! {
+        switch component {
+        case ViewPagerComponent.TabsView:
+            return UIColor.backgroundPagerTab()
+        case ViewPagerComponent.Indicator:
+            return UIColor.backgroundSub()
+        default:
+            return color
+        }
+    }
+    
 }
