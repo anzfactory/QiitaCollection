@@ -66,6 +66,7 @@
 		A1D8A8351A8750240040C195 /* UIImageView+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D8A8341A8750240040C195 /* UIImageView+App.swift */; };
 		A1D8A83A1A87917F0040C195 /* UIView+Constraint.m in Sources */ = {isa = PBXBuildFile; fileRef = A1D8A8391A87917F0040C195 /* UIView+Constraint.m */; };
 		A1EB79171A9E1F32007E931E /* ViewPagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1EB79161A9E1F32007E931E /* ViewPagerController.m */; };
+		A1EB791B1A9E3709007E931E /* CNPGridMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = A1EB791A1A9E3709007E931E /* CNPGridMenu.m */; };
 		A1F157ED1A8FB1490064EA47 /* JFMinimalNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = A1F157E41A8FB1490064EA47 /* JFMinimalNotification.m */; };
 		A1F157EE1A8FB1490064EA47 /* JFMinimalNotificationArt.m in Sources */ = {isa = PBXBuildFile; fileRef = A1F157E61A8FB1490064EA47 /* JFMinimalNotificationArt.m */; };
 		A1F157EF1A8FB1490064EA47 /* NSInvocation+Constructors.m in Sources */ = {isa = PBXBuildFile; fileRef = A1F157E81A8FB1490064EA47 /* NSInvocation+Constructors.m */; };
@@ -171,6 +172,8 @@
 		A1D8A8391A87917F0040C195 /* UIView+Constraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Constraint.m"; sourceTree = "<group>"; };
 		A1EB79151A9E1F32007E931E /* ViewPagerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewPagerController.h; sourceTree = "<group>"; };
 		A1EB79161A9E1F32007E931E /* ViewPagerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewPagerController.m; sourceTree = "<group>"; };
+		A1EB79191A9E3709007E931E /* CNPGridMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CNPGridMenu.h; sourceTree = "<group>"; };
+		A1EB791A1A9E3709007E931E /* CNPGridMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CNPGridMenu.m; sourceTree = "<group>"; };
 		A1F157E31A8FB1490064EA47 /* JFMinimalNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JFMinimalNotification.h; sourceTree = "<group>"; };
 		A1F157E41A8FB1490064EA47 /* JFMinimalNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JFMinimalNotification.m; sourceTree = "<group>"; };
 		A1F157E51A8FB1490064EA47 /* JFMinimalNotificationArt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JFMinimalNotificationArt.h; sourceTree = "<group>"; };
@@ -461,6 +464,7 @@
 		A1D8A8361A87914B0040C195 /* ObjC */ = {
 			isa = PBXGroup;
 			children = (
+				A1EB79181A9E36EF007E931E /* CNPGridMenu */,
 				A1EB79141A9E1F1F007E931E /* ICViewPager */,
 				A14149351A9C1544003B7898 /* PathMenu */,
 				A1824FC71A98ACF2009604B2 /* SWTableViewCell */,
@@ -488,6 +492,15 @@
 				A1EB79161A9E1F32007E931E /* ViewPagerController.m */,
 			);
 			path = ICViewPager;
+			sourceTree = "<group>";
+		};
+		A1EB79181A9E36EF007E931E /* CNPGridMenu */ = {
+			isa = PBXGroup;
+			children = (
+				A1EB79191A9E3709007E931E /* CNPGridMenu.h */,
+				A1EB791A1A9E3709007E931E /* CNPGridMenu.m */,
+			);
+			path = CNPGridMenu;
 			sourceTree = "<group>";
 		};
 		A1F157E21A8FB12D0064EA47 /* JFMinimalNotification */ = {
@@ -702,6 +715,7 @@
 				A103AF431A865DE700FF0B24 /* UIColor+App.swift in Sources */,
 				A14149381A9C1557003B7898 /* PathMenu.swift in Sources */,
 				A17D0C551A963A510020229B /* SCLAlertView.m in Sources */,
+				A1EB791B1A9E3709007E931E /* CNPGridMenu.m in Sources */,
 				A1F294E51A986875005E1C02 /* SimpleListViewController.swift in Sources */,
 				A1824FD41A98AD03009604B2 /* NSMutableArray+SWUtilityButtons.m in Sources */,
 				A1824FBF1A9878A5009604B2 /* RECommonFunctions.m in Sources */,
