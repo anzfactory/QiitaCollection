@@ -8,7 +8,7 @@
 
 import SwiftyJSON
 
-struct TagEntity {
+struct TagEntity: EntityProtocol {
     
     let id: String
     var version: String

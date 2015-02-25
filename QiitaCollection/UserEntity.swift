@@ -9,7 +9,7 @@
 import UIKit
 import SwiftyJSON
 
-struct UserEntity {
+struct UserEntity: EntityProtocol {
     
     let id: String
     let name: String

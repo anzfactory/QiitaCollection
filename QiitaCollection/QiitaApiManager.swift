@@ -40,109 +40,67 @@ class QiitaApiManager: NSObject {
                 params["query"] = q
             }
         }
-        
-        Alamofire.request(Alamofire.Method.GET, self.apiUrl + PathItems, parameters: params, encoding: ParameterEncoding.URL)
-            .validate(statusCode: 200..<300)    // ステータスコードの200台以外をエラーとするように
-            .responseJSON { (request, response, jsonData, error) -> Void in
-                
-                let isError: Bool = error == nil ? false : true
-                
-                if isError {
-                    println("error:\(error)")
-                    completion(items: [], isError: isError);
-                    return;
-                }
-                let json = jsonData as NSArray
-                var items = [EntryEntity]()
-                for obj in json {
-                    items.append(EntryEntity(data:JSON(obj)));
-                }
-                
-                completion(items: items, isError: isError);
-        }
+        self.getItems(self.apiUrl + PathItems, parameters: params, completion: completion)
     }
     
     func getEntriesUserStocks(userId: String, page: Int, completion:(items:[EntryEntity], isError: Bool) -> Void) {
         var params: [String: String] = [
             "page" : String(page)
         ]
-
-        Alamofire.request(Alamofire.Method.GET, self.apiUrl + String(format: PathUserStocks, userId) , parameters: params, encoding: ParameterEncoding.URL)
-            .validate(statusCode: 200..<300)    // ステータスコードの200台以外をエラーとするように
-            .responseJSON { (request, response, jsonData, error) -> Void in
-                
-                let isError: Bool = error == nil ? false : true
-                
-                if isError {
-                    println("error:\(error)")
-                    completion(items: [], isError: isError);
-                    return;
-                }
-                let json = jsonData as NSArray
-                var items = [EntryEntity]()
-                for obj in json {
-                    items.append(EntryEntity(data:JSON(obj)));
-                }
-                
-                completion(items: items, isError: isError);
-        }
+        self.getItems(self.apiUrl + String(format: PathUserStocks, userId), parameters: params, completion: completion)
     }
     
     func getTag(tagId: String, completion:(item: TagEntity?, isError: Bool) -> Void) {
-        
-        Alamofire.request(Alamofire.Method.GET, self.apiUrl + String(format: PathTag, tagId), parameters: nil, encoding: ParameterEncoding.URL)
-            .validate(statusCode: 200..<300)    // ステータスコードの200台以外をエラーとするように
-            .responseJSON { (request, response, jsonData, error) -> Void in
-                
-                let isError: Bool = error == nil ? false : true
-                
-                if isError {
-                    completion(item:nil, isError: isError);
-                    return;
-                }
-
-                let json = JSON(jsonData!)
-                let tag: TagEntity = TagEntity(data: json )
-                
-                completion(item: tag, isError: isError);
-        }
+        self.getItem(self.apiUrl + String(format: PathTag, tagId), parameters: nil, completion: completion)
     }
     
     func getUser(userId: String, completion:(item: UserEntity?, isError: Bool) -> Void) {
-        
-        Alamofire.request(Alamofire.Method.GET, self.apiUrl + String(format: PathUser, userId), parameters: nil, encoding: ParameterEncoding.URL)
-            .validate(statusCode: 200..<300)    // ステータスコードの200台以外をエラーとするように
-            .responseJSON { (request, response, jsonData, error) -> Void in
-                let isError: Bool = error == nil ? false : true
-                
-                if isError {
-                    completion(item:nil, isError: isError);
-                    return;
-                }
-                
-                let json = JSON(jsonData!)
-                let user: UserEntity = UserEntity(data: json )
-                
-                completion(item: user, isError: isError);
-        }
-        
+        self.getItem(self.apiUrl + String(format: PathUser, userId), parameters: nil, completion: completion)
     }
     
     func getEntry(entryId: String, completion:(item: EntryEntity?, isError: Bool) -> Void) {
+        self.getItem(self.apiUrl + String(format: PathItem, entryId), parameters: nil, completion: completion)
+    }
+    
+    func getItems<T:EntityProtocol>(url: URLStringConvertible, parameters: [String: AnyObject]?, completion: (items:[T], isError: Bool) -> Void) {
         
-        Alamofire.request(Alamofire.Method.GET, self.apiUrl + String(format: PathItem, entryId), parameters: nil, encoding: ParameterEncoding.URL)
+        Alamofire.request(Alamofire.Method.GET, url, parameters: parameters, encoding: ParameterEncoding.URL)
+            .validate(statusCode: 200..<300)    // ステータスコードの200台以外をエラーとするように
+            .responseJSON { (request, response, jsonData, error) -> Void in
+                let isError: Bool = error == nil ? false : true
+                
+                var items: [T] = [T]()
+                if isError {
+                    completion(items:items, isError: isError);
+                    return;
+                }
+                
+                let json: JSON = JSON(jsonData!)
+                if let list = json.array {
+                    for obj in list {
+                        items.append(T(data: obj));
+                    }
+                    completion(items: items, isError: isError);
+                } else {
+                    fatalError("unmatch type......")
+                }
+                
+        }
+    }
+    
+    func getItem<T:EntityProtocol>(url: URLStringConvertible, parameters: [String: AnyObject]?, completion: (item:T?, isError: Bool) -> Void) {
+        Alamofire.request(Alamofire.Method.GET, url, parameters: parameters, encoding: ParameterEncoding.URL)
             .validate(statusCode: 200..<300)    // ステータスコードの200台以外をエラーとするように
             .responseJSON { (request, response, jsonData, error) -> Void in
                 
                 let isError: Bool = error == nil ? false : true
                 
                 if isError {
-                    println("error:\(error)")
                     completion(item: nil, isError: isError);
                     return;
                 }
                 let json = JSON(jsonData!)
-                completion(item: EntryEntity(data: json), isError: isError);
+                completion(item: T(data: json), isError: isError);
         }
     }
     

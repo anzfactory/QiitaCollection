@@ -6,5 +6,8 @@
 //  Copyright (c) 2015年 anz. All rights reserved.
 //
 
+import SwiftyJSON
+
 protocol EntityProtocol {
+    init(data: JSON)
 }
