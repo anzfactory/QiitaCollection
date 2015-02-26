@@ -29,11 +29,6 @@
 		A18030621A99C83800EA8D4A /* SearchConditionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18030611A99C83800EA8D4A /* SearchConditionView.swift */; };
 		A18030641A99CFF600EA8D4A /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18030631A99CFF600EA8D4A /* SearchViewController.swift */; };
 		A18030661A9A21CA00EA8D4A /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18030651A9A21CA00EA8D4A /* SearchTableViewCell.swift */; };
-		A1824FBF1A9878A5009604B2 /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = A1824FB61A9878A5009604B2 /* RECommonFunctions.m */; };
-		A1824FC01A9878A5009604B2 /* REMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = A1824FB81A9878A5009604B2 /* REMenu.m */; };
-		A1824FC11A9878A5009604B2 /* REMenuContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = A1824FBA1A9878A5009604B2 /* REMenuContainerView.m */; };
-		A1824FC21A9878A5009604B2 /* REMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A1824FBC1A9878A5009604B2 /* REMenuItem.m */; };
-		A1824FC31A9878A5009604B2 /* REMenuItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = A1824FBE1A9878A5009604B2 /* REMenuItemView.m */; };
 		A1824FC61A987FEE009604B2 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1824FC51A987FEE009604B2 /* Toast.swift */; };
 		A1824FD41A98AD03009604B2 /* NSMutableArray+SWUtilityButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = A1824FC91A98AD03009604B2 /* NSMutableArray+SWUtilityButtons.m */; };
 		A1824FD51A98AD03009604B2 /* SWCellScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = A1824FCB1A98AD03009604B2 /* SWCellScrollView.m */; };
@@ -118,16 +113,6 @@
 		A18030611A99C83800EA8D4A /* SearchConditionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchConditionView.swift; sourceTree = "<group>"; };
 		A18030631A99CFF600EA8D4A /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		A18030651A9A21CA00EA8D4A /* SearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
-		A1824FB51A9878A5009604B2 /* RECommonFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RECommonFunctions.h; sourceTree = "<group>"; };
-		A1824FB61A9878A5009604B2 /* RECommonFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RECommonFunctions.m; sourceTree = "<group>"; };
-		A1824FB71A9878A5009604B2 /* REMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REMenu.h; sourceTree = "<group>"; };
-		A1824FB81A9878A5009604B2 /* REMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REMenu.m; sourceTree = "<group>"; };
-		A1824FB91A9878A5009604B2 /* REMenuContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REMenuContainerView.h; sourceTree = "<group>"; };
-		A1824FBA1A9878A5009604B2 /* REMenuContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REMenuContainerView.m; sourceTree = "<group>"; };
-		A1824FBB1A9878A5009604B2 /* REMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REMenuItem.h; sourceTree = "<group>"; };
-		A1824FBC1A9878A5009604B2 /* REMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REMenuItem.m; sourceTree = "<group>"; };
-		A1824FBD1A9878A5009604B2 /* REMenuItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REMenuItemView.h; sourceTree = "<group>"; };
-		A1824FBE1A9878A5009604B2 /* REMenuItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REMenuItemView.m; sourceTree = "<group>"; };
 		A1824FC51A987FEE009604B2 /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		A1824FC81A98AD03009604B2 /* NSMutableArray+SWUtilityButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableArray+SWUtilityButtons.h"; path = "SWTableViewCell/NSMutableArray+SWUtilityButtons.h"; sourceTree = "<group>"; };
 		A1824FC91A98AD03009604B2 /* NSMutableArray+SWUtilityButtons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableArray+SWUtilityButtons.m"; path = "SWTableViewCell/NSMutableArray+SWUtilityButtons.m"; sourceTree = "<group>"; };
@@ -277,23 +262,6 @@
 				A17D0C541A963A510020229B /* UIImage+ImageEffects.m */,
 			);
 			name = SCLAlertView;
-			sourceTree = "<group>";
-		};
-		A1824FB41A987890009604B2 /* REMenu */ = {
-			isa = PBXGroup;
-			children = (
-				A1824FB51A9878A5009604B2 /* RECommonFunctions.h */,
-				A1824FB61A9878A5009604B2 /* RECommonFunctions.m */,
-				A1824FB71A9878A5009604B2 /* REMenu.h */,
-				A1824FB81A9878A5009604B2 /* REMenu.m */,
-				A1824FB91A9878A5009604B2 /* REMenuContainerView.h */,
-				A1824FBA1A9878A5009604B2 /* REMenuContainerView.m */,
-				A1824FBB1A9878A5009604B2 /* REMenuItem.h */,
-				A1824FBC1A9878A5009604B2 /* REMenuItem.m */,
-				A1824FBD1A9878A5009604B2 /* REMenuItemView.h */,
-				A1824FBE1A9878A5009604B2 /* REMenuItemView.m */,
-			);
-			path = REMenu;
 			sourceTree = "<group>";
 		};
 		A1824FC41A987FA2009604B2 /* Models */ = {
@@ -468,7 +436,6 @@
 				A1EB79141A9E1F1F007E931E /* ICViewPager */,
 				A14149351A9C1544003B7898 /* PathMenu */,
 				A1824FC71A98ACF2009604B2 /* SWTableViewCell */,
-				A1824FB41A987890009604B2 /* REMenu */,
 				A17D0C4A1A963A410020229B /* SCLAlertView */,
 				A1F157E21A8FB12D0064EA47 /* JFMinimalNotification */,
 				A1D8A8371A87916C0040C195 /* UIView-Constraint */,
@@ -697,7 +664,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1824FC31A9878A5009604B2 /* REMenuItemView.m in Sources */,
 				A1824FD81A98AD03009604B2 /* SWUtilityButtonTapGestureRecognizer.m in Sources */,
 				A1824FD71A98AD03009604B2 /* SWTableViewCell.m in Sources */,
 				A1824FC61A987FEE009604B2 /* Toast.swift in Sources */,
@@ -718,7 +684,6 @@
 				A1EB791B1A9E3709007E931E /* CNPGridMenu.m in Sources */,
 				A1F294E51A986875005E1C02 /* SimpleListViewController.swift in Sources */,
 				A1824FD41A98AD03009604B2 /* NSMutableArray+SWUtilityButtons.m in Sources */,
-				A1824FBF1A9878A5009604B2 /* RECommonFunctions.m in Sources */,
 				A1824FDD1A98D816009604B2 /* Array+App.swift in Sources */,
 				A1D8A83A1A87917F0040C195 /* UIView+Constraint.m in Sources */,
 				A1D8A8351A8750240040C195 /* UIImageView+App.swift in Sources */,
@@ -739,10 +704,8 @@
 				A1F294DE1A97A270005E1C02 /* UserDataManager.swift in Sources */,
 				A18A85D01A85AAC10078436D /* EntryCollectionViewController.swift in Sources */,
 				A1F157EE1A8FB1490064EA47 /* JFMinimalNotificationArt.m in Sources */,
-				A1824FC21A9878A5009604B2 /* REMenuItem.m in Sources */,
 				A1B1C6BB1A90928E001419E9 /* UILabel+App.swift in Sources */,
 				A18030661A9A21CA00EA8D4A /* SearchTableViewCell.swift in Sources */,
-				A1824FC01A9878A5009604B2 /* REMenu.m in Sources */,
 				A17D0C581A963A510020229B /* SCLButton.m in Sources */,
 				A103AF3A1A86141200FF0B24 /* EntryCollectionViewCell.swift in Sources */,
 				A1EB79171A9E1F32007E931E /* ViewPagerController.m in Sources */,
@@ -758,7 +721,6 @@
 				A118A61E1A8F4AA600350841 /* EntryDetailView.swift in Sources */,
 				A1824FD51A98AD03009604B2 /* SWCellScrollView.m in Sources */,
 				A103AF401A86553000FF0B24 /* UserEntity.swift in Sources */,
-				A1824FC11A9878A5009604B2 /* REMenuContainerView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,14 +8,22 @@
 
 import UIKit
 
-class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerDataSource {
+// selectionHandlerにセットすると自動でよばれてしまって使いづらいので…
+class QCGridMenuItem: CNPGridMenuItem {
+    
+    typealias TapAction = () -> Void
+    var action: TapAction? = nil
+    
+}
+
+class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerDataSource, CNPGridMenuDelegate {
     
     typealias ViewPagerItem = (title:String, identifier:String, query:String)
 
     // MARK: プロパティ
     var leftBarItem: UIBarButtonItem?
     var viewPagerItems: [ViewPagerItem] = [ViewPagerItem]()
-    lazy var menu: REMenu = self.makeMenu()
+    lazy var menu: CNPGridMenu = self.makeMenu()
     var reloadViewPager: Bool = false
  
     // MARK: ライフサイクル
@@ -76,33 +84,33 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
         }
 
     }
-    func makeMenu() -> REMenu {
-        let menuItemMuteUsers: REMenuItem = REMenuItem(title: "ミュートリスト", image: nil, highlightedImage: nil) { (menuItem) -> Void in
+    func makeMenu() -> CNPGridMenu {
+        let menuItemMuteUsers: QCGridMenuItem = QCGridMenuItem()
+        menuItemMuteUsers.icon = UIImage(named: "icon_circle_slash")
+        menuItemMuteUsers.title = "Mute User"
+        menuItemMuteUsers.action = {(item) -> Void in
             self.openMuteUserList()
+            return
         }
-        let menuItemPinEntries: REMenuItem = REMenuItem(title: "pin投稿リスト", image: nil, highlightedImage: nil) { (menuItem) -> Void in
+        
+        let menuItemPinEntries: QCGridMenuItem = QCGridMenuItem()
+        menuItemPinEntries.icon = UIImage(named: "icon_pin")
+        menuItemPinEntries.title = "Pins"
+        menuItemPinEntries.action = {(item) -> Void in
             self.openPinEntryList()
+            return
         }
-        let menu: REMenu = REMenu(items: [menuItemMuteUsers, menuItemPinEntries])
-        menu.backgroundColor = UIColor.backgroundNavigationMenu()
-        menu.textColor = UIColor.textNavigationBar()
-        menu.highlightedBackgroundColor = UIColor.backgroundBase()
-        menu.borderWidth = 0
-        menu.separatorHeight = 0.5
-        menu.separatorColor = UIColor.borderNavigationMenuSeparator()
-        menu.highlightedTextColor = UIColor.textNavigationBar()
-        menu.font = UIFont.boldSystemFontOfSize(12.0)
+        
+        let menu: CNPGridMenu = CNPGridMenu(menuItems: [menuItemMuteUsers, menuItemPinEntries])
+        menu.delegate = self
         return menu
     }
     
     func tapSetting() {
-        
-        if self.menu.isOpen {
-            self.menu.close()
-            return
+
+        self.presentGridMenu(self.menu, animated: true) { () -> Void in
+            
         }
-        
-        self.menu.showFromNavigationController(self.navigationController)
     }
     
     func tapSearch() {
@@ -224,6 +232,15 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
         default:
             return color
         }
+    }
+    
+    // MARK: CNPGridMenuDelegate
+    func gridMenu(menu: CNPGridMenu!, didTapOnItem item: CNPGridMenuItem!) {
+        menu.dismissGridMenuAnimated(true, completion: { () -> Void in
+            let qcitem = item as QCGridMenuItem
+            qcitem.action?()
+            return
+        })
     }
     
 }
