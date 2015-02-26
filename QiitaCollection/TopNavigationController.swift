@@ -114,7 +114,8 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         self.alertView!.alertIsDismissed({ () -> Void in
             self.alertViewStatus = .Dismiss
         })
-        
+        self.alertView!.showAnimationType = .SlideInFromTop
+        self.alertView!.hideAnimationType = .SlideOutToTop
         
         if !self.isDidAppear {
             // このタイミングで表示しちゃうと変になっちゃうので、待機
@@ -235,10 +236,12 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
             return
         }
         
+        self.alertView!.showAnimationType = .FadeIn
         self.alertView!.showWaiting(self, title: "Loading...", subTitle: "少々お待ちください...m(_ _)m", closeButtonTitle: nil, duration: 0.0);
         self.alertViewStatus = .Show
     }
     func receiveHideLoading() {
+        self.alertView!.hideAnimationType = .FadeOut
         self.hideAlert()
     }
     
@@ -256,7 +259,7 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         let yesAction = userInfo[QCKeys.AlertView.YesAction.rawValue]! as AlertViewSender
         self.alertView!.addButton(yesAction.title.isEmpty ? "はい" : yesAction.title, actionBlock: yesAction.action)
         
-        self.alertView!.showWarning(self.topViewController, title: title, subTitle: message, closeButtonTitle: noTiltle, duration: 0.0);
+        self.alertView!.showWarning(self, title: title, subTitle: message, closeButtonTitle: noTiltle, duration: 0.0);
         self.alertViewStatus = .Show
         
     }
