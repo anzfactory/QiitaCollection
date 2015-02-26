@@ -603,7 +603,7 @@ NSTimer *durationTimer;
     self.backgroundView.frame = vc.view.bounds;
     
     // Add subviews
-    [_rootViewController addChildViewController:self];
+//    [_rootViewController addChildViewController:self];
     [_rootViewController.view addSubview:_backgroundView];
     [_rootViewController.view addSubview:self.view];
 

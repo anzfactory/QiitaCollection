@@ -235,7 +235,7 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
             return
         }
         
-        self.alertView!.showWaiting(self.topViewController, title: "Loading...", subTitle: "少々お待ちください...m(_ _)m", closeButtonTitle: nil, duration: 0.0);
+        self.alertView!.showWaiting(self, title: "Loading...", subTitle: "少々お待ちください...m(_ _)m", closeButtonTitle: nil, duration: 0.0);
         self.alertViewStatus = .Show
     }
     func receiveHideLoading() {
