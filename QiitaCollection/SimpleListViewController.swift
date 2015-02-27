@@ -11,27 +11,27 @@ import UIKit
 class SimpleListViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate, SWTableViewCellDelegate {
     
     typealias ItemTapCallback = (SimpleListViewController, Int) -> Void
+    typealias SwipeCellCallback = (SimpleListViewController, SlideTableViewCell, Int) -> Void
 
     // MARK: UI
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var navigationBar: UINavigationBar!
     
     // MARK: プロパティ
     var items: [String] = [String]()
+    var swipableCell: Bool = true
     var tapCallback: ItemTapCallback? = nil
+    var swipeCellCallback: SwipeCellCallback? = nil
     
     // MARK: ライフサイクル
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let nav = self.navigationController {
-            // ナビゲーションコントローラー
-            nav.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.textNavigationBar()]
-            nav.navigationBar.barTintColor = UIColor.backgroundNavigationBar()
-            nav.navigationBar.tintColor = UIColor.textNavigationBar()
-            
-            let close: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon_x"), style: UIBarButtonItemStyle.Plain, target: self, action: "tapClose")
-            self.navigationItem.leftBarButtonItem = close
-        }
+        self.view.backgroundColor = UIColor.backgroundBase()
+        self.navigationBar.translucent = false
+        self.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.textNavigationBar()]
+        self.navigationBar.barTintColor = UIColor.backgroundNavigationBar()
+        self.navigationBar.tintColor = UIColor.textNavigationBar()
         
         let dummy: UIView = UIView(frame: CGRect.zeroRect)
         self.tableView.tableFooterView = dummy
@@ -45,13 +45,12 @@ class SimpleListViewController: BaseViewController, UITableViewDataSource, UITab
         super.didReceiveMemoryWarning()
     }
     
-    // MARK: メソッド
-    func tapClose() {
+    // MARK: Actions
+    @IBAction func tapClose(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: { () -> Void in
             
         })
     }
-    
     // MARK: UITableViewDataSource
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 44.0
@@ -63,7 +62,7 @@ class SimpleListViewController: BaseViewController, UITableViewDataSource, UITab
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: SlideTableViewCell = self.tableView.dequeueReusableCellWithIdentifier("CELL") as SlideTableViewCell
-        
+
         if !cell.isReused {
             cell.delegate = self
         }
@@ -74,8 +73,17 @@ class SimpleListViewController: BaseViewController, UITableViewDataSource, UITab
         return cell
     }
     
-    func tapSwipeableCellRight(cell: SWTableViewCell, didTriggerRightUtilityButtonWithIndex index: Int) {
-        
+    func refresh(items: [String]) {
+        self.items = items
+        self.tableView.reloadData()
+    }
+    
+    func removeItem(index: Int) {
+        if index >= self.items.count {
+            return;
+        }
+        self.items.removeAtIndex(index)
+        self.tableView.reloadData()
     }
     
     // MARK: UITableViewDelegate
@@ -87,6 +95,10 @@ class SimpleListViewController: BaseViewController, UITableViewDataSource, UITab
     
     // MARK: SWTableViewCellDelegate
     func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerRightUtilityButtonWithIndex index: Int) {
-        self.tapSwipeableCellRight(cell, didTriggerRightUtilityButtonWithIndex: index)
+        self.swipeCellCallback?(self, cell as SlideTableViewCell, cell.tag)
+    }
+    
+    func swipeableTableViewCell(cell: SWTableViewCell!, canSwipeToState state: SWCellState) -> Bool {
+        return self.swipableCell
     }
 }

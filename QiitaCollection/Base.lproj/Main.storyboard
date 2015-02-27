@@ -5,20 +5,6 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller-->
-        <scene sceneID="4G6-OB-Hi4">
-            <objects>
-                <navigationController storyboardIdentifier="BlankNC" id="zA9-Ra-BEZ" sceneMemberID="viewController">
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="RzF-n0-bjg">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="uX3-bV-MVe" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1330" y="-796"/>
-        </scene>
         <!--Search View Controller-->
         <scene sceneID="5uw-dM-uGW">
             <objects>
@@ -238,7 +224,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="50L-oX-6ZP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-948" y="-796"/>
+            <point key="canvasLocation" x="-1330" y="-796"/>
         </scene>
         <!--Top Navigation Controller-->
         <scene sceneID="BL8-iR-bRw">
@@ -795,52 +781,10 @@
             </objects>
             <point key="canvasLocation" x="-948" y="1090"/>
         </scene>
-        <!--Mute List View Controller-->
-        <scene sceneID="LHr-z8-vD1">
-            <objects>
-                <viewController storyboardIdentifier="MuteListVC" automaticallyAdjustsScrollViewInsets="NO" id="eYc-Yk-GQh" customClass="MuteListViewController" customModule="QiitaCollection" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="2Oj-d7-bLi"/>
-                        <viewControllerLayoutGuide type="bottom" id="QNM-lz-JYU"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="32G-og-dNQ">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="aij-Fb-WB4">
-                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" restorationIdentifier="CELL" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CELL" id="QAG-r7-hA1" customClass="SlideTableViewCell" customModule="QiitaCollection" customModuleProvider="target">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QAG-r7-hA1" id="HaY-dQ-N0d">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="aij-Fb-WB4" firstAttribute="top" secondItem="2Oj-d7-bLi" secondAttribute="bottom" id="5S9-cB-Lfb"/>
-                            <constraint firstAttribute="trailing" secondItem="aij-Fb-WB4" secondAttribute="trailing" id="7zt-PC-rkJ"/>
-                            <constraint firstItem="aij-Fb-WB4" firstAttribute="leading" secondItem="32G-og-dNQ" secondAttribute="leading" id="Lwm-hz-srR"/>
-                            <constraint firstItem="QNM-lz-JYU" firstAttribute="top" secondItem="aij-Fb-WB4" secondAttribute="bottom" id="quy-8o-QNf"/>
-                        </constraints>
-                    </view>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                    <connections>
-                        <outlet property="tableView" destination="aij-Fb-WB4" id="N8F-IM-0ZB"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="oer-RM-Y01" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-601" y="-174"/>
-        </scene>
-        <!--Pin List View Controller-->
+        <!--Simple List View Controller-->
         <scene sceneID="qij-OP-2EW">
             <objects>
-                <viewController storyboardIdentifier="PinListVC" automaticallyAdjustsScrollViewInsets="NO" id="kWj-Po-iKD" customClass="PinListViewController" customModule="QiitaCollection" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SimpleListVC" automaticallyAdjustsScrollViewInsets="NO" id="kWj-Po-iKD" customClass="SimpleListViewController" customModule="QiitaCollection" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="a84-cb-ybh"/>
                         <viewControllerLayoutGuide type="bottom" id="07z-u7-PZf"/>
@@ -850,7 +794,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="d3M-ID-3n2">
-                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CELL" id="RZ7-kQ-0Ei" customClass="SlideTableViewCell" customModule="QiitaCollection" customModuleProvider="target">
@@ -861,23 +805,42 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4FA-y3-ORz">
+                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="ruT-Wf-7l6"/>
+                                </constraints>
+                                <items>
+                                    <navigationItem title="Title" id="QhL-qz-SRC">
+                                        <barButtonItem key="leftBarButtonItem" image="icon_x" id="ceh-5p-XJy">
+                                            <connections>
+                                                <action selector="tapClose:" destination="kWj-Po-iKD" id="pSn-UK-9Pm"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="07z-u7-PZf" firstAttribute="top" secondItem="d3M-ID-3n2" secondAttribute="bottom" id="5fh-E8-pj9"/>
-                            <constraint firstItem="d3M-ID-3n2" firstAttribute="leading" secondItem="RlK-i8-OOQ" secondAttribute="leading" id="Gci-Me-9kC"/>
-                            <constraint firstItem="d3M-ID-3n2" firstAttribute="top" secondItem="a84-cb-ybh" secondAttribute="bottom" id="jZu-HR-HEw"/>
-                            <constraint firstAttribute="trailing" secondItem="d3M-ID-3n2" secondAttribute="trailing" id="ysc-uC-pae"/>
+                            <constraint firstItem="d3M-ID-3n2" firstAttribute="leading" secondItem="RlK-i8-OOQ" secondAttribute="leading" id="3De-nr-Hui"/>
+                            <constraint firstItem="4FA-y3-ORz" firstAttribute="leading" secondItem="RlK-i8-OOQ" secondAttribute="leading" id="3zt-a0-BAV"/>
+                            <constraint firstItem="4FA-y3-ORz" firstAttribute="top" secondItem="a84-cb-ybh" secondAttribute="bottom" id="Ats-VW-2Xd"/>
+                            <constraint firstAttribute="trailing" secondItem="d3M-ID-3n2" secondAttribute="trailing" id="Fso-vr-flI"/>
+                            <constraint firstAttribute="trailing" secondItem="4FA-y3-ORz" secondAttribute="trailing" id="ouq-an-9Cz"/>
+                            <constraint firstItem="07z-u7-PZf" firstAttribute="top" secondItem="d3M-ID-3n2" secondAttribute="bottom" id="paf-GY-DZs"/>
+                            <constraint firstItem="d3M-ID-3n2" firstAttribute="top" secondItem="4FA-y3-ORz" secondAttribute="bottom" id="y0M-6d-ayc"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="navigationBar" destination="4FA-y3-ORz" id="9vi-hx-3AM"/>
                         <outlet property="tableView" destination="d3M-ID-3n2" id="HN4-WC-SwI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9K1-Aq-Mb3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-258" y="-174"/>
+            <point key="canvasLocation" x="-948" y="-796"/>
         </scene>
         <!--Entry Detail View Controller-->
         <scene sceneID="z0O-1e-VJN">

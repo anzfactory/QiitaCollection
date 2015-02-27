@@ -138,10 +138,10 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
             return
         }
         
-        let vc: MuteListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("MuteListVC") as MuteListViewController
-        vc.items = UserDataManager.sharedInstance.muteUsers
-        vc.title = "ミュートリスト"
-        vc.tapCallback = {(vc: SimpleListViewController, index: Int) -> Void in
+        let muteVC: SimpleListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SimpleListVC") as SimpleListViewController
+        muteVC.items = UserDataManager.sharedInstance.muteUsers
+        muteVC.title = "ミュートリスト"
+        muteVC.tapCallback = {(vc: SimpleListViewController, index: Int) -> Void in
             
             // まずは閉じる
             vc.dismissViewControllerAnimated(true, completion: { () -> Void in
@@ -152,9 +152,12 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
             })
             
         }
-        let nc: UINavigationController = self.storyboard?.instantiateViewControllerWithIdentifier("BlankNC") as UINavigationController
-        nc.setViewControllers([vc], animated: false)
-        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PresentedViewController.rawValue, object: nc)
+        muteVC.swipeCellCallback = {(vc: SimpleListViewController, cell: SlideTableViewCell, index:Int) -> Void in
+            UserDataManager.sharedInstance.clearMutedUser(vc.items[cell.tag])
+            vc.removeItem(index)
+            Toast.show("ミュートを解除しました", style: JFMinimalNotificationStytle.StyleSuccess, title: "", targetView: vc.view)
+        }
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PresentedViewController.rawValue, object: muteVC)
     }
     
     func openPinEntryList() {
@@ -174,7 +177,7 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
             
         }
         
-        let vc: PinListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("PinListVC") as PinListViewController
+        let vc: SimpleListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SimpleListVC") as SimpleListViewController
         vc.items = pins
         vc.title = "pinリスト"
         vc.tapCallback = {(vc: SimpleListViewController, index: Int) -> Void in
@@ -188,9 +191,13 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
             })
             
         }
-        let nc: UINavigationController = self.storyboard?.instantiateViewControllerWithIdentifier("BlankNC") as UINavigationController
-        nc.setViewControllers([vc], animated: false)
-        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PresentedViewController.rawValue, object: nc)
+        vc.swipeCellCallback = {(vc: SimpleListViewController, cell: SlideTableViewCell, index: Int) -> Void in
+            UserDataManager.sharedInstance.clearPinEntry(index)
+            // 再作成
+            vc.removeItem(index)
+            Toast.show("pinした投稿を解除しました", style: JFMinimalNotificationStytle.StyleSuccess, title: "", targetView: vc.view)
+        }
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PresentedViewController.rawValue, object: vc)
         
     }
     
