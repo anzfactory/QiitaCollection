@@ -71,6 +71,8 @@ class QiitaApiManager: NSObject {
                 
                 var items: [T] = [T]()
                 if isError {
+                    println("\(response)")
+                    println("\(error)")
                     completion(items:items, isError: isError);
                     return;
                 }

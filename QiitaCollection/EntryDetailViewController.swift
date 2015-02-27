@@ -40,6 +40,10 @@ class EntryDetailViewController: BaseViewController {
     }
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if !self.isBeingPresented() && !self.isMovingToParentViewController() {
+            return
+        }
 
         if let entry = self.displayEntry {
             self.displayEntryId = entry.id
@@ -115,83 +119,53 @@ class EntryDetailViewController: BaseViewController {
     func openLinks() {
         
         if self.links.count == 0 {
-            
-            NSNotificationCenter.defaultCenter()
-                .postNotificationName(QCKeys.Notification.ShowMinimumNotification.rawValue,
-                    object: nil,
-                    userInfo: [
-                        QCKeys.MinimumNotification.SubTitle.rawValue: "開けるリンクがありません...",
-                        QCKeys.MinimumNotification.Style.rawValue: NSNumber(integer: JFMinimalNotificationStytle.StyleWarning.rawValue)
-                    ])
+            Toast.show("開けるリンクがありません...", style: JFMinimalNotificationStytle.StyleWarning)
             return
         }
-        
-        let makeAletAction = { (item: ParseItem) -> UIAlertAction in
-            return UIAlertAction(title: item.label, style: UIAlertActionStyle.Default, handler: { (UIAlertAction) -> Void in
+        var linkTitles: [String] = [String]()
+        for item in self.links {
+            linkTitles.append(item.label + ":" + item.value)
+        }
+        let listVC: SimpleListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SimpleListVC") as SimpleListViewController
+        listVC.title = "開くURLを選んで下さい"
+        listVC.items = linkTitles
+        listVC.swipableCell = false
+        listVC.tapCallback = {(vc: SimpleListViewController, index: Int) -> Void in
+            vc.dismissViewControllerAnimated(true, completion: { () -> Void in
+                let item: ParseItem = self.links[index]
                 self.openURL(item.value)
+                return
             })
         }
         
-        var actions: [UIAlertAction] = [UIAlertAction]()
-        for item in self.links {
-            actions.append(makeAletAction(item))
-        }
-        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) { (action) -> Void in
-            
-        }
-        actions.append(cancelAction)
-        
-        NSNotificationCenter.defaultCenter()
-            .postNotificationName(QCKeys.Notification.ShowActionSheet.rawValue,
-                object: nil,
-                userInfo: [
-                    QCKeys.ActionSheet.Title.rawValue: "開くURLを選んで下さい",
-                    QCKeys.ActionSheet.Actions.rawValue: actions
-                ])
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PresentedViewController.rawValue, object: listVC)
         
     }
     
     func copyCode() {
         if self.codes.count == 0 {
-            
-            NSNotificationCenter.defaultCenter()
-                .postNotificationName(QCKeys.Notification.ShowMinimumNotification.rawValue,
-                    object: nil,
-                    userInfo: [
-                        QCKeys.MinimumNotification.SubTitle.rawValue: "コードブロックがないようです...",
-                        QCKeys.MinimumNotification.Style.rawValue: NSNumber(integer: JFMinimalNotificationStytle.StyleWarning.rawValue)
-                    ])
+            Toast.show("コードブロックがないようです...", style: JFMinimalNotificationStytle.StyleWarning)
             return
         }
         
-        let makeAlertAction = { (item: ParseItem) -> UIAlertAction in
-            return UIAlertAction(title: item.label, style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+        var codeHeadlines: [String] = [String]()
+        for item in self.codes {
+            codeHeadlines.append(item.label)
+        }
+        
+        let listVC: SimpleListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SimpleListVC") as SimpleListViewController
+        listVC.title = "コピーするコードを選んでください"
+        listVC.items = codeHeadlines
+        listVC.swipableCell = false
+        listVC.tapCallback = {(vc: SimpleListViewController, index: Int) -> Void in
+            vc.dismissViewControllerAnimated(true, completion: { () -> Void in
+                let item: ParseItem = self.codes[index]
                 UIPasteboard.generalPasteboard().setValue(item.value, forPasteboardType: "public.utf8-plain-text")
-                NSNotificationCenter.defaultCenter()
-                    .postNotificationName(QCKeys.Notification.ShowMinimumNotification.rawValue,
-                        object: nil,
-                        userInfo: [
-                            QCKeys.MinimumNotification.SubTitle.rawValue: "対象のコードブロックをクリップボードにコピーしました",
-                            QCKeys.MinimumNotification.Style.rawValue: NSNumber(integer: JFMinimalNotificationStytle.StyleSuccess.rawValue)
-                        ])
+                Toast.show("クリップボードにコピーしました", style: JFMinimalNotificationStytle.StyleSuccess)
             })
         }
-        var actions: [UIAlertAction] = [UIAlertAction]()
-        for item in self.codes {
-            actions.append(makeAlertAction(item))
-        }
-        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) { (action) -> Void in
-            
-        }
-        actions.append(cancelAction)
         
-        NSNotificationCenter.defaultCenter()
-            .postNotificationName(QCKeys.Notification.ShowActionSheet.rawValue,
-                object: nil,
-                userInfo: [
-                    QCKeys.ActionSheet.Title.rawValue: "クリップボードにコピーするコードブロックを選んで下さい",
-                    QCKeys.ActionSheet.Actions.rawValue: actions
-                ])
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PresentedViewController.rawValue, object: listVC)
     }
     
     func parseLink() -> [ParseItem] {
@@ -240,23 +214,11 @@ class EntryDetailViewController: BaseViewController {
             if UIApplication.sharedApplication().canOpenURL(url) {
                 UIApplication.sharedApplication().openURL(url)
             } else {
-                NSNotificationCenter.defaultCenter()
-                    .postNotificationName(QCKeys.Notification.ShowMinimumNotification.rawValue,
-                        object: nil,
-                        userInfo: [
-                            QCKeys.MinimumNotification.SubTitle.rawValue: "開くことが出来るURLではないようです…",
-                            QCKeys.MinimumNotification.Style.rawValue: NSNumber(integer: JFMinimalNotificationStytle.StyleWarning.rawValue)
-                        ])
+                Toast.show("開くことが出来るURLではないようです…", style: JFMinimalNotificationStytle.StyleWarning)
             }
             
         } else {
-            NSNotificationCenter.defaultCenter()
-                .postNotificationName(QCKeys.Notification.ShowMinimumNotification.rawValue,
-                    object: nil,
-                    userInfo: [
-                        QCKeys.MinimumNotification.SubTitle.rawValue: "開くことが出来るURLではないようです…",
-                        QCKeys.MinimumNotification.Style.rawValue: NSNumber(integer: JFMinimalNotificationStytle.StyleWarning.rawValue)
-                    ])
+            Toast.show("開くことが出来るURLではないようです…", style: JFMinimalNotificationStytle.StyleWarning)
             return
         }
         

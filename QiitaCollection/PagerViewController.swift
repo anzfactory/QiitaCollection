@@ -250,4 +250,10 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
         })
     }
     
+    func gridMenuDidTapOnBackground(menu: CNPGridMenu!) {
+        menu.dismissGridMenuAnimated(true, completion: { () -> Void in
+            
+        })
+    }
+    
 }
