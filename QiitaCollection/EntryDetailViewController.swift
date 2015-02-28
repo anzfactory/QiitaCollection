@@ -22,6 +22,7 @@ class EntryDetailViewController: BaseViewController {
         }
     }
     var displayEntryId: String? = nil
+    var useLocalFile: Bool = false
     var qiitaManager: QiitaApiManager = QiitaApiManager()
     
     lazy var links: [ParseItem] = self.parseLink()
@@ -45,33 +46,23 @@ class EntryDetailViewController: BaseViewController {
             return
         }
 
-        if let entry = self.displayEntry {
-            self.displayEntryId = entry.id
-            self.loadLocalHtml()
-        } else if let entryId = self.displayEntryId {
-            // 投稿IDだけ渡されてる状況なので、とってくる
-            self.qiitaManager.getEntry(entryId, completion: { (item, isError) -> Void in
-                if isError {
-                    Toast.show("投稿を取得できませんでした...", style: JFMinimalNotificationStytle.StyleWarning)
-                    return
-                }
-                self.displayEntry = item
-                self.loadLocalHtml()
-            })
-        } else {
-            fatalError("unknown entry....")
-        }
-        
+        self.refresh()
     }
     
     
     // MARK: メソッド
     override func publicMenuItems() -> [PathMenuItem] {
-        let menuItemShare: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "icon_share")!)
-        menuItemShare.action = {() -> Void in
-            self.shareEntry()
-            return
+        
+        // ローカルファイルから読みだしてる場合は、リロードだけ
+        if self.useLocalFile {
+            let menuItemReload: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "icon_reload")!)
+            menuItemReload.action = {() -> Void in
+                self.confirmReload()
+                return
+            }
+            return [menuItemReload]
         }
+        
         let menuItemLink: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "icon_link")!)
         menuItemLink.action = {() -> Void in
             self.openLinks()
@@ -82,14 +73,19 @@ class EntryDetailViewController: BaseViewController {
             self.copyCode()
             return
         }
+        let menuItemPin: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "icon_pin")!)
+        menuItemPin.action = {() -> Void in
+            self.confirmPinEntry()
+            return
+        }
+        let menuItemShare: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "icon_share")!)
+        menuItemShare.action = {() -> Void in
+            self.shareEntry()
+            return
+        }
         let menuPerson: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "icon_person")!)
         menuPerson.action = {() -> Void in
             self.moveUserDetail()
-            return
-        }
-        let menuPin: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "icon_pin")!)
-        menuPin.action = {() -> Void in
-            self.confirmPinEntry()
             return
         }
         let menuDiscus: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "icon_discus")!)
@@ -97,15 +93,53 @@ class EntryDetailViewController: BaseViewController {
             self.moveCommentList()
             return
         }
-        return [menuItemShare, menuItemLink, menuItemClip, menuPerson, menuPin, menuDiscus]
+        let menuDownload: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "icon_download")!)
+        menuDownload.action = {() -> Void in
+            self.confirmDownload()
+        }
+        return [menuItemLink, menuItemClip, menuItemPin, menuItemShare, menuPerson, menuDiscus, menuDownload]
     }
-    
+    func refresh() {
+        if let entry = self.displayEntry {
+            self.displayEntryId = entry.id
+            self.loadLocalHtml()
+        } else if let entryId = self.displayEntryId {
+            
+            if self.useLocalFile {
+                // ローカルファイルから読み出す
+                let htmlBody: String = FileManager().read(entryId)
+                if htmlBody.isEmpty {
+                    Toast.show("投稿を取得できませんでした...", style: JFMinimalNotificationStytle.StyleWarning)
+                    return
+                }
+                self.title = UserDataManager.sharedInstance.titleSavedEntry(entryId)
+                self.loadLocalHtml(self.title!, body: htmlBody)
+                
+            } else {
+                // 投稿IDだけ渡されてる状況なので、とってくる
+                self.qiitaManager.getEntry(entryId, completion: { (item, isError) -> Void in
+                    if isError {
+                        Toast.show("投稿を取得できませんでした...", style: JFMinimalNotificationStytle.StyleWarning)
+                        return
+                    }
+                    self.displayEntry = item
+                    self.loadLocalHtml()
+                })
+            }
+        } else {
+            fatalError("unknown entry....")
+        }
+
+    }
     func loadLocalHtml() {
+        self.loadLocalHtml(self.displayEntry!.title, body:self.displayEntry!.htmlBody)
+    }
+    func loadLocalHtml(title: String, body:String) {
         // テンプレート読み込み
         let path: NSString = NSBundle.mainBundle().pathForResource("entry", ofType: "html")!
         let template: NSString = NSString(contentsOfFile: path, encoding: NSUTF8StringEncoding, error: nil)!
         // テンプレートに組み込んで表示
-        self.webView.loadHTMLString(NSString(format: template, self.displayEntry!.title, self.displayEntry!.htmlBody), baseURL: nil)
+        self.webView.loadHTMLString(NSString(format: template, title, body), baseURL: nil)
     }
     
     func shareEntry() {
@@ -244,7 +278,7 @@ class EntryDetailViewController: BaseViewController {
     
     func confirmPinEntry() {
         let action: AlertViewSender = AlertViewSender(action: { () -> Void in
-            UserDataManager.sharedInstance.appendPinEntry(self.displayEntry!.id, entryTitle: self.displayEntry!.title)
+            UserDataManager.sharedInstance.appendPinEntry(self.displayEntryId!, entryTitle: self.title!)
             Toast.show("この投稿をpinしました", style: JFMinimalNotificationStytle.StyleSuccess)
             return
         }, title: "OK")
@@ -252,6 +286,43 @@ class EntryDetailViewController: BaseViewController {
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowAlertYesNo.rawValue, object: nil, userInfo: [
             QCKeys.AlertView.Title.rawValue    : "確認",
             QCKeys.AlertView.Message.rawValue  : "この投稿をpinしますか？",
+            QCKeys.AlertView.YesAction.rawValue: action,
+            QCKeys.AlertView.NoTitle.rawValue  : "Cancel"
+        ])
+    }
+    
+    func confirmDownload() {
+        let action: AlertViewSender = AlertViewSender(action: { () -> Void in
+            
+            let manager: FileManager = FileManager()
+            if manager.save(self.displayEntry!.id, dataString: self.displayEntry!.htmlBody) {
+                // 続けてタイトルとidをUDへ
+                UserDataManager.sharedInstance.appendSavedEntry(self.displayEntry!.id, title: self.displayEntry!.title)
+                Toast.show("この投稿を保存しました", style: JFMinimalNotificationStytle.StyleSuccess)
+                NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ReloadViewPager.rawValue, object: nil)
+            } else {
+                Toast.show("この投稿の保存に失敗しました", style: JFMinimalNotificationStytle.StyleError)
+            }
+            return
+        }, title: "Save")
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowAlertYesNo.rawValue, object: nil, userInfo: [
+            QCKeys.AlertView.Title.rawValue    : "確認",
+            QCKeys.AlertView.Message.rawValue  : "この投稿を保存しますか？保存するとオフラインでも閲覧できるようになります",
+            QCKeys.AlertView.YesAction.rawValue: action,
+            QCKeys.AlertView.NoTitle.rawValue  : "Cancel"
+        ])
+    }
+    
+    func confirmReload() {
+        let action: AlertViewSender = AlertViewSender(action: {() -> Void in
+            self.useLocalFile = false
+            self.refresh()
+            NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ResetPublicMenuItems.rawValue, object: self)
+        }, title: "OK")
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowAlertYesNo.rawValue, object: nil, userInfo: [
+            QCKeys.AlertView.Title.rawValue    : "確認",
+            QCKeys.AlertView.Message.rawValue  : "現在保存した投稿ファイルを表示しています。最新状態をネットから取得しなおしますか？",
             QCKeys.AlertView.YesAction.rawValue: action,
             QCKeys.AlertView.NoTitle.rawValue  : "Cancel"
         ])

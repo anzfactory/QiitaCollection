@@ -25,7 +25,8 @@ class UserDataManager {
         case
         MuteUsers = "ud-key-mute-users",
         Queries = "ud-key-queries",
-        Pins = "ud-key-pins"
+        Pins = "ud-key-pins",
+        EntryFiles = "ud-key-entry-files"
     }
     
     // ミュートユーザーのID
@@ -34,18 +35,22 @@ class UserDataManager {
     var queries: [String: String] = [String: String]()
     // クリップしたもの
     var pins: [[String: String]] = [[String: String]]()
+    // 保存したもの
+    var entryFiles: [[String: String]] = [[String: String]]()
     
     // MARK: ライフサイクル
     init() {
         var defaults = [
-            UDKeys.MuteUsers.rawValue: self.muteUsers,
-            UDKeys.Queries.rawValue  : self.queries,
-            UDKeys.Pins.rawValue     : self.pins
+            UDKeys.MuteUsers.rawValue : self.muteUsers,
+            UDKeys.Queries.rawValue   : self.queries,
+            UDKeys.Pins.rawValue      : self.pins,
+            UDKeys.EntryFiles.rawValue: self.entryFiles
         ]
         self.ud.registerDefaults(defaults)
         self.muteUsers = self.ud.arrayForKey(UDKeys.MuteUsers.rawValue) as [String]
         self.queries = self.ud.dictionaryForKey(UDKeys.Queries.rawValue) as [String: String]
         self.pins = self.ud.arrayForKey(UDKeys.Pins.rawValue) as [[String: String]]
+        self.entryFiles = self.ud.arrayForKey(UDKeys.EntryFiles.rawValue) as [[String: String]]
     }
     
     // MARK: メソッド
@@ -55,6 +60,7 @@ class UserDataManager {
         self.ud.setObject(self.muteUsers, forKey: UDKeys.MuteUsers.rawValue)
         self.ud.setObject(self.queries, forKey: UDKeys.Queries.rawValue)
         self.ud.setObject(self.pins, forKey: UDKeys.Pins.rawValue)
+        self.ud.setObject(self.entryFiles, forKey: UDKeys.EntryFiles.rawValue)
         self.ud.synchronize()
     }
     
@@ -101,14 +107,7 @@ class UserDataManager {
     }
     
     func hasPinEntry(entryId: String) -> Int {
-        for var i = 0; i < self.pins.count; i++ {
-            let pin = self.pins[i]
-            if pin["id"] == entryId {
-                return i
-            }
-        }
-        
-        return NSNotFound
+        return self.indexItem(self.pins, target: entryId)
     }
     
     func clearPinEntry(index: Int) -> [[String: String]] {
@@ -125,6 +124,43 @@ class UserDataManager {
         self.pins.removeAtIndex(index)
         
         return self.pins
+    }
+    
+    
+    func titleSavedEntry(entryId: String) -> String {
+        let index: Int = self.indexItem(self.entryFiles, target: entryId)
+        if index == NSNotFound {
+            return ""
+        }
+        let item: [String: String] = self.entryFiles[index]
+        return item["title"]!
+    }
+    func hasSavedEntry(entryId: String) -> Bool {
+        return self.indexItem(self.entryFiles, target: entryId) != NSNotFound
+    }
+    func appendSavedEntry(entryId: String, title:String) {
+        
+        if self.hasSavedEntry(entryId) {
+            return
+        }
+        
+        self.entryFiles.append([
+            "id"    : entryId,
+            "title" : title
+        ])
+        
+    }
+    
+    
+    
+    func indexItem(items: [[String: String]], target:String, id: String = "id") -> Int {
+        for var i = 0; i < items.count; i++ {
+            let item = items[i]
+            if item[id] == target {
+                return i
+            }
+        }
+        return NSNotFound
     }
     
 }

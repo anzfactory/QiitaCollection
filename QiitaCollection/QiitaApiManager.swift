@@ -11,7 +11,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-class QiitaApiManager: NSObject {
+class QiitaApiManager {
     
     let Host: String = "qiita.com"
     let ApiVersion: String = "v2"

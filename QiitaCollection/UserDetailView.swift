@@ -59,6 +59,7 @@ class UserDetailView: UIView {
         self.twitter.enabled = !info.twitter.isEmpty
         self.facebook.enabled = !info.facebook.isEmpty
         self.linkedin.enabled = !info.linkedin.isEmpty
+
     }
     
     @IBAction func tap(sender: UIButton) {
@@ -66,6 +67,11 @@ class UserDetailView: UIView {
     }
     
     @IBAction func tapIntroduction(sneder: UIButton) {
+        
+        if self.introduction.titleLabel?.text?.isEmpty ?? true {
+            return
+        }
+        
         NSNotificationCenter.defaultCenter().postNotificationName(
             QCKeys.Notification.ShowAlertOkOnly.rawValue,
             object: nil,

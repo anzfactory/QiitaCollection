@@ -11,8 +11,9 @@ import UIKit
 class EntryListViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
     
     enum ListType : String {
-        case UserEntries = "投稿したもの"
-        case UserStocks = "ストックしたもの"
+        case
+        UserEntries = "投稿したもの",
+        UserStocks = "ストックしたもの"
     }
     typealias DisplayItem = (type: ListType, query: String)
 
@@ -71,7 +72,7 @@ class EntryListViewController: BaseViewController, UITableViewDataSource, UITabl
             self.qiitaManager.getEntriesUserStocks(self.displayItem!.query, page: self.tableView.page, completion: callback)
         }
         
-}
+    }
     
     // MARK: UITableViewDataSource
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

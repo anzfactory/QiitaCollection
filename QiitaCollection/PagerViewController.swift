@@ -78,9 +78,13 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
         let queries: [String: String] = UserDataManager.sharedInstance.queries
         if !queries.isEmpty {
             for query in queries {
-                let queryVC : EntryCollectionViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryCollectionVC") as EntryCollectionViewController
                 self.viewPagerItems.append(ViewPagerItem(title: query.1, identifier:"EntryCollectionVC", query:query.0))
             }
+        }
+        
+        // 保存した投稿リストがあるか
+        if !UserDataManager.sharedInstance.entryFiles.isEmpty {
+            self.viewPagerItems.append(ViewPagerItem(title:"保存した投稿", identifier:"SimpleListVC", query: ""))
         }
 
     }
@@ -221,11 +225,32 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
         return title
     }
     func viewPager(viewPager: ViewPagerController!, contentViewControllerForTabAtIndex index: UInt) -> UIViewController! {
+        
         let current: ViewPagerItem = self.viewPagerItems[Int(index)]
         let vc: UIViewController = self.storyboard?.instantiateViewControllerWithIdentifier(current.identifier) as UIViewController
+        
         if vc is EntryCollectionViewController {
             (vc as EntryCollectionViewController).query = current.query
+        } else if vc is SimpleListViewController {
+            let simpleVC: SimpleListViewController = vc as SimpleListViewController
+            var items: [String] = [String]()
+            for entryFile in UserDataManager.sharedInstance.entryFiles {
+                items.append(entryFile["title"]!)
+            }
+            simpleVC.removeNavigationBar = true
+            simpleVC.items = items
+            simpleVC.swipableCell = false
+            simpleVC.tapCallback = {(vc:SimpleListViewController, index:Int) -> Void in
+                
+                let item: [String: String] = UserDataManager.sharedInstance.entryFiles[index]
+                let entryDetail: EntryDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryDetailVC") as EntryDetailViewController
+                entryDetail.displayEntryId = item["id"]
+                entryDetail.useLocalFile = true
+                NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: entryDetail)
+                
+            }
         }
+        
         return vc
     }
     

@@ -61,6 +61,7 @@
 		A1CF43511A8BBE380016209C /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CF43501A8BBE380016209C /* BaseViewController.swift */; };
 		A1D8A8351A8750240040C195 /* UIImageView+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D8A8341A8750240040C195 /* UIImageView+App.swift */; };
 		A1D8A83A1A87917F0040C195 /* UIView+Constraint.m in Sources */ = {isa = PBXBuildFile; fileRef = A1D8A8391A87917F0040C195 /* UIView+Constraint.m */; };
+		A1E525611AA1B80E00A31C13 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E525601AA1B80E00A31C13 /* FileManager.swift */; };
 		A1EB79171A9E1F32007E931E /* ViewPagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1EB79161A9E1F32007E931E /* ViewPagerController.m */; };
 		A1EB791B1A9E3709007E931E /* CNPGridMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = A1EB791A1A9E3709007E931E /* CNPGridMenu.m */; };
 		A1F157ED1A8FB1490064EA47 /* JFMinimalNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = A1F157E41A8FB1490064EA47 /* JFMinimalNotification.m */; };
@@ -157,6 +158,7 @@
 		A1D8A8341A8750240040C195 /* UIImageView+App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+App.swift"; sourceTree = "<group>"; };
 		A1D8A8381A87917F0040C195 /* UIView+Constraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Constraint.h"; sourceTree = "<group>"; };
 		A1D8A8391A87917F0040C195 /* UIView+Constraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Constraint.m"; sourceTree = "<group>"; };
+		A1E525601AA1B80E00A31C13 /* FileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		A1EB79151A9E1F32007E931E /* ViewPagerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewPagerController.h; sourceTree = "<group>"; };
 		A1EB79161A9E1F32007E931E /* ViewPagerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewPagerController.m; sourceTree = "<group>"; };
 		A1EB79191A9E3709007E931E /* CNPGridMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CNPGridMenu.h; sourceTree = "<group>"; };
@@ -312,6 +314,7 @@
 			children = (
 				A18A85D31A85D4EA0078436D /* QiitaApiManager.swift */,
 				A1F294DD1A97A270005E1C02 /* UserDataManager.swift */,
+				A1E525601AA1B80E00A31C13 /* FileManager.swift */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -725,6 +728,7 @@
 				A118A61E1A8F4AA600350841 /* EntryDetailView.swift in Sources */,
 				A1824FD51A98AD03009604B2 /* SWCellScrollView.m in Sources */,
 				A103AF401A86553000FF0B24 /* UserEntity.swift in Sources */,
+				A1E525611AA1B80E00A31C13 /* FileManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -22,6 +22,7 @@ class SimpleListViewController: BaseViewController, UITableViewDataSource, UITab
     var swipableCell: Bool = true
     var tapCallback: ItemTapCallback? = nil
     var swipeCellCallback: SwipeCellCallback? = nil
+    var removeNavigationBar: Bool = false
     
     // MARK: ライフサイクル
     override func viewDidLoad() {
@@ -39,6 +40,18 @@ class SimpleListViewController: BaseViewController, UITableViewDataSource, UITab
         
         self.tableView.dataSource = self
         self.tableView.delegate = self
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if self.removeNavigationBar {
+            if let navBar = self.navigationBar {
+                navBar.removeFromSuperview()
+                self.tableView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+                self.tableView.addConstraintFromTop(0.0)
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
