@@ -10,6 +10,7 @@ import UIKit
 
 class BaseTableView: UITableView {
 
+    var total: Int = 0
     var items: [EntityProtocol] = [EntityProtocol]()
     var page: Int = 1
     
@@ -19,20 +20,13 @@ class BaseTableView: UITableView {
         self.tableFooterView = dummy
     }
     
-    func loadedItems<T:EntityProtocol>(items: [T], isError: Bool, isAppendable: ((T) -> Bool)?) {
-        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoading.rawValue, object: nil);
+    func loadedItems<T:EntityProtocol>(total: Int, items: [T], isError: Bool, isAppendable: ((T) -> Bool)?) {
         
         if isError {
-            NSNotificationCenter.defaultCenter()
-                .postNotificationName(QCKeys.Notification.ShowMinimumNotification.rawValue,
-                    object: nil,
-                    userInfo: [
-                        QCKeys.MinimumNotification.SubTitle.rawValue: "取得に失敗しました...時間をあけて試してみてください",
-                        QCKeys.MinimumNotification.Style.rawValue: NSNumber(integer: JFMinimalNotificationStytle.StyleWarning.rawValue)
-                    ])
+            Toast.show("取得に失敗しました...時間をあけて試してみてください", style: JFMinimalNotificationStytle.StyleWarning)
             return
         }
-        
+        self.total = total
         if items.count == 0 {
             self.page = NSNotFound      // オートページング止めるために
             return

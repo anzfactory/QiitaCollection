@@ -92,7 +92,12 @@ class EntryDetailViewController: BaseViewController {
             self.confirmPinEntry()
             return
         }
-        return [menuItemShare, menuItemLink, menuItemClip, menuPerson, menuPin]
+        let menuDiscus: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "icon_discus")!)
+        menuDiscus.action = {() -> Void in
+            self.moveCommentList()
+            return
+        }
+        return [menuItemShare, menuItemLink, menuItemClip, menuPerson, menuPin, menuDiscus]
     }
     
     func loadLocalHtml() {
@@ -227,6 +232,12 @@ class EntryDetailViewController: BaseViewController {
     func moveUserDetail() {
         let vc: UserDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UserDetailVC") as UserDetailViewController
         vc.displayUserId = self.displayEntry!.postUser.id
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: vc)
+    }
+    
+    func moveCommentList() {
+        let vc: CommentListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("CommentsVC") as CommentListViewController
+        vc.displayEntryId = self.displayEntryId!
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: vc)
     }
     

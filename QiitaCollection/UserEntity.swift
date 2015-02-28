@@ -78,4 +78,17 @@ struct UserEntity: EntityProtocol {
             }
         })
     }
+    
+    func loadThumb(button: UIButton) {
+        if self.profImage.isEmpty {
+            button.setImage(nil, forState: UIControlState.Normal)
+            return
+        }
+        button.sd_setImageWithURL(self.profUrl, forState: UIControlState.Normal, completed: { (image, error, cacheType, url) -> Void in
+            if error != nil {
+                button.setImage(UIImage(named: "default"), forState: UIControlState.Normal)
+                println("error..." + error.localizedDescription)
+            }
+        })
+    }
 }

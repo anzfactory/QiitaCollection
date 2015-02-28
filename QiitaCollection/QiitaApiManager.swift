@@ -21,16 +21,17 @@ class QiitaApiManager: NSObject {
     let PathTag: String = "/tags/%@"
     let PathUser: String = "/users/%@"
     let PathUserStocks: String = "/users/%@/stocks"
+    let PathItemsComments: String = "/items/%@/comments"
     
     var apiUrl: String {
         get { return "https://" + Host + "/api/" + ApiVersion}
     }
     
-    func getEntriesNew(page: Int, completion:(items:[EntryEntity], isError: Bool) -> Void) {
+    func getEntriesNew(page: Int, completion:(total: Int, items:[EntryEntity], isError: Bool) -> Void) {
         self.getEntriesSearch(nil, page: page, completion: completion)
     }
     
-    func getEntriesSearch(query: String?, page: Int, completion:(items:[EntryEntity], isError: Bool) -> Void) {
+    func getEntriesSearch(query: String?, page: Int, completion:(total: Int, items:[EntryEntity], isError: Bool) -> Void) {
         var params: [String: String] = [
             "page"     : String(page),
             "per_page" : "20"
@@ -43,11 +44,18 @@ class QiitaApiManager: NSObject {
         self.getItems(self.apiUrl + PathItems, parameters: params, completion: completion)
     }
     
-    func getEntriesUserStocks(userId: String, page: Int, completion:(items:[EntryEntity], isError: Bool) -> Void) {
+    func getEntriesUserStocks(userId: String, page: Int, completion:(total: Int, items:[EntryEntity], isError: Bool) -> Void) {
         var params: [String: String] = [
             "page" : String(page)
         ]
         self.getItems(self.apiUrl + String(format: PathUserStocks, userId), parameters: params, completion: completion)
+    }
+    
+    func getEntriesComments(entryId: String, page: Int, completion:(total: Int, items: [CommentEntity], isError: Bool) -> Void) {
+        var params: [String: String] = [
+            "page": String(page)
+        ]
+        self.getItems(self.apiUrl + String(format: PathItemsComments, entryId), parameters: params, completion: completion)
     }
     
     func getTag(tagId: String, completion:(item: TagEntity?, isError: Bool) -> Void) {
@@ -62,27 +70,26 @@ class QiitaApiManager: NSObject {
         self.getItem(self.apiUrl + String(format: PathItem, entryId), parameters: nil, completion: completion)
     }
     
-    func getItems<T:EntityProtocol>(url: URLStringConvertible, parameters: [String: AnyObject]?, completion: (items:[T], isError: Bool) -> Void) {
+    func getItems<T:EntityProtocol>(url: URLStringConvertible, parameters: [String: AnyObject]?, completion: (total:Int, items:[T], isError: Bool) -> Void) {
         
         Alamofire.request(Alamofire.Method.GET, url, parameters: parameters, encoding: ParameterEncoding.URL)
             .validate(statusCode: 200..<300)    // ステータスコードの200台以外をエラーとするように
             .responseJSON { (request, response, jsonData, error) -> Void in
                 let isError: Bool = error == nil ? false : true
-                
+
                 var items: [T] = [T]()
                 if isError {
-                    println("\(response)")
-                    println("\(error)")
-                    completion(items:items, isError: isError);
+                    completion(total:0, items:items, isError: isError);
                     return;
                 }
                 
                 let json: JSON = JSON(jsonData!)
+                let total: Int = response?.allHeaderFields["Total-Count"]?.integerValue ?? 0
                 if let list = json.array {
                     for obj in list {
                         items.append(T(data: obj));
                     }
-                    completion(items: items, isError: isError);
+                    completion(total:total, items: items, isError: isError);
                 } else {
                     fatalError("unmatch type......")
                 }

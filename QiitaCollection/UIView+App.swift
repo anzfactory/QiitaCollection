@@ -10,27 +10,33 @@ import UIKit
 
 extension UIView {
     
-    func maskCircle(borderColor: UIColor) {
-        let layerRect: CGRect = CGRectMake(0, 0, self.layer.frame.size.width, self.layer.frame.size.width)
-        let mask: CAShapeLayer = CAShapeLayer()
-        let maskPath: UIBezierPath = UIBezierPath(ovalInRect: layerRect)
-        mask.path = maskPath.CGPath
-        mask.fillColor = UIColor.backgroundDefaultImage().CGColor
-        mask.lineWidth = 0.0
-        self.layer.mask = mask;
+    func maskCircle(borderColor: UIColor?) {
+        self.maskCircle(borderColor, lineWidth: 1.0)
+    }
+    
+    func maskCircle(borderColor: UIColor?, lineWidth: CGFloat) {
+        let circle: CAShapeLayer = CAShapeLayer()
+        let circlePath: UIBezierPath = UIBezierPath(ovalInRect: CGRect(x: 0, y: 0, width: self.bounds.size.width, height: self.bounds.size.height))
+        circle.path = circlePath.CGPath
+        circle.fillColor = UIColor.backgroundDefaultImage().CGColor
+        circle.lineWidth = 0.0
+        self.layer.mask = circle
         
-        let border: CAShapeLayer = CAShapeLayer()
-        let borderPath: UIBezierPath = UIBezierPath(ovalInRect: layerRect)
-        border.path = borderPath.CGPath
-        border.fillColor = UIColor.clearColor().CGColor
-        border.lineWidth = 2.0
-        border.strokeColor = borderColor.CGColor
-        
-        if (self.layer.sublayers?.isEmpty != nil) {
-            for l:CALayer in self.layer.sublayers?.reverse() as [CALayer] {
-                l.removeFromSuperlayer()
+        if let color = borderColor {
+            let border: CAShapeLayer = CAShapeLayer()
+            border.path = circlePath.CGPath
+            border.fillColor = UIColor.clearColor().CGColor
+            border.lineWidth = lineWidth
+            border.strokeColor = color.CGColor
+            
+            if let views = self.layer.sublayers {
+                if !views.isEmpty {
+                    for layer: CALayer in views.reverse() as [CALayer] {
+                        layer.removeFromSuperlayer()
+                    }
+                }
             }
+            self.layer.addSublayer(border)
         }
-        self.layer.addSublayer(border)
     }
 }

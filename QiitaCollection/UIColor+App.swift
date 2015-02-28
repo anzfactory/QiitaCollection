@@ -45,6 +45,9 @@ extension UIColor {
     class func backgroundPagerTab() -> UIColor {
         return backgroundUserInfo()
     }
+    class func backgroundComment() -> UIColor {
+        return backgroundUserInfo()
+    }
     
     class func textNavigationBar() -> UIColor {
         return UIColor.whiteColor()

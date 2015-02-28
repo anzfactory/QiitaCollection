@@ -10,11 +10,11 @@ import UIKit
 
 class BaseCollectionView: UICollectionView {
 
+    var total: Int = 0
     var items: [EntityProtocol] = [EntityProtocol]()
     var page: Int = 1
 
-    func loadedItems<T:EntityProtocol>(items: [T], isError: Bool, isAppendable: ((T) -> Bool)?) {
-        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoading.rawValue, object: nil)
+    func loadedItems<T:EntityProtocol>(total:Int, items: [T], isError: Bool, isAppendable: ((T) -> Bool)?) {
         
         if isError {
             NSNotificationCenter.defaultCenter()
@@ -26,7 +26,7 @@ class BaseCollectionView: UICollectionView {
                     ])
             return
         }
-        
+        self.total = total
         if items.count == 0 {
             self.page = NSNotFound      // オートページング止めるために
             return

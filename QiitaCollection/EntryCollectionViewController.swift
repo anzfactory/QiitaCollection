@@ -55,10 +55,11 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
         self.load()
     }
     func load() {
-        self.qiitaManager.getEntriesSearch(self.query, page: self.collectionView.page, completion: { (items, isError) -> Void in
-            self.collectionView.loadedItems(items, isError: isError, isAppendable: { (item: EntryEntity) -> Bool in
+        self.qiitaManager.getEntriesSearch(self.query, page: self.collectionView.page, completion: { (total, items, isError) -> Void in
+            self.collectionView.loadedItems(total, items: items, isError: isError, isAppendable: { (item: EntryEntity) -> Bool in
                 return !contains(UserDataManager.sharedInstance.muteUsers, item.postUser.id)
             })
+            NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoading.rawValue, object: nil)
         })
     }
     

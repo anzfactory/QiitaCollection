@@ -54,10 +54,11 @@ class EntryListViewController: BaseViewController, UITableViewDataSource, UITabl
     }
     func loadData() {
         
-        let callback = {(items: [EntryEntity], isError: Bool) -> Void in
-            self.tableView.loadedItems(items, isError: isError, isAppendable: { (item: EntryEntity) -> Bool in
+        let callback = {(total: Int, items: [EntryEntity], isError: Bool) -> Void in
+            self.tableView.loadedItems(total, items: items, isError: isError, isAppendable: { (item: EntryEntity) -> Bool in
                 return !contains(UserDataManager.sharedInstance.muteUsers, item.postUser.id)
             })
+            NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoading.rawValue, object: nil)
         }
         
         // リストタイプによってクエリ作成
