@@ -25,6 +25,8 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
     var viewPagerItems: [ViewPagerItem] = [ViewPagerItem]()
     lazy var menu: CNPGridMenu = self.makeMenu()
     var reloadViewPager: Bool = false
+    var viewPagerTabWidth: CGFloat = 120.0
+    var viewPagerTabHeight: CGFloat = 0.0
  
     // MARK: ライフサイクル
     override func viewDidLoad() {
@@ -85,6 +87,13 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
         // 保存した投稿リストがあるか
         if !UserDataManager.sharedInstance.entryFiles.isEmpty {
             self.viewPagerItems.append(ViewPagerItem(title:"保存した投稿", identifier:"SimpleListVC", query: ""))
+        }
+        
+        let width: CGFloat = self.view.frame.size.width / CGFloat(self.viewPagerItems.count)
+        if width > 120.0 {
+            self.viewPagerTabWidth = width
+        } else {
+            self.viewPagerTabWidth = 120.0
         }
 
     }
@@ -217,11 +226,12 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
     func viewPager(viewPager: ViewPagerController!, viewForTabAtIndex index: UInt) -> UIView! {
         let current: ViewPagerItem = self.viewPagerItems[Int(index)]
         
-        let title: UILabel = UILabel(frame: CGRectZero)
+        let title: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.viewPagerTabWidth, height: self.viewPagerTabHeight))
         title.text = current.title
         title.font = UIFont.boldSystemFontOfSize(14.0)
         title.textColor = UIColor.textBase()
-        title.sizeToFit()
+        title.lineBreakMode = NSLineBreakMode.ByTruncatingMiddle
+        title.textAlignment = NSTextAlignment.Center
         return title
     }
     func viewPager(viewPager: ViewPagerController!, contentViewControllerForTabAtIndex index: UInt) -> UIViewController! {
@@ -263,6 +273,21 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
             return UIColor.backgroundAccent()
         default:
             return color
+        }
+    }
+    
+    func viewPager(viewPager: ViewPagerController!, valueForOption option: ViewPagerOption, withDefault value: CGFloat) -> CGFloat {
+        switch option {
+        case ViewPagerOption.CenterCurrentTab:
+            return 1.0
+        case ViewPagerOption.TabWidth:
+            return self.viewPagerTabWidth
+        case ViewPagerOption.TabHeight:
+            // デフォルト値を保持したいだけなのでスルーさせる
+            self.viewPagerTabHeight = value
+            fallthrough
+        default:
+            return value
         }
     }
     

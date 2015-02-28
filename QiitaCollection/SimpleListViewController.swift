@@ -16,6 +16,7 @@ class SimpleListViewController: BaseViewController, UITableViewDataSource, UITab
     // MARK: UI
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var navigationBar: UINavigationBar!
+    @IBOutlet weak var navigationTitleItem: UINavigationItem!
     
     // MARK: プロパティ
     var items: [String] = [String]()
@@ -44,6 +45,8 @@ class SimpleListViewController: BaseViewController, UITableViewDataSource, UITab
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.navigationTitleItem.title = self.title
         
         if self.removeNavigationBar {
             if let navBar = self.navigationBar {

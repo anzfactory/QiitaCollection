@@ -124,7 +124,7 @@
                                     <constraint firstAttribute="height" constant="44" id="0w6-AW-RFo"/>
                                 </constraints>
                                 <items>
-                                    <navigationItem title="Title" id="57x-ny-q1S">
+                                    <navigationItem title="検索条件" id="57x-ny-q1S">
                                         <barButtonItem key="leftBarButtonItem" image="icon_x" id="vXe-Bf-g30">
                                             <connections>
                                                 <action selector="tapClose:" destination="dBf-or-gNx" id="VF9-gq-37U"/>
@@ -952,6 +952,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="navigationBar" destination="4FA-y3-ORz" id="9vi-hx-3AM"/>
+                        <outlet property="navigationTitleItem" destination="QhL-qz-SRC" id="c8e-DM-9wL"/>
                         <outlet property="tableView" destination="d3M-ID-3n2" id="HN4-WC-SwI"/>
                     </connections>
                 </viewController>
