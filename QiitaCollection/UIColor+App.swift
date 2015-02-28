@@ -15,8 +15,17 @@ extension UIColor {
     class func backgroundBase() -> UIColor {
         return factory(119, g: 184, b: 66, a: 1)
     }
+    class func backgroundAccent() -> UIColor {
+        return backgroundAccent(1)
+    }
+    class func backgroundAccent(a: CGFloat) -> UIColor {
+        return factory(51, g: 122, b: 183, a: a)
+    }
     class func backgroundSub() -> UIColor {
-        return factory(51, g: 122, b: 183, a: 1)
+        return backgroundSub(1.0)
+    }
+    class func backgroundSub(a: CGFloat) -> UIColor {
+        return factory(243, g: 246, b: 241, a: a)
     }
     
     // MARK: 各種
@@ -28,7 +37,7 @@ extension UIColor {
         return backgroundBase();
     }
     class func backgroundUserInfo() -> UIColor {
-        return factory(243, g: 246, b: 241, a: 1)
+        return backgroundSub()
     }
     class func backgroundNavigationMenu() -> UIColor {
         return factory(119, g: 184, b: 66, a: 0.9)
@@ -37,16 +46,16 @@ extension UIColor {
         return UIColor.redColor()
     }
     class func backgroundSwipeCellEdit() -> UIColor {
-        return backgroundSub()
+        return backgroundAccent()
     }
     class func backgroundSearchCondition() -> UIColor {
-        return backgroundUserInfo()
+        return backgroundSub()
     }
     class func backgroundPagerTab() -> UIColor {
-        return backgroundUserInfo()
+        return backgroundSub()
     }
     class func backgroundComment() -> UIColor {
-        return backgroundUserInfo()
+        return backgroundSub()
     }
     
     class func textNavigationBar() -> UIColor {
@@ -58,12 +67,15 @@ extension UIColor {
     class func textBase() -> UIColor {
         return UIColor.darkGrayColor()
     }
+    class func textLight() -> UIColor {
+        return UIColor.whiteColor()
+    }
     
     class func borderImageViewCircle() -> UIColor {
         return backgroundBase()
     }
     class func borderPageMenuIndicator() -> UIColor {
-        return backgroundSub()
+        return backgroundAccent()
     }
     class func borderNavigationMenuSeparator() -> UIColor {
         return backgroundBase();

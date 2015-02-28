@@ -85,7 +85,7 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
     
     func makePublicMenu() -> PathMenu {
         let startItem: PathMenuItem = PathMenuItem(image: UIImage(named: "icon_three_bar_white"), highlightedImage: UIImage(named: "icon_three_bar_white"), ContentImage: UIImage(named: "icon_three_bar_white"), highlightedContentImage: UIImage(named: "icon_three_bar_white"))
-        startItem.backgroundColor = UIColor.backgroundSub()
+        startItem.backgroundColor = UIColor.backgroundAccent()
         let menu: PathMenu = PathMenu(frame: self.view.bounds, startItem: startItem, optionMenus: [])
         menu.delegate = self
         menu.startButton.alpha = 0.4

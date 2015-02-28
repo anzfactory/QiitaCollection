@@ -238,6 +238,7 @@ class EntryDetailViewController: BaseViewController {
     func moveCommentList() {
         let vc: CommentListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("CommentsVC") as CommentListViewController
         vc.displayEntryId = self.displayEntryId!
+        vc.displayEntryTitle = self.displayEntry?.title ?? ""
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: vc)
     }
     

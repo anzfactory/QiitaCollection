@@ -16,6 +16,7 @@ class CommentListViewController: BaseViewController, UITableViewDataSource, UITa
     // MARK: プロパティ
     let qiitaManager: QiitaApiManager = QiitaApiManager()
     var displayEntryId: String = ""
+    var displayEntryTitle: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,4 +88,23 @@ class CommentListViewController: BaseViewController, UITableViewDataSource, UITa
         return cell
     }
    
+    // MARK: UITableViewDelegate
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30.0
+    }
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.size.width, height: 30.0))
+        headerView.backgroundColor = UIColor.backgroundSub(0.8)
+        
+        let headerTitle: UILabel = UILabel(frame: CGRect(x: 8, y: 8, width: self.tableView.bounds.size.width - 16, height: 14.0))
+        headerTitle.lineBreakMode = NSLineBreakMode.ByTruncatingMiddle
+        headerTitle.textColor = UIColor.textBase()
+        headerTitle.font = UIFont.systemFontOfSize(12.0)
+        headerTitle.text = self.displayEntryTitle + "のコメント一覧"
+        
+        headerView.addSubview(headerTitle)
+        headerTitle.addConstraintFromLeft(8.0, toRight: 8.0)
+        headerTitle.addConstraintFromTop(8.0, toBottom: 8.0)
+        return headerView
+    }
 }

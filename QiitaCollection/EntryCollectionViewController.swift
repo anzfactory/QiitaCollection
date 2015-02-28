@@ -79,6 +79,9 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
             UIAlertAction(title: "記事詳細", style: .Default, handler: { (UIAlertAction) -> Void in
                 self.moveEntryDetail(tapEntry)
             }),
+            UIAlertAction(title: "コメント", style: .Default, handler: { (UIAlertAction) -> Void in
+                self.moveEntryComment(tapEntry)
+            }),
             UIAlertAction(title: tapEntry.postUser.displayName, style: .Default, handler: { (UIAlertAction) -> Void in
                 self.moveUserDetail(tapEntry.postUser.id)
             }),
@@ -101,6 +104,13 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
     func moveEntryDetail(entry: EntryEntity) {
         let vc: EntryDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryDetailVC") as EntryDetailViewController
         vc.displayEntry = entry
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: vc)
+    }
+    
+    func moveEntryComment(entry: EntryEntity) {
+        let vc: CommentListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("CommentsVC") as CommentListViewController
+        vc.displayEntryId = entry.id
+        vc.displayEntryTitle = entry.title
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: vc)
     }
     

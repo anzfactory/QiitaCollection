@@ -235,7 +235,7 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
         case ViewPagerComponent.TabsView:
             return UIColor.backgroundPagerTab()
         case ViewPagerComponent.Indicator:
-            return UIColor.backgroundSub()
+            return UIColor.backgroundAccent()
         default:
             return color
         }

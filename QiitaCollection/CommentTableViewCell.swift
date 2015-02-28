@@ -28,10 +28,13 @@ class CommentTableViewCell: UITableViewCell {
         
         self.thumb.backgroundColor = UIColor.backgroundDefaultImage()
         self.thumb.maskCircle(UIColor.borderImageViewCircle(), lineWidth: 3.0)
+        
+        self.postDate.backgroundColor = UIColor.backgroundBase()
+        self.postDate.textColor = UIColor.textLight()
+        self.postDate.drawBorder(UIColor.backgroundBase(), linewidth: 1.0)
+        
         self.bodyContent.backgroundColor = UIColor.backgroundComment()
-        self.bodyContent.layer.borderColor = UIColor.backgroundBase().CGColor
-        self.bodyContent.layer.cornerRadius = 5.0
-        self.bodyContent.layer.borderWidth = 2.0
+        self.bodyContent.drawBorder(UIColor.backgroundBase(), linewidth: 2.0)
         
     }
 
