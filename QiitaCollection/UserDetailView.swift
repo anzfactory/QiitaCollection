@@ -17,7 +17,7 @@ class UserDetailView: UIView {
     @IBOutlet weak var profImage: UIImageView!
     @IBOutlet weak var userId: UILabel!
     @IBOutlet weak var name: UILabel!
-    @IBOutlet weak var introduction: UILabel!
+    @IBOutlet weak var introduction: UIButton!
     @IBOutlet weak var website: UIButton!
     @IBOutlet weak var github: UIButton!
     @IBOutlet weak var twitter: UIButton!
@@ -30,6 +30,7 @@ class UserDetailView: UIView {
     // MARK: プロパティ
     weak var delegate: UserDetailViewDelegate?
     
+    // MARK
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -41,9 +42,9 @@ class UserDetailView: UIView {
         self.userId.text = ""
         self.name.textColor = UIColor.textBase()
         self.name.text = ""
-        self.introduction.textColor = UIColor.textBase()
-        self.introduction.text = ""
-        
+        self.introduction.setTitleColor(UIColor.textBase(), forState: UIControlState.Normal)
+        self.introduction.setTitle("", forState: UIControlState.Normal)
+        self.introduction.titleLabel?.numberOfLines = 3
     }
     
     func showUser(info: UserEntity) {
@@ -51,8 +52,7 @@ class UserDetailView: UIView {
         info.loadThumb(self.profImage)
         self.userId.text = info.id
         self.name.text = info.name
-        self.introduction.text = info.introduction
-        self.constraintIntroductionHeight.constant = self.introduction.calcAdjustHeight(self.constraintIntroductionHeight.constant)
+        self.introduction.setTitle(info.introduction, forState: UIControlState.Normal)
         
         self.website.enabled = !info.web.isEmpty
         self.github.enabled = !info.github.isEmpty
@@ -65,4 +65,14 @@ class UserDetailView: UIView {
         self.delegate?.userDetailView(self, sender: sender)
     }
     
+    @IBAction func tapIntroduction(sneder: UIButton) {
+        NSNotificationCenter.defaultCenter().postNotificationName(
+            QCKeys.Notification.ShowAlertOkOnly.rawValue,
+            object: nil,
+            userInfo: [
+                QCKeys.AlertView.Message.rawValue: self.introduction.titleLabel?.text ?? "",
+                QCKeys.AlertView.Title.rawValue  : "紹介文"
+            ]
+        )
+    }
 }

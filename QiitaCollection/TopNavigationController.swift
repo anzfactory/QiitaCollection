@@ -42,6 +42,7 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         center.addObserver(self, selector: "receivePresentedViewController:", name: QCKeys.Notification.PresentedViewController.rawValue, object: nil)
         center.addObserver(self, selector: "receiveShowAlertInputText:", name: QCKeys.Notification.ShowAlertInputText.rawValue, object: nil)
         center.addObserver(self, selector: "receiveResetPublicMenuItems:", name: QCKeys.Notification.ResetPublicMenuItems.rawValue, object: nil)
+        center.addObserver(self, selector: "receiveShowAlertOkOnly:", name: QCKeys.Notification.ShowAlertOkOnly.rawValue, object: nil)
         
         self.view.addSubview(self.publicMenu)
         self.publicMenu.startPoint = CGPoint(x: self.view.frame.size.width * 0.5, y: self.view.frame.height - 22)
@@ -262,6 +263,19 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         self.alertView!.showWarning(self, title: title, subTitle: message, closeButtonTitle: noTiltle, duration: 0.0);
         self.alertViewStatus = .Show
         
+    }
+    
+    func receiveShowAlertOkOnly(notification: NSNotification) {
+        self.preShowAlert()
+        
+        let userInfo = notification.userInfo!
+        
+        let title: String = userInfo[QCKeys.AlertView.Title.rawValue] as? String ?? "お知らせ"
+        let message: String = userInfo[QCKeys.AlertView.Message.rawValue]! as String    // 必須なんで想定外だったら落とす
+        let noTiltle: String = userInfo[QCKeys.AlertView.NoTitle.rawValue] as? String ?? "OK"
+        
+        self.alertView!.showInfo(self, title: title, subTitle: message, closeButtonTitle: noTiltle, duration: 0.0);
+        self.alertViewStatus = .Show
     }
     
     func receiveShowAlertInputText(notification: NSNotification) {
