@@ -32,7 +32,7 @@ class UserDataManager {
     // ミュートユーザーのID
     var muteUsers: [String] = [String]()
     // 保存した検索クエリ
-    var queries: [String: String] = [String: String]()
+    var queries: [[String: String]] = [[String: String]]()
     // クリップしたもの
     var pins: [[String: String]] = [[String: String]]()
     // 保存したもの
@@ -48,7 +48,7 @@ class UserDataManager {
         ]
         self.ud.registerDefaults(defaults)
         self.muteUsers = self.ud.arrayForKey(UDKeys.MuteUsers.rawValue) as [String]
-        self.queries = self.ud.dictionaryForKey(UDKeys.Queries.rawValue) as [String: String]
+        self.queries = self.ud.arrayForKey(UDKeys.Queries.rawValue) as [[String: String]]
         self.pins = self.ud.arrayForKey(UDKeys.Pins.rawValue) as [[String: String]]
         self.entryFiles = self.ud.arrayForKey(UDKeys.EntryFiles.rawValue) as [[String: String]]
     }
@@ -88,7 +88,32 @@ class UserDataManager {
     }
     
     func appendQuery(query: String, label: String) {
-        self.queries[query] = label
+        
+        let index = self.indexItem(self.queries, target: query, id: "query")
+        if index != NSNotFound {
+            return
+        }
+        
+        self.queries.append([
+            "query": query,
+            "title": label
+        ])
+    }
+    func clearQuery(query: String) {
+        let index = self.indexItem(self.queries, target: query, id: "query")
+        if index == NSNotFound {
+            return
+        }
+        
+        self.queries.removeAtIndex(index)
+    }
+    func clearQuery(index: Int) {
+
+        if index >= self.queries.count {
+            return
+        }
+        
+        self.queries.removeAtIndex(index)
     }
     
     func appendPinEntry(entryId: String, entryTitle: String) {

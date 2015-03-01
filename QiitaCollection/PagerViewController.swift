@@ -77,10 +77,10 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
         self.viewPagerItems.append(ViewPagerItem(title: "新着", identifier:"EntryCollectionVC", query:""))
         
         // クエリで回す
-        let queries: [String: String] = UserDataManager.sharedInstance.queries
+        let queries: [[String: String]] = UserDataManager.sharedInstance.queries
         if !queries.isEmpty {
-            for query in queries {
-                self.viewPagerItems.append(ViewPagerItem(title: query.1, identifier:"EntryCollectionVC", query:query.0))
+            for queryItem in queries {
+                self.viewPagerItems.append(ViewPagerItem(title: queryItem["title"]!, identifier:"EntryCollectionVC", query:queryItem["query"]!))
             }
         }
         
@@ -114,7 +114,14 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
             return
         }
         
-        let menu: CNPGridMenu = CNPGridMenu(menuItems: [menuItemMuteUsers, menuItemPinEntries])
+        let menuItemQuery: QCGridMenuItem = QCGridMenuItem()
+        menuItemQuery.icon = UIImage(named: "icon_lock")
+        menuItemQuery.title = "Query"
+        menuItemQuery.action = {(item) -> Void in
+            self.openQueryList()
+        }
+        
+        let menu: CNPGridMenu = CNPGridMenu(menuItems: [menuItemMuteUsers, menuItemPinEntries, menuItemQuery])
         menu.delegate = self
         return menu
     }
@@ -182,13 +189,7 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
         }
         
         // 渡すようのリストをつくる
-        var pins: [String] = [String]()
-        for pinEntry in pinEntries {
-            if let title = pinEntry["title"] {
-                pins.append(title)
-            }
-            
-        }
+        var pins: [String] = Array<String>.convert(pinEntries, key: "title")
         
         let vc: SimpleListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SimpleListVC") as SimpleListViewController
         vc.items = pins
@@ -212,6 +213,36 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
         }
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PresentedViewController.rawValue, object: vc)
         
+    }
+    
+    func openQueryList() {
+        let queries: [[String: String]] = UserDataManager.sharedInstance.queries
+        
+        if queries.isEmpty {
+            Toast.show("保存した検索がありません...", style: JFMinimalNotificationStytle.StyleInfo)
+            return
+        }
+        
+        let queryLabels: [String] = [String].convert(queries, key: "title")
+        
+        let vc: SimpleListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SimpleListVC") as SimpleListViewController
+        vc.items = queryLabels
+        vc.title = "保存した検索条件"
+        vc.tapCallback = {(vc: SimpleListViewController, index: Int) -> Void in
+            // 特に何もしない
+        }
+        vc.swipeCellCallback = {(vc: SimpleListViewController, cell: SlideTableViewCell, index: Int) -> Void in
+            // 削除処理
+            UserDataManager.sharedInstance.clearQuery(index)
+            // ViewPager再構成
+            self.setupViewControllers()
+            self.reloadData()
+            vc.dismissViewControllerAnimated(true, completion: { () -> Void in
+                
+            })
+            return
+        }
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PresentedViewController.rawValue, object: vc)
     }
     
     // MARK: NSNotification

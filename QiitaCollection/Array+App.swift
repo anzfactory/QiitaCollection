@@ -16,4 +16,16 @@ extension Array {
         }
         return self
     }
+    
+    static func convert(dict: [[String: String]], key: String) -> [T] {
+        var result: [T] = [T]()
+        for item in dict {
+            if let keyValue = item[key] {
+                if keyValue is T {
+                    result.append(keyValue as T)
+                }
+            }
+        }
+        return result
+    }
 }

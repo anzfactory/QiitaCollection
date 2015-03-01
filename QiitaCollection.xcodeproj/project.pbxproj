@@ -61,6 +61,7 @@
 		A1CF43511A8BBE380016209C /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CF43501A8BBE380016209C /* BaseViewController.swift */; };
 		A1D8A8351A8750240040C195 /* UIImageView+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D8A8341A8750240040C195 /* UIImageView+App.swift */; };
 		A1D8A83A1A87917F0040C195 /* UIView+Constraint.m in Sources */ = {isa = PBXBuildFile; fileRef = A1D8A8391A87917F0040C195 /* UIView+Constraint.m */; };
+		A1DD3FFB1AA2ACD2006E4F7B /* Dictionary+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DD3FFA1AA2ACD2006E4F7B /* Dictionary+App.swift */; };
 		A1E525611AA1B80E00A31C13 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E525601AA1B80E00A31C13 /* FileManager.swift */; };
 		A1EB79171A9E1F32007E931E /* ViewPagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1EB79161A9E1F32007E931E /* ViewPagerController.m */; };
 		A1EB791B1A9E3709007E931E /* CNPGridMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = A1EB791A1A9E3709007E931E /* CNPGridMenu.m */; };
@@ -158,6 +159,7 @@
 		A1D8A8341A8750240040C195 /* UIImageView+App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+App.swift"; sourceTree = "<group>"; };
 		A1D8A8381A87917F0040C195 /* UIView+Constraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Constraint.h"; sourceTree = "<group>"; };
 		A1D8A8391A87917F0040C195 /* UIView+Constraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Constraint.m"; sourceTree = "<group>"; };
+		A1DD3FFA1AA2ACD2006E4F7B /* Dictionary+App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+App.swift"; sourceTree = "<group>"; };
 		A1E525601AA1B80E00A31C13 /* FileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		A1EB79151A9E1F32007E931E /* ViewPagerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewPagerController.h; sourceTree = "<group>"; };
 		A1EB79161A9E1F32007E931E /* ViewPagerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewPagerController.m; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 				A1F8D5081A88FC3C00660741 /* UIView+App.swift */,
 				A1B1C6BA1A90928E001419E9 /* UILabel+App.swift */,
 				A1824FDC1A98D816009604B2 /* Array+App.swift */,
+				A1DD3FFA1AA2ACD2006E4F7B /* Dictionary+App.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -711,6 +714,7 @@
 				A18A85D01A85AAC10078436D /* EntryCollectionViewController.swift in Sources */,
 				A1F157EE1A8FB1490064EA47 /* JFMinimalNotificationArt.m in Sources */,
 				A1B1C6BB1A90928E001419E9 /* UILabel+App.swift in Sources */,
+				A1DD3FFB1AA2ACD2006E4F7B /* Dictionary+App.swift in Sources */,
 				A18030661A9A21CA00EA8D4A /* SearchTableViewCell.swift in Sources */,
 				A17D0C581A963A510020229B /* SCLButton.m in Sources */,
 				A103AF3A1A86141200FF0B24 /* EntryCollectionViewCell.swift in Sources */,
