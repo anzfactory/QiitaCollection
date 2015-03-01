@@ -9,3 +9,4 @@
 #import "SWTableViewCell.h"
 #import "ViewPagerController.h"
 #import "CNPGridMenu.h"
+#import "CMPopTipView.h"
