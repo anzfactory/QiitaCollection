@@ -33,7 +33,7 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         self.navigationBar.tintColor = UIColor.textNavigationBar()
         
         let center: NSNotificationCenter = NSNotificationCenter.defaultCenter()
-        center.addObserver(self, selector: "receiveShowActionSheet:", name: QCKeys.Notification.ShowActionSheet.rawValue, object: nil)
+        center.addObserver(self, selector: "receiveShowAlertController:", name: QCKeys.Notification.ShowAlertController.rawValue, object: nil)
         center.addObserver(self, selector: "receivePushViewController:", name: QCKeys.Notification.PushViewController.rawValue, object: nil)
         center.addObserver(self, selector: "receiveShowMinimumNotification:", name: QCKeys.Notification.ShowMinimumNotification.rawValue, object: nil)
         center.addObserver(self, selector: "receiveShowLoading", name: QCKeys.Notification.ShowLoading.rawValue, object: nil)
@@ -158,11 +158,11 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
     
     // MARK: NSNotification 受信処理
     
-    func receiveShowActionSheet(notification: NSNotification) {
+    func receiveShowAlertController(notification: NSNotification) {
         let args: [NSObject: AnyObject] = notification.userInfo!
 
-        let title: String = args[QCKeys.ActionSheet.Title.rawValue] as? String ?? ""
-        let desc: String = args[QCKeys.ActionSheet.Description.rawValue] as? String ?? ""
+        let title: String = args[QCKeys.AlertController.Title.rawValue] as? String ?? ""
+        let desc: String = args[QCKeys.AlertController.Description.rawValue] as? String ?? ""
 
         let alertController: UIAlertController = UIAlertController(title: title, message: desc, preferredStyle: .ActionSheet)
         alertController.popoverPresentationController?.sourceView = self.view
@@ -170,7 +170,7 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         alertController.popoverPresentationController?.sourceRect = CGRect(x: self.view.frame.size.width * 0.5, y: self.view.frame.size.height, width: 0, height: 0 )
         alertController.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection(rawValue:0)
         
-        if let actions: [UIAlertAction] = args[QCKeys.ActionSheet.Actions.rawValue] as? [UIAlertAction] {
+        if let actions: [UIAlertAction] = args[QCKeys.AlertController.Actions.rawValue] as? [UIAlertAction] {
             for action: UIAlertAction in actions {
                 alertController.addAction(action)
             }

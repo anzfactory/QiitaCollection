@@ -20,6 +20,7 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
     // MARK: ライフサイクル
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         let longPressGesture: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: "longPress:")
         self.collectionView.addGestureRecognizer(longPressGesture)
         
@@ -35,9 +36,9 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
         if !self.query.isEmpty {
             self.displaySaveSearchCondition()
         }
-        
         refresh()
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -95,12 +96,12 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
         
         // TODO: そのほかメニュー表示 (記事をストックしているユーザーリスト)
         NSNotificationCenter.defaultCenter()
-            .postNotificationName(QCKeys.Notification.ShowActionSheet.rawValue,
+            .postNotificationName(QCKeys.Notification.ShowAlertController.rawValue,
                 object: nil,
                 userInfo: [
-                    QCKeys.ActionSheet.Title.rawValue: tapEntry.title + " " + tapEntry.postUser.displayName,
-                    QCKeys.ActionSheet.Description.rawValue: tapEntry.beginning,
-                    QCKeys.ActionSheet.Actions.rawValue: actions
+                    QCKeys.AlertController.Title.rawValue: tapEntry.title + " " + tapEntry.postUser.displayName,
+                    QCKeys.AlertController.Description.rawValue: tapEntry.beginning,
+                    QCKeys.AlertController.Actions.rawValue: actions
                 ])
     }
     
@@ -166,7 +167,6 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
         
         let entry: EntryEntity = self.collectionView.items[indexPath.row] as EntryEntity
         cell.display(entry)
-        
         return cell
         
     }
