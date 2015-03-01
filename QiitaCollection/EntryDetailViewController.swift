@@ -97,7 +97,11 @@ class EntryDetailViewController: BaseViewController {
         menuDownload.action = {() -> Void in
             self.confirmDownload()
         }
-        return [menuItemLink, menuItemClip, menuItemPin, menuItemShare, menuPerson, menuDiscus, menuDownload]
+        let menuStockers: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "icon_star")!)
+        menuStockers.action = {() -> Void in
+            self.moveStockers()
+        }
+        return [menuItemLink, menuItemClip, menuItemPin, menuDownload, menuItemShare, menuPerson, menuDiscus, menuStockers]
     }
     func refresh() {
         if let entry = self.displayEntry {
@@ -273,6 +277,13 @@ class EntryDetailViewController: BaseViewController {
         let vc: CommentListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("CommentsVC") as CommentListViewController
         vc.displayEntryId = self.displayEntryId!
         vc.displayEntryTitle = self.displayEntry?.title ?? ""
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: vc)
+    }
+    
+    func moveStockers() {
+        let vc: UserListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UserListVC") as UserListViewController
+        vc.listType = UserListViewController.UserListType.Stockers
+        vc.targetEntryId = self.displayEntryId
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: vc)
     }
     

@@ -22,6 +22,7 @@ class QiitaApiManager {
     let PathUser: String = "/users/%@"
     let PathUserStocks: String = "/users/%@/stocks"
     let PathItemsComments: String = "/items/%@/comments"
+    let PathItemsStockers: String = "/items/%@/stockers"
     
     var apiUrl: String {
         get { return "https://" + Host + "/api/" + ApiVersion}
@@ -56,6 +57,13 @@ class QiitaApiManager {
             "page": String(page)
         ]
         self.getItems(self.apiUrl + String(format: PathItemsComments, entryId), parameters: params, completion: completion)
+    }
+    
+    func getStockers(entryId: String, page: Int, completion:(total: Int, items: [UserEntity], isError: Bool) -> Void) {
+        var params: [String: String] = [
+            "page": String(page)
+        ]
+        self.getItems(self.apiUrl + String(format: PathItemsStockers, entryId), parameters: params, completion: completion)
     }
     
     func getTag(tagId: String, completion:(item: TagEntity?, isError: Bool) -> Void) {

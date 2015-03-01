@@ -82,6 +82,9 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
             UIAlertAction(title: "コメント", style: .Default, handler: { (UIAlertAction) -> Void in
                 self.moveEntryComment(tapEntry)
             }),
+            UIAlertAction(title: "ストックユーザー", style: .Default, handler: { (uialertAction) -> Void in
+                self.moveStockers(tapEntry)
+            }),
             UIAlertAction(title: tapEntry.postUser.displayName, style: .Default, handler: { (UIAlertAction) -> Void in
                 self.moveUserDetail(tapEntry.postUser.id)
             }),
@@ -111,6 +114,13 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
         let vc: CommentListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("CommentsVC") as CommentListViewController
         vc.displayEntryId = entry.id
         vc.displayEntryTitle = entry.title
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: vc)
+    }
+    
+    func moveStockers(entry: EntryEntity) {
+        let vc: UserListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UserListVC") as UserListViewController
+        vc.listType = .Stockers
+        vc.targetEntryId = entry.id
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: vc)
     }
     

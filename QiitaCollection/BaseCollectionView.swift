@@ -17,13 +17,11 @@ class BaseCollectionView: UICollectionView {
     func loadedItems<T:EntityProtocol>(total:Int, items: [T], isError: Bool, isAppendable: ((T) -> Bool)?) {
         
         if isError {
-            NSNotificationCenter.defaultCenter()
-                .postNotificationName(QCKeys.Notification.ShowMinimumNotification.rawValue,
-                    object: nil,
-                    userInfo: [
-                        QCKeys.MinimumNotification.SubTitle.rawValue: "取得に失敗しました...時間をあけて試してみてください",
-                        QCKeys.MinimumNotification.Style.rawValue: NSNumber(integer: JFMinimalNotificationStytle.StyleWarning.rawValue)
-                    ])
+            Toast.show("取得に失敗しました...時間をあけて試してみてください", style: JFMinimalNotificationStytle.StyleWarning)
+            return
+        }
+        if total == 0 {
+            Toast.show("結果0件でした...", style: JFMinimalNotificationStytle.StyleInfo)
             return
         }
         self.total = total
