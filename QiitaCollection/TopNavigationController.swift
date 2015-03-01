@@ -150,6 +150,12 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         }
     }
     
+    func tapNavigationBarTitle(gesture: UILongPressGestureRecognizer) {
+        if self.childViewControllers.count > 1 {
+            self.setViewControllers([self.childViewControllers[0]], animated: true)
+        }
+    }
+    
     // MARK: NSNotification 受信処理
     
     func receiveShowActionSheet(notification: NSNotification) {
@@ -317,13 +323,14 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
             }
         }
     }
-
+    
     // MARK: UINavigationControllerDelegate
     func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
         
         let backButton: UIBarButtonItem = UIBarButtonItem()
         backButton.title = ""
         viewController.navigationItem.backBarButtonItem = backButton;
+        
         if viewController is BaseViewController {
             
             self.resetPublicMenuItems(viewController as BaseViewController)
@@ -331,6 +338,17 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         } else {
             self.publicMenu.hidden = true
         }
+
+        // タイトルタップ検知したいので…
+        let customTitle: UILabel = UILabel(frame: CGRect.zeroRect)
+        customTitle.font = UIFont.systemFontOfSize(16.0)
+        customTitle.textColor = UIColor.textLight()
+        customTitle.text = viewController.title
+        customTitle.userInteractionEnabled = true
+        customTitle.sizeToFit()
+        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "tapNavigationBarTitle:")
+        customTitle.addGestureRecognizer(tapGesture)
+        viewController.navigationItem.titleView = customTitle
         
     }
     
