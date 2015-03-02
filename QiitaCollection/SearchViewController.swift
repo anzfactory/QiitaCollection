@@ -38,6 +38,7 @@ class SearchViewController: BaseViewController, SearchConditionViewDelegate, UIT
         
         self.searchConditionView.delegate = self
         self.searchConditionView.query.delegate = self
+        self.searchConditionView.showGuide(GuideManager.GuideType.SearchConditionView, inView: self.view)
         
         self.tableView.tableFooterView = UIView(frame: CGRect.zeroRect)
         self.tableView.dataSource = self
@@ -160,6 +161,13 @@ class SearchViewController: BaseViewController, SearchConditionViewDelegate, UIT
         cell.delegate = self
         cell.tag = indexPath.row
         return cell
+    }
+    
+    // MARK: UITableViewDelegate
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.row == 0 {
+            cell.showGuide(.SearchConditionSwaipeCell, inView: self.view)
+        }
     }
     
     // MARK: UITextFieldDelegate

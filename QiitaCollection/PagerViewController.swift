@@ -39,6 +39,7 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
             UIBarButtonItem(image: UIImage(named: "icon_search"), style: UIBarButtonItemStyle.Plain, target: self, action: "tapSearch")
         ]
         self.navigationItem.rightBarButtonItems = rightButtons
+        rightButtons[1].showGuide(GuideManager.GuideType.SearchIcon)
         
         self.setupViewControllers()
         
@@ -161,6 +162,7 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
         let muteVC: SimpleListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SimpleListVC") as SimpleListViewController
         muteVC.items = UserDataManager.sharedInstance.muteUsers
         muteVC.title = "ミュートリスト"
+        muteVC.cellGuide = GuideManager.GuideType.MuteListSwaipeCell
         muteVC.tapCallback = {(vc: SimpleListViewController, index: Int) -> Void in
             
             // まずは閉じる
@@ -194,6 +196,7 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
         let vc: SimpleListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SimpleListVC") as SimpleListViewController
         vc.items = pins
         vc.title = "pinリスト"
+        vc.cellGuide = GuideManager.GuideType.PinListSwaipeCell
         vc.tapCallback = {(vc: SimpleListViewController, index: Int) -> Void in
             
             // まずは閉じる
@@ -228,6 +231,7 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
         let vc: SimpleListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SimpleListVC") as SimpleListViewController
         vc.items = queryLabels
         vc.title = "保存した検索条件"
+        vc.cellGuide = GuideManager.GuideType.QueryListSwipeCell
         vc.tapCallback = {(vc: SimpleListViewController, index: Int) -> Void in
             // 特に何もしない
         }

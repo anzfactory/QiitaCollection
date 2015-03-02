@@ -47,6 +47,7 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
     func displaySaveSearchCondition() {
         let save: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon_lock"), style: UIBarButtonItemStyle.Bordered, target: self, action: "confirmSaveSearchCondition")
         self.navigationItem.rightBarButtonItem = save
+        save.showGuide(GuideManager.GuideType.SearchConditionSaveIcon)
     }
     
     func refresh() {
@@ -176,6 +177,10 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
     func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
         if self.collectionView.page != NSNotFound && (indexPath.row + 1) >= self.collectionView.items.count {
             self.load()
+        }
+        
+        if indexPath.row == 0 {
+            cell.showGuide(GuideManager.GuideType.EntryCollectionCell, inView: self.view)
         }
     }
     

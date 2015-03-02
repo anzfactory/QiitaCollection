@@ -24,6 +24,7 @@ class SimpleListViewController: BaseViewController, UITableViewDataSource, UITab
     var tapCallback: ItemTapCallback? = nil
     var swipeCellCallback: SwipeCellCallback? = nil
     var removeNavigationBar: Bool = false
+    var cellGuide: GuideManager.GuideType = .None
     
     // MARK: ライフサイクル
     override func viewDidLoad() {
@@ -67,6 +68,21 @@ class SimpleListViewController: BaseViewController, UITableViewDataSource, UITab
             
         })
     }
+    
+    // MARK: メソッド
+    func refresh(items: [String]) {
+        self.items = items
+        self.tableView.reloadData()
+    }
+    
+    func removeItem(index: Int) {
+        if index >= self.items.count {
+            return;
+        }
+        self.items.removeAtIndex(index)
+        self.tableView.reloadData()
+    }
+    
     // MARK: UITableViewDataSource
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 44.0
@@ -89,23 +105,16 @@ class SimpleListViewController: BaseViewController, UITableViewDataSource, UITab
         return cell
     }
     
-    func refresh(items: [String]) {
-        self.items = items
-        self.tableView.reloadData()
-    }
-    
-    func removeItem(index: Int) {
-        if index >= self.items.count {
-            return;
-        }
-        self.items.removeAtIndex(index)
-        self.tableView.reloadData()
-    }
-    
     // MARK: UITableViewDelegate
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if let callback = self.tapCallback {
             callback(self, indexPath.row)
+        }
+    }
+    
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.row == 0 && self.cellGuide != .None {
+            cell.showGuide(self.cellGuide, inView: self.view)
         }
     }
     

@@ -26,7 +26,8 @@ class UserDataManager {
         MuteUsers = "ud-key-mute-users",
         Queries = "ud-key-queries",
         Pins = "ud-key-pins",
-        EntryFiles = "ud-key-entry-files"
+        EntryFiles = "ud-key-entry-files",
+        DisplayedGuides = "ud-key-displayed-guide"
     }
     
     // ミュートユーザーのID
@@ -37,20 +38,24 @@ class UserDataManager {
     var pins: [[String: String]] = [[String: String]]()
     // 保存したもの
     var entryFiles: [[String: String]] = [[String: String]]()
+    // 表示したガイド
+    var displayedGuides: [Int] = [Int]()
     
     // MARK: ライフサイクル
     init() {
         var defaults = [
-            UDKeys.MuteUsers.rawValue : self.muteUsers,
-            UDKeys.Queries.rawValue   : self.queries,
-            UDKeys.Pins.rawValue      : self.pins,
-            UDKeys.EntryFiles.rawValue: self.entryFiles
+            UDKeys.MuteUsers.rawValue      : self.muteUsers,
+            UDKeys.Queries.rawValue        : self.queries,
+            UDKeys.Pins.rawValue           : self.pins,
+            UDKeys.EntryFiles.rawValue     : self.entryFiles,
+            UDKeys.DisplayedGuides.rawValue: self.displayedGuides
         ]
         self.ud.registerDefaults(defaults)
         self.muteUsers = self.ud.arrayForKey(UDKeys.MuteUsers.rawValue) as [String]
         self.queries = self.ud.arrayForKey(UDKeys.Queries.rawValue) as [[String: String]]
         self.pins = self.ud.arrayForKey(UDKeys.Pins.rawValue) as [[String: String]]
         self.entryFiles = self.ud.arrayForKey(UDKeys.EntryFiles.rawValue) as [[String: String]]
+        self.displayedGuides = self.ud.arrayForKey(UDKeys.DisplayedGuides.rawValue) as [Int]
     }
     
     // MARK: メソッド
@@ -61,6 +66,7 @@ class UserDataManager {
         self.ud.setObject(self.queries, forKey: UDKeys.Queries.rawValue)
         self.ud.setObject(self.pins, forKey: UDKeys.Pins.rawValue)
         self.ud.setObject(self.entryFiles, forKey: UDKeys.EntryFiles.rawValue)
+        self.ud.setObject(self.displayedGuides, forKey: UDKeys.DisplayedGuides.rawValue)
         self.ud.synchronize()
     }
     
@@ -177,6 +183,15 @@ class UserDataManager {
     }
     
     
+    func isDisplayedGuide(guide: Int) -> Bool {
+        return contains(self.displayedGuides, guide)
+    }
+    func appendDisplayedGuide(guide: Int) {
+        if self.isDisplayedGuide(guide) {
+            return
+        }
+        self.displayedGuides.append(guide)
+    }
     
     func indexItem(items: [[String: String]], target:String, id: String = "id") -> Int {
         for var i = 0; i < items.count; i++ {

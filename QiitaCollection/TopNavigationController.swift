@@ -147,7 +147,10 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
             
             self.publicMenu.menuWholeAngle = CGFloat(M_PI) - CGFloat(M_PI/Double(self.publicMenu.menusArray.count))
             self.publicMenu.rotateAngle = -CGFloat(M_PI_2) + CGFloat(M_PI/Double(self.publicMenu.menusArray.count)) * 1/2
+            
+            self.publicMenu.startButton.showGuide(GuideManager.GuideType.PublicContextMenu, inView: self.view)
         }
+        
     }
     
     func tapNavigationBarTitle(gesture: UILongPressGestureRecognizer) {
@@ -350,6 +353,9 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         customTitle.addGestureRecognizer(tapGesture)
         viewController.navigationItem.titleView = customTitle
         
+        if self.childViewControllers.count > 2 {
+            self.navigationBar.showGuide(GuideManager.GuideType.BackTopGesture, inView: self.view)
+        }
     }
     
     // MARK: PathMenuDelegate

@@ -46,4 +46,9 @@ extension UIView {
         self.layer.cornerRadius = 5.0
         self.layer.masksToBounds = true
     }
+    
+    func showGuide(guideType: GuideManager.GuideType, inView: UIView) {
+        let guideManager: GuideManager = GuideManager(type: guideType)
+        guideManager.start(self, inView: inView)
+    }
 }
