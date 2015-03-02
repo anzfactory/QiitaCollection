@@ -24,8 +24,13 @@ class QiitaApiManager {
     let PathItemsComments: String = "/items/%@/comments"
     let PathItemsStockers: String = "/items/%@/stockers"
     
-    var apiUrl: String {
-        get { return "https://" + Host + "/api/" + ApiVersion}
+    func apiUrl(path:String, arg: String? = nil) -> String {
+        let uri: String = "https://" + Host + "/api/" + ApiVersion
+        if let argVal = arg {
+            return uri + String(format: path, argVal.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!)
+        } else {
+            return uri + path
+        }
     }
     
     func getEntriesNew(page: Int, completion:(total: Int, items:[EntryEntity], isError: Bool) -> Void) {
@@ -42,40 +47,40 @@ class QiitaApiManager {
                 params["query"] = q
             }
         }
-        self.getItems(self.apiUrl + PathItems, parameters: params, completion: completion)
+        self.getItems(self.apiUrl(PathItems), parameters: params, completion: completion)
     }
     
     func getEntriesUserStocks(userId: String, page: Int, completion:(total: Int, items:[EntryEntity], isError: Bool) -> Void) {
         var params: [String: String] = [
             "page" : String(page)
         ]
-        self.getItems(self.apiUrl + String(format: PathUserStocks, userId), parameters: params, completion: completion)
+        self.getItems(self.apiUrl(PathUserStocks, arg:userId), parameters: params, completion: completion)
     }
     
     func getEntriesComments(entryId: String, page: Int, completion:(total: Int, items: [CommentEntity], isError: Bool) -> Void) {
         var params: [String: String] = [
             "page": String(page)
         ]
-        self.getItems(self.apiUrl + String(format: PathItemsComments, entryId), parameters: params, completion: completion)
+        self.getItems(self.apiUrl(PathItemsComments, arg:entryId), parameters: params, completion: completion)
     }
     
     func getStockers(entryId: String, page: Int, completion:(total: Int, items: [UserEntity], isError: Bool) -> Void) {
         var params: [String: String] = [
             "page": String(page)
         ]
-        self.getItems(self.apiUrl + String(format: PathItemsStockers, entryId), parameters: params, completion: completion)
+        self.getItems(self.apiUrl(PathItemsStockers, arg:entryId), parameters: params, completion: completion)
     }
     
     func getTag(tagId: String, completion:(item: TagEntity?, isError: Bool) -> Void) {
-        self.getItem(self.apiUrl + String(format: PathTag, tagId), parameters: nil, completion: completion)
+        self.getItem(self.apiUrl(PathTag, arg:tagId), parameters: nil, completion: completion)
     }
     
     func getUser(userId: String, completion:(item: UserEntity?, isError: Bool) -> Void) {
-        self.getItem(self.apiUrl + String(format: PathUser, userId), parameters: nil, completion: completion)
+        self.getItem(self.apiUrl(PathUser, arg:userId), parameters: nil, completion: completion)
     }
     
     func getEntry(entryId: String, completion:(item: EntryEntity?, isError: Bool) -> Void) {
-        self.getItem(self.apiUrl + String(format: PathItem, entryId), parameters: nil, completion: completion)
+        self.getItem(self.apiUrl(PathItem, arg:entryId), parameters: nil, completion: completion)
     }
     
     func getItems<T:EntityProtocol>(url: URLStringConvertible, parameters: [String: AnyObject]?, completion: (total:Int, items:[T], isError: Bool) -> Void) {
