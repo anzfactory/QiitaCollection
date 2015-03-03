@@ -125,7 +125,7 @@
                                 </constraints>
                                 <items>
                                     <navigationItem title="検索条件" id="57x-ny-q1S">
-                                        <barButtonItem key="leftBarButtonItem" image="icon_x" id="vXe-Bf-g30">
+                                        <barButtonItem key="leftBarButtonItem" image="bar_item_x" id="vXe-Bf-g30">
                                             <connections>
                                                 <action selector="tapClose:" destination="dBf-or-gNx" id="VF9-gq-37U"/>
                                             </connections>
@@ -452,7 +452,7 @@
                                                             </attributedString>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_star" translatesAutoresizingMaskIntoConstraints="NO" id="3Fr-Ih-su9" userLabel="star">
+                                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_star" translatesAutoresizingMaskIntoConstraints="NO" id="3Fr-Ih-su9" userLabel="star">
                                                             <rect key="frame" x="4" y="22" width="12" height="12"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -461,7 +461,7 @@
                                                                 <constraint firstAttribute="height" constant="12" id="Nra-lY-oob"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="let-Ar-XiK" userLabel="StockCount">
+                                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="let-Ar-XiK" userLabel="StockCount">
                                                             <rect key="frame" x="20" y="22" width="36" height="12"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="36" id="5Ub-86-kZw"/>
@@ -471,7 +471,7 @@
                                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_comment" translatesAutoresizingMaskIntoConstraints="NO" id="J3i-H4-VY6">
+                                                        <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_comment" translatesAutoresizingMaskIntoConstraints="NO" id="J3i-H4-VY6">
                                                             <rect key="frame" x="64" y="22" width="12" height="12"/>
                                                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                             <constraints>
@@ -479,7 +479,7 @@
                                                                 <constraint firstAttribute="width" constant="12" id="Qwq-21-GG8"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="68" translatesAutoresizingMaskIntoConstraints="NO" id="8C6-b9-8rr" userLabel="CommentCount">
+                                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="68" translatesAutoresizingMaskIntoConstraints="NO" id="8C6-b9-8rr" userLabel="CommentCount">
                                                             <rect key="frame" x="80" y="22" width="6" height="12"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" relation="lessThanOrEqual" constant="68" id="Aw3-XU-qeK"/>
@@ -1072,7 +1072,7 @@
                                 </constraints>
                                 <items>
                                     <navigationItem title="Title" id="QhL-qz-SRC">
-                                        <barButtonItem key="leftBarButtonItem" image="icon_x" id="ceh-5p-XJy">
+                                        <barButtonItem key="leftBarButtonItem" image="bar_item_x" id="ceh-5p-XJy">
                                             <connections>
                                                 <action selector="tapClose:" destination="kWj-Po-iKD" id="pSn-UK-9Pm"/>
                                             </connections>
@@ -1141,14 +1141,14 @@
         </scene>
     </scenes>
     <resources>
-        <image name="icon_check" width="22" height="22"/>
-        <image name="icon_comment" width="22" height="22"/>
-        <image name="icon_facebook" width="22" height="22"/>
-        <image name="icon_github" width="22" height="22"/>
-        <image name="icon_linkedin" width="22" height="22"/>
-        <image name="icon_star" width="22" height="22"/>
-        <image name="icon_twitter" width="22" height="22"/>
-        <image name="icon_website" width="22" height="22"/>
-        <image name="icon_x" width="22" height="22"/>
+        <image name="bar_item_x" width="20" height="20"/>
+        <image name="icon_check" width="44" height="44"/>
+        <image name="icon_comment" width="44" height="44"/>
+        <image name="icon_facebook" width="32" height="32"/>
+        <image name="icon_github" width="32" height="32"/>
+        <image name="icon_linkedin" width="32" height="32"/>
+        <image name="icon_star" width="44" height="44"/>
+        <image name="icon_twitter" width="32" height="32"/>
+        <image name="icon_website" width="32" height="32"/>
     </resources>
 </document>

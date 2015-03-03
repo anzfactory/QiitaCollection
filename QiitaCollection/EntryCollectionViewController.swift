@@ -45,7 +45,7 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
     
     // MARK: メソッド
     func displaySaveSearchCondition() {
-        let save: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon_lock"), style: UIBarButtonItemStyle.Bordered, target: self, action: "confirmSaveSearchCondition")
+        let save: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "bar_item_lock"), style: UIBarButtonItemStyle.Bordered, target: self, action: "confirmSaveSearchCondition")
         self.navigationItem.rightBarButtonItem = save
         save.showGuide(GuideManager.GuideType.SearchConditionSaveIcon)
     }

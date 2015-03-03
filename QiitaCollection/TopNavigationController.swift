@@ -45,7 +45,7 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         center.addObserver(self, selector: "receiveShowAlertOkOnly:", name: QCKeys.Notification.ShowAlertOkOnly.rawValue, object: nil)
         
         self.view.addSubview(self.publicMenu)
-        self.publicMenu.startPoint = CGPoint(x: self.view.frame.size.width * 0.5, y: self.view.frame.height - 22)
+        self.publicMenu.startPoint = CGPoint(x: self.view.frame.size.width * 0.5, y: self.view.frame.height - 16)
     }
 
     override func didReceiveMemoryWarning() {
@@ -85,12 +85,13 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
     // MARK: メソッド
     
     func makePublicMenu() -> PathMenu {
-        let startItem: PathMenuItem = PathMenuItem(image: UIImage(named: "icon_three_bar_white"), highlightedImage: UIImage(named: "icon_three_bar_white"), ContentImage: UIImage(named: "icon_three_bar_white"), highlightedContentImage: UIImage(named: "icon_three_bar_white"))
-        startItem.backgroundColor = UIColor.backgroundAccent()
+        let startItem: PathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "menu_three_bar")!)
         let menu: PathMenu = PathMenu(frame: self.view.bounds, startItem: startItem, optionMenus: [])
         menu.delegate = self
         menu.startButton.alpha = 0.4
-        menu.rotateAddButton = nil
+        menu.nearRadius = 90.0
+        menu.endRadius = 100.0
+        menu.farRadius = 120.0
         return menu
     }
     
@@ -344,11 +345,13 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
 
         // タイトルタップ検知したいので…
         let customTitle: UILabel = UILabel(frame: CGRect.zeroRect)
+        customTitle.textAlignment = NSTextAlignment.Center
         customTitle.font = UIFont.systemFontOfSize(16.0)
         customTitle.textColor = UIColor.textLight()
         customTitle.text = viewController.title
-        customTitle.userInteractionEnabled = true
         customTitle.sizeToFit()
+        customTitle.center = CGPointMake(self.navigationBar.frame.size.width * 0.5, self.navigationBar.frame.size.height * 0.5)
+        customTitle.userInteractionEnabled = true
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "tapNavigationBarTitle:")
         customTitle.addGestureRecognizer(tapGesture)
         viewController.navigationItem.titleView = customTitle

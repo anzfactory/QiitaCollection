@@ -73,14 +73,14 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
         
         var items: [PathMenuItem] = [PathMenuItem]()
         if UserDataManager.sharedInstance.isMutedUser(self.displayUserId!) {
-            let menuItemMute: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "icon_eye")!)
+            let menuItemMute: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "menu_eye")!)
             menuItemMute.action = {() -> Void in
                 self.confirmClearMuted()
                 return
             }
             items.append(menuItemMute)
         } else {
-            let menuItemMute: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "icon_circle_slash")!)
+            let menuItemMute: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "menu_circle_slash")!)
             menuItemMute.action = {() -> Void in
                 self.confirmAddedMuteUser()
                 return

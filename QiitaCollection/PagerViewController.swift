@@ -35,8 +35,8 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
         self.title = "(ﾟ∀ﾟ)ｷﾀｺﾚ!!"
         
         let rightButtons: [UIBarButtonItem] = [
-            UIBarButtonItem(image: UIImage(named: "icon_setting"), style: UIBarButtonItemStyle.Plain, target: self, action: "tapSetting"),
-            UIBarButtonItem(image: UIImage(named: "icon_search"), style: UIBarButtonItemStyle.Plain, target: self, action: "tapSearch")
+            UIBarButtonItem(image: UIImage(named: "bar_item_setting"), style: UIBarButtonItemStyle.Plain, target: self, action: "tapSetting"),
+            UIBarButtonItem(image: UIImage(named: "bar_item_search"), style: UIBarButtonItemStyle.Plain, target: self, action: "tapSearch")
         ]
         self.navigationItem.rightBarButtonItems = rightButtons
         rightButtons[1].showGuide(GuideManager.GuideType.SearchIcon)

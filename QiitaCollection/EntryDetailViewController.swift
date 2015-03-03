@@ -55,7 +55,7 @@ class EntryDetailViewController: BaseViewController {
         
         // ローカルファイルから読みだしてる場合は、リロードだけ
         if self.useLocalFile {
-            let menuItemReload: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "icon_reload")!)
+            let menuItemReload: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "menu_reload")!)
             menuItemReload.action = {() -> Void in
                 self.confirmReload()
                 return
@@ -63,41 +63,41 @@ class EntryDetailViewController: BaseViewController {
             return [menuItemReload]
         }
         
-        let menuItemLink: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "icon_link")!)
+        let menuItemLink: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "menu_link")!)
         menuItemLink.action = {() -> Void in
             self.openLinks()
             return
         }
-        let menuItemClip: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "icon_clipboard")!)
+        let menuItemClip: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "menu_clipboard")!)
         menuItemClip.action = {() -> Void in
             self.copyCode()
             return
         }
-        let menuItemPin: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "icon_pin")!)
+        let menuItemPin: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "menu_pin")!)
         menuItemPin.action = {() -> Void in
             self.confirmPinEntry()
             return
         }
-        let menuItemShare: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "icon_share")!)
+        let menuItemShare: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "menu_share")!)
         menuItemShare.action = {() -> Void in
             self.shareEntry()
             return
         }
-        let menuPerson: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "icon_person")!)
+        let menuPerson: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "menu_person")!)
         menuPerson.action = {() -> Void in
             self.moveUserDetail()
             return
         }
-        let menuDiscus: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "icon_discus")!)
+        let menuDiscus: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "menu_discus")!)
         menuDiscus.action = {() -> Void in
             self.moveCommentList()
             return
         }
-        let menuDownload: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "icon_download")!)
+        let menuDownload: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "menu_download")!)
         menuDownload.action = {() -> Void in
             self.confirmDownload()
         }
-        let menuStockers: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "icon_star")!)
+        let menuStockers: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "menu_star")!)
         menuStockers.action = {() -> Void in
             self.moveStockers()
         }
