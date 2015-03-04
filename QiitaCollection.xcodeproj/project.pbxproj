@@ -14,6 +14,7 @@
 		A103AF451A866A0D00FF0B24 /* UIImage+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A103AF441A866A0D00FF0B24 /* UIImage+App.swift */; };
 		A103AF471A867A9100FF0B24 /* TagEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A103AF461A867A9100FF0B24 /* TagEntity.swift */; };
 		A11740381AA76BE000D2782A /* AdjustTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11740371AA76BE000D2782A /* AdjustTableViewCell.swift */; };
+		A117403C1AA7724800D2782A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A117403B1AA7724800D2782A /* InfoPlist.strings */; };
 		A118A61E1A8F4AA600350841 /* EntryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A118A61D1A8F4AA600350841 /* EntryDetailView.swift */; };
 		A121AE181AA0CA60007E006E /* CommentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A121AE171AA0CA60007E006E /* CommentEntity.swift */; };
 		A121AE1A1AA0D41E007E006E /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A121AE191AA0D41E007E006E /* CommentTableViewCell.swift */; };
@@ -105,6 +106,7 @@
 		A103AF441A866A0D00FF0B24 /* UIImage+App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+App.swift"; sourceTree = "<group>"; };
 		A103AF461A867A9100FF0B24 /* TagEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagEntity.swift; sourceTree = "<group>"; };
 		A11740371AA76BE000D2782A /* AdjustTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdjustTableViewCell.swift; sourceTree = "<group>"; };
+		A117403B1AA7724800D2782A /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		A118A61D1A8F4AA600350841 /* EntryDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryDetailView.swift; sourceTree = "<group>"; };
 		A121AE171AA0CA60007E006E /* CommentEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentEntity.swift; sourceTree = "<group>"; };
 		A121AE191AA0D41E007E006E /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
@@ -410,6 +412,7 @@
 			children = (
 				A1A8D9DE1A82F92C00231D84 /* Info.plist */,
 				A103AF3B1A86238B00FF0B24 /* QiitaCollection-Bridging-Header.h */,
+				A117403B1AA7724800D2782A /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -618,6 +621,7 @@
 				TargetAttributes = {
 					A1A8D9D91A82F92C00231D84 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = L2JKAT4K4R;
 					};
 					A1A8D9EE1A82F92C00231D84 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -650,6 +654,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1A8D9E51A82F92C00231D84 /* Main.storyboard in Resources */,
+				A117403C1AA7724800D2782A /* InfoPlist.strings in Resources */,
 				A1A8D9EA1A82F92C00231D84 /* LaunchScreen.xib in Resources */,
 				A1EC9BE51AA69DEA0098AC2F /* AboutApp.plist in Resources */,
 				A1A8D9E71A82F92C00231D84 /* Images.xcassets in Resources */,
@@ -865,6 +870,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "329c3990-a642-42db-92e2-ff607ef83ff3";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -887,7 +893,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: SHINGO ASATO (L2JKAT4K4R)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: SHINGO ASATO (L2JKAT4K4R)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -900,6 +907,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "329c3990-a642-42db-92e2-ff607ef83ff3";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -912,10 +920,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = QiitaCollection/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "329c3990-a642-42db-92e2-ff607ef83ff3";
 				SWIFT_OBJC_BRIDGING_HEADER = "QiitaCollection/QiitaCollection-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -928,10 +938,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: SHINGO ASATO (L2JKAT4K4R)";
 				INFOPLIST_FILE = QiitaCollection/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "329c3990-a642-42db-92e2-ff607ef83ff3";
 				SWIFT_OBJC_BRIDGING_HEADER = "QiitaCollection/QiitaCollection-Bridging-Header.h";
 			};
 			name = Release;
