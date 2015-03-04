@@ -18,6 +18,7 @@
 		A121AE1A1AA0D41E007E006E /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A121AE191AA0D41E007E006E /* CommentTableViewCell.swift */; };
 		A121AE1C1AA0D5E7007E006E /* CommentListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A121AE1B1AA0D5E7007E006E /* CommentListViewController.swift */; };
 		A124A2201A87BF99007A42E9 /* PagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A124A21F1A87BF99007A42E9 /* PagerViewController.swift */; };
+		A13A5A781AA61E0D00362731 /* light_novel.otf in Resources */ = {isa = PBXBuildFile; fileRef = A13A5A771AA61E0D00362731 /* light_novel.otf */; };
 		A14149381A9C1557003B7898 /* PathMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14149361A9C1557003B7898 /* PathMenu.swift */; };
 		A14149391A9C1557003B7898 /* PathMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14149371A9C1557003B7898 /* PathMenuItem.swift */; };
 		A141493B1A9C2985003B7898 /* QCPathMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A141493A1A9C2985003B7898 /* QCPathMenuItem.swift */; };
@@ -105,6 +106,7 @@
 		A121AE191AA0D41E007E006E /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		A121AE1B1AA0D5E7007E006E /* CommentListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentListViewController.swift; sourceTree = "<group>"; };
 		A124A21F1A87BF99007A42E9 /* PagerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagerViewController.swift; sourceTree = "<group>"; };
+		A13A5A771AA61E0D00362731 /* light_novel.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = light_novel.otf; sourceTree = "<group>"; };
 		A14149361A9C1557003B7898 /* PathMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathMenu.swift; sourceTree = "<group>"; };
 		A14149371A9C1557003B7898 /* PathMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathMenuItem.swift; sourceTree = "<group>"; };
 		A141493A1A9C2985003B7898 /* QCPathMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QCPathMenuItem.swift; sourceTree = "<group>"; };
@@ -397,6 +399,7 @@
 		A1A8D9DD1A82F92C00231D84 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A13A5A771AA61E0D00362731 /* light_novel.otf */,
 				A1A8D9DE1A82F92C00231D84 /* Info.plist */,
 				A103AF3B1A86238B00FF0B24 /* QiitaCollection-Bridging-Header.h */,
 			);
@@ -633,6 +636,7 @@
 				A1A8D9EA1A82F92C00231D84 /* LaunchScreen.xib in Resources */,
 				A1A8D9E71A82F92C00231D84 /* Images.xcassets in Resources */,
 				A1CF43421A8B54620016209C /* entry.html in Resources */,
+				A13A5A781AA61E0D00362731 /* light_novel.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
