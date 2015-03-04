@@ -34,5 +34,13 @@ class BaseViewController: UIViewController {
     func publicMenuItems() -> [PathMenuItem] {
         return[]
     }
+    
+    func setupForPresentedVC(navigationbar: UINavigationBar) {
+        self.view.backgroundColor = UIColor.backgroundBase()
+        navigationbar.translucent = false
+        navigationbar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.textNavigationBar()]
+        navigationbar.barTintColor = UIColor.backgroundNavigationBar()
+        navigationbar.tintColor = UIColor.textNavigationBar()
+    }
 
 }

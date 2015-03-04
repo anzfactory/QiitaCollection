@@ -30,11 +30,7 @@ class SearchViewController: BaseViewController, SearchConditionViewDelegate, UIT
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = UIColor.backgroundBase()
-        self.navigationBar.translucent = false
-        self.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.textNavigationBar()]
-        self.navigationBar.barTintColor = UIColor.backgroundNavigationBar()
-        self.navigationBar.tintColor = UIColor.textNavigationBar()
+        self.setupForPresentedVC(self.navigationBar)
         
         self.searchConditionView.delegate = self
         self.searchConditionView.query.delegate = self

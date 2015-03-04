@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>(ﾟ∀ﾟ)ｷﾀｺﾚ!! - Qiita Collectionとは</key>
+		<array>
+			<dict>
+				<key></key>
+				<string>「プログラミングに関する知識を記録、共有する最適なサービス」であるQiitaの非公式クライアントアプリです[BR][BR]アプリに対するお問い合せは、Qiitaに対して行わないようお願いします[BR][BR]下記の「Contact To Developer」からお好きな方法でお願いしますm(_ _)m</string>
+			</dict>
+		</array>
+	</dict>
+	<dict>
+		<key>Contact To Developer</key>
+		<array>
+			<dict>
+				<key>@AnzNetJp</key>
+				<string>https://twitter.com/AnzNetJp</string>
+			</dict>
+			<dict>
+				<key>Issue</key>
+				<string>https://github.com/anzfactory/QiitaCollection/issues</string>
+			</dict>
+			<dict>
+				<key>Web</key>
+				<string>http://anz-note.tumblr.com/about#mailform</string>
+			</dict>
+		</array>
+	</dict>
+	<dict>
+		<key>Library</key>
+		<array>
+			<dict>
+				<key>Alamofire</key>
+				<string>https://github.com/Alamofire/Alamofire/blob/master/LICENSE</string>
+			</dict>
+			<dict>
+				<key>CMPopTipView</key>
+				<string>https://github.com/chrismiles/CMPopTipView/blob/master/LICENSE</string>
+			</dict>
+			<dict>
+				<key>CNPGridMenu</key>
+				<string>https://github.com/carsonperrotti/CNPGridMenu/blob/master/LICENSE</string>
+			</dict>
+			<dict>
+				<key>ICViewPager</key>
+				<string>https://github.com/iltercengiz/ICViewPager/blob/master/LICENSE</string>
+			</dict>
+			<dict>
+				<key>JFMinimalNotifications</key>
+				<string>https://github.com/atljeremy/JFMinimalNotifications/blob/master/LICENSE</string>
+			</dict>
+			<dict>
+				<key>PathMenu</key>
+				<string>https://github.com/pixyzehn/PathMenu/blob/master/LICENSE</string>
+			</dict>
+			<dict>
+				<key>SCLAlertView</key>
+				<string>https://github.com/dogo/SCLAlertView/blob/master/LICENSE</string>
+			</dict>
+			<dict>
+				<key>SWTableViewCell</key>
+				<string>https://github.com/CEWendel/SWTableViewCell/blob/master/LICENCE</string>
+			</dict>
+			<dict>
+				<key>UIView-Constrain</key>
+				<string>https://github.com/ShingoFukuyama/UIView-Constraint/blob/master/LICENSE</string>
+			</dict>
+		</array>
+	</dict>
+	<dict>
+		<key>Image</key>
+		<array>
+			<dict>
+				<key>Github Octicons</key>
+				<string>http://octicons.github.com/</string>
+			</dict>
+		</array>
+	</dict>
+	<dict>
+		<key>Font</key>
+		<array>
+			<dict>
+				<key>ラノベPOP</key>
+				<string>http://www.fontna.com/blog/1706/</string>
+			</dict>
+		</array>
+	</dict>
+</array>
+</plist>

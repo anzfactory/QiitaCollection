@@ -30,11 +30,7 @@ class SimpleListViewController: BaseViewController, UITableViewDataSource, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = UIColor.backgroundBase()
-        self.navigationBar.translucent = false
-        self.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.textNavigationBar()]
-        self.navigationBar.barTintColor = UIColor.backgroundNavigationBar()
-        self.navigationBar.tintColor = UIColor.textNavigationBar()
+        self.setupForPresentedVC(self.navigationBar)
         
         let dummy: UIView = UIView(frame: CGRect.zeroRect)
         self.tableView.tableFooterView = dummy

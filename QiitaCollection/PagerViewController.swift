@@ -122,7 +122,14 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
             self.openQueryList()
         }
         
-        let menu: CNPGridMenu = CNPGridMenu(menuItems: [menuItemMuteUsers, menuItemPinEntries, menuItemQuery])
+        let menuItemInfo: QCGridMenuItem = QCGridMenuItem()
+        menuItemInfo.icon = UIImage(named: "icon_info")
+        menuItemInfo.title = "About App"
+        menuItemInfo.action = {(item) -> Void in
+            self.openAboutApp()
+        }
+        
+        let menu: CNPGridMenu = CNPGridMenu(menuItems: [menuItemMuteUsers, menuItemPinEntries, menuItemQuery, menuItemInfo])
         menu.delegate = self
         return menu
     }
@@ -246,6 +253,11 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
             })
             return
         }
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PresentedViewController.rawValue, object: vc)
+    }
+    
+    func openAboutApp() {
+        let vc: AboutAppViewController = self.storyboard?.instantiateViewControllerWithIdentifier("AboutAppVC") as AboutAppViewController
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PresentedViewController.rawValue, object: vc)
     }
     
