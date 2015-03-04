@@ -78,7 +78,7 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
         let tapEntry: EntryEntity = self.collectionView.items[tapIndexPath!.row] as EntryEntity
         
         let actions: [UIAlertAction] = [
-            UIAlertAction(title: "記事詳細", style: .Default, handler: { (UIAlertAction) -> Void in
+            UIAlertAction(title: "投稿詳細", style: .Default, handler: { (UIAlertAction) -> Void in
                 self.moveEntryDetail(tapEntry)
             }),
             UIAlertAction(title: "コメント", style: .Default, handler: { (UIAlertAction) -> Void in
