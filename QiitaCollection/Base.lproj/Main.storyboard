@@ -382,10 +382,10 @@
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="h3L-sU-UNe">
                                                     <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ey1-cR-s46" userLabel="Title">
-                                                    <rect key="frame" x="3" y="0.0" width="153" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ey1-cR-s46" userLabel="Title">
+                                                    <rect key="frame" x="3" y="0.0" width="153" height="12"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="qRq-rc-tlK"/>
+                                                        <constraint firstAttribute="height" constant="12" id="fRM-Lp-WLP"/>
                                                     </constraints>
                                                     <attributedString key="attributedText">
                                                         <fragment content="Title">
@@ -542,7 +542,7 @@
                                             <outlet property="commentCount" destination="8C6-b9-8rr" id="qOO-hb-tia"/>
                                             <outlet property="constraintDateWidth" destination="uLJ-Ii-jSx" id="XYG-pC-5pH"/>
                                             <outlet property="constraintStockWidth" destination="5Ub-86-kZw" id="kVe-vV-Uft"/>
-                                            <outlet property="constraintTitleHeight" destination="qRq-rc-tlK" id="a1o-y5-ibQ"/>
+                                            <outlet property="constraintTitleHeight" destination="fRM-Lp-WLP" id="Fze-RM-kPx"/>
                                             <outlet property="iconComment" destination="J3i-H4-VY6" id="UNn-yy-SOU"/>
                                             <outlet property="iconStar" destination="3Fr-Ih-su9" id="ISl-aB-sR4"/>
                                             <outlet property="mainTag" destination="FBt-fj-E4F" id="EBN-Us-gxg"/>

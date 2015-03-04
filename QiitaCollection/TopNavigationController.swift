@@ -346,7 +346,7 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         // タイトルタップ検知したいので…
         let customTitle: UILabel = UILabel(frame: CGRect.zeroRect)
         customTitle.textAlignment = NSTextAlignment.Center
-        customTitle.font = UIFont.systemFontOfSize(16.0)
+        customTitle.font = UIFont(name: "07LightNovelPOP", size: 16.0)
         customTitle.textColor = UIColor.textLight()
         customTitle.text = viewController.title
         customTitle.sizeToFit()

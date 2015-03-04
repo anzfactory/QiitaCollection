@@ -66,8 +66,9 @@ class EntryCollectionViewCell: UICollectionViewCell {
         tag.loadThumb(self.tagImage)
         
         // title
+        self.title.font = UIFont(name: "07LightNovelPOP", size: 14.0)
         self.title.text = entry.title
-        self.constraintTitleHeight.constant = self.title.calcAdjustHeight(self.frame.size.height)
+        self.constraintTitleHeight.constant = self.title.sizeThatFits(CGSize(width: self.bounds.width, height: self.bounds.height)).height
         // 著者
         self.author.text = entry.postUser.displayName
         // ストック
