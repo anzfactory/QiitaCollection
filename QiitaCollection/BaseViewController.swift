@@ -25,6 +25,13 @@ class BaseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        // guideが表示されてるかもなのでクリア
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ClearGuide.rawValue, object: nil)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

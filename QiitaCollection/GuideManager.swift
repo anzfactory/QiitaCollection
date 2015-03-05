@@ -8,7 +8,7 @@
 
 import Foundation
 
-class GuideManager {
+class GuideManager: NSObject, CMPopTipViewDelegate {
     
     enum GuideType: Int {
         case
@@ -63,39 +63,49 @@ class GuideManager {
         }
     }
     
+    // シングルトンパターン
+    class var sharedInstance : GuideManager {
+        struct Static {
+            static let instance : GuideManager = GuideManager()
+        }
+        return Static.instance
+    }
+    
     var guideType: GuideType = .None
+    var displayGuideList: [CMPopTipView] = [CMPopTipView]()
     
-    init() {
-        self.guideType = .None
+    override init() {
+        super.init()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveClearGuide", name: QCKeys.Notification.ClearGuide.rawValue, object: nil)
     }
-    
-    init (type: GuideType) {
+        
+    func start(type: GuideType, target: UIView, inView:UIView) {
+        
         self.guideType = type
-    }
-    
-    func start(target: UIView, inView:UIView) {
         
         if !self.isAvailableGuide() {
             return
         }
         
-        let guide:CMPopTipView = CMPopTipView(message: self.guideType.message())
+        let guide:CMPopTipView = self.makeGuide()
         guide.presentPointingAtView(target, inView: inView, animated: true)
         guide.preferredPointDirection = self.guideType.guideDirection()
-        UserDataManager.sharedInstance.appendDisplayedGuide(self.guideType.rawValue)
+        self.afterShow(guide)
     }
     
-    func start(target: UIBarButtonItem) {
+    func start(type: GuideType, target: UIBarButtonItem) {
+        
+        self.guideType = type
+        
         if !self.isAvailableGuide() {
             return
         }
         
-        let guide: CMPopTipView = CMPopTipView(message: self.guideType.message())
+        let guide: CMPopTipView = self.makeGuide()
         guide.presentPointingAtBarButtonItem(target, animated: true)
         guide.preferredPointDirection = self.guideType.guideDirection()
-        UserDataManager.sharedInstance.appendDisplayedGuide(self.guideType.rawValue)
+        self.afterShow(guide)
     }
-    
     
     func isAvailableGuide() -> Bool {
         if self.guideType == .None {
@@ -109,4 +119,32 @@ class GuideManager {
         return true
     }
     
+    func makeGuide() -> CMPopTipView {
+        let guide:CMPopTipView = CMPopTipView(message: self.guideType.message())
+        
+        guide.delegate = self
+        return guide
+    }
+    
+    func afterShow(guide: CMPopTipView) {
+        UserDataManager.sharedInstance.appendDisplayedGuide(self.guideType.rawValue)
+        self.displayGuideList.append(guide)
+    }
+    
+    // MARK: Notification
+    func receiveClearGuide() {
+        if self.displayGuideList.count == 0 {
+            return
+        }
+        
+        for guide in self.displayGuideList {
+            guide.dismissAnimated(false)
+        }
+        self.displayGuideList.removeAll(keepCapacity: false)
+    }
+    
+    // MARK: CMPopTipViewDelegate
+    func popTipViewWasDismissedByUser(popTipView: CMPopTipView!) {
+        self.displayGuideList.removeObject(popTipView)
+    }
 }

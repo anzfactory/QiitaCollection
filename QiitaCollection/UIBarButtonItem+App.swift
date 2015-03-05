@@ -10,7 +10,7 @@ import Foundation
 
 extension UIBarButtonItem {
     func showGuide(guideType: GuideManager.GuideType) {
-        let guideManager: GuideManager = GuideManager(type: guideType)
-        guideManager.start(self)
+        let guideManager: GuideManager = GuideManager.sharedInstance
+        guideManager.start(guideType, target: self)
     }
 }

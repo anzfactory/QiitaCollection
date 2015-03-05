@@ -48,7 +48,7 @@ extension UIView {
     }
     
     func showGuide(guideType: GuideManager.GuideType, inView: UIView) {
-        let guideManager: GuideManager = GuideManager(type: guideType)
-        guideManager.start(self, inView: inView)
+        let guideManager: GuideManager = GuideManager.sharedInstance
+        guideManager.start(guideType, target: self, inView: inView)
     }
 }

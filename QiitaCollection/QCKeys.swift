@@ -20,7 +20,8 @@ struct QCKeys {
         PresentedViewController = "QC_NotificationKey_PresentedViewController",
         ResetPublicMenuItems = "QC_NotificationKey_ResetPublicMenuItems",
         ReloadViewPager = "QC_NotificationKey_ReloadViewPager",
-        ShowAlertOkOnly = "QC_NotificationKey_OkOnly"
+        ShowAlertOkOnly = "QC_NotificationKey_OkOnly",
+        ClearGuide = "QC_NotificationKey_ClearGuide"
     }
     
     enum AlertController: String {
