@@ -173,10 +173,15 @@ typedef void (^JFMinimalNotificationTouchHandler)(void);
 
 @protocol JFMinimalNotificationDelegate <NSObject>
 
+/*
+ アーカイブしてバリデートかけると、非公開apiの警告が出る didDismissNotification 
+ ってことで、名前変える (2015.03.05)
+ */
+
 @optional
-- (void)willShowNotification:(JFMinimalNotification*)notification;
-- (void)didShowNotification:(JFMinimalNotification*)notification;
-- (void)willDisimissNotification:(JFMinimalNotification*)notification;
-- (void)didDismissNotification:(JFMinimalNotification*)notification;
+- (void)willShowMinimalNotification:(JFMinimalNotification*)notification;
+- (void)didShowMinimalNotification:(JFMinimalNotification*)notification;
+- (void)willDisimissMinimalNotification:(JFMinimalNotification*)notification;
+- (void)didDismissMinimalNotification:(JFMinimalNotification*)notification;
 
 @end
