@@ -27,6 +27,8 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.backgroundColor = UIColor.whiteColor()
+        
         self.delegate = self;
         self.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.textNavigationBar()]
         self.navigationBar.barTintColor = UIColor.backgroundNavigationBar()
@@ -169,7 +171,7 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         
         let title: String = args[QCKeys.AlertController.Title.rawValue] as? String ?? ""
         let desc: String = args[QCKeys.AlertController.Description.rawValue] as? String ?? ""
-        let style: UIAlertControllerStyle = UIAlertControllerStyle(rawValue: (args[QCKeys.AlertController.Style.rawValue] as Int)) ?? UIAlertControllerStyle.ActionSheet
+        let style: UIAlertControllerStyle = UIAlertControllerStyle(rawValue: (args[QCKeys.AlertController.Style.rawValue] as? Int ?? UIAlertControllerStyle.ActionSheet.rawValue))!
         
         let alertController: UIAlertController = UIAlertController(title: title, message: desc, preferredStyle: style)
         alertController.popoverPresentationController?.sourceView = vc.view
