@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aOk-iF-ocD" userLabel="BottomPanel" customClass="SearchConditionView" customModule="QiitaCollection" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="448" width="320" height="120"/>
+                                <rect key="frame" x="0.0" y="434" width="320" height="134"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dDP-yr-Y8Z" userLabel="SearchConditionPanel">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="82"/>
@@ -86,10 +86,10 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RVK-3l-dcY" userLabel="Search">
-                                        <rect key="frame" x="4" y="86" width="312" height="30"/>
+                                        <rect key="frame" x="4" y="89" width="312" height="41"/>
                                         <color key="backgroundColor" red="0.0" green="1" blue="0.50196081399917603" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="3sw-Hg-rR3"/>
+                                            <constraint firstAttribute="height" constant="41" id="3sw-Hg-rR3"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <state key="normal" title="検　索">
@@ -103,7 +103,7 @@
                                 <color key="backgroundColor" red="0.40000000596046448" green="1" blue="0.80000001192092896" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="RVK-3l-dcY" secondAttribute="trailing" constant="4" id="B0u-Gb-qYS"/>
-                                    <constraint firstAttribute="height" constant="120" id="Bpa-RX-4x9"/>
+                                    <constraint firstAttribute="height" constant="134" id="Bpa-RX-4x9"/>
                                     <constraint firstItem="RVK-3l-dcY" firstAttribute="leading" secondItem="aOk-iF-ocD" secondAttribute="leading" constant="4" id="DzU-DW-vN5"/>
                                     <constraint firstAttribute="trailing" secondItem="dDP-yr-Y8Z" secondAttribute="trailing" id="Sbc-wY-ECc"/>
                                     <constraint firstAttribute="bottom" secondItem="RVK-3l-dcY" secondAttribute="bottom" constant="4" id="lrY-k8-GeY"/>
@@ -134,7 +134,7 @@
                                 </items>
                             </navigationBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="56" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="jaL-DH-wcp">
-                                <rect key="frame" x="0.0" y="64" width="320" height="384"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="370"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
