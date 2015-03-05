@@ -34,6 +34,7 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         
         let center: NSNotificationCenter = NSNotificationCenter.defaultCenter()
         center.addObserver(self, selector: "receiveShowAlertController:", name: QCKeys.Notification.ShowAlertController.rawValue, object: nil)
+        center.addObserver(self, selector: "receiveShowActivityView:", name: QCKeys.Notification.ShowActivityView.rawValue, object: nil)
         center.addObserver(self, selector: "receivePushViewController:", name: QCKeys.Notification.PushViewController.rawValue, object: nil)
         center.addObserver(self, selector: "receiveShowMinimumNotification:", name: QCKeys.Notification.ShowMinimumNotification.rawValue, object: nil)
         center.addObserver(self, selector: "receiveShowLoading", name: QCKeys.Notification.ShowLoading.rawValue, object: nil)
@@ -164,12 +165,13 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
     
     func receiveShowAlertController(notification: NSNotification) {
         let args: [NSObject: AnyObject] = notification.userInfo!
-
+        let vc: UIViewController = notification.object! as UIViewController
+        
         let title: String = args[QCKeys.AlertController.Title.rawValue] as? String ?? ""
         let desc: String = args[QCKeys.AlertController.Description.rawValue] as? String ?? ""
 
         let alertController: UIAlertController = UIAlertController(title: title, message: desc, preferredStyle: .ActionSheet)
-        alertController.popoverPresentationController?.sourceView = self.view
+        alertController.popoverPresentationController?.sourceView = vc.view
         // TODO: 表示位置を受け取れるようにする (あとArrowDirectionも)
         alertController.popoverPresentationController?.sourceRect = CGRect(x: self.view.frame.size.width * 0.5, y: self.view.frame.size.height, width: 0, height: 0 )
         alertController.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection(rawValue:0)
@@ -185,6 +187,30 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
             
         }
         
+    }
+    
+    func receiveShowActivityView(notification: NSNotification) {
+        let args: [NSObject: AnyObject] = notification.userInfo!
+        let vc: UIViewController = notification.object! as UIViewController
+        
+        let message: String = args[QCKeys.ActivityView.Message.rawValue]! as String
+        let link: String = args[QCKeys.ActivityView.Link.rawValue] as? String ?? ""
+        let others: [UIActivity]? = args[QCKeys.ActivityView.Others.rawValue] as? Array ?? nil
+        
+        var shareItems: [AnyObject] = [
+            NSString(string: message)
+        ]
+        if !link.isEmpty {
+            shareItems.append(NSURL(string: link)!)
+        }
+        
+        let shareVC: UIActivityViewController = UIActivityViewController(activityItems: shareItems, applicationActivities: others)
+        shareVC.popoverPresentationController?.sourceView = vc.view// TODO: 表示位置を受け取れるようにする (あとArrowDirectionも)
+        shareVC.popoverPresentationController?.sourceRect = CGRect(x: self.view.frame.size.width * 0.5, y: self.view.frame.size.height, width: 0, height: 0 )
+        shareVC.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection(rawValue:0)
+        self.presentViewController(shareVC, animated: true) { () -> Void in
+            
+        }
     }
     
     func receivePushViewController(notification: NSNotification) {

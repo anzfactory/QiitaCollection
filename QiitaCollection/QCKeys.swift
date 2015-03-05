@@ -11,6 +11,7 @@ struct QCKeys {
     enum Notification: String {
         case
         ShowAlertController = "QC_NotificationKey_ShowAlertController",
+        ShowActivityView = "QC_NotificationKey_ShowActivityView",
         PushViewController = "QC_NotificationKey_PushViewController",
         ShowMinimumNotification = "QC_NotificationKey_MinimumNtofice",
         ShowLoading = "QC_NotificationKey_ShowLoading",
@@ -29,6 +30,13 @@ struct QCKeys {
         Title = "Title",
         Description = "Description",
         Actions = "Actions"
+    }
+    
+    enum ActivityView: String {
+        case
+        Message = "Message",
+        Link = "Link",
+        Others = "Others"
     }
     
     enum MinimumNotification: String {

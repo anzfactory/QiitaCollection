@@ -36,6 +36,7 @@ class SearchViewController: BaseViewController, SearchConditionViewDelegate, UIT
         self.searchConditionView.query.delegate = self
         self.searchConditionView.showGuide(GuideManager.GuideType.SearchConditionView, inView: self.view)
         
+        self.tableView.separatorColor = UIColor.borderTableView()
         self.tableView.tableFooterView = UIView(frame: CGRect.zeroRect)
         self.tableView.dataSource = self
         self.tableView.delegate = self

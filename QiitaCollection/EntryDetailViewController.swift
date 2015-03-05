@@ -148,15 +148,12 @@ class EntryDetailViewController: BaseViewController {
     
     func shareEntry() {
         
-        var shareItems: [AnyObject] = [
-            NSString(string: self.displayEntry!.title),
-            NSURL(string: self.displayEntry!.urlString)!
+        let args: [NSObject: AnyObject] = [
+            QCKeys.ActivityView.Message.rawValue: self.displayEntry!.title,
+            QCKeys.ActivityView.Link.rawValue   : self.displayEntry!.urlString
         ]
         
-        let shareVC: UIActivityViewController = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
-        self.presentViewController(shareVC, animated: true) { () -> Void in
-            
-        }
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowActivityView.rawValue, object: self, userInfo: args)
     }
     
     func openLinks() {

@@ -98,7 +98,7 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
         // TODO: そのほかメニュー表示 (記事をストックしているユーザーリスト)
         NSNotificationCenter.defaultCenter()
             .postNotificationName(QCKeys.Notification.ShowAlertController.rawValue,
-                object: nil,
+                object: self,
                 userInfo: [
                     QCKeys.AlertController.Title.rawValue: tapEntry.title + " " + tapEntry.postUser.displayName,
                     QCKeys.AlertController.Description.rawValue: tapEntry.beginning,
