@@ -1185,7 +1185,7 @@
         <!--Entry Detail View Controller-->
         <scene sceneID="z0O-1e-VJN">
             <objects>
-                <viewController storyboardIdentifier="EntryDetailVC" id="Kjw-s4-AKn" customClass="EntryDetailViewController" customModule="QiitaCollection" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EntryDetailVC" automaticallyAdjustsScrollViewInsets="NO" id="Kjw-s4-AKn" customClass="EntryDetailViewController" customModule="QiitaCollection" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="avs-Gr-bbH"/>
                         <viewControllerLayoutGuide type="bottom" id="CqE-ve-w7z"/>

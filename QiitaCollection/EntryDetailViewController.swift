@@ -33,11 +33,6 @@ class EntryDetailViewController: BaseViewController {
     // MARK: ライフサイクル
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.automaticallyAdjustsScrollViewInsets = false
-        
-        // したに固定メニューボタンがあるんで、bottom padding をセットしておく
-        self.webView.scrollView.contentInset = UIEdgeInsetsMake(0, 0, 44.0, 0)
-        
     }
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -47,6 +42,12 @@ class EntryDetailViewController: BaseViewController {
         }
 
         self.refresh()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        // したに固定メニューボタンがあるんで、bottom padding をセットしておく
+        self.webView.scrollView.contentInset.bottom = 44.0
     }
     
     
