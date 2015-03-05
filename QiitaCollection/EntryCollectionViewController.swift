@@ -26,6 +26,9 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
         
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
+        self.collectionView.setupRefreshControl { () -> Void in
+            self.refresh()
+        }
         
     }
     

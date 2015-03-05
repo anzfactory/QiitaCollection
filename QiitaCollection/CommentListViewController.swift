@@ -26,6 +26,9 @@ class CommentListViewController: BaseViewController, UITableViewDataSource, UITa
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.dataSource = self
         self.tableView.delegate = self
+        self.tableView.setupRefreshControl { () -> Void in
+            self.refresh()
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
