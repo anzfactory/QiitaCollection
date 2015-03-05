@@ -165,12 +165,13 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
     
     func receiveShowAlertController(notification: NSNotification) {
         let args: [NSObject: AnyObject] = notification.userInfo!
-        let vc: UIViewController = notification.object! as UIViewController
+        let vc: UIViewController = notification.object as? UIViewController ?? self.topViewController
         
         let title: String = args[QCKeys.AlertController.Title.rawValue] as? String ?? ""
         let desc: String = args[QCKeys.AlertController.Description.rawValue] as? String ?? ""
-
-        let alertController: UIAlertController = UIAlertController(title: title, message: desc, preferredStyle: .ActionSheet)
+        let style: UIAlertControllerStyle = UIAlertControllerStyle(rawValue: (args[QCKeys.AlertController.Style.rawValue] as Int)) ?? UIAlertControllerStyle.ActionSheet
+        
+        let alertController: UIAlertController = UIAlertController(title: title, message: desc, preferredStyle: style)
         alertController.popoverPresentationController?.sourceView = vc.view
         // TODO: 表示位置を受け取れるようにする (あとArrowDirectionも)
         alertController.popoverPresentationController?.sourceRect = CGRect(x: self.view.frame.size.width * 0.5, y: self.view.frame.size.height, width: 0, height: 0 )

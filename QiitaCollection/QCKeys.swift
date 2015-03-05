@@ -29,7 +29,8 @@ struct QCKeys {
         case
         Title = "Title",
         Description = "Description",
-        Actions = "Actions"
+        Actions = "Actions",
+        Style = "Style"
     }
     
     enum ActivityView: String {

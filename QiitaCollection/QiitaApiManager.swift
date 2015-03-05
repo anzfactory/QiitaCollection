@@ -92,6 +92,7 @@ class QiitaApiManager {
 
                 var items: [T] = [T]()
                 if isError {
+                    self.alertLimitRequest(jsonData)
                     completion(total:0, items:items, isError: isError);
                     return;
                 }
@@ -118,11 +119,33 @@ class QiitaApiManager {
                 let isError: Bool = error == nil ? false : true
                 
                 if isError {
+                    self.alertLimitRequest(jsonData)
                     completion(item: nil, isError: isError);
                     return;
                 }
                 let json = JSON(jsonData!)
                 completion(item: T(data: json), isError: isError);
+        }
+    }
+    
+    func alertLimitRequest(response: AnyObject?) {
+        if let res: AnyObject = response  {
+
+            let json: JSON = JSON(res)
+            if let dic: Dictionary = json.dictionary {
+                if dic["type"] == "rate_limit_exceeded" {
+                    let args: [NSObject: AnyObject] = [
+                        QCKeys.AlertController.Title.rawValue: "リクエスト制限",
+                        QCKeys.AlertController.Description.rawValue: "リクエスト制限に達したためデータ取得ができませんでした\n1時間毎に制限はリセットされるので、しらばらく時間をあけてから再度お試し下さい",
+                        QCKeys.AlertController.Actions.rawValue: [UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
+                            return
+                        })],
+                        QCKeys.AlertController.Style.rawValue: UIAlertControllerStyle.Alert.rawValue
+                    ]
+                    NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowAlertController.rawValue, object: nil, userInfo: args)
+                }
+            }
+            
         }
     }
     
