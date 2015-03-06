@@ -15,7 +15,7 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
     
     // MARK: プロパティ
     var query: String = ""
-    var qiitaManager: QiitaApiManager = QiitaApiManager()
+    var qiitaManager: QiitaApiManager = QiitaApiManager.sharedInstance
     
     // MARK: ライフサイクル
     override func viewDidLoad() {

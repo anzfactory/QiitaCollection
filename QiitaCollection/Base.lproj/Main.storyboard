@@ -1182,6 +1182,56 @@
             </objects>
             <point key="canvasLocation" x="-587" y="-796"/>
         </scene>
+        <!--Signin View Controller-->
+        <scene sceneID="GKR-9p-IPn">
+            <objects>
+                <viewController storyboardIdentifier="SigninVC" automaticallyAdjustsScrollViewInsets="NO" id="dRj-Ul-KlN" customClass="SigninViewController" customModule="QiitaCollection" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="SLF-xP-udB"/>
+                        <viewControllerLayoutGuide type="bottom" id="Ap3-s2-HUK"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="SbC-pB-SkF">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6v3-jj-knJ">
+                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                                <items>
+                                    <navigationItem title="認証" id="s8J-cQ-A4M">
+                                        <barButtonItem key="leftBarButtonItem" image="bar_item_x" id="30V-6v-Ywg">
+                                            <connections>
+                                                <action selector="tapClose:" destination="dRj-Ul-KlN" id="SmA-Ls-Pen"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yBx-Uz-XyW">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="yBx-Uz-XyW" secondAttribute="trailing" id="79Z-f9-3Fu"/>
+                            <constraint firstItem="6v3-jj-knJ" firstAttribute="top" secondItem="SLF-xP-udB" secondAttribute="bottom" id="DqN-Xm-zo4"/>
+                            <constraint firstItem="yBx-Uz-XyW" firstAttribute="leading" secondItem="SbC-pB-SkF" secondAttribute="leading" id="P8v-GC-ABI"/>
+                            <constraint firstItem="Ap3-s2-HUK" firstAttribute="top" secondItem="yBx-Uz-XyW" secondAttribute="bottom" id="X8X-Sa-FGU"/>
+                            <constraint firstItem="yBx-Uz-XyW" firstAttribute="top" secondItem="6v3-jj-knJ" secondAttribute="bottom" id="fJv-s9-dF6"/>
+                            <constraint firstItem="6v3-jj-knJ" firstAttribute="leading" secondItem="SbC-pB-SkF" secondAttribute="leading" id="jB6-0S-INB"/>
+                            <constraint firstAttribute="trailing" secondItem="6v3-jj-knJ" secondAttribute="trailing" id="x5k-hS-zZQ"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="navigationBar" destination="6v3-jj-knJ" id="ksv-MI-6L7"/>
+                        <outlet property="webView" destination="yBx-Uz-XyW" id="5V7-8v-yJV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KnI-fd-30X" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-587" y="-174"/>
+        </scene>
         <!--Entry Detail View Controller-->
         <scene sceneID="z0O-1e-VJN">
             <objects>

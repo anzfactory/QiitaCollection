@@ -26,7 +26,7 @@ class EntryListViewController: BaseViewController, UITableViewDataSource, UITabl
             self.title = self.displayItem!.type.rawValue
         }
     }
-    let qiitaManager: QiitaApiManager = QiitaApiManager()
+    let qiitaManager: QiitaApiManager = QiitaApiManager.sharedInstance
     
     // MARK: ライフサイクル
     override func viewDidLoad() {

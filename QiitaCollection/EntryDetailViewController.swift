@@ -23,7 +23,7 @@ class EntryDetailViewController: BaseViewController {
     }
     var displayEntryId: String? = nil
     var useLocalFile: Bool = false
-    var qiitaManager: QiitaApiManager = QiitaApiManager()
+    var qiitaManager: QiitaApiManager = QiitaApiManager.sharedInstance
     
     lazy var links: [ParseItem] = self.parseLink()
     lazy var codes: [ParseItem] = self.parseCode()

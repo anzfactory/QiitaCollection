@@ -122,6 +122,22 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
             self.openQueryList()
         }
         
+        let menuItemSigin: QCGridMenuItem = QCGridMenuItem()
+        if UserDataManager.sharedInstance.isAuthorizedQiita() {
+            menuItemSigin.icon = UIImage(named: "icon_sign_out")
+            menuItemSigin.title = "Sign out"
+            menuItemSigin.action = {(item) -> Void in
+                self.confirmSignout()
+            }
+        } else {
+            menuItemSigin.icon = UIImage(named: "icon_sign_in")
+            menuItemSigin.title = "Sign in"
+            menuItemSigin.action = {(item) -> Void in
+                self.openSigninVC()
+            }
+        }
+        
+        
         let menuItemInfo: QCGridMenuItem = QCGridMenuItem()
         menuItemInfo.icon = UIImage(named: "icon_info")
         menuItemInfo.title = "About App"
@@ -129,7 +145,7 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
             self.openAboutApp()
         }
         
-        let menu: CNPGridMenu = CNPGridMenu(menuItems: [menuItemMuteUsers, menuItemPinEntries, menuItemQuery, menuItemInfo])
+        let menu: CNPGridMenu = CNPGridMenu(menuItems: [menuItemMuteUsers, menuItemPinEntries, menuItemQuery, menuItemSigin, menuItemInfo])
         menu.delegate = self
         return menu
     }
@@ -256,9 +272,63 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PresentedViewController.rawValue, object: vc)
     }
     
+    func openSigninVC() {
+        let vc: SigninViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SigninVC") as SigninViewController
+        vc.authorizationAction = {(viewController: SigninViewController) -> Void in
+            QiitaApiManager.sharedInstance.setupHeader()    // ヘッダーに認証情報を含めるよう指示
+            // ViewPager再構成
+            self.menu = self.makeMenu()
+            self.setupViewControllers()
+            self.reloadData()
+            viewController.dismissViewControllerAnimated(true, completion: { () -> Void in
+                
+            })
+            return
+        }
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PresentedViewController.rawValue, object: vc)
+    }
+    
     func openAboutApp() {
         let vc: AboutAppViewController = self.storyboard?.instantiateViewControllerWithIdentifier("AboutAppVC") as AboutAppViewController
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PresentedViewController.rawValue, object: vc)
+    }
+    
+    func confirmSignout() {
+        let actionDestructive: UIAlertAction = UIAlertAction(title: "Sign Out", style: UIAlertActionStyle.Destructive) { (action) -> Void in
+            
+            QiitaApiManager.sharedInstance.deleteAccessToken(UserDataManager.sharedInstance.qiitaAccessToken, completion: { (isError) -> Void in
+                if isError {
+                    Toast.show("サインアウトに失敗しました…", style: JFMinimalNotificationStytle.StyleError)
+                    return
+                }
+                
+                QiitaApiManager.sharedInstance.clearHeader()
+                UserDataManager.sharedInstance.clearQiitaAccessToken()
+                
+                self.menu = self.makeMenu()
+                self.setupViewControllers()
+                self.reloadData()
+                
+            })
+            
+        }
+        
+        let actionCancel: UIAlertAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) { (action) -> Void in
+            
+        }
+        
+        let args = [
+            QCKeys.AlertController.Style.rawValue      : UIAlertControllerStyle.Alert.rawValue,
+            QCKeys.AlertController.Title.rawValue      : "確認",
+            QCKeys.AlertController.Description.rawValue: "サインアウトしてしまうとリクエスト制限が厳しくなりますが本当によろしいですか？",
+            QCKeys.AlertController.Actions.rawValue    : [
+                actionDestructive,
+                actionCancel
+            ]
+        ]
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowAlertController.rawValue, object: self, userInfo: args)
+        
     }
     
     // MARK: NSNotification
@@ -307,7 +377,6 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
                 
             }
         }
-        
         return vc
     }
     

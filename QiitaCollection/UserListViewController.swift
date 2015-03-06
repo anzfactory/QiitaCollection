@@ -30,7 +30,7 @@ class UserListViewController: BaseViewController, UITableViewDataSource, UITable
             }
         }
     }
-    let qiitaManager: QiitaApiManager = QiitaApiManager()
+    let qiitaManager: QiitaApiManager = QiitaApiManager.sharedInstance
     var targetEntryId: String? = nil
     
     // MARK: ライフサイクル

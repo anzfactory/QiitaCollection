@@ -52,7 +52,7 @@ struct TagEntity: EntityProtocol {
     }
     
     mutating func updateDetail(completion:(isError: Bool) -> Void) {
-        let qiitaApi: QiitaApiManager = QiitaApiManager()
+        let qiitaApi: QiitaApiManager = QiitaApiManager.sharedInstance
         let capture: TagEntity = self
         qiitaApi.getTag(self.id, completion: { (item, isError) -> Void in
             

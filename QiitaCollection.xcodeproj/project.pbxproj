@@ -64,6 +64,9 @@
 		A1CF43511A8BBE380016209C /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CF43501A8BBE380016209C /* BaseViewController.swift */; };
 		A1D8A8351A8750240040C195 /* UIImageView+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D8A8341A8750240040C195 /* UIImageView+App.swift */; };
 		A1D8A83A1A87917F0040C195 /* UIView+Constraint.m in Sources */ = {isa = PBXBuildFile; fileRef = A1D8A8391A87917F0040C195 /* UIView+Constraint.m */; };
+		A1D8DB281AA89D3700988656 /* NSURL+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D8DB271AA89D3700988656 /* NSURL+App.swift */; };
+		A1D8DB2A1AA8A9FC00988656 /* SigninViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D8DB291AA8A9FC00988656 /* SigninViewController.swift */; };
+		A1D8DB2C1AA8AE6500988656 /* ThirdParty.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D8DB2B1AA8AE6500988656 /* ThirdParty.swift */; };
 		A1DD3FFB1AA2ACD2006E4F7B /* Dictionary+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DD3FFA1AA2ACD2006E4F7B /* Dictionary+App.swift */; };
 		A1DD3FFD1AA2C396006E4F7B /* UserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DD3FFC1AA2C396006E4F7B /* UserListViewController.swift */; };
 		A1DD3FFF1AA2C3F3006E4F7B /* UserListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DD3FFE1AA2C3F3006E4F7B /* UserListTableViewCell.swift */; };
@@ -172,6 +175,10 @@
 		A1D8A8341A8750240040C195 /* UIImageView+App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+App.swift"; sourceTree = "<group>"; };
 		A1D8A8381A87917F0040C195 /* UIView+Constraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Constraint.h"; sourceTree = "<group>"; };
 		A1D8A8391A87917F0040C195 /* UIView+Constraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Constraint.m"; sourceTree = "<group>"; };
+		A1D8DB231AA899C100988656 /* Icon_120r.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon_120r.png; path = ../../Icon_120r.png; sourceTree = "<group>"; };
+		A1D8DB271AA89D3700988656 /* NSURL+App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURL+App.swift"; sourceTree = "<group>"; };
+		A1D8DB291AA8A9FC00988656 /* SigninViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigninViewController.swift; sourceTree = "<group>"; };
+		A1D8DB2B1AA8AE6500988656 /* ThirdParty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdParty.swift; sourceTree = "<group>"; };
 		A1DD3FFA1AA2ACD2006E4F7B /* Dictionary+App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+App.swift"; sourceTree = "<group>"; };
 		A1DD3FFC1AA2C396006E4F7B /* UserListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListViewController.swift; sourceTree = "<group>"; };
 		A1DD3FFE1AA2C3F3006E4F7B /* UserListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListTableViewCell.swift; sourceTree = "<group>"; };
@@ -250,6 +257,7 @@
 				A1824FDC1A98D816009604B2 /* Array+App.swift */,
 				A1DD3FFA1AA2ACD2006E4F7B /* Dictionary+App.swift */,
 				A1DD40081AA38373006E4F7B /* UIBarButtonItem+App.swift */,
+				A1D8DB271AA89D3700988656 /* NSURL+App.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -361,6 +369,7 @@
 				A121AE1B1AA0D5E7007E006E /* CommentListViewController.swift */,
 				A1DD3FFC1AA2C396006E4F7B /* UserListViewController.swift */,
 				A1EC9BE11AA699B70098AC2F /* AboutAppViewController.swift */,
+				A1D8DB291AA8A9FC00988656 /* SigninViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -455,6 +464,7 @@
 			isa = PBXGroup;
 			children = (
 				A1CF433C1A8B06190016209C /* QCKeys.swift */,
+				A1D8DB2B1AA8AE6500988656 /* ThirdParty.swift */,
 			);
 			name = Const;
 			sourceTree = "<group>";
@@ -462,6 +472,7 @@
 		A1CF43401A8B54450016209C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A1D8DB231AA899C100988656 /* Icon_120r.png */,
 				A1CF43411A8B54620016209C /* entry.html */,
 			);
 			path = Resources;
@@ -741,6 +752,7 @@
 				A1B1C6BF1A90E55D001419E9 /* EntryTableViewCell.swift in Sources */,
 				A103AF431A865DE700FF0B24 /* UIColor+App.swift in Sources */,
 				A14149381A9C1557003B7898 /* PathMenu.swift in Sources */,
+				A1D8DB2C1AA8AE6500988656 /* ThirdParty.swift in Sources */,
 				A121AE1A1AA0D41E007E006E /* CommentTableViewCell.swift in Sources */,
 				A17D0C551A963A510020229B /* SCLAlertView.m in Sources */,
 				A1EB791B1A9E3709007E931E /* CNPGridMenu.m in Sources */,
@@ -784,9 +796,11 @@
 				A1824FDB1A98D0B3009604B2 /* SlideTableViewCell.swift in Sources */,
 				A17D0C571A963A510020229B /* SCLAlertViewStyleKit.m in Sources */,
 				A18A85D41A85D4EA0078436D /* QiitaApiManager.swift in Sources */,
+				A1D8DB2A1AA8A9FC00988656 /* SigninViewController.swift in Sources */,
 				A1CF433F1A8B1E350016209C /* EntryDetailViewController.swift in Sources */,
 				A18030621A99C83800EA8D4A /* SearchConditionView.swift in Sources */,
 				A14149391A9C1557003B7898 /* PathMenuItem.swift in Sources */,
+				A1D8DB281AA89D3700988656 /* NSURL+App.swift in Sources */,
 				A1824FD91A98AD03009604B2 /* SWUtilityButtonView.m in Sources */,
 				A118A61E1A8F4AA600350841 /* EntryDetailView.swift in Sources */,
 				A1824FD51A98AD03009604B2 /* SWCellScrollView.m in Sources */,

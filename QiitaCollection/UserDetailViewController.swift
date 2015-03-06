@@ -17,13 +17,14 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
     @IBOutlet weak var triggerListType: UISegmentedControl!
     
     // MARK: プロパティ
+    var shoAuthenticatedUser: Bool = false
     var displayUserId: String?
     var displayUser: UserEntity? = nil {
         didSet {
             self.title = displayUser?.displayName
         }
     }
-    let qiitaManager: QiitaApiManager = QiitaApiManager()
+    let qiitaManager: QiitaApiManager = QiitaApiManager.sharedInstance
     lazy var entryListVC: EntryListViewController = self.makeEntryListVC()
     
     // MARK: ライフサイクル
@@ -94,22 +95,34 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
     }
     func refreshUser() {
         
-        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowLoading.rawValue, object: nil);
-        
-        self.qiitaManager.getUser(self.displayUserId!, completion: { (item, isError) -> Void in
-            
-            NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoading.rawValue, object: nil);
-            
-            if isError {
-                Toast.show("ユーザーデータを取得できませんでした…", style: JFMinimalNotificationStytle.StyleWarning)
-                return
-            }
-            
+        let completion: (item: UserEntity) -> Void = {(item) -> Void in
             self.displayUser = item
+            self.displayUserId = self.displayUser!.id
             self.userInfoContainer.showUser(self.displayUser!)
             
             self.entryListVC.refresh()
-        })
+        }
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowLoading.rawValue, object: nil);
+        
+        if let userId = self.displayUserId {
+            self.qiitaManager.getUser(self.displayUserId!, completion: { (item, isError) -> Void in
+                
+                NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoading.rawValue, object: nil);
+                
+                if isError {
+                    Toast.show("ユーザーデータを取得できませんでした…", style: JFMinimalNotificationStytle.StyleWarning)
+                    return
+                }
+                
+                completion(item: item!)
+                
+            })
+        } else if self.shoAuthenticatedUser {
+            
+        } else {
+            fatalError("unknown user......")
+        }
     }
     
     func makeEntryListVC() -> EntryListViewController {

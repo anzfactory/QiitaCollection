@@ -23,6 +23,47 @@ class QiitaApiManager {
     let PathUserStocks: String = "/users/%@/stocks"
     let PathItemsComments: String = "/items/%@/comments"
     let PathItemsStockers: String = "/items/%@/stockers"
+    let PathAcessToken: String = "/access_tokens"
+    let PathAuthenticatedUser: String = "/authenticated_user"
+    
+    var manager: Alamofire.Manager!
+    
+    // シングルトンパターン
+    class var sharedInstance : QiitaApiManager {
+        struct Static {
+            static let instance : QiitaApiManager = QiitaApiManager()
+        }
+        return Static.instance
+    }
+    
+    init() {
+        
+        self.manager = Alamofire.Manager.sharedInstance
+        
+        // 認証済みならヘッダーにアクセストークンつける
+        if UserDataManager.sharedInstance.isAuthorizedQiita() {
+            self.setupHeader()
+        }
+        
+    }
+    
+    func setupHeader() {
+        var defaultHeaders = self.manager.session.configuration.HTTPAdditionalHeaders ?? [:]
+        let headerVal = "Bearer " + UserDataManager.sharedInstance.qiitaAccessToken
+        println(headerVal)
+        defaultHeaders["Authorization"] = headerVal
+        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        configuration.HTTPAdditionalHeaders = defaultHeaders
+        self.manager = Alamofire.Manager(configuration: configuration)
+    }
+    
+    func clearHeader() {
+        var defaultHeaders = self.manager.session.configuration.HTTPAdditionalHeaders ?? [:]
+        defaultHeaders.removeValueForKey("Authorization")
+        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        configuration.HTTPAdditionalHeaders = defaultHeaders
+        self.manager = Alamofire.Manager(configuration: configuration)
+    }
     
     func apiUrl(path:String, arg: String? = nil) -> String {
         let uri: String = "https://" + Host + "/api/" + ApiVersion
@@ -85,13 +126,14 @@ class QiitaApiManager {
     
     func getItems<T:EntityProtocol>(url: URLStringConvertible, parameters: [String: AnyObject]?, completion: (total:Int, items:[T], isError: Bool) -> Void) {
         
-        Alamofire.request(Alamofire.Method.GET, url, parameters: parameters, encoding: ParameterEncoding.URL)
+        self.manager.request(Alamofire.Method.GET, url, parameters: parameters, encoding: ParameterEncoding.URL)
             .validate(statusCode: 200..<300)    // ステータスコードの200台以外をエラーとするように
             .responseJSON { (request, response, jsonData, error) -> Void in
                 let isError: Bool = error == nil ? false : true
 
                 var items: [T] = [T]()
                 if isError {
+                    println(jsonData)
                     self.alertLimitRequest(jsonData)
                     completion(total:0, items:items, isError: isError);
                     return;
@@ -112,13 +154,14 @@ class QiitaApiManager {
     }
     
     func getItem<T:EntityProtocol>(url: URLStringConvertible, parameters: [String: AnyObject]?, completion: (item:T?, isError: Bool) -> Void) {
-        Alamofire.request(Alamofire.Method.GET, url, parameters: parameters, encoding: ParameterEncoding.URL)
+        self.manager.request(Alamofire.Method.GET, url, parameters: parameters, encoding: ParameterEncoding.URL)
             .validate(statusCode: 200..<300)    // ステータスコードの200台以外をエラーとするように
             .responseJSON { (request, response, jsonData, error) -> Void in
                 
                 let isError: Bool = error == nil ? false : true
                 
                 if isError {
+                    println(jsonData)
                     self.alertLimitRequest(jsonData)
                     completion(item: nil, isError: isError);
                     return;
@@ -149,4 +192,41 @@ class QiitaApiManager {
         }
     }
     
+    
+    func postAuthorize(clientId: String, clientSecret: String, code: String, completion: ((token: String, isError: Bool) -> Void)) {
+        
+        let params: [String: String] = [
+            "client_id"    : clientId,
+            "client_secret": clientSecret,
+            "code"         : code
+        ]
+        
+        self.manager.request(Alamofire.Method.POST, self.apiUrl(PathAcessToken, arg: nil), parameters: params, encoding: ParameterEncoding.JSON)
+            .validate(statusCode: 200..<300)    // ステータスコードの200台以外をエラーとするように
+            .responseJSON { (request, response, jsonData, error) -> Void in
+                
+                let isError: Bool = error == nil ? false : true
+                
+                if isError {
+                    println(jsonData)
+                    completion(token: "", isError: isError);
+                    return;
+                }
+                let json = JSON(jsonData!)
+                completion(token: json["token"].string!, isError: isError);
+        }
+    }
+    
+    
+    func deleteAccessToken(token: String, completion:((isError: Bool) -> Void)) {
+        let url: String = self.apiUrl(PathAcessToken, arg: nil) + "/" + token
+        self.manager.request(Alamofire.Method.DELETE, url, parameters: nil, encoding: ParameterEncoding.JSON)
+            .validate(statusCode: 200..<300)    // ステータスコードの200台以外をエラーとするように
+            .responseJSON { (request, response, jsonData, error) -> Void in
+                
+                let isError: Bool = error == nil ? false : true
+                
+                completion(isError: isError);
+        }
+    }
 }

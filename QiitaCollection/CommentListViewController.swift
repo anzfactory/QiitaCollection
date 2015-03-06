@@ -14,7 +14,7 @@ class CommentListViewController: BaseViewController, UITableViewDataSource, UITa
     @IBOutlet weak var tableView: BaseTableView!
     
     // MARK: プロパティ
-    let qiitaManager: QiitaApiManager = QiitaApiManager()
+    let qiitaManager: QiitaApiManager = QiitaApiManager.sharedInstance
     var displayEntryId: String = ""
     var displayEntryTitle: String = ""
     
