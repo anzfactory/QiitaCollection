@@ -22,7 +22,8 @@ class GuideManager: NSObject, CMPopTipViewDelegate {
         MuteListSwaipeCell,
         PinListSwaipeCell,
         QueryListSwipeCell,
-        PublicContextMenu
+        PublicContextMenu,
+        AddStock
         
         func message() -> String {
             switch self {
@@ -46,6 +47,8 @@ class GuideManager: NSObject, CMPopTipViewDelegate {
                 return "左にスワイプすると削除ボタンが表示されます"
             case .PublicContextMenu:
                 return "画面毎の各種メニューが表示されます"
+            case .AddStock:
+                return "スットクの追加・解除はこちら"
             case .None:
                 fallthrough
             default:

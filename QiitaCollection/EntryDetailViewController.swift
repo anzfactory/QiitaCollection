@@ -24,6 +24,7 @@ class EntryDetailViewController: BaseViewController {
     var displayEntryId: String? = nil
     var useLocalFile: Bool = false
     var qiitaManager: QiitaApiManager = QiitaApiManager.sharedInstance
+    var navButtonStock: SelectedBarButton? = nil
     
     lazy var links: [ParseItem] = self.parseLink()
     lazy var codes: [ParseItem] = self.parseCode()
@@ -40,6 +41,11 @@ class EntryDetailViewController: BaseViewController {
         if !self.isBeingPresented() && !self.isMovingToParentViewController() {
             return
         }
+        
+        // ローカルファイルじゃない かつ 認証済みなら
+        if !self.useLocalFile && UserDataManager.sharedInstance.isAuthorizedQiita() {
+            self.setupNavigationBar()
+        }
 
         self.refresh()
     }
@@ -48,6 +54,10 @@ class EntryDetailViewController: BaseViewController {
         super.viewDidAppear(animated)
         // したに固定メニューボタンがあるんで、bottom padding をセットしておく
         self.webView.scrollView.contentInset.bottom = 44.0
+        
+        if let barbutton = self.navButtonStock {
+            barbutton.showGuide(GuideManager.GuideType.AddStock)
+        }
     }
     
     
@@ -104,10 +114,19 @@ class EntryDetailViewController: BaseViewController {
         }
         return [menuItemLink, menuItemClip, menuItemPin, menuDownload, menuItemShare, menuPerson, menuDiscus, menuStockers]
     }
+    
+    func setupNavigationBar() {
+        self.navButtonStock = SelectedBarButton(image: UIImage(named: "bar_item_bookmark"), style: UIBarButtonItemStyle.Bordered, target: self, action: "confirmAddStock")
+        self.navButtonStock!.selectedColor = UIColor.tintSelectedBarButton()
+        self.navigationItem.rightBarButtonItem = self.navButtonStock
+
+    }
+    
     func refresh() {
         if let entry = self.displayEntry {
             self.displayEntryId = entry.id
             self.loadLocalHtml()
+            self.getStockState()
         } else if let entryId = self.displayEntryId {
             
             if self.useLocalFile {
@@ -130,21 +149,79 @@ class EntryDetailViewController: BaseViewController {
                     self.displayEntry = item
                     self.loadLocalHtml()
                 })
+                self.getStockState()
             }
         } else {
             fatalError("unknown entry....")
         }
 
     }
+    
     func loadLocalHtml() {
         self.loadLocalHtml(self.displayEntry!.title, body:self.displayEntry!.htmlBody)
     }
+    
     func loadLocalHtml(title: String, body:String) {
         // テンプレート読み込み
         let path: NSString = NSBundle.mainBundle().pathForResource("entry", ofType: "html")!
         let template: NSString = NSString(contentsOfFile: path, encoding: NSUTF8StringEncoding, error: nil)!
         // テンプレートに組み込んで表示
         self.webView.loadHTMLString(NSString(format: template, title, body), baseURL: nil)
+    }
+    
+    func getStockState() {
+        self.qiitaManager.getItemStock(self.displayEntry!.id, completion: { (isStocked) -> Void in
+            self.navButtonStock?.selected = isStocked
+            return
+        })
+    }
+    
+    func confirmAddStock() {
+        var message: String = ""
+        if self.navButtonStock!.selected {
+            message = "この投稿のストックを解除しますか？"
+        } else {
+            message = "この投稿をストックしますか？"
+        }
+        
+        let args = [
+            QCKeys.AlertView.Title.rawValue    : "確認",
+            QCKeys.AlertView.Message.rawValue  : message,
+            QCKeys.AlertView.NoTitle.rawValue  : "Cancel",
+            QCKeys.AlertView.YesAction.rawValue: AlertViewSender(action: { () -> Void in
+                self.toggleStock()
+            }, title: "OK")
+        ]
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowAlertYesNo.rawValue, object: nil, userInfo: args)
+    }
+    
+    func toggleStock() {
+        
+        var message: String = ""
+        let completion = {(isError: Bool) -> Void in
+            
+            if isError {
+                Toast.show("失敗しました…", style: JFMinimalNotificationStytle.StyleError)
+                return
+            }
+            
+            // 処理後なんできめうちでもいいけど・・・ストック状態をとりなおしてみる
+            self.getStockState()
+            Toast.show(message, style: JFMinimalNotificationStytle.StyleSuccess)
+            return
+        }
+        
+        if self.navButtonStock!.selected {
+            // 解除処理
+            message = "ストックを解除しました"
+            self.qiitaManager.deleteItemStock(self.displayEntry!.id, completion: completion)
+        } else {
+            // ストック処理
+            message = "ストックしました"
+            self.qiitaManager.putItemStock(self.displayEntry!.id, completion: completion)
+        }
+        
     }
     
     func shareEntry() {

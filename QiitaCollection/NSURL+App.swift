@@ -15,7 +15,7 @@ extension NSURL {
         Host = "anz-note.tumblr.com",
         Path = "/qiitacollection-signin",
         Query = "code",
-        Scope = "read_qiita write_qiita_team"
+        Scope = "read_qiita write_qiita"
     }
     
     class func qiitaAuthorizeURL() -> NSURL {

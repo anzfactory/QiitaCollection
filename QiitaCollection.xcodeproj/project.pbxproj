@@ -13,6 +13,7 @@
 		A103AF431A865DE700FF0B24 /* UIColor+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A103AF421A865DE700FF0B24 /* UIColor+App.swift */; };
 		A103AF451A866A0D00FF0B24 /* UIImage+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A103AF441A866A0D00FF0B24 /* UIImage+App.swift */; };
 		A103AF471A867A9100FF0B24 /* TagEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A103AF461A867A9100FF0B24 /* TagEntity.swift */; };
+		A10C8E891AA9CBDC00B6E958 /* SelectedBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10C8E881AA9CBDC00B6E958 /* SelectedBarButton.swift */; };
 		A11740381AA76BE000D2782A /* AdjustTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11740371AA76BE000D2782A /* AdjustTableViewCell.swift */; };
 		A117403C1AA7724800D2782A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A117403B1AA7724800D2782A /* InfoPlist.strings */; };
 		A118A61E1A8F4AA600350841 /* EntryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A118A61D1A8F4AA600350841 /* EntryDetailView.swift */; };
@@ -108,6 +109,7 @@
 		A103AF421A865DE700FF0B24 /* UIColor+App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+App.swift"; sourceTree = "<group>"; };
 		A103AF441A866A0D00FF0B24 /* UIImage+App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+App.swift"; sourceTree = "<group>"; };
 		A103AF461A867A9100FF0B24 /* TagEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagEntity.swift; sourceTree = "<group>"; };
+		A10C8E881AA9CBDC00B6E958 /* SelectedBarButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedBarButton.swift; sourceTree = "<group>"; };
 		A11740371AA76BE000D2782A /* AdjustTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdjustTableViewCell.swift; sourceTree = "<group>"; };
 		A117403B1AA7724800D2782A /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		A118A61D1A8F4AA600350841 /* EntryDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryDetailView.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 				A121AE191AA0D41E007E006E /* CommentTableViewCell.swift */,
 				A1DD3FFE1AA2C3F3006E4F7B /* UserListTableViewCell.swift */,
 				A11740371AA76BE000D2782A /* AdjustTableViewCell.swift */,
+				A10C8E881AA9CBDC00B6E958 /* SelectedBarButton.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -752,6 +755,7 @@
 				A1B1C6BF1A90E55D001419E9 /* EntryTableViewCell.swift in Sources */,
 				A103AF431A865DE700FF0B24 /* UIColor+App.swift in Sources */,
 				A14149381A9C1557003B7898 /* PathMenu.swift in Sources */,
+				A10C8E891AA9CBDC00B6E958 /* SelectedBarButton.swift in Sources */,
 				A1D8DB2C1AA8AE6500988656 /* ThirdParty.swift in Sources */,
 				A121AE1A1AA0D41E007E006E /* CommentTableViewCell.swift in Sources */,
 				A17D0C551A963A510020229B /* SCLAlertView.m in Sources */,

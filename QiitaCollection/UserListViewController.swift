@@ -67,7 +67,6 @@ class UserListViewController: BaseViewController, UITableViewDataSource, UITable
     
     func loadUseList() {
         let completion = {(total: Int, items: [UserEntity], isError: Bool) -> Void in
-            println("total:\(total)")
             self.tableView.loadedItems(total, items: items, isError: isError, isAppendable: nil)
         }
         
