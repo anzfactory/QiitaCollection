@@ -39,11 +39,6 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
-        self.listContainer.addSubview(self.entryListVC.view)
-        entryListVC.view.addConstraintFill()
-        self.entryListVC.viewWillAppear(false)
-        
         self.refreshUser()
     }
     
@@ -95,8 +90,16 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
     }
     func refreshUser() {
         
-        let completion: (item: UserEntity) -> Void = {(item) -> Void in
-            self.displayUser = item
+        let completion: (item: UserEntity?, isError: Bool) -> Void = {(item, isError) -> Void in
+            
+            NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoading.rawValue, object: nil);
+            
+            if isError {
+                Toast.show("ユーザーデータを取得できませんでした…", style: JFMinimalNotificationStytle.StyleWarning)
+                return
+            }
+            
+            self.displayUser = item!
             self.displayUserId = self.displayUser!.id
             self.userInfoContainer.showUser(self.displayUser!)
             
@@ -106,20 +109,9 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowLoading.rawValue, object: nil);
         
         if let userId = self.displayUserId {
-            self.qiitaManager.getUser(self.displayUserId!, completion: { (item, isError) -> Void in
-                
-                NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoading.rawValue, object: nil);
-                
-                if isError {
-                    Toast.show("ユーザーデータを取得できませんでした…", style: JFMinimalNotificationStytle.StyleWarning)
-                    return
-                }
-                
-                completion(item: item!)
-                
-            })
+            self.qiitaManager.getUser(userId, completion:completion)
         } else if self.shoAuthenticatedUser {
-            
+            self.qiitaManager.getAuthenticatedUser(completion)
         } else {
             fatalError("unknown user......")
         }
@@ -128,6 +120,11 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
     func makeEntryListVC() -> EntryListViewController {
         let vc: EntryListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryListVC") as EntryListViewController
         vc.displayItem = EntryListViewController.DisplayItem(type: EntryListViewController.ListType.UserEntries, self.displayUserId!)
+        
+        self.listContainer.addSubview(vc.view)
+        vc.view.addConstraintFill()
+        vc.viewWillAppear(false)
+        
         return vc
     }
     

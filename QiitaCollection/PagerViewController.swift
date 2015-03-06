@@ -90,6 +90,11 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
             self.viewPagerItems.append(ViewPagerItem(title:"保存した投稿", identifier:"SimpleListVC", query: ""))
         }
         
+        // 認証済みなら末尾にmypage
+        if UserDataManager.sharedInstance.isAuthorizedQiita() {
+            self.viewPagerItems.append(ViewPagerItem(title:"マイページ", identifier:"UserDetailVC", query:""))
+        }
+        
         let width: CGFloat = self.view.frame.size.width / CGFloat(self.viewPagerItems.count)
         if width > 120.0 {
             self.viewPagerTabWidth = width
@@ -376,6 +381,8 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
                 NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: entryDetail)
                 
             }
+        } else if vc is UserDetailViewController {
+            (vc as UserDetailViewController).shoAuthenticatedUser = true
         }
         return vc
     }

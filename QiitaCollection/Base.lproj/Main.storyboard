@@ -731,7 +731,7 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="10b-Lc-R1E" userLabel="list view">
                                 <rect key="frame" x="0.0" y="253" width="320" height="315"/>
-                                <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="0.25098040699958801" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yKd-Od-XUg" userLabel="trigger view">
                                 <rect key="frame" x="0.0" y="216" width="320" height="37"/>

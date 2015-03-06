@@ -120,6 +120,10 @@ class QiitaApiManager {
         self.getItem(self.apiUrl(PathUser, arg:userId), parameters: nil, completion: completion)
     }
     
+    func getAuthenticatedUser(completion:(item: UserEntity?, isError: Bool) -> Void) {
+        self.getItem(self.apiUrl(PathAuthenticatedUser, arg:nil), parameters: nil, completion: completion)
+    }
+    
     func getEntry(entryId: String, completion:(item: EntryEntity?, isError: Bool) -> Void) {
         self.getItem(self.apiUrl(PathItem, arg:entryId), parameters: nil, completion: completion)
     }
