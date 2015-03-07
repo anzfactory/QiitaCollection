@@ -170,7 +170,7 @@ class EntryDetailViewController: BaseViewController {
     }
     
     func getStockState() {
-        self.qiitaManager.getItemStock(self.displayEntry!.id, completion: { (isStocked) -> Void in
+        self.displayEntry?.isStock({ (isStocked) -> Void in
             self.navButtonStock?.selected = isStocked
             return
         })
@@ -215,11 +215,11 @@ class EntryDetailViewController: BaseViewController {
         if self.navButtonStock!.selected {
             // 解除処理
             message = "ストックを解除しました"
-            self.qiitaManager.deleteItemStock(self.displayEntry!.id, completion: completion)
+            self.displayEntry?.cancelStock(completion)
         } else {
             // ストック処理
             message = "ストックしました"
-            self.qiitaManager.putItemStock(self.displayEntry!.id, completion: completion)
+            self.displayEntry?.stock(completion)
         }
         
     }

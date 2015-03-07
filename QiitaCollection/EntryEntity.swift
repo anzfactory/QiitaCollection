@@ -51,4 +51,16 @@ struct EntryEntity: EntityProtocol {
         }
     }
     
+    func isStock(completion:(isStocked: Bool) -> Void) {
+        QiitaApiManager.sharedInstance.getItemStock(self.id, completion: completion)
+    }
+    
+    func stock(completion: (isError: Bool) -> Void) {
+        QiitaApiManager.sharedInstance.putItemStock(self.id, completion: completion)
+    }
+    
+    func cancelStock(completion: (isError: Bool) -> Void) {
+        QiitaApiManager.sharedInstance.deleteItemStock(self.id, completion: completion)
+    }
+    
 }

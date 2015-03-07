@@ -164,25 +164,9 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
             message = "フォローしますか？"
         }
         
-        let completion = {(isError: Bool) -> Void in
-            
-            if isError {
-                Toast.show("処理に失敗しました...", style: JFMinimalNotificationStytle.StyleError)
-                return
-            }
-            
-            self.getFollowingState()
-            return
-        }
         // アラート表示
         let action: SCLActionBlock = {() -> Void in
-            if self.navButtonFollowing!.selected {
-                // 解除処理
-                self.displayUser?.cancelFollowing(completion)
-            } else {
-                // フォロー処理
-                self.displayUser?.follow(completion)
-            }
+            self.toggleFollowing()
         }
         
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowAlertYesNo.rawValue, object: nil, userInfo: [
@@ -228,6 +212,29 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
         ])
     }
     
+    func toggleFollowing() {
+        
+        let completion = {(isError: Bool) -> Void in
+            
+            if isError {
+                Toast.show("処理に失敗しました...", style: JFMinimalNotificationStytle.StyleError)
+                return
+            }
+            
+            self.getFollowingState()
+            return
+        }
+        
+        if self.navButtonFollowing!.selected {
+            // 解除処理
+            self.displayUser?.cancelFollowing(completion)
+        } else {
+            // フォロー処理
+            self.displayUser?.follow(completion)
+        }
+        
+    }
+
     // MARK: UserDetailViewDelegate
     func userDetailView(view: UserDetailView, sender: UIButton) {
         var urlString: String = ""
