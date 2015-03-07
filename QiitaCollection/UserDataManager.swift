@@ -28,7 +28,8 @@ class UserDataManager {
         Pins = "ud-key-pins",
         EntryFiles = "ud-key-entry-files",
         DisplayedGuides = "ud-key-displayed-guide",
-        QiitaAccessToken = "ud-key-qiita-access-token"
+        QiitaAccessToken = "ud-key-qiita-access-token",
+        QiitaAuthenticatedUserID = "ud-key-qiita-authenticated-user-id"
     }
     
     // ミュートユーザーのID
@@ -43,16 +44,19 @@ class UserDataManager {
     var displayedGuides: [Int] = [Int]()
     // Qiita AccessToken
     var qiitaAccessToken: String = ""
+    // Qiita AuthenticatedUser ID
+    var qiitaAuthenticatedUserID: String = ""
     
     // MARK: ライフサイクル
     init() {
         var defaults = [
-            UDKeys.MuteUsers.rawValue       : self.muteUsers,
-            UDKeys.Queries.rawValue         : self.queries,
-            UDKeys.Pins.rawValue            : self.pins,
-            UDKeys.EntryFiles.rawValue      : self.entryFiles,
-            UDKeys.DisplayedGuides.rawValue : self.displayedGuides,
-            UDKeys.QiitaAccessToken.rawValue: self.qiitaAccessToken
+            UDKeys.MuteUsers.rawValue               : self.muteUsers,
+            UDKeys.Queries.rawValue                 : self.queries,
+            UDKeys.Pins.rawValue                    : self.pins,
+            UDKeys.EntryFiles.rawValue              : self.entryFiles,
+            UDKeys.DisplayedGuides.rawValue         : self.displayedGuides,
+            UDKeys.QiitaAccessToken.rawValue        : self.qiitaAccessToken,
+            UDKeys.QiitaAuthenticatedUserID.rawValue: self.qiitaAuthenticatedUserID
         ]
         self.ud.registerDefaults(defaults)
         self.muteUsers = self.ud.arrayForKey(UDKeys.MuteUsers.rawValue) as [String]
@@ -61,6 +65,7 @@ class UserDataManager {
         self.entryFiles = self.ud.arrayForKey(UDKeys.EntryFiles.rawValue) as [[String: String]]
         self.displayedGuides = self.ud.arrayForKey(UDKeys.DisplayedGuides.rawValue) as [Int]
         self.qiitaAccessToken = self.ud.stringForKey(UDKeys.QiitaAccessToken.rawValue)!
+        self.qiitaAuthenticatedUserID = self.ud.stringForKey(UDKeys.QiitaAuthenticatedUserID.rawValue)!
     }
     
     // MARK: メソッド
@@ -73,6 +78,7 @@ class UserDataManager {
         self.ud.setObject(self.entryFiles, forKey: UDKeys.EntryFiles.rawValue)
         self.ud.setObject(self.displayedGuides, forKey: UDKeys.DisplayedGuides.rawValue)
         self.ud.setObject(self.qiitaAccessToken, forKey: UDKeys.QiitaAccessToken.rawValue)
+        self.ud.setObject(self.qiitaAuthenticatedUserID, forKey: UDKeys.QiitaAuthenticatedUserID.rawValue)
         self.ud.synchronize()
     }
     

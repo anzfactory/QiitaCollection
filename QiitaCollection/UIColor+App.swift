@@ -96,6 +96,9 @@ extension UIColor {
     class func tintSelectedBarButton() -> UIColor {
         return backgroundAccent()
     }
+    class func tintSelectedFollowingBarButton() -> UIColor {
+        return factory(255, g: 85, b: 170, a: 1)
+    }
     
     class func factory(r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) -> UIColor {
         return UIColor(red: r/255, green: g/255, blue: b/255, alpha: a);

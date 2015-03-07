@@ -285,6 +285,14 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
             self.menu = self.makeMenu()
             self.setupViewControllers()
             self.reloadData()
+            // 認証ユーザーの情報を取ってIDだけ保持しておく (self判定したいんで...)
+            QiitaApiManager.sharedInstance.getAuthenticatedUser({ (item, isError) -> Void in
+                if isError {
+                    return
+                }
+                UserDataManager.sharedInstance.qiitaAuthenticatedUserID = item!.id
+                return
+            })
             viewController.dismissViewControllerAnimated(true, completion: { () -> Void in
                 
             })
@@ -382,7 +390,7 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
                 
             }
         } else if vc is UserDetailViewController {
-            (vc as UserDetailViewController).shoAuthenticatedUser = true
+            (vc as UserDetailViewController).showAuthenticatedUser = true
         }
         return vc
     }

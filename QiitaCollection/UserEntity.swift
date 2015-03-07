@@ -91,4 +91,19 @@ struct UserEntity: EntityProtocol {
             }
         })
     }
+    
+    func isFollowing(completion:(isFollowing:Bool) -> Void) {
+        QiitaApiManager.sharedInstance.getUserFollowing(self.id, completion: { (isFollowing) -> Void in
+            completion(isFollowing: isFollowing)
+            return
+        })
+    }
+    
+    func follow(completion: (isError: Bool) -> Void) {
+        QiitaApiManager.sharedInstance.putUserFollowing(self.id, completion: completion)
+    }
+    
+    func cancelFollowing(completion: (isError: Bool) -> Void) {
+        QiitaApiManager.sharedInstance.deleteUserFollowing(self.id, completion: completion)
+    }
 }

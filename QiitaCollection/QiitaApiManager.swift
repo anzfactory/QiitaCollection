@@ -26,6 +26,7 @@ class QiitaApiManager {
     let PathAcessToken: String = "/access_tokens"
     let PathAuthenticatedUser: String = "/authenticated_user"
     let PathItemsStock: String = "/items/%@/stock"
+    let PathUsersFollowing: String = "/users/%@/following"
     
     var manager: Alamofire.Manager!
     
@@ -124,16 +125,24 @@ class QiitaApiManager {
         self.getItem(self.apiUrl(PathAuthenticatedUser, arg:nil), parameters: nil, completion: completion)
     }
     
+    func getUserFollowing(userId: String, completion:(isFollowing: Bool) -> Void) {
+        self.getBool(self.apiUrl(PathUsersFollowing, arg: userId), completion: completion)
+    }
+    
     func getEntry(entryId: String, completion:(item: EntryEntity?, isError: Bool) -> Void) {
         self.getItem(self.apiUrl(PathItem, arg:entryId), parameters: nil, completion: completion)
     }
     
     func getItemStock(entryId: String, completion:(isStocked: Bool) -> Void) {
-        self.manager.request(Alamofire.Method.GET, self.apiUrl(PathItemsStock, arg: entryId), parameters: nil, encoding: ParameterEncoding.URL)
-            .validate(statusCode: 204..<205)    // ストックしてる場合は code:204 が返ってくるので 204 以外を error扱いにしちゃう
+        self.getBool(self.apiUrl(PathItemsStock, arg: entryId), completion: completion)
+    }
+    
+    func getBool(url: String, completion:(_: Bool) -> Void) {
+        self.manager.request(Alamofire.Method.GET, url, parameters: nil, encoding: ParameterEncoding.URL)
+            .validate(statusCode: 204..<205)    // code:204 が返ってくるので 204 以外を error扱いにしちゃう
             .responseJSON { (request, response, jsonData, error) -> Void in
                 let isError: Bool = error == nil ? false : true
-                completion(isStocked: !isError)
+                completion(!isError)
         }
     }
     
@@ -232,6 +241,15 @@ class QiitaApiManager {
     func putItemStock(entryId: String, completion: (isError: Bool) -> Void) {
         
         let url: String = self.apiUrl(PathItemsStock, arg: entryId)
+        self.put(url, completion: completion)
+    }
+    
+    func putUserFollowing(userId: String, completion: (isError: Bool) -> Void) {
+        let url: String = self.apiUrl(PathUsersFollowing, arg: userId)
+        self.put(url, completion: completion)
+    }
+    
+    func put(url: String, completion: (isError: Bool) -> Void) {
         self.manager.request(Alamofire.Method.PUT, url, parameters: nil, encoding: ParameterEncoding.JSON)
             .validate(statusCode: 200..<300)    // ステータスコードの200台以外をエラーとするように
             .responseJSON { (request, response, jsonData, error) -> Void in
@@ -246,7 +264,6 @@ class QiitaApiManager {
         }
     }
     
-    
     func deleteAccessToken(token: String, completion:((isError: Bool) -> Void)) {
         let url: String = self.apiUrl(PathAcessToken, arg: nil) + "/" + token
         self.delete(url, parameters: nil, completion: completion)
@@ -254,6 +271,11 @@ class QiitaApiManager {
     
     func deleteItemStock(entryId: String, completion: (isError: Bool) -> Void) {
         let url: String = self.apiUrl(PathItemsStock, arg: entryId)
+        self.delete(url, parameters: nil, completion: completion)
+    }
+    
+    func deleteUserFollowing(userId: String, completion: (isError: Bool) -> Void) {
+        let url: String = self.apiUrl(PathUsersFollowing, arg: userId)
         self.delete(url, parameters: nil, completion: completion)
     }
     

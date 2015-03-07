@@ -17,7 +17,8 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
     @IBOutlet weak var triggerListType: UISegmentedControl!
     
     // MARK: プロパティ
-    var shoAuthenticatedUser: Bool = false
+    var navButtonFollowing: SelectedBarButton? = nil
+    var showAuthenticatedUser: Bool = false
     var displayUserId: String?
     var displayUser: UserEntity? = nil {
         didSet {
@@ -68,6 +69,11 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
     override func publicMenuItems() -> [PathMenuItem] {
         
         var items: [PathMenuItem] = [PathMenuItem]()
+        
+        if self.showAuthenticatedUser || self.displayUserId == UserDataManager.sharedInstance.qiitaAuthenticatedUserID {
+            return items
+        }
+        
         if UserDataManager.sharedInstance.isMutedUser(self.displayUserId!) {
             let menuItemMute: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "menu_eye")!)
             menuItemMute.action = {() -> Void in
@@ -103,6 +109,13 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
             self.displayUserId = self.displayUser!.id
             self.userInfoContainer.showUser(self.displayUser!)
             
+            if !self.showAuthenticatedUser && self.displayUserId != UserDataManager.sharedInstance.qiitaAuthenticatedUserID {
+                // フォローするnavigationの表示
+                self.setupNavigationBar()
+                // フォロー状況を取得
+                self.getFollowingState()
+            }
+            
             self.entryListVC.refresh()
         }
         
@@ -110,11 +123,17 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
         
         if let userId = self.displayUserId {
             self.qiitaManager.getUser(userId, completion:completion)
-        } else if self.shoAuthenticatedUser {
+        } else if self.showAuthenticatedUser {
             self.qiitaManager.getAuthenticatedUser(completion)
         } else {
             fatalError("unknown user......")
         }
+    }
+    
+    func setupNavigationBar() {
+        self.navButtonFollowing = SelectedBarButton(image: UIImage(named: "bar_item_heart"), style: UIBarButtonItemStyle.Bordered, target: self, action: "confirmFollowing")
+        self.navButtonFollowing!.selectedColor = UIColor.tintSelectedFollowingBarButton()
+        self.navigationItem.rightBarButtonItem = self.navButtonFollowing
     }
     
     func makeEntryListVC() -> EntryListViewController {
@@ -128,8 +147,59 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
         return vc
     }
     
+    func getFollowingState() {
+        self.displayUser?.isFollowing({ (isFollowing) -> Void in
+            self.navButtonFollowing?.selected = isFollowing
+            return
+        })
+    }
+    
+    func confirmFollowing() {
+        
+        var message: String = ""
+        
+        if self.navButtonFollowing!.selected {
+            message = "フォローを解除しますか？"
+        } else {
+            message = "フォローしますか？"
+        }
+        
+        let completion = {(isError: Bool) -> Void in
+            
+            if isError {
+                Toast.show("処理に失敗しました...", style: JFMinimalNotificationStytle.StyleError)
+                return
+            }
+            
+            self.getFollowingState()
+            return
+        }
+        // アラート表示
+        let action: SCLActionBlock = {() -> Void in
+            if self.navButtonFollowing!.selected {
+                // 解除処理
+                self.displayUser?.cancelFollowing(completion)
+            } else {
+                // フォロー処理
+                self.displayUser?.follow(completion)
+            }
+        }
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowAlertYesNo.rawValue, object: nil, userInfo: [
+            QCKeys.AlertView.Title.rawValue: "確認",
+            QCKeys.AlertView.Message.rawValue: message,
+            QCKeys.AlertView.NoTitle.rawValue: "Cancel",
+            QCKeys.AlertView.YesAction.rawValue: AlertViewSender(action: action, title: "OK")
+        ])
+    }
+    
     func confirmAddedMuteUser() {
-        // TODO: 認証処理をくわえたら自身じゃないかちぇっく
+        
+        if self.showAuthenticatedUser || UserDataManager.sharedInstance.qiitaAuthenticatedUserID == self.displayUserId {
+            Toast.show("自分自身をミュートリストに…はちょっと…", style: JFMinimalNotificationStytle.StyleWarning)
+            return
+        }
+        
         
         // アラート表示
         let action: SCLActionBlock = {() -> Void in
