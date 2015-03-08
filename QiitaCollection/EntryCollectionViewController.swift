@@ -90,6 +90,9 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
             UIAlertAction(title: "ストックユーザー", style: .Default, handler: { (uialertAction) -> Void in
                 self.moveStockers(tapEntry)
             }),
+            UIAlertAction(title: "タグ", style: UIAlertActionStyle.Default, handler: { (alertAction) -> Void in
+                self.openTagList(tapEntry)
+            }),
             UIAlertAction(title: tapEntry.postUser.displayName, style: .Default, handler: { (UIAlertAction) -> Void in
                 self.moveUserDetail(tapEntry.postUser.id)
             }),
@@ -158,7 +161,24 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowAlertInputText.rawValue, object: nil, userInfo: args)
     }
     
-    
+    func openTagList(entity: EntryEntity) {
+        
+        let vc: SimpleListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SimpleListVC") as SimpleListViewController
+        vc.items = entity.toTagList()
+        vc.title = "タグリスト"
+        vc.swipableCell = false
+        vc.tapCallback = {(vc: SimpleListViewController, index: Int) -> Void in
+            // タグで検索
+            let selectedTag: String = vc.items[index]
+            vc.dismissGridMenuAnimated(true, completion: { () -> Void in
+                let searchVC: EntryCollectionViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryCollectionVC") as EntryCollectionViewController
+                searchVC.title = "タグ：" + selectedTag
+                searchVC.query = "tag:" + selectedTag
+                NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: searchVC)
+            })
+        }
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PresentedViewController.rawValue, object: vc)
+    }
     
     // MARK: UICollectionViewDataSource
     

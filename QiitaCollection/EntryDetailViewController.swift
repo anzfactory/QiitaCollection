@@ -104,6 +104,11 @@ class EntryDetailViewController: BaseViewController {
             self.moveCommentList()
             return
         }
+        let menuTags: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "menu_tag")!)
+        menuTags.action = {() -> Void in
+            self.openTagList()
+            return
+        }
         let menuDownload: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "menu_download")!)
         menuDownload.action = {() -> Void in
             self.confirmDownload()
@@ -112,7 +117,7 @@ class EntryDetailViewController: BaseViewController {
         menuStockers.action = {() -> Void in
             self.moveStockers()
         }
-        return [menuItemLink, menuItemClip, menuItemPin, menuDownload, menuItemShare, menuPerson, menuDiscus, menuStockers]
+        return [menuItemLink, menuItemClip, menuItemPin, menuDownload, menuItemShare, menuPerson, menuDiscus, menuTags, menuStockers]
     }
     
     func setupNavigationBar() {
@@ -412,6 +417,27 @@ class EntryDetailViewController: BaseViewController {
             QCKeys.AlertView.YesAction.rawValue: action,
             QCKeys.AlertView.NoTitle.rawValue  : "Cancel"
         ])
+    }
+    
+    func openTagList() {
+        
+        if let entity = self.displayEntry {
+            let vc: SimpleListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SimpleListVC") as SimpleListViewController
+            vc.items = entity.toTagList()
+            vc.title = "タグリスト"
+            vc.swipableCell = false
+            vc.tapCallback = {(vc: SimpleListViewController, index: Int) -> Void in
+                // タグで検索
+                let selectedTag: String = vc.items[index]
+                vc.dismissGridMenuAnimated(true, completion: { () -> Void in
+                    let searchVC: EntryCollectionViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryCollectionVC") as EntryCollectionViewController
+                    searchVC.title = "タグ：" + selectedTag
+                    searchVC.query = "tag:" + selectedTag
+                    NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: searchVC)
+                })
+            }
+            NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PresentedViewController.rawValue, object: vc)
+        }
     }
     
 }

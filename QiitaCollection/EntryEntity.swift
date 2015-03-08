@@ -63,4 +63,11 @@ struct EntryEntity: EntityProtocol {
         QiitaApiManager.sharedInstance.deleteItemStock(self.id, completion: completion)
     }
     
+    func toTagList() -> [String] {
+        var ids: [String] = [String]()
+        for tag in self.tags {
+            ids.append(tag.id)
+        }
+        return ids
+    }
 }
