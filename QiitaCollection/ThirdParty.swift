@@ -14,4 +14,8 @@ struct ThirdParty {
         ClientSecret = "set client secret"
     }
     
+    enum AdMob: String {
+        case
+        AdUnitID = "MY_INTERSTITIAL_UNIT_ID"
+    }
 }

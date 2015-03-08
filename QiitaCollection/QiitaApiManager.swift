@@ -258,6 +258,8 @@ class QiitaApiManager {
                 
                 if isError {
                     println(jsonData)
+                } else {
+                    NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowInterstitial.rawValue, object: nil)
                 }
                 
                 completion(isError: isError)
@@ -287,6 +289,8 @@ class QiitaApiManager {
                 let isError: Bool = error == nil ? false : true
                 if isError {
                     println(jsonData)
+                } else {
+                    NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowInterstitial.rawValue, object: nil)
                 }
                 completion(isError: isError);
         }

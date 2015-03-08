@@ -10,3 +10,4 @@
 #import "ViewPagerController.h"
 #import "CNPGridMenu.h"
 #import "CMPopTipView.h"
+#import <GoogleMobileAds/GoogleMobileAds.h>

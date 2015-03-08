@@ -27,6 +27,8 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        AdManager.sharedInstance.setupInterstitial()
+        
         self.view.backgroundColor = UIColor.whiteColor()
         
         self.delegate = self;
@@ -46,6 +48,7 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         center.addObserver(self, selector: "receiveShowAlertInputText:", name: QCKeys.Notification.ShowAlertInputText.rawValue, object: nil)
         center.addObserver(self, selector: "receiveResetPublicMenuItems:", name: QCKeys.Notification.ResetPublicMenuItems.rawValue, object: nil)
         center.addObserver(self, selector: "receiveShowAlertOkOnly:", name: QCKeys.Notification.ShowAlertOkOnly.rawValue, object: nil)
+        center.addObserver(self, selector: "receiveShowInterstitial:", name: QCKeys.Notification.ShowInterstitial.rawValue, object: nil)
         
         self.view.addSubview(self.publicMenu)
         self.publicMenu.startPoint = CGPoint(x: self.view.frame.size.width * 0.5, y: self.view.frame.height - 16)
@@ -355,6 +358,10 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
                 self.resetPublicMenuItems(vc as BaseViewController)
             }
         }
+    }
+    
+    func receiveShowInterstitial(notification: NSNotification) {
+        AdManager.sharedInstance.showInterstitial(self.topViewController)
     }
     
     // MARK: UINavigationControllerDelegate
