@@ -215,7 +215,10 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
     // MARK: UICollectionViewDelegateFlowLayout
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let width: CGFloat = (self.view.frame.size.width - 3.0) / 2.0
+        
+        let colNum: CGFloat = self.view.frame.size.width >= 700 ? 3.0 : 2.0
+        
+        let width: CGFloat = (self.view.frame.size.width - (1.0 + colNum)) / colNum
         return CGSize(width: width, height: width)
     }
 

@@ -23,7 +23,6 @@ class EntryCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var commentCount: UILabel!
     
     // MARK: Constraint
-    @IBOutlet weak var constraintTitleHeight: NSLayoutConstraint!
     @IBOutlet weak var constraintDateWidth: NSLayoutConstraint!
     @IBOutlet weak var constraintStockWidth: NSLayoutConstraint!
     
@@ -36,7 +35,7 @@ class EntryCollectionViewCell: UICollectionViewCell {
         self.backgroundImage.setBlurView()
         self.iconStar.image = self.iconStar.image?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
         self.iconComment.image = self.iconComment.image?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-        self.tagImage.maskCircle(UIColor.borderImageViewCircle())
+        
         self.tagImage.backgroundColor = UIColor.backgroundDefaultImage()
         
         self.prepare()
@@ -46,6 +45,11 @@ class EntryCollectionViewCell: UICollectionViewCell {
         super.prepareForReuse()
         // 各パーツの初期化
         self.prepare()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.tagImage.maskCircle(UIColor.borderImageViewCircle())
     }
     
     // MARK: メソッド
@@ -66,9 +70,9 @@ class EntryCollectionViewCell: UICollectionViewCell {
         tag.loadThumb(self.tagImage)
         
         // title
-        self.title.font = UIFont(name: "07LightNovelPOP", size: 14.0)
+        self.title.font = UIFont(name: "07LightNovelPOP", size: self.title.font.pointSize)
         self.title.text = entry.title
-        self.constraintTitleHeight.constant = self.title.sizeThatFits(CGSize(width: self.bounds.width, height: self.bounds.height)).height
+        self.title.frame.size.height = self.title.sizeThatFits(CGSize(width: self.bounds.width, height: self.bounds.height)).height
         // 著者
         self.author.text = entry.postUser.displayName
         // ストック
