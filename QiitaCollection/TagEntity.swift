@@ -43,9 +43,7 @@ struct TagEntity: EntityProtocol {
         let url: NSURL = NSURL(string: self.iconUrl)!
         imageView.sd_setImageWithURL(url, completed: { (image, error, cacheType, url) -> Void in
             if error != nil {
-                // TODO: タグのデフォ画像
-//                imageView.image = UIImage(named: "default")
-                println("error..." + error.localizedDescription)
+                imageView.image = UIImage(named: "default")
             }
         })
         
