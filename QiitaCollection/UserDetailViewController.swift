@@ -109,7 +109,7 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
             self.displayUserId = self.displayUser!.id
             self.userInfoContainer.showUser(self.displayUser!)
             
-            if !self.showAuthenticatedUser && self.displayUserId != UserDataManager.sharedInstance.qiitaAuthenticatedUserID {
+            if !self.showAuthenticatedUser && self.displayUser!.canFollow() {
                 // フォローするnavigationの表示
                 self.setupNavigationBar()
                 // フォロー状況を取得

@@ -106,4 +106,12 @@ struct UserEntity: EntityProtocol {
     func cancelFollowing(completion: (isError: Bool) -> Void) {
         QiitaApiManager.sharedInstance.deleteUserFollowing(self.id, completion: completion)
     }
+    
+    func canFollow() -> Bool {
+        if !UserDataManager.sharedInstance.isAuthorizedQiita() {
+            return false
+        }
+        
+        return self.id == UserDataManager.sharedInstance.qiitaAuthenticatedUserID
+    }
 }
