@@ -12,6 +12,19 @@
 		</array>
 	</dict>
 	<dict>
+		<key>Qiita</key>
+		<array>
+			<dict>
+				<key>Qiitaとは</key>
+				<string>http://qiita.com/about</string>
+			</dict>
+			<dict>
+				<key>利用規約</key>
+				<string>http://qiita.com/terms</string>
+			</dict>
+		</array>
+	</dict>
+	<dict>
 		<key>Contact To Developer</key>
 		<array>
 			<dict>
