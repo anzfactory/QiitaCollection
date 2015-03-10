@@ -7,7 +7,7 @@
 		<array>
 			<dict>
 				<key></key>
-				<string>「プログラミングに関する知識を記録、共有する最適なサービス」であるQiitaの非公式クライアントアプリです[BR][BR]アプリに対するお問い合せは、Qiitaに対して行わないようお願いします[BR][BR]下記の「Contact To Developer」からお好きな方法でお願いしますm(_ _)m[BR][BR]現バージョンではQiitaへの認証機能を実装していないため、リクエスト回数が1時間に60回までという制限があります[BR]正常に投稿等が取得出来ない場合は、この制限にかかっている場合がありますので、時間をおいて試していただくといいかもしれません…[BR]（Qiitaへの認証も近日実装します…たぶん…）</string>
+				<string>「プログラミングに関する知識を記録、共有する最適なサービス」であるQiitaの非公式クライアントアプリです[BR][BR]アプリに対するお問い合せは、Qiitaに対して行わないようお願いします[BR][BR]下記の「Contact To Developer」からお好きな方法でお願いしますm(_ _)m[BR][BR]Qiitaの仕様でリクエスト回数が1時間に60回(認証してる場合は300回)までという制限があります[BR]正常に投稿等が取得出来ない場合は、この制限にかかっている場合がありますので、時間をおいて試していただくといいかもしれません…</string>
 			</dict>
 		</array>
 	</dict>
@@ -32,12 +32,12 @@
 				<string>https://twitter.com/AnzNetJp</string>
 			</dict>
 			<dict>
-				<key>Issue</key>
+				<key>Issue - GitHub</key>
 				<string>https://github.com/anzfactory/QiitaCollection/issues</string>
 			</dict>
 			<dict>
 				<key>Web</key>
-				<string>http://anz-note.tumblr.com/about#mailform</string>
+				<string>http://anz-note.tumblr.com/qiitacollection#contact</string>
 			</dict>
 		</array>
 	</dict>
