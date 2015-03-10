@@ -9,7 +9,9 @@
 import UIKit
 
 class BaseViewController: UIViewController {
-
+    
+    private(set) var afterDidLoad: Bool = false
+    
     override var title: String? {
         didSet {
             // NavigatonBarのタイトルにカスタムタイトル(UILabek)をつかってるんで
@@ -24,6 +26,12 @@ class BaseViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.afterDidLoad = true
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.afterDidLoad = false
     }
     
     override func viewWillDisappear(animated: Bool) {

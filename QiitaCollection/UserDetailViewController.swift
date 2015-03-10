@@ -96,6 +96,9 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
     }
     func refreshUser() {
         
+        // キャプチャ
+        let _afterDidLoad = self.afterDidLoad
+        
         let completion: (item: UserEntity?, isError: Bool) -> Void = {(item, isError) -> Void in
             
             NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoading.rawValue, object: nil);
@@ -116,7 +119,9 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
                 self.getFollowingState()
             }
             
-            self.entryListVC.refresh()
+            if _afterDidLoad {
+                self.entryListVC.refresh()
+            }
         }
         
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowLoading.rawValue, object: nil);

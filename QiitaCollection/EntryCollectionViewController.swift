@@ -39,7 +39,11 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
         if !self.query.isEmpty {
             self.displaySaveSearchCondition()
         }
-        refresh()
+        
+        if self.afterDidLoad {
+            refresh()
+        }
+        
     }
     
     override func didReceiveMemoryWarning() {
