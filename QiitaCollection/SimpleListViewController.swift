@@ -43,14 +43,14 @@ class SimpleListViewController: BaseViewController, UITableViewDataSource, UITab
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationTitleItem.title = self.title
-        
         if self.removeNavigationBar {
             if let navBar = self.navigationBar {
                 navBar.removeFromSuperview()
                 self.tableView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
                 self.tableView.addConstraintFromTop(0.0)
             }
+        } else {
+            self.navigationTitleItem.title = self.title
         }
     }
 
