@@ -112,6 +112,6 @@ struct UserEntity: EntityProtocol {
             return false
         }
         
-        return self.id == UserDataManager.sharedInstance.qiitaAuthenticatedUserID
+        return self.id != UserDataManager.sharedInstance.qiitaAuthenticatedUserID
     }
 }
