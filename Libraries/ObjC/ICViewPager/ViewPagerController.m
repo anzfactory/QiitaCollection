@@ -414,26 +414,33 @@
                                          }];
     }
     
+    __block NSUInteger countContens = [self.contents count];
+    BOOL (^limitCheck)(NSInteger) = ^(NSInteger index) {
+        BOOL result = (index >= 0 && countContens > index);
+        return result;
+    };
+    
     // Clean out of sight contents
     NSInteger index;
     index = self.activeContentIndex - 1;
-    if (index >= 0 &&
-        index != activeContentIndex &&
-        index != activeContentIndex - 1)
+    if (index != activeContentIndex &&
+        index != activeContentIndex - 1 &&
+        limitCheck(index))
     {
         [self.contents replaceObjectAtIndex:index withObject:[NSNull null]];
     }
     index = self.activeContentIndex;
     if (index != activeContentIndex - 1 &&
         index != activeContentIndex &&
-        index != activeContentIndex + 1)
+        index != activeContentIndex + 1 &&
+        limitCheck(index))
     {
         [self.contents replaceObjectAtIndex:index withObject:[NSNull null]];
     }
     index = self.activeContentIndex + 1;
-    if (index < self.contents.count &&
-        index != activeContentIndex &&
-        index != activeContentIndex + 1)
+    if (index != activeContentIndex &&
+        index != activeContentIndex + 1 &&
+        limitCheck(index))
     {
         [self.contents replaceObjectAtIndex:index withObject:[NSNull null]];
     }
