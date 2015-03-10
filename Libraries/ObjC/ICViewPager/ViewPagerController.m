@@ -379,13 +379,12 @@
                                              weakSelf.animatingToTab = NO;
                                          }];
         
-    } else if (!(activeContentIndex + 1 == self.activeContentIndex || activeContentIndex - 1 == self.activeContentIndex)) {
+    } /*else if (!(activeContentIndex + 1 == self.activeContentIndex || activeContentIndex - 1 == self.activeContentIndex)) {
         
         [self.pageViewController setViewControllers:@[viewController]
                                           direction:(activeContentIndex < self.activeContentIndex) ? UIPageViewControllerNavigationDirectionReverse : UIPageViewControllerNavigationDirectionForward
                                            animated:YES
                                          completion:^(BOOL completed) {
-                                             
                                              weakSelf.animatingToTab = NO;
                                              
                                              // Set the current page again to obtain synchronisation between tabs and content
@@ -397,13 +396,21 @@
                                              });
                                          }];
         
-    } else {
-        
+    }*/ else {
+       
         [self.pageViewController setViewControllers:@[viewController]
                                           direction:(activeContentIndex < self.activeContentIndex) ? UIPageViewControllerNavigationDirectionReverse : UIPageViewControllerNavigationDirectionForward
                                            animated:YES
                                          completion:^(BOOL completed) {
                                              weakSelf.animatingToTab = NO;
+                                             
+                                             // Set the current page again to obtain synchronisation between tabs and content
+                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                                 [weakPageViewController setViewControllers:@[viewController]
+                                                                                  direction:(activeContentIndex < weakSelf.activeContentIndex) ? UIPageViewControllerNavigationDirectionReverse : UIPageViewControllerNavigationDirectionForward
+                                                                                   animated:NO
+                                                                                 completion:nil];
+                                             });
                                          }];
     }
     
