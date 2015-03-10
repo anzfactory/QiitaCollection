@@ -247,7 +247,7 @@
         <!--Pager View Controller-->
         <scene sceneID="Zw4-YL-ahZ">
             <objects>
-                <viewController id="ia5-vP-tDC" customClass="PagerViewController" customModule="QiitaCollection" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="ia5-vP-tDC" customClass="PagerViewController" customModule="QiitaCollection" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Rg3-9b-aPz"/>
                         <viewControllerLayoutGuide type="bottom" id="bsJ-MJ-RPu"/>
