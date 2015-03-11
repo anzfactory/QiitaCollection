@@ -10,7 +10,7 @@ import UIKit
 
 class CommentTableViewCell: UITableViewCell {
     
-    typealias ThumbTapAction = (CommentTableViewCell) -> Void
+    typealias TapAction = (CommentTableViewCell) -> Void
     
     // MARK: UI
     @IBOutlet weak var bodyContent: UIView!
@@ -18,9 +18,11 @@ class CommentTableViewCell: UITableViewCell {
     @IBOutlet weak var postDate: UILabel!
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var body: UILabel!
+    @IBOutlet weak var edit: UIButton!
     
     // MARK: プロパティ
-    var action: ThumbTapAction?
+    var action: TapAction?
+    var editCommentAction: TapAction?
 
     // MARK: ライフサイクル
     override func awakeFromNib() {
@@ -36,6 +38,9 @@ class CommentTableViewCell: UITableViewCell {
         self.bodyContent.backgroundColor = UIColor.backgroundComment()
         self.bodyContent.drawBorder(UIColor.backgroundBase(), linewidth: 2.0)
         
+        self.edit.backgroundColor = UIColor.attintion()
+        self.edit.maskCircle(UIColor.borderImageViewCircle(), lineWidth: 3.0)
+        
     }
 
     func showComment(comment: CommentEntity) {
@@ -45,11 +50,19 @@ class CommentTableViewCell: UITableViewCell {
         self.postDate.text = comment.shortUpdateDate
         var error: NSError? = nil
         self.body.attributedText = NSAttributedString(data: comment.htmlBody.dataUsingEncoding(NSUnicodeStringEncoding, allowLossyConversion: true)!, options: [NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType], documentAttributes: nil, error: &error)
+        self.body.sizeToFit()
+        self.bodyContent.sizeToFit()
+        
+        self.edit.hidden = !comment.canEdit()
         
     }
 
     // MARK: Actions
     @IBAction func tapThumb(sender: AnyObject) {
         self.action?(self)
+    }
+    
+    @IBAction func tapEdit(sender: AnyObject) {
+        self.editCommentAction?(self)
     }
 }

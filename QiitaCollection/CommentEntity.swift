@@ -29,4 +29,10 @@ struct CommentEntity: EntityProtocol {
         get { return updated.componentsSeparatedByString("T")[0] }
     }
     
+    func canEdit() -> Bool {
+        // 認証済みでかつ認証ユーザーがコメント投稿ユーザーの場合
+        // 記事事態の所有者なら、他人のコメントも消せるかとおもったけどwebでは無理っぽいので
+        // とりあえず認証ユーザー＝投稿ユーザーだけで
+        return (UserDataManager.sharedInstance.isAuthorizedQiita() && self.postUser.id == UserDataManager.sharedInstance.qiitaAuthenticatedUserID)
+    }
 }

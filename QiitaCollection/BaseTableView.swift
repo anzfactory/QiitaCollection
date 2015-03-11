@@ -72,5 +72,14 @@ class BaseTableView: UITableView {
         self.reloadData()
 
     }
+    
+    func clearItems() {
+        if self.items.count == 0 {
+            return
+        }
+        
+        self.items.removeAll(keepCapacity: false)
+        self.reloadData()
+    }
 
 }

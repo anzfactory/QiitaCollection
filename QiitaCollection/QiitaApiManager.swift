@@ -22,6 +22,7 @@ class QiitaApiManager {
     let PathUser: String = "/users/%@"
     let PathUserStocks: String = "/users/%@/stocks"
     let PathItemsComments: String = "/items/%@/comments"
+    let PathItemsComment: String = "/comments/%@"
     let PathItemsStockers: String = "/items/%@/stockers"
     let PathAcessToken: String = "/access_tokens"
     let PathAuthenticatedUser: String = "/authenticated_user"
@@ -238,6 +239,23 @@ class QiitaApiManager {
         }
     }
     
+    func postComment(entryId: String, body: String, completion:((isError: Bool) -> Void)) {
+        let params: [String: String] = [
+            "body": body
+        ]
+        
+        self.manager.request(Alamofire.Method.POST, self.apiUrl(PathItemsComments, arg: entryId), parameters: params, encoding: ParameterEncoding.JSON)
+            .validate(statusCode: 200..<300)    // ステータスコードの200台以外をエラーとするように
+            .responseJSON { (request, response, jsonData, error) -> Void in
+                
+                let isError: Bool = error == nil ? false : true
+                if isError {
+                    println(jsonData)
+                }
+                completion(isError: isError)
+        }
+    }
+    
     func putItemStock(entryId: String, completion: (isError: Bool) -> Void) {
         
         let url: String = self.apiUrl(PathItemsStock, arg: entryId)
@@ -266,6 +284,25 @@ class QiitaApiManager {
         }
     }
     
+    func patchComment(commentId: String, body: String, completion: ((isError: Bool) -> Void)) {
+        let params: [String: String] = [
+            "body": body
+        ]
+        
+        self.manager.request(Alamofire.Method.PATCH, self.apiUrl(PathItemsComment, arg: commentId), parameters: params, encoding: ParameterEncoding.JSON)
+        .validate(statusCode: 200..<300)    // ステータスコードの200台以外をエラーとするように
+        .responseJSON { (request, response, jsonData, error) -> Void in
+            
+            let isError: Bool = error == nil ? false : true
+            if isError {
+                println(jsonData)
+            } else {
+                NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowInterstitial.rawValue, object: nil)
+            }
+            completion(isError: isError)
+        }
+    }
+    
     func deleteAccessToken(token: String, completion:((isError: Bool) -> Void)) {
         let url: String = self.apiUrl(PathAcessToken, arg: nil) + "/" + token
         self.delete(url, parameters: nil, completion: completion)
@@ -281,11 +318,15 @@ class QiitaApiManager {
         self.delete(url, parameters: nil, completion: completion)
     }
     
+    func deleteComment(commentId: String, completion:((isError: Bool) -> Void)) {
+        let url: String = self.apiUrl(PathItemsComment, arg: commentId)
+        self.delete(url, parameters: nil, completion: completion)
+    }
+    
     func delete(url: String, parameters: [String : AnyObject]?, completion: (isError: Bool) -> Void) {
         self.manager.request(Alamofire.Method.DELETE, url, parameters: parameters, encoding: ParameterEncoding.JSON)
             .validate(statusCode: 200..<300)    // ステータスコードの200台以外をエラーとするように
             .responseJSON { (request, response, jsonData, error) -> Void in
-                
                 let isError: Bool = error == nil ? false : true
                 if isError {
                     println(jsonData)

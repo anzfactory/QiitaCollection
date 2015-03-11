@@ -27,6 +27,9 @@ extension UIColor {
     class func backgroundSub(a: CGFloat) -> UIColor {
         return factory(243, g: 246, b: 241, a: a)
     }
+    class func attintion() -> UIColor {
+        return factory(240, g: 173, b: 78, a: 1)
+    }
     
     // MARK: 各種
     
@@ -91,7 +94,7 @@ extension UIColor {
         return self.backgroundBase()
     }
     class func tintAttention() -> UIColor {
-        return factory(240, g: 173, b: 78, a: 1)
+        return attintion()
     }
     class func tintSelectedBarButton() -> UIColor {
         return backgroundAccent()

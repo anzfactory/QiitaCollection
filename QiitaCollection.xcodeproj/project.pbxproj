@@ -69,6 +69,7 @@
 		A1B1C6BB1A90928E001419E9 /* UILabel+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B1C6BA1A90928E001419E9 /* UILabel+App.swift */; };
 		A1B1C6BD1A90C0EB001419E9 /* EntryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B1C6BC1A90C0EB001419E9 /* EntryListViewController.swift */; };
 		A1B1C6BF1A90E55D001419E9 /* EntryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B1C6BE1A90E55D001419E9 /* EntryTableViewCell.swift */; };
+		A1BA38211AB0B32400595568 /* String+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BA38201AB0B32400595568 /* String+App.swift */; };
 		A1C0B5B81A96C4FE0086F92E /* BaseCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C0B5B71A96C4FE0086F92E /* BaseCollectionView.swift */; };
 		A1C0B5BB1A96C8000086F92E /* EntityProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C0B5BA1A96C8000086F92E /* EntityProtocol.swift */; };
 		A1CF433D1A8B06190016209C /* QCKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CF433C1A8B06190016209C /* QCKeys.swift */; };
@@ -192,6 +193,7 @@
 		A1B1C6BA1A90928E001419E9 /* UILabel+App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+App.swift"; sourceTree = "<group>"; };
 		A1B1C6BC1A90C0EB001419E9 /* EntryListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryListViewController.swift; sourceTree = "<group>"; };
 		A1B1C6BE1A90E55D001419E9 /* EntryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryTableViewCell.swift; sourceTree = "<group>"; };
+		A1BA38201AB0B32400595568 /* String+App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+App.swift"; sourceTree = "<group>"; };
 		A1C0B5B71A96C4FE0086F92E /* BaseCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCollectionView.swift; sourceTree = "<group>"; };
 		A1C0B5BA1A96C8000086F92E /* EntityProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntityProtocol.swift; sourceTree = "<group>"; };
 		A1CF433C1A8B06190016209C /* QCKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QCKeys.swift; sourceTree = "<group>"; };
@@ -287,6 +289,7 @@
 		A103AF411A865DAF00FF0B24 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				A1BA38201AB0B32400595568 /* String+App.swift */,
 				A103AF421A865DE700FF0B24 /* UIColor+App.swift */,
 				A103AF441A866A0D00FF0B24 /* UIImage+App.swift */,
 				A1D8A8341A8750240040C195 /* UIImageView+App.swift */,
@@ -817,6 +820,7 @@
 				A1A8D9E01A82F92C00231D84 /* AppDelegate.swift in Sources */,
 				A1CF43511A8BBE380016209C /* BaseViewController.swift in Sources */,
 				A1B1C6BF1A90E55D001419E9 /* EntryTableViewCell.swift in Sources */,
+				A1BA38211AB0B32400595568 /* String+App.swift in Sources */,
 				A103AF431A865DE700FF0B24 /* UIColor+App.swift in Sources */,
 				A14149381A9C1557003B7898 /* PathMenu.swift in Sources */,
 				A10C8E891AA9CBDC00B6E958 /* SelectedBarButton.swift in Sources */,
