@@ -23,7 +23,8 @@ class GuideManager: NSObject, CMPopTipViewDelegate {
         PinListSwaipeCell,
         QueryListSwipeCell,
         PublicContextMenu,
-        AddStock
+        AddStock,
+        SyncBrowsing
         
         func message() -> String {
             switch self {
@@ -49,6 +50,8 @@ class GuideManager: NSObject, CMPopTipViewDelegate {
                 return "画面毎の各種メニューが表示されます"
             case .AddStock:
                 return "スットクの追加・解除はこちら"
+            case .SyncBrowsing:
+                return "Handoff対応のお使いのMacなどのブラウザに閲覧している投稿を同期表示させることができます"
             case .None:
                 fallthrough
             default:

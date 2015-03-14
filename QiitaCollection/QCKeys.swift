@@ -56,4 +56,9 @@ struct QCKeys {
         NoTitle = "No-Title",
         PlaceHolder = "Place-Holder"
     }
+    
+    enum UserActivity: String {
+        case
+        TypeSendURLToMac = "xyz.anzfactory.qiita-collection"
+    }
 }

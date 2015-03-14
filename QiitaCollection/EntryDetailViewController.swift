@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EntryDetailViewController: BaseViewController {
+class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
     
     typealias ParseItem = (label: String, value: String)
 
@@ -24,12 +24,14 @@ class EntryDetailViewController: BaseViewController {
     var displayEntryId: String? = nil
     var useLocalFile: Bool = false
     var qiitaManager: QiitaApiManager = QiitaApiManager.sharedInstance
+    var navButtonHandOff: SelectedBarButton? = nil
     var navButtonStock: SelectedBarButton? = nil
     
     lazy var links: [ParseItem] = self.parseLink()
     lazy var codes: [ParseItem] = self.parseCode()
     let patternLink: String = "<a.*?href=\\\"([http|https].*?)\\\".*?>(.*?)</a>"
     let patternCode: String = "\\`{3}(.*?)\\n((.|\\n)*?)\\`{3}"
+    let senderActivity: NSUserActivity? = nil
     
     // MARK: ライフサイクル
     override func viewDidLoad() {
@@ -43,7 +45,7 @@ class EntryDetailViewController: BaseViewController {
         }
         
         // ローカルファイルじゃない かつ 認証済みなら
-        if !self.useLocalFile && UserDataManager.sharedInstance.isAuthorizedQiita() {
+        if !self.useLocalFile {
             self.setupNavigationBar()
         }
 
@@ -58,6 +60,16 @@ class EntryDetailViewController: BaseViewController {
         if let barbutton = self.navButtonStock {
             barbutton.showGuide(GuideManager.GuideType.AddStock)
         }
+        if let barbutton = self.navButtonHandOff {
+            barbutton.showGuide(GuideManager.GuideType.SyncBrowsing)
+        }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        if let activity = self.userActivity {
+            activity.invalidate()
+        }
+        super.viewWillDisappear(animated)
     }
     
     
@@ -121,9 +133,21 @@ class EntryDetailViewController: BaseViewController {
     }
     
     func setupNavigationBar() {
-        self.navButtonStock = SelectedBarButton(image: UIImage(named: "bar_item_bookmark"), style: UIBarButtonItemStyle.Bordered, target: self, action: "confirmAddStock")
-        self.navButtonStock!.selectedColor = UIColor.tintSelectedBarButton()
-        self.navigationItem.rightBarButtonItem = self.navButtonStock
+        
+        var buttons: [SelectedBarButton] = [SelectedBarButton]()
+        
+        if UserDataManager.sharedInstance.isAuthorizedQiita() {
+            // ストック
+            self.navButtonStock = SelectedBarButton(image: UIImage(named: "bar_item_bookmark"), style: UIBarButtonItemStyle.Bordered, target: self, action: "confirmAddStock")
+            self.navButtonStock!.selectedColor = UIColor.tintSelectedBarButton()
+            buttons.append(self.navButtonStock!)
+        }
+        
+        // macへのブラウジング同期
+        self.navButtonHandOff = SelectedBarButton(image: UIImage(named: "bar_item_desktop"), style: UIBarButtonItemStyle.Bordered, target:self, action:"syncBrowsing")
+        buttons.append(self.navButtonHandOff!)
+       
+        self.navigationItem.rightBarButtonItems = buttons
 
     }
     
@@ -181,7 +205,27 @@ class EntryDetailViewController: BaseViewController {
         })
     }
     
+    func syncBrowsing() {
+        
+        if let entry = self.displayEntry {
+            
+            if let activity = self.userActivity {
+                activity.invalidate()
+            }
+            
+            self.userActivity = NSUserActivity(activityType: QCKeys.UserActivity.TypeSendURLToMac.rawValue)
+            self.userActivity!.webpageURL = NSURL(string: entry.urlString)
+            self.userActivity!.title = "QiitaCollection"
+            self.userActivity!.becomeCurrent()
+            self.userActivity!.delegate = self
+        } else {
+            Toast.show("投稿データがないようです...", style: JFMinimalNotificationStytle.StyleWarning)
+        }
+        
+    }
+    
     func confirmAddStock() {
+        
         var message: String = ""
         if self.navButtonStock!.selected {
             message = "この投稿のストックを解除しますか？"
@@ -439,5 +483,21 @@ class EntryDetailViewController: BaseViewController {
             NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PresentedViewController.rawValue, object: vc)
         }
     }
+    
+    // MARK: NSUserActivityDelegate
+    func userActivityWillSave(userActivity: NSUserActivity) {
+        dispatch_async(dispatch_get_main_queue(), {() -> Void in
+            Toast.show("お使いのデバイスのブラウザと同期しました", style: JFMinimalNotificationStytle.StyleSuccess)
+        });
+    }
+    func userActivityWasContinued(userActivity: NSUserActivity) {
+        userActivity.invalidate()
+        self.userActivity = nil
+    }
+    
+    func userActivity(userActivity: NSUserActivity, didReceiveInputStream inputStream: NSInputStream, outputStream: NSOutputStream) {
+        
+    }
+    
     
 }
