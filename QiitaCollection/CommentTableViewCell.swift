@@ -50,8 +50,6 @@ class CommentTableViewCell: UITableViewCell {
         self.postDate.text = comment.shortUpdateDate
         var error: NSError? = nil
         self.body.attributedText = NSAttributedString(data: comment.htmlBody.dataUsingEncoding(NSUnicodeStringEncoding, allowLossyConversion: true)!, options: [NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType], documentAttributes: nil, error: &error)
-        self.body.sizeToFit()
-        self.bodyContent.sizeToFit()
         
         self.edit.hidden = !comment.canEdit()
         
