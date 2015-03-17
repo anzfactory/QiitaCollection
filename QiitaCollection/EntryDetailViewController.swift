@@ -275,6 +275,10 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
     
     func shareEntry() {
         
+        if self.displayEntry == nil {
+            return
+        }
+        
         let args: [NSObject: AnyObject] = [
             QCKeys.ActivityView.Message.rawValue: self.displayEntry!.title,
             QCKeys.ActivityView.Link.rawValue   : self.displayEntry!.urlString
@@ -336,10 +340,18 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
     }
     
     func parseLink() -> [ParseItem] {
+        
+        if self.displayEntry == nil {
+            return [ParseItem]()
+        }
+        
         return self.parseHtml(self.displayEntry!.htmlBody, pattern:self.patternLink)
     }
     
     func parseCode() -> [ParseItem] {
+        if self.displayEntry == nil {
+            return [ParseItem]()
+        }
         return self.parseHtml(self.displayEntry!.body, pattern:self.patternCode)
     }
     
@@ -392,12 +404,22 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
     }
     
     func moveUserDetail() {
+        
+        if self.displayEntry == nil {
+            return
+        }
+        
         let vc: UserDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UserDetailVC") as UserDetailViewController
         vc.displayUserId = self.displayEntry!.postUser.id
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: vc)
     }
     
     func moveCommentList() {
+        
+        if self.displayEntry == nil {
+            return
+        }
+        
         let vc: CommentListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("CommentsVC") as CommentListViewController
         vc.displayEntryId = self.displayEntryId!
         vc.displayEntryTitle = self.displayEntry?.title ?? ""
@@ -405,6 +427,11 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
     }
     
     func moveStockers() {
+        
+        if self.displayEntry == nil {
+            return
+        }
+        
         let vc: UserListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UserListVC") as UserListViewController
         vc.listType = UserListViewController.UserListType.Stockers
         vc.targetEntryId = self.displayEntryId
@@ -412,6 +439,11 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
     }
     
     func confirmPinEntry() {
+        
+        if self.displayEntry == nil {
+            return
+        }
+        
         let action: AlertViewSender = AlertViewSender(action: { () -> Void in
             UserDataManager.sharedInstance.appendPinEntry(self.displayEntryId!, entryTitle: self.title!)
             Toast.show("この投稿をpinしました", style: JFMinimalNotificationStytle.StyleSuccess)
@@ -427,6 +459,11 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
     }
     
     func confirmDownload() {
+        
+        if self.displayEntry == nil {
+            return
+        }
+        
         let action: AlertViewSender = AlertViewSender(action: { () -> Void in
             
             let manager: FileManager = FileManager()
@@ -488,7 +525,7 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
     func userActivityWillSave(userActivity: NSUserActivity) {
         dispatch_async(dispatch_get_main_queue(), {() -> Void in
             Toast.show("お使いのデバイスのブラウザと同期しました", style: JFMinimalNotificationStytle.StyleSuccess)
-        });
+        })
     }
     func userActivityWasContinued(userActivity: NSUserActivity) {
         userActivity.invalidate()

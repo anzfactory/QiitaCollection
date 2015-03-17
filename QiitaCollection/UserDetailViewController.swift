@@ -242,6 +242,11 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
 
     // MARK: UserDetailViewDelegate
     func userDetailView(view: UserDetailView, sender: UIButton) {
+        
+        if self.displayUser == nil {
+            return;
+        }
+        
         var urlString: String = ""
         if sender == view.website {
             urlString = self.displayUser!.web
