@@ -74,7 +74,7 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
             return items
         }
         
-        if UserDataManager.sharedInstance.isMutedUser(self.displayUserId!) {
+        if self.account.existsMuteUser(self.displayUserId!) {
             let menuItemMute: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "menu_eye")!)
             menuItemMute.action = {() -> Void in
                 self.confirmClearMuted()
@@ -192,7 +192,7 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
         
         // アラート表示
         let action: SCLActionBlock = {() -> Void in
-            UserDataManager.sharedInstance.appendMuteUserId(self.displayUserId!)
+            self.account.mute(self.displayUserId!)
             Toast.show("ミュートユーザーに追加しました", style: JFMinimalNotificationStytle.StyleSuccess)
             NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ResetPublicMenuItems.rawValue, object: self)
             return
@@ -206,7 +206,7 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
     
     func confirmClearMuted() {
         let action: SCLActionBlock = {() -> Void in
-            UserDataManager.sharedInstance.clearMutedUser(self.displayUserId!)
+            self.account.cancelMute(self.displayUserId!)
             Toast.show("ミュートを解除しました", style: JFMinimalNotificationStytle.StyleSuccess)
             NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ResetPublicMenuItems.rawValue, object: self)
             return

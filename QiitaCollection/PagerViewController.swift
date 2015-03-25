@@ -27,6 +27,7 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
     var reloadViewPager: Bool = false
     var viewPagerTabWidth: CGFloat = 120.0
     var viewPagerTabHeight: CGFloat = 0.0
+    lazy var account: AnonymousAccount = self.setupAccount();
  
     // MARK: ライフサイクル
     override func viewDidLoad() {
@@ -73,6 +74,10 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
     }
 
     // MARK: メソッド
+    func setupAccount() -> AnonymousAccount {
+        return AccountManager.account()
+    }
+    
     func setupViewControllers() {
         self.viewPagerItems.removeAll(keepCapacity: false)
         self.viewPagerItems.append(ViewPagerItem(title: "新着", identifier:"EntryCollectionVC", query:""))
@@ -181,14 +186,14 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
     
     func openMuteUserList() {
         
-        let mutedUsers: [String] = UserDataManager.sharedInstance.muteUsers
+        let mutedUsers: [String] = self.account.muteUserNames()
         if (mutedUsers.isEmpty) {
             Toast.show("ミュートユーザーが追加されていません", style: JFMinimalNotificationStytle.StyleInfo)
             return
         }
         
         let muteVC: SimpleListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SimpleListVC") as SimpleListViewController
-        muteVC.items = UserDataManager.sharedInstance.muteUsers
+        muteVC.items = mutedUsers
         muteVC.title = "ミュートリスト"
         muteVC.cellGuide = GuideManager.GuideType.MuteListSwaipeCell
         muteVC.tapCallback = {(vc: SimpleListViewController, index: Int) -> Void in
@@ -197,13 +202,13 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
             vc.dismissViewControllerAnimated(true, completion: { () -> Void in
                 // user詳細
                 let userVC: UserDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UserDetailVC") as UserDetailViewController
-                userVC.displayUserId = UserDataManager.sharedInstance.muteUsers[index]
+                userVC.displayUserId = self.account.muteUserId(index)
                 NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: userVC)
             })
             
         }
         muteVC.swipeCellCallback = {(vc: SimpleListViewController, cell: SlideTableViewCell, index:Int) -> Void in
-            UserDataManager.sharedInstance.clearMutedUser(vc.items[cell.tag])
+            self.account.cancelMute(index)
             vc.removeItem(index)
             Toast.show("ミュートを解除しました", style: JFMinimalNotificationStytle.StyleSuccess, title: "", targetView: vc.view)
         }
@@ -212,14 +217,11 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
     
     func openPinEntryList() {
         
-        let pinEntries: [[String: String]] = UserDataManager.sharedInstance.pins
-        if (pinEntries.isEmpty) {
+        let pins: [String] = self.account.pinEntryTitles()
+        if (pins.isEmpty) {
             Toast.show("pinした投稿がありません", style: JFMinimalNotificationStytle.StyleInfo)
             return
         }
-        
-        // 渡すようのリストをつくる
-        var pins: [String] = Array<String>.convert(pinEntries, key: "title")
         
         let vc: SimpleListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SimpleListVC") as SimpleListViewController
         vc.items = pins
@@ -231,13 +233,13 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
             vc.dismissViewControllerAnimated(true, completion: { () -> Void in
                 // 記事詳細
                 let entryVC: EntryDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryDetailVC") as EntryDetailViewController
-                entryVC.displayEntryId = UserDataManager.sharedInstance.pins[index]["id"]
+                entryVC.displayEntryId = self.account.pinEntryId(index)
                 NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: entryVC)
             })
             
         }
         vc.swipeCellCallback = {(vc: SimpleListViewController, cell: SlideTableViewCell, index: Int) -> Void in
-            UserDataManager.sharedInstance.clearPinEntry(index)
+            self.account.removePin(index)
             // 再作成
             vc.removeItem(index)
             Toast.show("pinした投稿を解除しました", style: JFMinimalNotificationStytle.StyleSuccess, title: "", targetView: vc.view)
@@ -247,17 +249,15 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
     }
     
     func openQueryList() {
-        let queries: [[String: String]] = UserDataManager.sharedInstance.queries
+        let titles = self.account.saveQueryTitles()
         
-        if queries.isEmpty {
+        if titles.isEmpty {
             Toast.show("保存した検索がありません...", style: JFMinimalNotificationStytle.StyleInfo)
             return
         }
         
-        let queryLabels: [String] = [String].convert(queries, key: "title")
-        
         let vc: SimpleListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SimpleListVC") as SimpleListViewController
-        vc.items = queryLabels
+        vc.items = titles
         vc.title = "保存した検索条件"
         vc.cellGuide = GuideManager.GuideType.QueryListSwipeCell
         vc.tapCallback = {(vc: SimpleListViewController, index: Int) -> Void in
@@ -265,7 +265,7 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
         }
         vc.swipeCellCallback = {(vc: SimpleListViewController, cell: SlideTableViewCell, index: Int) -> Void in
             // 削除処理
-            UserDataManager.sharedInstance.clearQuery(index)
+            self.account.removeQuery(index)
             // ViewPager再構成
             self.setupViewControllers()
             self.reloadData()
@@ -307,21 +307,22 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
     }
     
     func confirmSignout() {
+        
+        if self.account is QiitaAccount == false {
+            return
+        }
+        
         let actionDestructive: UIAlertAction = UIAlertAction(title: "Sign Out", style: UIAlertActionStyle.Destructive) { (action) -> Void in
             
-            QiitaApiManager.sharedInstance.deleteAccessToken(UserDataManager.sharedInstance.qiitaAccessToken, completion: { (isError) -> Void in
-                if isError {
+            self.account.signout({ (anonymous) -> Void in
+                if anonymous == nil {
                     Toast.show("サインアウトに失敗しました…", style: JFMinimalNotificationStytle.StyleError)
                     return
                 }
-                
-                QiitaApiManager.sharedInstance.clearHeader()
-                UserDataManager.sharedInstance.clearQiitaAccessToken()
-                
+                self.account = anonymous!
                 self.menu = self.makeMenu()
                 self.setupViewControllers()
                 self.reloadData()
-                
             })
             
         }
@@ -373,18 +374,14 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
             (vc as EntryCollectionViewController).query = current.query
         } else if vc is SimpleListViewController {
             let simpleVC: SimpleListViewController = vc as SimpleListViewController
-            var items: [String] = [String]()
-            for entryFile in UserDataManager.sharedInstance.entryFiles {
-                items.append(entryFile["title"]!)
-            }
+            
             simpleVC.removeNavigationBar = true
-            simpleVC.items = items
+            simpleVC.items = self.account.downloadEntryTitles()
             simpleVC.swipableCell = false
             simpleVC.tapCallback = {(vc:SimpleListViewController, index:Int) -> Void in
                 
-                let item: [String: String] = UserDataManager.sharedInstance.entryFiles[index]
                 let entryDetail: EntryDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryDetailVC") as EntryDetailViewController
-                entryDetail.displayEntryId = item["id"]
+                entryDetail.displayEntryId = self.account.downloadEntryId(index)
                 entryDetail.useLocalFile = true
                 NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: entryDetail)
                 

@@ -64,12 +64,21 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
         self.load()
     }
     func load() {
-        self.qiitaManager.getEntriesSearch(self.query, page: self.collectionView.page, completion: { (total, items, isError) -> Void in
-            self.collectionView.loadedItems(total, items: items, isError: isError, isAppendable: { (item: EntryEntity) -> Bool in
-                return !contains(UserDataManager.sharedInstance.muteUsers, item.postUser.id)
+        
+        let fin = { (total:Int, items:[EntryEntity]) -> Void in
+            self.collectionView.loadedItems(total, items: items, isError: false, isAppendable: { (item: EntryEntity) -> Bool in
+                return !self.account.existsMuteUser(item.postUser.id)
             })
             NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoading.rawValue, object: nil)
-        })
+        }
+        if self.query.isEmpty {
+            // 新着
+            self.account.newEntries(self.collectionView.page, completion: fin)
+        } else {
+            // 検索
+            self.account.searchEntries(self.collectionView.page, query: self.query, completion: fin)
+        }
+        
     }
     
     func longPress(gesture: UILongPressGestureRecognizer) {
@@ -145,7 +154,7 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
     func confirmSaveSearchCondition() {
 
         let doAciton: AlertViewSender.AlertActionWithText = {(sender: UITextField) -> Void in
-            UserDataManager.sharedInstance.appendQuery(self.query, label: sender.text)
+            self.account.saveQuery(self.query, title: sender.text)
             Toast.show("検索条件を保存しました", style: JFMinimalNotificationStytle.StyleSuccess)
             NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ReloadViewPager.rawValue, object: nil)
         }

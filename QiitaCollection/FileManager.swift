@@ -10,18 +10,19 @@ import UIKit
 
 class FileManager {
     
-    func save(fileName: String, dataString:String) -> Bool {
+    func save(fileName: String, dataString:String, completion: (isError: Bool) -> Void) {
         
         let fullPath: String = self.fileFullPath(fileName)
         
-        var error: NSError? = nil
-        let result = dataString.writeToFile(fullPath, atomically: false, encoding:NSUTF8StringEncoding, error: &error)
-        
-        if !result || error != nil {
-            return false
-        }
-        
-        return true
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+            var error: NSError? = nil
+            let result = dataString.writeToFile(fullPath, atomically: false, encoding:NSUTF8StringEncoding, error: &error)
+            
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                completion(isError: (!result || error != nil))
+            })
+            
+        })
     }
     
     func read(fileName: String) -> String {

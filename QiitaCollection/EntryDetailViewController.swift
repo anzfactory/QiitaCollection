@@ -445,7 +445,7 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
         }
         
         let action: AlertViewSender = AlertViewSender(action: { () -> Void in
-            UserDataManager.sharedInstance.appendPinEntry(self.displayEntryId!, entryTitle: self.title!)
+            self.account.pin(self.displayEntry!)
             Toast.show("この投稿をpinしました", style: JFMinimalNotificationStytle.StyleSuccess)
             return
         }, title: "OK")
@@ -466,15 +466,15 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
         
         let action: AlertViewSender = AlertViewSender(action: { () -> Void in
             
-            let manager: FileManager = FileManager()
-            if manager.save(self.displayEntry!.id, dataString: self.displayEntry!.htmlBody) {
-                // 続けてタイトルとidをUDへ
-                UserDataManager.sharedInstance.appendSavedEntry(self.displayEntry!.id, title: self.displayEntry!.title)
-                Toast.show("この投稿を保存しました", style: JFMinimalNotificationStytle.StyleSuccess)
-                NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ReloadViewPager.rawValue, object: nil)
-            } else {
-                Toast.show("この投稿の保存に失敗しました", style: JFMinimalNotificationStytle.StyleError)
-            }
+            self.account.download(self.displayEntry!, completion: { (isError) -> Void in
+                if isError {
+                    Toast.show("この投稿の保存に失敗しました", style: JFMinimalNotificationStytle.StyleError)
+                } else {
+                    // ViewPager再構成指示
+                    NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ReloadViewPager.rawValue, object: nil)
+                    Toast.show("この投稿を保存しました", style: JFMinimalNotificationStytle.StyleSuccess)
+                }
+            })
             return
         }, title: "Save")
         

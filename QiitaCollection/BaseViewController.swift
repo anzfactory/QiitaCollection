@@ -11,6 +11,7 @@ import UIKit
 class BaseViewController: UIViewController {
     
     private(set) var afterDidLoad: Bool = false
+    lazy var account: AnonymousAccount = self.setupAccount();
     
     override var title: String? {
         didSet {
@@ -56,6 +57,11 @@ class BaseViewController: UIViewController {
         navigationbar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.textNavigationBar()]
         navigationbar.barTintColor = UIColor.backgroundNavigationBar()
         navigationbar.tintColor = UIColor.textNavigationBar()
+    }
+    
+    
+    func setupAccount() -> AnonymousAccount {
+        return AccountManager.account()
     }
 
 }

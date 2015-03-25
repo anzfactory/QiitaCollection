@@ -41,12 +41,11 @@ class SigninViewController: BaseViewController, UIWebViewDelegate {
         })
     }
     
-    func getAccessToken(code: String) {
+    func authorize(code: String) {
         
-        let qiitaManager: QiitaApiManager = QiitaApiManager.sharedInstance
-        qiitaManager.postAuthorize(ThirdParty.Qiita.ClientID.rawValue, clientSecret: ThirdParty.Qiita.ClientSecret.rawValue, code: code) { (token, isError) -> Void in
+       self.account.signin(code, completion: { (qiitaAccount) -> Void in
             
-            if isError {
+            if qiitaAccount == nil {
                 Toast.show("認証処理に失敗しました....", style: JFMinimalNotificationStytle.StyleError, title: "", targetView: self.view)
                 if self.webView.loading {
                     self.webView.stopLoading()
@@ -54,15 +53,14 @@ class SigninViewController: BaseViewController, UIWebViewDelegate {
                 self.webView.loadRequest(NSURLRequest(URL: NSURL.qiitaAuthorizeURL()))
                 return
             }
-            
-            // 保存
-            UserDataManager.sharedInstance.setQiitaAccessToken(token)
+        
+            self.account = qiitaAccount!
             if let action = self.authorizationAction {
                 action(self)
             }
             
-            return
-        }
+        })
+        
     }
 
     // MARK: UIWebViewDelegate
@@ -73,8 +71,8 @@ class SigninViewController: BaseViewController, UIWebViewDelegate {
         if url.isQittaAfterSignIn() {
             if let code = url.getAccessCode() {
                 
-                // 取得したcodeを利用して
-                self.getAccessToken(code)
+                // 取得したcodeを利用して認証
+                self.authorize(code)
                 
             }
         }

@@ -72,6 +72,9 @@
 		A1BA38211AB0B32400595568 /* String+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BA38201AB0B32400595568 /* String+App.swift */; };
 		A1C0B5B81A96C4FE0086F92E /* BaseCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C0B5B71A96C4FE0086F92E /* BaseCollectionView.swift */; };
 		A1C0B5BB1A96C8000086F92E /* EntityProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C0B5BA1A96C8000086F92E /* EntityProtocol.swift */; };
+		A1C321AB1ABF24180087CF85 /* AnonymousAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C321AA1ABF24180087CF85 /* AnonymousAccount.swift */; };
+		A1C321AD1ABF24610087CF85 /* QiitaAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C321AC1ABF24610087CF85 /* QiitaAccount.swift */; };
+		A1C321AF1ABF2F910087CF85 /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C321AE1ABF2F910087CF85 /* AccountManager.swift */; };
 		A1CF433D1A8B06190016209C /* QCKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CF433C1A8B06190016209C /* QCKeys.swift */; };
 		A1CF433F1A8B1E350016209C /* EntryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CF433E1A8B1E350016209C /* EntryDetailViewController.swift */; };
 		A1CF43421A8B54620016209C /* entry.html in Resources */ = {isa = PBXBuildFile; fileRef = A1CF43411A8B54620016209C /* entry.html */; };
@@ -196,6 +199,9 @@
 		A1BA38201AB0B32400595568 /* String+App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+App.swift"; sourceTree = "<group>"; };
 		A1C0B5B71A96C4FE0086F92E /* BaseCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCollectionView.swift; sourceTree = "<group>"; };
 		A1C0B5BA1A96C8000086F92E /* EntityProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntityProtocol.swift; sourceTree = "<group>"; };
+		A1C321AA1ABF24180087CF85 /* AnonymousAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnonymousAccount.swift; sourceTree = "<group>"; };
+		A1C321AC1ABF24610087CF85 /* QiitaAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QiitaAccount.swift; sourceTree = "<group>"; };
+		A1C321AE1ABF2F910087CF85 /* AccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 		A1CF433C1A8B06190016209C /* QCKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QCKeys.swift; sourceTree = "<group>"; };
 		A1CF433E1A8B1E350016209C /* EntryDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryDetailViewController.swift; sourceTree = "<group>"; };
 		A1CF43411A8B54620016209C /* entry.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = entry.html; sourceTree = "<group>"; };
@@ -366,6 +372,7 @@
 		A1824FC41A987FA2009604B2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A1C321A71ABF23B40087CF85 /* Account */,
 				A18A85D11A85D4C50078436D /* Entities */,
 				A18A85D21A85D4D90078436D /* Managers */,
 				A1824FC51A987FEE009604B2 /* Toast.swift */,
@@ -518,6 +525,16 @@
 				A16BA04B1A96EA4800FF7ACA /* BaseTableView.swift */,
 			);
 			name = Base;
+			sourceTree = "<group>";
+		};
+		A1C321A71ABF23B40087CF85 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				A1C321AE1ABF2F910087CF85 /* AccountManager.swift */,
+				A1C321AA1ABF24180087CF85 /* AnonymousAccount.swift */,
+				A1C321AC1ABF24610087CF85 /* QiitaAccount.swift */,
+			);
+			name = Account;
 			sourceTree = "<group>";
 		};
 		A1CF43391A8B04200016209C /* Const */ = {
@@ -809,6 +826,7 @@
 				A1824FD81A98AD03009604B2 /* SWUtilityButtonTapGestureRecognizer.m in Sources */,
 				A1824FD71A98AD03009604B2 /* SWTableViewCell.m in Sources */,
 				A1824FC61A987FEE009604B2 /* Toast.swift in Sources */,
+				A1C321AD1ABF24610087CF85 /* QiitaAccount.swift in Sources */,
 				A1F157F11A8FB1490064EA47 /* UIView+Round.m in Sources */,
 				A1F8D5091A88FC3C00660741 /* UIView+App.swift in Sources */,
 				A1C0B5BB1A96C8000086F92E /* EntityProtocol.swift in Sources */,
@@ -864,6 +882,7 @@
 				A1DD40071AA375E2006E4F7B /* CMPopTipView.m in Sources */,
 				A17D0C561A963A510020229B /* SCLAlertViewResponder.m in Sources */,
 				A121AE1C1AA0D5E7007E006E /* CommentListViewController.swift in Sources */,
+				A1C321AB1ABF24180087CF85 /* AnonymousAccount.swift in Sources */,
 				A141493B1A9C2985003B7898 /* QCPathMenuItem.swift in Sources */,
 				A1DD3FFD1AA2C396006E4F7B /* UserListViewController.swift in Sources */,
 				A1824FDB1A98D0B3009604B2 /* SlideTableViewCell.swift in Sources */,
@@ -875,6 +894,7 @@
 				A14149391A9C1557003B7898 /* PathMenuItem.swift in Sources */,
 				A1D8DB281AA89D3700988656 /* NSURL+App.swift in Sources */,
 				A1824FD91A98AD03009604B2 /* SWUtilityButtonView.m in Sources */,
+				A1C321AF1ABF2F910087CF85 /* AccountManager.swift in Sources */,
 				A118A61E1A8F4AA600350841 /* EntryDetailView.swift in Sources */,
 				A1824FD51A98AD03009604B2 /* SWCellScrollView.m in Sources */,
 				A103AF401A86553000FF0B24 /* UserEntity.swift in Sources */,

@@ -49,7 +49,7 @@ class BaseTableView: UITableView {
             Toast.show("取得に失敗しました...時間をあけて試してみてください", style: JFMinimalNotificationStytle.StyleWarning)
             return
         }
-        if total == 0 {
+        if total == 0 && self.page == 1 {
             Toast.show("結果0件でした...", style: JFMinimalNotificationStytle.StyleWarning)
             return
         }
