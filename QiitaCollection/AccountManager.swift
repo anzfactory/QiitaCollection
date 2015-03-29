@@ -15,7 +15,7 @@ class AccountManager {
         if ( UserDataManager.sharedInstance.qiitaAuthenticatedUserID.isEmpty) {
             return AnonymousAccount()
         } else {
-            return QiitaAccount(qiitaId: UserDataManager.sharedInstance.qiitaAuthenticatedUserID)
+            return QiitaAccount()
         }
         
     }

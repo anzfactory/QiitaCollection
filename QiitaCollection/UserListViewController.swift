@@ -30,8 +30,14 @@ class UserListViewController: BaseViewController, UITableViewDataSource, UITable
             }
         }
     }
-    let qiitaManager: QiitaApiManager = QiitaApiManager.sharedInstance
-    var targetEntryId: String? = nil
+    var entry: Entry? = nil
+    var targetEntryId: String? = nil {
+        didSet {
+            if let entryId = self.targetEntryId {
+                entry = Entry(entryId: entryId)
+            }
+        }
+    }
     
     // MARK: ライフサイクル
     override func viewDidLoad() {
@@ -66,13 +72,13 @@ class UserListViewController: BaseViewController, UITableViewDataSource, UITable
     }
     
     func loadUseList() {
-        let completion = {(total: Int, items: [UserEntity], isError: Bool) -> Void in
-            self.tableView.loadedItems(total, items: items, isError: isError, isAppendable: nil)
+        let completion = {(total: Int, items: [UserEntity]) -> Void in
+            self.tableView.loadedItems(total, items: items, isAppendable: nil)
         }
         
         switch self.listType {
         case .Stockers:
-            self.qiitaManager.getStockers(self.targetEntryId!, page: self.tableView.page, completion: completion)
+            self.entry?.stockers(self.tableView.page, completion: completion)
         case .Unknown:
             fatalError("unknown list type....")
         }

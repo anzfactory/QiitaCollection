@@ -30,7 +30,8 @@ class AnonymousAccount: NSObject {
                     completion(qiitaAccount:nil)
                     return
                 }
-                let account = QiitaAccount(qiitaId: item!.id)
+                self.userDataManager.qiitaAuthenticatedUserID = item!.id
+                let account = QiitaAccount()
                 completion(qiitaAccount:account)
             })
             
@@ -64,6 +65,20 @@ class AnonymousAccount: NSObject {
         }
     }
     
+    func read(entryId: String, completion: (entry: EntryEntity?) -> Void) {
+        self.qiitaApiManager.getEntry(entryId, completion: { (item, isError) -> Void in
+            if isError {
+                completion(entry: nil)
+                return
+            }
+            completion(entry: item!)
+        })
+    }
+    
+    func hasDownloadFiles() -> Bool {
+        return UserDataManager.sharedInstance.entryFiles.count > 0
+    }
+    
     func downloadEntryTitles() -> [String] {
         return [String].convert(UserDataManager.sharedInstance.entryFiles, key: "title")
     }
@@ -94,6 +109,19 @@ class AnonymousAccount: NSObject {
         })
     }
     
+    func loadLocalEntry(entryId: String, completion: (isError: Bool, title: String, body: String) -> Void) {
+        
+        // ローカルファイルから読み出す
+        FileManager().read(entryId, completion: { (text) -> Void in
+            if text.isEmpty {
+                completion(isError:true, title: "", body: "")
+                return
+            }
+            let title = UserDataManager.sharedInstance.titleSavedEntry(entryId)
+            completion(isError: false, title: title, body: text)
+        })
+    }
+    
     func pinEntryTitles() -> [String] {
         return [String].convert(self.userDataManager.pins, key: "title")
     }
@@ -112,6 +140,10 @@ class AnonymousAccount: NSObject {
     
     func removePin(atIndex: Int) {
         self.userDataManager.clearPinEntry(atIndex)
+    }
+    
+    func saveQueries() -> [[String: String]] {
+        return self.userDataManager.queries
     }
     
     func saveQueryTitles() -> [String] {
@@ -147,6 +179,29 @@ class AnonymousAccount: NSObject {
     
     func mute(userId: String) {
         self.userDataManager.appendMuteUserId(userId)
+    }
+    
+    func comments(page: Int, entryId: String, completion: (total: Int, items:[CommentEntity]) -> Void) {
+        self.qiitaApiManager.getEntriesComments(entryId, page: page) { (total, items, isError) -> Void in
+            
+            if isError {
+                completion(total: 0, items: [CommentEntity]())
+                return
+            }
+            
+            completion(total: total, items: items)
+            
+        }
+    }
+    
+    func other(userId: String, completion: (user: OtherAccount?) -> Void) {
+        self.qiitaApiManager.getUser(userId, completion: { (item, isError) -> Void in
+            if item == nil {
+                completion(user: nil)
+            } else {
+                completion(user: OtherAccount(qiitaId: item!.id))
+            }
+        })
     }
     
 }

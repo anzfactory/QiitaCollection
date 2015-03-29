@@ -15,7 +15,7 @@ class SigninViewController: BaseViewController, UIWebViewDelegate {
     @IBOutlet weak var webView: UIWebView!
     
     // MARK: プロパティ
-    var authorizationAction: ((SigninViewController) -> Void)? = nil
+    var authorizationAction: ((SigninViewController, QiitaAccount) -> Void)? = nil
     
     // MARK: ライフサイクル
     override func viewDidLoad() {
@@ -56,7 +56,7 @@ class SigninViewController: BaseViewController, UIWebViewDelegate {
         
             self.account = qiitaAccount!
             if let action = self.authorizationAction {
-                action(self)
+                action(self, qiitaAccount!)
             }
             
         })

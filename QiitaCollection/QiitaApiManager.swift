@@ -26,6 +26,7 @@ class QiitaApiManager {
     let PathItemsStockers: String = "/items/%@/stockers"
     let PathAcessToken: String = "/access_tokens"
     let PathAuthenticatedUser: String = "/authenticated_user"
+    let PathAuthenticatedUserItems: String = "/authenticated_user/items"
     let PathItemsStock: String = "/items/%@/stock"
     let PathUsersFollowing: String = "/users/%@/following"
     
@@ -124,6 +125,15 @@ class QiitaApiManager {
     
     func getAuthenticatedUser(completion:(item: UserEntity?, isError: Bool) -> Void) {
         self.getItem(self.apiUrl(PathAuthenticatedUser, arg:nil), parameters: nil, completion: completion)
+    }
+    
+    func getAuthenticatedUserItems(page: Int, completion:(total: Int, items:[EntryEntity], isError: Bool) -> Void) {
+        var params: [String: String] = [
+            "page"     : String(page),
+            "per_page" : "20"
+        ]
+        
+        self.getItems(self.apiUrl(PathAuthenticatedUserItems), parameters: params, completion: completion)
     }
     
     func getUserFollowing(userId: String, completion:(isFollowing: Bool) -> Void) {

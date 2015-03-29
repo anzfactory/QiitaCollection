@@ -23,7 +23,6 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
     }
     var displayEntryId: String? = nil
     var useLocalFile: Bool = false
-    var qiitaManager: QiitaApiManager = QiitaApiManager.sharedInstance
     var navButtonHandOff: SelectedBarButton? = nil
     var navButtonStock: SelectedBarButton? = nil
     
@@ -136,7 +135,7 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
         
         var buttons: [SelectedBarButton] = [SelectedBarButton]()
         
-        if UserDataManager.sharedInstance.isAuthorizedQiita() {
+        if self.account is QiitaAccount {
             // ストック
             self.navButtonStock = SelectedBarButton(image: UIImage(named: "bar_item_bookmark"), style: UIBarButtonItemStyle.Bordered, target: self, action: "confirmAddStock")
             self.navButtonStock!.selectedColor = UIColor.tintSelectedBarButton()
@@ -155,30 +154,32 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
         if let entry = self.displayEntry {
             self.displayEntryId = entry.id
             self.loadLocalHtml()
-            self.getStockState()
+            self.getStockState(entry.id)
         } else if let entryId = self.displayEntryId {
             
             if self.useLocalFile {
                 // ローカルファイルから読み出す
-                let htmlBody: String = FileManager().read(entryId)
-                if htmlBody.isEmpty {
-                    Toast.show("投稿を取得できませんでした...", style: JFMinimalNotificationStytle.StyleWarning)
-                    return
-                }
-                self.title = UserDataManager.sharedInstance.titleSavedEntry(entryId)
-                self.loadLocalHtml(self.title!, body: htmlBody)
-                
-            } else {
-                // 投稿IDだけ渡されてる状況なので、とってくる
-                self.qiitaManager.getEntry(entryId, completion: { (item, isError) -> Void in
+                self.account.loadLocalEntry(entryId, completion: { (isError, title, body) -> Void in
                     if isError {
                         Toast.show("投稿を取得できませんでした...", style: JFMinimalNotificationStytle.StyleWarning)
                         return
                     }
-                    self.displayEntry = item
-                    self.loadLocalHtml()
+                    self.title = title
+                    self.loadLocalHtml(self.title!, body: body)
                 })
-                self.getStockState()
+                
+            } else {
+                // 投稿IDだけ渡されてる状況なので、とってくる
+                self.account.read(entryId, completion: { (entry) -> Void in
+                    if entry == nil {
+                        Toast.show("投稿を取得できませんでした...", style: JFMinimalNotificationStytle.StyleWarning)
+                        return
+                    }
+                    self.displayEntry = entry
+                    self.loadLocalHtml()
+                    // 記事のストック状況を取得
+                    self.getStockState(entryId)
+                })
             }
         } else {
             fatalError("unknown entry....")
@@ -191,18 +192,30 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
     }
     
     func loadLocalHtml(title: String, body:String) {
-        // テンプレート読み込み
-        let path: NSString = NSBundle.mainBundle().pathForResource("entry", ofType: "html")!
-        let template: NSString = NSString(contentsOfFile: path, encoding: NSUTF8StringEncoding, error: nil)!
-        // テンプレートに組み込んで表示
-        self.webView.loadHTMLString(NSString(format: template, title, body), baseURL: nil)
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+
+            // テンプレート読み込み
+            let path: NSString = NSBundle.mainBundle().pathForResource("entry", ofType: "html")!
+            let template: NSString = NSString(contentsOfFile: path, encoding: NSUTF8StringEncoding, error: nil)!
+            
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                // テンプレートに組み込んで表示
+                self.webView.loadHTMLString(NSString(format: template, title, body), baseURL: nil)
+            })
+            
+        })
+        
     }
     
-    func getStockState() {
-        self.displayEntry?.isStock({ (isStocked) -> Void in
-            self.navButtonStock?.selected = isStocked
-            return
-        })
+    func getStockState(entryId: String) {
+        
+        if let qiitaAccount = self.account as? QiitaAccount {
+            qiitaAccount.isStocked(entryId, completion: { (stocked) -> Void in
+                self.navButtonStock?.selected = stocked
+                return
+            })
+        }
     }
     
     func syncBrowsing() {
@@ -247,28 +260,31 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
     
     func toggleStock() {
         
-        var message: String = ""
-        let completion = {(isError: Bool) -> Void in
-            
-            if isError {
-                Toast.show("失敗しました…", style: JFMinimalNotificationStytle.StyleError)
+        if let qiitaAccount = self.account as? QiitaAccount {
+            var message: String = ""
+            let completion = {(isError: Bool) -> Void in
+                
+                if isError {
+                    Toast.show("失敗しました…", style: JFMinimalNotificationStytle.StyleError)
+                    return
+                }
+                
+                // 処理後なんできめうちでもいいけど・・・ストック状態をとりなおしてみる
+                self.getStockState(self.displayEntryId!)
+                Toast.show(message, style: JFMinimalNotificationStytle.StyleSuccess)
                 return
             }
             
-            // 処理後なんできめうちでもいいけど・・・ストック状態をとりなおしてみる
-            self.getStockState()
-            Toast.show(message, style: JFMinimalNotificationStytle.StyleSuccess)
-            return
-        }
-        
-        if self.navButtonStock!.selected {
-            // 解除処理
-            message = "ストックを解除しました"
-            self.displayEntry?.cancelStock(completion)
-        } else {
-            // ストック処理
-            message = "ストックしました"
-            self.displayEntry?.stock(completion)
+            if self.navButtonStock!.selected {
+                // 解除処理
+                message = "ストックを解除しました"
+                qiitaAccount.cancelStock(self.displayEntryId!, completion: completion)
+            } else {
+                // ストック処理
+                message = "ストックしました"
+                qiitaAccount.stock(self.displayEntryId!, completion: completion)
+            }
+            
         }
         
     }

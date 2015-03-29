@@ -25,11 +25,19 @@ class FileManager {
         })
     }
     
-    func read(fileName: String) -> String {
+    func read(fileName: String, completion: (text: String) -> Void) {
         let fullPath: String = self.fileFullPath(fileName)
-        var error: NSError? = nil
-        let result = String(contentsOfFile: fullPath, encoding: NSUTF8StringEncoding, error: &error)
-        return result ?? ""
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+            var error: NSError? = nil
+            let result = String(contentsOfFile: fullPath, encoding: NSUTF8StringEncoding, error: &error) ?? ""
+            
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+               completion(text: result)
+            })
+            
+        })
+        
     }
     
     

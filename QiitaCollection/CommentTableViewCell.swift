@@ -23,6 +23,7 @@ class CommentTableViewCell: UITableViewCell {
     // MARK: プロパティ
     var action: TapAction?
     var editCommentAction: TapAction?
+    var account: AnonymousAccount? = nil
 
     // MARK: ライフサイクル
     override func awakeFromNib() {
@@ -51,7 +52,11 @@ class CommentTableViewCell: UITableViewCell {
         var error: NSError? = nil
         self.body.attributedText = NSAttributedString(data: comment.htmlBody.dataUsingEncoding(NSUnicodeStringEncoding, allowLossyConversion: true)!, options: [NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType], documentAttributes: nil, error: &error)
         
-        self.edit.hidden = !comment.canEdit()
+        if let qiitaAccount = self.account as? QiitaAccount {
+            self.edit.hidden = !qiitaAccount.canCommentEdit(comment.postUser.id)
+        } else {
+            self.edit.hidden = true
+        }
         
     }
 

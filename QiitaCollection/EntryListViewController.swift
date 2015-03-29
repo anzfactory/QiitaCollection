@@ -13,20 +13,26 @@ class EntryListViewController: BaseViewController, UITableViewDataSource, UITabl
     enum ListType : String {
         case
         UserEntries = "投稿したもの",
+        AuthedEntries = "フィード",
         UserStocks = "ストックしたもの"
     }
-    typealias DisplayItem = (type: ListType, query: String)
+    typealias DisplayItem = (type: ListType, userId:String?)
 
     // MARK: UI
     @IBOutlet weak var tableView: BaseTableView!
     
     // MARK: プロパティ
+    var otherAccount: OtherAccount? = nil
     var displayItem: DisplayItem? = nil {
         didSet {
-            self.title = self.displayItem!.type.rawValue
+            self.title = self.displayItem?.type.rawValue
+            if let qiitaId = self.displayItem?.userId {
+                self.otherAccount = OtherAccount(qiitaId: qiitaId)
+            } else {
+                self.otherAccount = nil
+            }
         }
     }
-    let qiitaManager: QiitaApiManager = QiitaApiManager.sharedInstance
     
     // MARK: ライフサイクル
     override func viewDidLoad() {
@@ -58,9 +64,9 @@ class EntryListViewController: BaseViewController, UITableViewDataSource, UITabl
     }
     func loadData() {
         
-        let callback = {(total: Int, items: [EntryEntity], isError: Bool) -> Void in
-            self.tableView.loadedItems(total, items: items, isError: isError, isAppendable: { (item: EntryEntity) -> Bool in
-                return !contains(UserDataManager.sharedInstance.muteUsers, item.postUser.id)
+        let callback = {(total: Int, items: [EntryEntity]) -> Void in
+            self.tableView.loadedItems(total, items: items, isAppendable: { (item: EntryEntity) -> Bool in
+                return !self.account.existsMuteUser(item.postUser.id)
             })
             NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoading.rawValue, object: nil)
         }
@@ -69,10 +75,18 @@ class EntryListViewController: BaseViewController, UITableViewDataSource, UITabl
         var query: String = ""
         switch self.displayItem!.type {
         case .UserEntries:
-            query = "user:" + self.displayItem!.query
-            self.qiitaManager.getEntriesSearch(query, page: self.tableView.page, completion: callback)
+            if let other = self.otherAccount {
+                query = "user:" + self.displayItem!.userId!
+                other.searchEntries(self.tableView.page, query: query, completion: callback)
+            }
+        case .AuthedEntries:
+            if let qiitaAccount = self.account as? QiitaAccount {
+                qiitaAccount.entries(self.tableView.page, completion: callback)
+            }
         case .UserStocks:
-            self.qiitaManager.getEntriesUserStocks(self.displayItem!.query, page: self.tableView.page, completion: callback)
+            if let other = self.otherAccount {
+                other.stockEntries(self.tableView.page, entryId: self.displayItem!.userId!, completion: callback)
+            }
         }
         
     }

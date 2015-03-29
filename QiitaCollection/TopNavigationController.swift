@@ -237,7 +237,6 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         
         // 表示対象viewガ設定されていたらそっちにうつす
         if let targetView: UIView = notification.object as? UIView {
-            println("changed target view....")
             self.notice.removeFromSuperview()
             targetView.addSubview(self.notice)
         } else if self.notice.superview == nil || self.notice.superview! != self.view {

@@ -25,6 +25,7 @@ class BaseTableView: UITableView {
         self.tableFooterView = dummy
         
     }
+    
     func setupRefreshControl(action: RefreshAction) {
         self.refreshControl = UIRefreshControl()
         self.refreshControl!.attributedTitle = NSAttributedString(string: "引っ張って更新")
@@ -43,12 +44,8 @@ class BaseTableView: UITableView {
         }
     }
     
-    func loadedItems<T:EntityProtocol>(total: Int, items: [T], isError: Bool, isAppendable: ((T) -> Bool)?) {
+    func loadedItems<T:EntityProtocol>(total: Int, items: [T], isAppendable: ((T) -> Bool)?) {
         
-        if isError {
-            Toast.show("取得に失敗しました...時間をあけて試してみてください", style: JFMinimalNotificationStytle.StyleWarning)
-            return
-        }
         if total == 0 && self.page == 1 {
             Toast.show("結果0件でした...", style: JFMinimalNotificationStytle.StyleWarning)
             return

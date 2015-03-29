@@ -61,6 +61,8 @@
 		A191F1C71A85A3A20076C8C5 /* TopNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A191F1C61A85A3A20076C8C5 /* TopNavigationController.swift */; };
 		A1A16E321A90757C0052A7C6 /* UserDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A16E311A90757C0052A7C6 /* UserDetailViewController.swift */; };
 		A1A16E341A90842C0052A7C6 /* UserDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A16E331A90842C0052A7C6 /* UserDetailView.swift */; };
+		A1A2DC3B1AC7EFCC0030EA03 /* OtherAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A2DC3A1AC7EFCC0030EA03 /* OtherAccount.swift */; };
+		A1A2DC3D1AC825490030EA03 /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A2DC3C1AC825490030EA03 /* Entry.swift */; };
 		A1A8D9E01A82F92C00231D84 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A8D9DF1A82F92C00231D84 /* AppDelegate.swift */; };
 		A1A8D9E51A82F92C00231D84 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1A8D9E31A82F92C00231D84 /* Main.storyboard */; };
 		A1A8D9E71A82F92C00231D84 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1A8D9E61A82F92C00231D84 /* Images.xcassets */; };
@@ -184,6 +186,8 @@
 		A191F1C61A85A3A20076C8C5 /* TopNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopNavigationController.swift; sourceTree = "<group>"; };
 		A1A16E311A90757C0052A7C6 /* UserDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetailViewController.swift; sourceTree = "<group>"; };
 		A1A16E331A90842C0052A7C6 /* UserDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetailView.swift; sourceTree = "<group>"; };
+		A1A2DC3A1AC7EFCC0030EA03 /* OtherAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherAccount.swift; sourceTree = "<group>"; };
+		A1A2DC3C1AC825490030EA03 /* Entry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
 		A1A8D9DA1A82F92C00231D84 /* QiitaCollection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QiitaCollection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1A8D9DE1A82F92C00231D84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1A8D9DF1A82F92C00231D84 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -376,6 +380,7 @@
 				A18A85D11A85D4C50078436D /* Entities */,
 				A18A85D21A85D4D90078436D /* Managers */,
 				A1824FC51A987FEE009604B2 /* Toast.swift */,
+				A1A2DC3C1AC825490030EA03 /* Entry.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -533,6 +538,7 @@
 				A1C321AE1ABF2F910087CF85 /* AccountManager.swift */,
 				A1C321AA1ABF24180087CF85 /* AnonymousAccount.swift */,
 				A1C321AC1ABF24610087CF85 /* QiitaAccount.swift */,
+				A1A2DC3A1AC7EFCC0030EA03 /* OtherAccount.swift */,
 			);
 			name = Account;
 			sourceTree = "<group>";
@@ -852,6 +858,7 @@
 				A1824FD41A98AD03009604B2 /* NSMutableArray+SWUtilityButtons.m in Sources */,
 				A1824FDD1A98D816009604B2 /* Array+App.swift in Sources */,
 				A1DD40031AA314B1006E4F7B /* GuideManager.swift in Sources */,
+				A1A2DC3B1AC7EFCC0030EA03 /* OtherAccount.swift in Sources */,
 				A1D8A83A1A87917F0040C195 /* UIView+Constraint.m in Sources */,
 				A1D8A8351A8750240040C195 /* UIImageView+App.swift in Sources */,
 				A1A16E321A90757C0052A7C6 /* UserDetailViewController.swift in Sources */,
@@ -876,6 +883,7 @@
 				A1EC9BE21AA699B70098AC2F /* AboutAppViewController.swift in Sources */,
 				A1DD3FFB1AA2ACD2006E4F7B /* Dictionary+App.swift in Sources */,
 				A18030661A9A21CA00EA8D4A /* SearchTableViewCell.swift in Sources */,
+				A1A2DC3D1AC825490030EA03 /* Entry.swift in Sources */,
 				A17D0C581A963A510020229B /* SCLButton.m in Sources */,
 				A103AF3A1A86141200FF0B24 /* EntryCollectionViewCell.swift in Sources */,
 				A1EB79171A9E1F32007E931E /* ViewPagerController.m in Sources */,

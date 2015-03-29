@@ -23,7 +23,6 @@ class CommentListViewController: BaseViewController, UITableViewDataSource, UITa
     @IBOutlet weak var constraintCommentHeight: NSLayoutConstraint!
     
     // MARK: プロパティ
-    let qiitaManager: QiitaApiManager = QiitaApiManager.sharedInstance
     var displayEntryId: String = ""
     var displayEntryTitle: String = ""
     var openTextView: Bool = false
@@ -97,20 +96,20 @@ class CommentListViewController: BaseViewController, UITableViewDataSource, UITa
     }
     
     func load() {
-        self.qiitaManager.getEntriesComments(self.displayEntryId, page: self.tableView.page) { (total, items, isError) -> Void in
-            
+        
+        self.account.comments(self.tableView.page, entryId: self.displayEntryId) { (total, items) -> Void in
             if total == 0 {
                 Toast.show("コメントが投稿されていません…", style: JFMinimalNotificationStytle.StyleInfo)
                 // 1件しかなかったコメントを削除した場合はこっちにくるから、
                 // クリアしょりをいれとく
                 self.tableView.clearItems()
             } else {
-                self.tableView.loadedItems(total, items: items, isError: isError, isAppendable: nil)
+                self.tableView.loadedItems(total, items: items, isAppendable: nil)
             }
             
             NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoading.rawValue, object: nil)
-            return
         }
+        
     }
     
     func tapThumb(cell: CommentTableViewCell) {
@@ -134,8 +133,13 @@ class CommentListViewController: BaseViewController, UITableViewDataSource, UITa
     
     func tapCommentEdit(cell: CommentTableViewCell) {
         
+        if self.account is QiitaAccount == false {
+            return
+        }
+        
         let entity: CommentEntity = self.tableView.items[cell.tag] as CommentEntity
-        if !entity.canEdit() {
+        
+        if (self.account as QiitaAccount).canCommentEdit(entity.postUser.id) == false {
             println("can not edit")
             return
         }
@@ -206,25 +210,29 @@ class CommentListViewController: BaseViewController, UITableViewDataSource, UITa
     }
     
     func postComment() {
-        if self.comment.text.isEmpty {
-            Toast.show("コメントを入力してください...", style: JFMinimalNotificationStytle.StyleWarning)
-            return
-        }
         
-        let completion = {(isError: Bool) -> Void in
-            if isError {
-                Toast.show("コメントできませんでした...", style: JFMinimalNotificationStytle.StyleError)
+        if let qiitaAccount = self.account as? QiitaAccount {
+            if self.comment.text.isEmpty {
+                Toast.show("コメントを入力してください...", style: JFMinimalNotificationStytle.StyleWarning)
                 return
             }
             
-            self.fin()
+            let completion = {(isError: Bool) -> Void in
+                if isError {
+                    Toast.show("コメントできませんでした...", style: JFMinimalNotificationStytle.StyleError)
+                    return
+                }
+                
+                self.fin()
+            }
+            
+            if let comm = self.targetComment {
+                qiitaAccount.commentEdit(comm.id, text: self.comment.text, completion: completion)
+            } else {
+                qiitaAccount.comment(self.displayEntryId, text: self.comment.text, completion: completion)
+            }
         }
-    
-        if let comm = self.targetComment {
-            self.qiitaManager.patchComment(comm.id, body: self.comment.text, completion: completion)
-        } else {
-            self.qiitaManager.postComment(self.displayEntryId, body: self.comment.text, completion: completion)
-        }
+        
     }
     
     func confirmDeleteComment() {
@@ -247,17 +255,21 @@ class CommentListViewController: BaseViewController, UITableViewDataSource, UITa
     
     func deleteComent() {
         
-        if let comm = self.targetComment {
-            self.qiitaManager.deleteComment(comm.id, completion: { (isError) -> Void in
-                if isError {
-                    Toast.show("削除できませんでした...", style: JFMinimalNotificationStytle.StyleError)
-                    return
-                }
+        if let qiitaAccount = self.account as? QiitaAccount {
+            if let comm = self.targetComment {
                 
-                self.fin()
+                qiitaAccount.deleteComment(comm.id, completion: { (isError) -> Void in
+                    if isError {
+                        Toast.show("削除できませんでした...", style: JFMinimalNotificationStytle.StyleError)
+                        return
+                    }
+                    
+                    self.fin()
+                })
                 
-            })
+            }
         }
+        
     }
     
     func fin() {
@@ -272,6 +284,7 @@ class CommentListViewController: BaseViewController, UITableViewDataSource, UITa
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: CommentTableViewCell = tableView.dequeueReusableCellWithIdentifier("CELL") as CommentTableViewCell
+        cell.account = self.account
         cell.tag = indexPath.row
         
         let entity: CommentEntity = self.tableView.items[indexPath.row] as CommentEntity

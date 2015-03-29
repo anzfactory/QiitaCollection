@@ -20,18 +20,15 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
     var navButtonFollowing: SelectedBarButton? = nil
     var showAuthenticatedUser: Bool = false
     var displayUserId: String?
-    var displayUser: UserEntity? = nil {
-        didSet {
-            self.title = displayUser?.displayName
-        }
-    }
-    let qiitaManager: QiitaApiManager = QiitaApiManager.sharedInstance
+    var displayAccount: OtherAccount? = nil
+    
     lazy var entryListVC: EntryListViewController = self.makeEntryListVC()
     
     // MARK: ライフサイクル
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = "ユーザー"
         self.userInfoContainer.delegate = self
         self.listSwitchContainer.backgroundColor = UIColor.backgroundUserInfo()
         self.triggerListType.tintColor = UIColor.tintSegmented()
@@ -70,7 +67,7 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
         
         var items: [PathMenuItem] = [PathMenuItem]()
         
-        if self.showAuthenticatedUser || self.displayUserId == UserDataManager.sharedInstance.qiitaAuthenticatedUserID {
+        if self.showAuthenticatedUser || ((self.account is QiitaAccount) && (self.account as QiitaAccount).isSelf(self.displayUserId!)) {
             return items
         }
         
@@ -99,40 +96,55 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
         // キャプチャ
         let _afterDidLoad = self.afterDidLoad
         
-        let completion: (item: UserEntity?, isError: Bool) -> Void = {(item, isError) -> Void in
+        let completion: (item: UserEntity?) -> Void = {(item) -> Void in
             
             NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoading.rawValue, object: nil);
             
-            if isError {
+            if let userEntity = item {
+                
+                self.displayUserId = userEntity.id
+                self.userInfoContainer.showUser(userEntity)
+                
+                if !self.showAuthenticatedUser {
+                    
+                    if let qiitaAccount = self.account as? QiitaAccount {
+                        
+                        if qiitaAccount.canFollow(self.displayUserId!) {
+                            // フォローするnavigationの表示
+                            self.setupNavigationBar()
+                            // フォロー状況を取得
+                            self.getFollowingState()
+                        }
+                        
+                    }
+                    
+                }
+                if _afterDidLoad {
+                    self.entryListVC.refresh()
+                }
+                
+            } else {
                 Toast.show("ユーザーデータを取得できませんでした…", style: JFMinimalNotificationStytle.StyleWarning)
-                return
             }
             
-            self.displayUser = item!
-            self.displayUserId = self.displayUser!.id
-            self.userInfoContainer.showUser(self.displayUser!)
-            
-            if !self.showAuthenticatedUser && self.displayUser!.canFollow() {
-                // フォローするnavigationの表示
-                self.setupNavigationBar()
-                // フォロー状況を取得
-                self.getFollowingState()
-            }
-            
-            if _afterDidLoad {
-                self.entryListVC.refresh()
-            }
         }
         
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowLoading.rawValue, object: nil);
         
-        if let userId = self.displayUserId {
-            self.qiitaManager.getUser(userId, completion:completion)
-        } else if self.showAuthenticatedUser {
-            self.qiitaManager.getAuthenticatedUser(completion)
+        if self.showAuthenticatedUser {
+            if let qiitaAccount = self.account as? QiitaAccount {
+                self.displayAccount = qiitaAccount
+            } else {
+                fatalError("認証ユーザーがみつかりません...")
+            }
+        } else if let userId = self.displayUserId {
+            self.displayAccount = OtherAccount(qiitaId: userId)
         } else {
-            fatalError("unknown user......")
+            fatalError("不明なユーザー...")
         }
+        
+        self.displayAccount!.sync(completion)
+        
     }
     
     func setupNavigationBar() {
@@ -143,7 +155,12 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
     
     func makeEntryListVC() -> EntryListViewController {
         let vc: EntryListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryListVC") as EntryListViewController
-        vc.displayItem = EntryListViewController.DisplayItem(type: EntryListViewController.ListType.UserEntries, self.displayUserId!)
+
+        if self.showAuthenticatedUser {
+            vc.displayItem = EntryListViewController.DisplayItem(type: EntryListViewController.ListType.AuthedEntries, self.displayUserId!)
+        } else {
+            vc.displayItem = EntryListViewController.DisplayItem(type: EntryListViewController.ListType.UserEntries, self.displayUserId!)
+        }
         
         self.listContainer.addSubview(vc.view)
         vc.view.addConstraintFill()
@@ -153,10 +170,14 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
     }
     
     func getFollowingState() {
-        self.displayUser?.isFollowing({ (isFollowing) -> Void in
-            self.navButtonFollowing?.selected = isFollowing
-            return
-        })
+        
+        if let qiitaAccount = self.account as? QiitaAccount {
+            qiitaAccount.isFollowed(self.displayUserId!, completion: { (followed) -> Void in
+                self.navButtonFollowing?.selected = followed
+                return
+            })
+        }
+        
     }
     
     func confirmFollowing() {
@@ -184,7 +205,7 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
     
     func confirmAddedMuteUser() {
         
-        if self.showAuthenticatedUser || UserDataManager.sharedInstance.qiitaAuthenticatedUserID == self.displayUserId {
+        if self.showAuthenticatedUser || ((self.account is QiitaAccount) && (self.account as QiitaAccount).isSelf(self.displayUserId!)) {
             Toast.show("自分自身をミュートリストに…はちょっと…", style: JFMinimalNotificationStytle.StyleWarning)
             return
         }
@@ -219,23 +240,25 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
     
     func toggleFollowing() {
         
-        let completion = {(isError: Bool) -> Void in
-            
-            if isError {
-                Toast.show("処理に失敗しました...", style: JFMinimalNotificationStytle.StyleError)
+        if let qiitaAccount = self.account as? QiitaAccount {
+            let completion = {(isError: Bool) -> Void in
+                
+                if isError {
+                    Toast.show("処理に失敗しました...", style: JFMinimalNotificationStytle.StyleError)
+                    return
+                }
+                
+                self.getFollowingState()
                 return
             }
             
-            self.getFollowingState()
-            return
-        }
-        
-        if self.navButtonFollowing!.selected {
-            // 解除処理
-            self.displayUser?.cancelFollowing(completion)
-        } else {
-            // フォロー処理
-            self.displayUser?.follow(completion)
+            if self.navButtonFollowing!.selected {
+                // 解除処理
+                qiitaAccount.cancelFollow(self.displayUserId!, completion: completion)
+            } else {
+                // フォロー処理
+                qiitaAccount.follow(self.displayUserId!, completion: completion)
+            }
         }
         
     }
@@ -243,29 +266,27 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
     // MARK: UserDetailViewDelegate
     func userDetailView(view: UserDetailView, sender: UIButton) {
         
-        if self.displayUser == nil {
-            return;
+        if let entity = self.displayAccount?.entity {
+            var urlString: String = ""
+            if sender == view.website && !entity.web.isEmpty {
+                urlString = entity.web
+            } else if sender == view.github && !entity.github.isEmpty {
+                urlString = "https://github.com/" + entity.github
+            } else if sender == view.twitter && !entity.twitter.isEmpty {
+                urlString = "https://twitter.com/" + entity.twitter
+            } else if sender == view.facebook && !entity.facebook.isEmpty {
+                urlString = "https://www.facebook.com/" + entity.facebook
+            } else if sender == view.linkedin && !entity.linkedin.isEmpty {
+                urlString = "https://www.linkedin.com/in/" + entity.linkedin
+            }
+            
+            if urlString.isEmpty {
+                return
+            }
+            
+            var url: NSURL = NSURL(string: urlString)!
+            UIApplication.sharedApplication().openURL(url)
         }
-        
-        var urlString: String = ""
-        if sender == view.website {
-            urlString = self.displayUser!.web
-        } else if sender == view.github && !self.displayUser!.github.isEmpty {
-            urlString = "https://github.com/" + self.displayUser!.github
-        } else if sender == view.twitter && !self.displayUser!.twitter.isEmpty {
-            urlString = "https://twitter.com/" + self.displayUser!.twitter
-        } else if sender == view.facebook && !self.displayUser!.facebook.isEmpty {
-            urlString = "https://www.facebook.com/" + self.displayUser!.facebook
-        } else if sender == view.linkedin && !self.displayUser!.linkedin.isEmpty {
-            urlString = "https://www.linkedin.com/in/" + self.displayUser!.linkedin
-        }
-        
-        if urlString.isEmpty {
-            return
-        }
-        
-        var url: NSURL = NSURL(string: urlString)!
-        UIApplication.sharedApplication().openURL(url)
         
     }
 }

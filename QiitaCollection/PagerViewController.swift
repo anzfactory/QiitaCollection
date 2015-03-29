@@ -83,7 +83,7 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
         self.viewPagerItems.append(ViewPagerItem(title: "新着", identifier:"EntryCollectionVC", query:""))
         
         // クエリで回す
-        let queries: [[String: String]] = UserDataManager.sharedInstance.queries
+        let queries: [[String: String]] = self.account.saveQueries()
         if !queries.isEmpty {
             for queryItem in queries {
                 self.viewPagerItems.append(ViewPagerItem(title: queryItem["title"]!, identifier:"EntryCollectionVC", query:queryItem["query"]!))
@@ -91,12 +91,12 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
         }
         
         // 保存した投稿リストがあるか
-        if !UserDataManager.sharedInstance.entryFiles.isEmpty {
+        if self.account.hasDownloadFiles() {
             self.viewPagerItems.append(ViewPagerItem(title:"保存した投稿", identifier:"SimpleListVC", query: ""))
         }
         
         // 認証済みなら末尾にmypage
-        if UserDataManager.sharedInstance.isAuthorizedQiita() {
+        if self.account is QiitaAccount {
             self.viewPagerItems.append(ViewPagerItem(title:"マイページ", identifier:"UserDetailVC", query:""))
         }
         
@@ -133,7 +133,7 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
         }
         
         let menuItemSigin: QCGridMenuItem = QCGridMenuItem()
-        if UserDataManager.sharedInstance.isAuthorizedQiita() {
+        if self.account is QiitaAccount {
             menuItemSigin.icon = UIImage(named: "icon_sign_out")
             menuItemSigin.title = "Sign out"
             menuItemSigin.action = {(item) -> Void in
@@ -279,20 +279,13 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
     
     func openSigninVC() {
         let vc: SigninViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SigninVC") as SigninViewController
-        vc.authorizationAction = {(viewController: SigninViewController) -> Void in
-            QiitaApiManager.sharedInstance.setupHeader()    // ヘッダーに認証情報を含めるよう指示
+        vc.authorizationAction = {(viewController: SigninViewController, qiitaAccount: QiitaAccount) -> Void in
             // ViewPager再構成
             self.menu = self.makeMenu()
             self.setupViewControllers()
             self.reloadData()
             // 認証ユーザーの情報を取ってIDだけ保持しておく (self判定したいんで...)
-            QiitaApiManager.sharedInstance.getAuthenticatedUser({ (item, isError) -> Void in
-                if isError {
-                    return
-                }
-                UserDataManager.sharedInstance.qiitaAuthenticatedUserID = item!.id
-                return
-            })
+            self.account = qiitaAccount
             viewController.dismissViewControllerAnimated(true, completion: { () -> Void in
                 
             })
