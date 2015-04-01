@@ -11,6 +11,7 @@
             font-family: Arial, Verdana, sans-serif;
             width: 95%%;
             margin:0 auto;
+            word-wrap: break-word;
         }
         img {
             display: block;
@@ -20,13 +21,25 @@
         pre {
             font-size: 80%;
             white-space: pre-wrap;
-            word-wrap: break-word;
             overflow: auto;
             padding: 5px;
             font-family: Courier, monospace;
+            line-height: 1.2;
         }
-    table {
-        max-width: 90%;
+    blockquote {
+        margin: 0 0 20px;
+        display: block;
+        -webkit-margin-before: 1em;
+        -webkit-margin-after: 1em;
+        -webkit-margin-start: 40px;
+        -webkit-margin-end: 40px;
+        color: #555;
+        font-size: 1em;
+        border-left: solid 4px #ddd;
+        padding: .8em;
+        margin-top: 1em;
+        margin-bottom: 1em;
+        margin-left: .8em;
     }
     code {
         border-top-right-radius: 3px;
@@ -34,12 +47,39 @@
         border-bottom-right-radius: 3px;
         border-bottom-left-radius: 3px;
         background-color: #f7f7f7;
+        font-size: 80%;
+        padding: 2px 4px;
+        line-height: 1.2;
     }
     h1 {
         border-bottom: 1px solid #9f9f9f;
         font-size: 160%;
     }
-    
+    h2 {
+        border-bottom: solid 1px #eee;
+    }
+    ol, ul {
+        margin-left: 0;
+    }
+    table {
+        max-width: 90%;
+        border-collapse: collapse;
+    }
+    table, td, th {
+        border: 1px #ccc solid;
+    }
+    thead tr td,
+    thead tr th {
+        font-weight: 900;
+        text-align: center;
+        background: #f3f6f1;
+    }
+    td {
+        padding: 3px;
+    }
+    tbody tr:nth-child(even) td {
+        background: #f9f9f9;
+    }
     div.code-frame {
         border-top-right-radius: 3px;
         border-top-left-radius: 3px;
