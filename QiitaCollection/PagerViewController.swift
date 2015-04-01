@@ -95,8 +95,11 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
             self.viewPagerItems.append(ViewPagerItem(title:"保存した投稿", identifier:"SimpleListVC", query: ""))
         }
         
-        // 認証済みなら末尾にmypage
-        if self.account is QiitaAccount {
+        // 認証済みなら末尾にmypage 
+        // アカウントの型判定だけでやりたいけど
+        // 最初の認証直後から account が QiitaAccount になるまで時間差があるので
+        // userdata も参考にする
+        if self.account is QiitaAccount || UserDataManager.sharedInstance.isAuthorizedQiita() {
             self.viewPagerItems.append(ViewPagerItem(title:"マイページ", identifier:"UserDetailVC", query:""))
         }
         

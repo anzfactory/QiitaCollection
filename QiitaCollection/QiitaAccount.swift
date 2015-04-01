@@ -32,7 +32,6 @@ class QiitaAccount: OtherAccount {
                 return
             }
             
-            self.qiitaApiManager.clearHeader()
             UserDataManager.sharedInstance.clearQiitaAccessToken()
             
             let anonymus: AnonymousAccount = AnonymousAccount()

@@ -16,7 +16,6 @@ class AnonymousAccount: NSObject {
     func signin(code: String, completion: (qiitaAccount: QiitaAccount?) -> Void) {
         
         self.qiitaApiManager.postAuthorize(ThirdParty.Qiita.ClientID.rawValue, clientSecret: ThirdParty.Qiita.ClientSecret.rawValue, code: code) { (token, isError) -> Void in
-            
             if isError {
                 completion(qiitaAccount:nil);
                 return
@@ -24,7 +23,6 @@ class AnonymousAccount: NSObject {
             
             // 保存
             self.userDataManager.setQiitaAccessToken(token)
-            self.qiitaApiManager.setupHeader()
             self.qiitaApiManager.getAuthenticatedUser({ (item, isError) -> Void in
                 if isError {
                     completion(qiitaAccount:nil)
