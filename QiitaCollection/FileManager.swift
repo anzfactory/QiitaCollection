@@ -40,6 +40,25 @@ class FileManager {
         
     }
     
+    func remove(fileName: String, completion: (isError: Bool) -> Void) {
+        let fullPath: String = self.fileFullPath(fileName)
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+            var error: NSError? = nil
+            let fileMam = NSFileManager()
+            let result = fileMam.removeItemAtPath(fullPath, error: &error)
+            
+            if let e = error {
+                println(e)
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                completion(isError: (!result || error != nil))
+            })
+            
+        })
+    }
+    
     
     func fileFullPath(fileName: String) -> String {
         let directoryPath: String = NSSearchPathForDirectoriesInDomains(

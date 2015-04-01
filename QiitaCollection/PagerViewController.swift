@@ -373,7 +373,17 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
             
             simpleVC.removeNavigationBar = true
             simpleVC.items = self.account.downloadEntryTitles()
-            simpleVC.swipableCell = false
+            simpleVC.swipableCell = true
+            simpleVC.swipeCellCallback = {(vc: SimpleListViewController, cell: SlideTableViewCell, index: Int) -> Void in
+                self.account.removeLocalEntry(index, completion: { (isError, titles) -> Void in
+                    if isError {
+                        Toast.show("削除失敗しました...", style: JFMinimalNotificationStytle.StyleError)
+                        return
+                    }
+                    vc.refresh(titles)
+                    Toast.show("ダウンロードした投稿ファイルを削除しました", style: JFMinimalNotificationStytle.StyleSuccess)
+                })
+            }
             simpleVC.tapCallback = {(vc:SimpleListViewController, index:Int) -> Void in
                 
                 let entryDetail: EntryDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryDetailVC") as EntryDetailViewController

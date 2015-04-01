@@ -107,11 +107,9 @@ class QiitaApiManager {
             // Qiita のアクセストークンがあればセットする
             if UserDataManager.sharedInstance.isAuthorizedQiita() {
                 let headerVal = "Bearer " + UserDataManager.sharedInstance.qiitaAccessToken
-                println(headerVal)
                 URLRequest.setValue(headerVal, forHTTPHeaderField: "Authorization")
-            } else {
-                println("qiitaAccessToken is empty")
             }
+            
             return endpoint.encoding.encode(URLRequest, parameters: endpoint.params).0
         }
     }

@@ -78,12 +78,12 @@ class AnonymousAccount: NSObject {
     }
     
     func downloadEntryTitles() -> [String] {
-        return [String].convert(UserDataManager.sharedInstance.entryFiles, key: "title")
+        return [String].convert(self.userDataManager.entryFiles, key: "title")
     }
     
     func downloadEntryId(atIndex: Int) -> String {
         
-        let item: [String: String] = UserDataManager.sharedInstance.entryFiles[atIndex]
+        let item: [String: String] = self.userDataManager.entryFiles[atIndex]
         
         if let id = item["id"] {
             return id
@@ -117,6 +117,18 @@ class AnonymousAccount: NSObject {
             }
             let title = UserDataManager.sharedInstance.titleSavedEntry(entryId)
             completion(isError: false, title: title, body: text)
+        })
+    }
+    
+    func removeLocalEntry(atIndex: Int, completion: (isError: Bool, titles:[String]) -> Void) {
+        let entryId: String = self.userDataManager.entryFiles[atIndex]["id"]!
+        FileManager().remove(entryId, completion: { (isError) -> Void in
+            if isError {
+                completion(isError: true, titles:self.downloadEntryTitles())
+                return
+            }
+            self.userDataManager.removeEntry(entryId)
+            completion(isError: false, titles:self.downloadEntryTitles())
         })
     }
     

@@ -193,6 +193,10 @@ class UserDataManager {
         ])
         
     }
+    func removeEntry(entryId: String) {
+        let index = self.indexItem(self.entryFiles, target: entryId)
+        self.entryFiles.removeAtIndex(index)
+    }
     
     
     func isDisplayedGuide(guide: Int) -> Bool {
