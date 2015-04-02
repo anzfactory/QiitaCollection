@@ -7,6 +7,7 @@
 //
 
 import SwiftyJSON
+import SDWebImage
 
 struct TagEntity: EntityProtocol {
     
