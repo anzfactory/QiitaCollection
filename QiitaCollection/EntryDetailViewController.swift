@@ -20,6 +20,11 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
         willSet {
             self.title = newValue?.title
         }
+        didSet {
+            if let entry = self.displayEntry {
+                self.account.saveHistory(entry, isRanking: false)
+            }
+        }
     }
     var displayEntryId: String? = nil
     var useLocalFile: Bool = false
@@ -67,6 +72,11 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
     override func viewWillDisappear(animated: Bool) {
         if let activity = self.userActivity {
             activity.invalidate()
+        }
+        if self.isMovingFromParentViewController() || self.isBeingDismissed() {
+            if let entry = self.displayEntry {
+                self.account.saveHistory(entry, isRanking: true)
+            }
         }
         super.viewWillDisappear(animated)
     }

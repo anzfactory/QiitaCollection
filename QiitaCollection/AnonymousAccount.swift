@@ -214,4 +214,12 @@ class AnonymousAccount: NSObject {
         })
     }
     
+    func saveHistory(entry: EntryEntity, isRanking: Bool) {
+        if isRanking {
+            ParseManager.sharedInstance.putRankingHistory(entry)
+        } else {
+            ParseManager.sharedInstance.putHistory(entry)
+        }
+    }
+    
 }

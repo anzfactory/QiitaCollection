@@ -18,4 +18,11 @@ struct ThirdParty {
         case
         AdUnitID = "MY_INTERSTITIAL_UNIT_ID"
     }
+    
+    enum Parse: String {
+        case
+        ApplicationID = "set parse application id",
+        ClientKey = "set parse client key"
+    }
+    
 }

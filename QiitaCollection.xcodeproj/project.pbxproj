@@ -37,6 +37,9 @@
 		A14149381A9C1557003B7898 /* PathMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14149361A9C1557003B7898 /* PathMenu.swift */; };
 		A14149391A9C1557003B7898 /* PathMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14149371A9C1557003B7898 /* PathMenuItem.swift */; };
 		A141493B1A9C2985003B7898 /* QCPathMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A141493A1A9C2985003B7898 /* QCPathMenuItem.swift */; };
+		A16150511ACFF82800A59395 /* ParseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16150501ACFF82800A59395 /* ParseManager.swift */; };
+		A16150531AD0576000A59395 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A16150521AD0576000A59395 /* Social.framework */; };
+		A16150551AD057AC00A59395 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A16150541AD057AC00A59395 /* Accounts.framework */; };
 		A16BA04C1A96EA4800FF7ACA /* BaseTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16BA04B1A96EA4800FF7ACA /* BaseTableView.swift */; };
 		A17D0C551A963A510020229B /* SCLAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = A17D0C4C1A963A510020229B /* SCLAlertView.m */; };
 		A17D0C561A963A510020229B /* SCLAlertViewResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = A17D0C4E1A963A510020229B /* SCLAlertViewResponder.m */; };
@@ -59,6 +62,7 @@
 		A18A85D41A85D4EA0078436D /* QiitaApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18A85D31A85D4EA0078436D /* QiitaApiManager.swift */; };
 		A18A85D61A85D5190078436D /* EntryEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18A85D51A85D5190078436D /* EntryEntity.swift */; };
 		A191F1C71A85A3A20076C8C5 /* TopNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A191F1C61A85A3A20076C8C5 /* TopNavigationController.swift */; };
+		A19C85301AD0E06800BCF59D /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A19C852F1AD0E06800BCF59D /* ParseUI.framework */; };
 		A1A16E321A90757C0052A7C6 /* UserDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A16E311A90757C0052A7C6 /* UserDetailViewController.swift */; };
 		A1A16E341A90842C0052A7C6 /* UserDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A16E331A90842C0052A7C6 /* UserDetailView.swift */; };
 		A1A2DC3B1AC7EFCC0030EA03 /* OtherAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A2DC3A1AC7EFCC0030EA03 /* OtherAccount.swift */; };
@@ -151,6 +155,9 @@
 		A14149361A9C1557003B7898 /* PathMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathMenu.swift; sourceTree = "<group>"; };
 		A14149371A9C1557003B7898 /* PathMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathMenuItem.swift; sourceTree = "<group>"; };
 		A141493A1A9C2985003B7898 /* QCPathMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QCPathMenuItem.swift; sourceTree = "<group>"; };
+		A16150501ACFF82800A59395 /* ParseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseManager.swift; sourceTree = "<group>"; };
+		A16150521AD0576000A59395 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		A16150541AD057AC00A59395 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		A16BA04B1A96EA4800FF7ACA /* BaseTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableView.swift; sourceTree = "<group>"; };
 		A17D0C4B1A963A510020229B /* SCLAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCLAlertView.h; path = SCLAlertView/SCLAlertView.h; sourceTree = "<group>"; };
 		A17D0C4C1A963A510020229B /* SCLAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCLAlertView.m; path = SCLAlertView/SCLAlertView.m; sourceTree = "<group>"; };
@@ -184,6 +191,7 @@
 		A18A85D31A85D4EA0078436D /* QiitaApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QiitaApiManager.swift; sourceTree = "<group>"; };
 		A18A85D51A85D5190078436D /* EntryEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryEntity.swift; sourceTree = "<group>"; };
 		A191F1C61A85A3A20076C8C5 /* TopNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopNavigationController.swift; sourceTree = "<group>"; };
+		A19C852F1AD0E06800BCF59D /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
 		A1A16E311A90757C0052A7C6 /* UserDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetailViewController.swift; sourceTree = "<group>"; };
 		A1A16E331A90842C0052A7C6 /* UserDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetailView.swift; sourceTree = "<group>"; };
 		A1A2DC3A1AC7EFCC0030EA03 /* OtherAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherAccount.swift; sourceTree = "<group>"; };
@@ -251,6 +259,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A16150551AD057AC00A59395 /* Accounts.framework in Frameworks */,
+				A16150531AD0576000A59395 /* Social.framework in Frameworks */,
 				A123D0571AAC34310039EB5C /* SystemConfiguration.framework in Frameworks */,
 				A123D0551AAC34280039EB5C /* StoreKit.framework in Frameworks */,
 				A123D0531AAC34220039EB5C /* MessageUI.framework in Frameworks */,
@@ -261,6 +271,7 @@
 				A123D0491AAC33FC0039EB5C /* AVFoundation.framework in Frameworks */,
 				A123D0471AAC33F10039EB5C /* AudioToolbox.framework in Frameworks */,
 				A123D0451AAC33E60039EB5C /* AdSupport.framework in Frameworks */,
+				A19C85301AD0E06800BCF59D /* ParseUI.framework in Frameworks */,
 				A123D0431AAC33A70039EB5C /* GoogleMobileAds.framework in Frameworks */,
 				8B9C88C9AF22F6B7D64935A3 /* Pods.framework in Frameworks */,
 			);
@@ -423,6 +434,7 @@
 				A1E525601AA1B80E00A31C13 /* FileManager.swift */,
 				A1DD40021AA314B1006E4F7B /* GuideManager.swift */,
 				A123D0581AAC36F20039EB5C /* AdManager.swift */,
+				A16150501ACFF82800A59395 /* ParseManager.swift */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -444,6 +456,14 @@
 				A1D8DB291AA8A9FC00988656 /* SigninViewController.swift */,
 			);
 			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		A19C852E1AD0E04F00BCF59D /* ParseUI */ = {
+			isa = PBXGroup;
+			children = (
+				A19C852F1AD0E06800BCF59D /* ParseUI.framework */,
+			);
+			path = ParseUI;
 			sourceTree = "<group>";
 		};
 		A1A8D9D11A82F92C00231D84 = {
@@ -564,6 +584,7 @@
 		A1D8A8361A87914B0040C195 /* ObjC */ = {
 			isa = PBXGroup;
 			children = (
+				A19C852E1AD0E04F00BCF59D /* ParseUI */,
 				A1DD40041AA375CD006E4F7B /* CMPopTipView */,
 				A1EB79181A9E36EF007E931E /* CNPGridMenu */,
 				A1EB79141A9E1F1F007E931E /* ICViewPager */,
@@ -649,6 +670,8 @@
 		A63F41D73B84466369DCEC70 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A16150541AD057AC00A59395 /* Accounts.framework */,
+				A16150521AD0576000A59395 /* Social.framework */,
 				A123D0561AAC34310039EB5C /* SystemConfiguration.framework */,
 				A123D0541AAC34280039EB5C /* StoreKit.framework */,
 				A123D0521AAC34220039EB5C /* MessageUI.framework */,
@@ -881,6 +904,7 @@
 				A1F157EE1A8FB1490064EA47 /* JFMinimalNotificationArt.m in Sources */,
 				A1B1C6BB1A90928E001419E9 /* UILabel+App.swift in Sources */,
 				A1EC9BE21AA699B70098AC2F /* AboutAppViewController.swift in Sources */,
+				A16150511ACFF82800A59395 /* ParseManager.swift in Sources */,
 				A1DD3FFB1AA2ACD2006E4F7B /* Dictionary+App.swift in Sources */,
 				A18030661A9A21CA00EA8D4A /* SearchTableViewCell.swift in Sources */,
 				A1A2DC3D1AC825490030EA03 /* Entry.swift in Sources */,
@@ -1039,6 +1063,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Libraries/AD/GoogleMobileAdsSdkiOS",
+					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)/Libraries/ObjC/ParseUI",
 				);
 				INFOPLIST_FILE = QiitaCollection/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1062,6 +1088,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Libraries/AD/GoogleMobileAdsSdkiOS",
+					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)/Libraries/ObjC/ParseUI",
 				);
 				INFOPLIST_FILE = QiitaCollection/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

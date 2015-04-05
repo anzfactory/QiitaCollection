@@ -75,4 +75,12 @@ struct TagEntity: EntityProtocol {
         self.followerCount = tag.followerCount
         
     }
+    
+    static func titles(tags: [TagEntity]) -> [String] {
+        var titles: [String] = [String]()
+        for tag in tags {
+            titles.append(tag.id)
+        }
+        return titles
+    }
 }
