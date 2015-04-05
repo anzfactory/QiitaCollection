@@ -136,7 +136,7 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
         }
         
         let menuItemSigin: QCGridMenuItem = QCGridMenuItem()
-        if self.account is QiitaAccount {
+        if self.account is QiitaAccount  {
             menuItemSigin.icon = UIImage(named: "icon_sign_out")
             menuItemSigin.title = "Sign out"
             menuItemSigin.action = {(item) -> Void in
@@ -150,6 +150,13 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
             }
         }
         
+        let menuReview: QCGridMenuItem = QCGridMenuItem()
+        menuReview.icon = UIImage(named: "icon_megaphone")
+        menuReview.title = "Review"
+        menuReview.action = {(item) -> Void in
+            self.moveReview()
+            return
+        }
         
         let menuItemInfo: QCGridMenuItem = QCGridMenuItem()
         menuItemInfo.icon = UIImage(named: "icon_info")
@@ -158,7 +165,7 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
             self.openAboutApp()
         }
         
-        let menu: CNPGridMenu = CNPGridMenu(menuItems: [menuItemMuteUsers, menuItemPinEntries, menuItemQuery, menuItemSigin, menuItemInfo])
+        let menu: CNPGridMenu = CNPGridMenu(menuItems: [menuItemMuteUsers, menuItemPinEntries, menuItemQuery, menuItemSigin, menuReview, menuItemInfo])
         menu.delegate = self
         return menu
     }
@@ -295,6 +302,15 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
             return
         }
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PresentedViewController.rawValue, object: vc)
+    }
+    
+    func moveReview() {
+        
+        let reviewUrl: NSURL = NSURL(string: App.URL.Review.string())!
+        
+        if UIApplication.sharedApplication().canOpenURL(reviewUrl) {
+            UIApplication.sharedApplication().openURL(reviewUrl)
+        }
     }
     
     func openAboutApp() {

@@ -64,6 +64,7 @@
 		A191F1C71A85A3A20076C8C5 /* TopNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A191F1C61A85A3A20076C8C5 /* TopNavigationController.swift */; };
 		A19C85301AD0E06800BCF59D /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A19C852F1AD0E06800BCF59D /* ParseUI.framework */; };
 		A19C85321AD126A300BCF59D /* HistoryEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19C85311AD126A300BCF59D /* HistoryEntity.swift */; };
+		A19C85341AD153CC00BCF59D /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19C85331AD153CC00BCF59D /* App.swift */; };
 		A1A16E321A90757C0052A7C6 /* UserDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A16E311A90757C0052A7C6 /* UserDetailViewController.swift */; };
 		A1A16E341A90842C0052A7C6 /* UserDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A16E331A90842C0052A7C6 /* UserDetailView.swift */; };
 		A1A2DC3B1AC7EFCC0030EA03 /* OtherAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A2DC3A1AC7EFCC0030EA03 /* OtherAccount.swift */; };
@@ -194,6 +195,7 @@
 		A191F1C61A85A3A20076C8C5 /* TopNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopNavigationController.swift; sourceTree = "<group>"; };
 		A19C852F1AD0E06800BCF59D /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
 		A19C85311AD126A300BCF59D /* HistoryEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryEntity.swift; sourceTree = "<group>"; };
+		A19C85331AD153CC00BCF59D /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		A1A16E311A90757C0052A7C6 /* UserDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetailViewController.swift; sourceTree = "<group>"; };
 		A1A16E331A90842C0052A7C6 /* UserDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetailView.swift; sourceTree = "<group>"; };
 		A1A2DC3A1AC7EFCC0030EA03 /* OtherAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherAccount.swift; sourceTree = "<group>"; };
@@ -571,6 +573,7 @@
 			children = (
 				A1CF433C1A8B06190016209C /* QCKeys.swift */,
 				A1D8DB2B1AA8AE6500988656 /* ThirdParty.swift */,
+				A19C85331AD153CC00BCF59D /* App.swift */,
 			);
 			name = Const;
 			sourceTree = "<group>";
@@ -918,6 +921,7 @@
 				A1DD40071AA375E2006E4F7B /* CMPopTipView.m in Sources */,
 				A17D0C561A963A510020229B /* SCLAlertViewResponder.m in Sources */,
 				A121AE1C1AA0D5E7007E006E /* CommentListViewController.swift in Sources */,
+				A19C85341AD153CC00BCF59D /* App.swift in Sources */,
 				A1C321AB1ABF24180087CF85 /* AnonymousAccount.swift in Sources */,
 				A141493B1A9C2985003B7898 /* QCPathMenuItem.swift in Sources */,
 				A1DD3FFD1AA2C396006E4F7B /* UserListViewController.swift in Sources */,
