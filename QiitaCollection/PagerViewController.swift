@@ -136,7 +136,7 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
         }
         
         let menuItemSigin: QCGridMenuItem = QCGridMenuItem()
-        if self.account is QiitaAccount  {
+        if AccountManager.isAuthorized() {
             menuItemSigin.icon = UIImage(named: "icon_sign_out")
             menuItemSigin.title = "Sign out"
             menuItemSigin.action = {(item) -> Void in

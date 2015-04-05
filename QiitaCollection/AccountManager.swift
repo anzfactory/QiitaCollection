@@ -12,12 +12,16 @@ class AccountManager {
     
     class func account() -> AnonymousAccount {
         
-        if ( UserDataManager.sharedInstance.isAuthorizedQiita()) {
+        if ( AccountManager.isAuthorized() ) {
             return QiitaAccount()
         } else {
             return AnonymousAccount()
         }
         
+    }
+    
+    class func isAuthorized() -> Bool {
+        return UserDataManager.sharedInstance.isAuthorizedQiita()
     }
     
 }
