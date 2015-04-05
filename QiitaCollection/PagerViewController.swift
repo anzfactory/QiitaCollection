@@ -165,7 +165,14 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
             self.openAboutApp()
         }
         
-        let menu: CNPGridMenu = CNPGridMenu(menuItems: [menuItemMuteUsers, menuItemPinEntries, menuItemQuery, menuItemSigin, menuReview, menuItemInfo])
+        var items = [menuItemMuteUsers, menuItemPinEntries, menuItemQuery, menuReview, menuItemInfo];
+        // 未認証なら最初にsign in 認証済みなら最後に sign out
+        if AccountManager.isAuthorized() {
+            items.append(menuItemSigin)
+        } else {
+            items.insert(menuItemSigin, atIndex: 0)
+        }
+        let menu: CNPGridMenu = CNPGridMenu(menuItems: items)
         menu.delegate = self
         return menu
     }
