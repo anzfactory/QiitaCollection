@@ -16,4 +16,5 @@ Swift勉強がてら作ってます
 * [PathMenu](https://github.com/pixyzehn/PathMenu)
 * [SCLAlertView](https://github.com/dogo/SCLAlertView)  
 * [SWTableViewCell](https://github.com/CEWendel/SWTableViewCell)  
-* [UIView-Constrain](https://github.com/ShingoFukuyama/UIView-Constraint)
+* [UIView-Constrain](https://github.com/ShingoFukuyama/UIView-Constraint)  
+* [ParseUI-iOS](https://github.com/ParsePlatform/ParseUI-iOS)
