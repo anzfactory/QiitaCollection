@@ -32,11 +32,13 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
         self.userInfoContainer.delegate = self
         self.listSwitchContainer.backgroundColor = UIColor.backgroundUserInfo()
         self.triggerListType.tintColor = UIColor.tintSegmented()
-        
+        self.triggerListType.setTitleTextAttributes([NSFontAttributeName: UIFont.systemFontOfSize(10)], forState: UIControlState.Normal)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.setupTriggerListType()
         self.refreshUser()
     }
     
@@ -52,12 +54,21 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
     @IBAction func changeTrigger(sender: AnyObject) {
         switch self.triggerListType.selectedSegmentIndex {
         case 0:
-            self.entryListVC.displayItem = EntryListViewController.DisplayItem(type: EntryListViewController.ListType.UserEntries, self.displayUserId!)
+            if self.showAuthenticatedUser {
+                self.entryListVC.displayItem = EntryListViewController.DisplayItem(type: EntryListViewController.ListType.AuthedEntries, self.displayUserId!)
+            } else {
+                self.entryListVC.displayItem = EntryListViewController.DisplayItem(type: EntryListViewController.ListType.UserEntries, self.displayUserId!)
+            }
+            
         case 1:
             self.entryListVC.displayItem = EntryListViewController.DisplayItem(type: EntryListViewController.ListType.UserStocks, self.displayUserId!)
+        case 2:
+            self.entryListVC.displayItem = EntryListViewController.DisplayItem(type: EntryListViewController.ListType.History, "")
         default:
             return
         }
+        self.entryListVC.tableView.items.removeAll(keepCapacity: false)
+        self.entryListVC.tableView.reloadData()
         self.entryListVC.refresh()
         
     }
@@ -87,10 +98,33 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
             items.append(menuItemMute)
         }
         
-        
         return items
 
     }
+    
+    func setupTriggerListType() {
+        
+        var items: [String] = [
+            "投稿リスト",
+            "ストックリスト",
+        ]
+        let selectedIndexOld = self.triggerListType.selectedSegmentIndex
+        self.triggerListType.removeAllSegments()
+        if self.showAuthenticatedUser {
+            items.append("履歴リスト")
+        }
+        
+        for var i: Int = 0; i < items.count; i++ {
+            self.triggerListType.insertSegmentWithTitle(items[i], atIndex: i, animated: false)
+        }
+        
+        if selectedIndexOld < items.count {
+            self.triggerListType.selectedSegmentIndex = selectedIndexOld
+        } else {
+            self.triggerListType.selectedSegmentIndex = 1
+        }
+    }
+    
     func refreshUser() {
         
         // キャプチャ
@@ -209,7 +243,6 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
             Toast.show("自分自身をミュートリストに…はちょっと…", style: JFMinimalNotificationStytle.StyleWarning)
             return
         }
-        
         
         // アラート表示
         let action: SCLActionBlock = {() -> Void in

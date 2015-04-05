@@ -70,6 +70,32 @@ class BaseTableView: UITableView {
 
     }
     
+    func loadedItems(items: [HistoryEntity]) {
+        
+        if items.count == 0 && self.page == 1 {
+            Toast.show("結果0件でした...", style: JFMinimalNotificationStytle.StyleWarning)
+            return
+        }
+        self.total = self.items.count + items.count
+        if items.count == 0 {
+            self.page = NSNotFound      // オートページング止めるために
+            return
+        } else if (self.page == 1) {
+            // リフレッシュ対象なのでリストクリア
+            self.items.removeAll(keepCapacity: false)
+        }
+        
+        for item: HistoryEntity in items {
+
+            self.items.append(item)
+    
+        }
+        
+        self.page++
+        self.reloadData()
+
+    }
+    
     func clearItems() {
         if self.items.count == 0 {
             return

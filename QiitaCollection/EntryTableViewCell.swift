@@ -56,5 +56,13 @@ class EntryTableViewCell: UITableViewCell {
         self.constrainTitleHeight.constant = self.title.calcAdjustHeight(self.maxHeightTitle)
         self.date.text = entry.shortUpdateDate
     }
+    
+    func showHistory(history: HistoryEntity) {
+        var mainTag: TagEntity = TagEntity(tagId: history.tags[0])
+        mainTag.loadThumb(self.mainTag)
+        self.title.text = history.title
+        self.constrainTitleHeight.constant = self.title.calcAdjustHeight(self.maxHeightTitle)
+        self.date.text = ""
+    }
 
 }

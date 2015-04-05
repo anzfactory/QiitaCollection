@@ -116,4 +116,39 @@ class ParseManager {
             
         }
     }
+    
+    func getHistory(page: Int, completion: (items: [HistoryEntity]) -> Void) {
+        
+        if !self.isAuthorized() {
+            return
+        }
+        
+        let limit: Int = 100
+        let user = PFUser.currentUser()
+        let query: PFQuery = PFQuery(className: "History")
+        query.whereKey("userName", equalTo: user.username)
+        .orderByDescending("updatedAt")
+        query.limit = limit   // リクエストを抑えたいから多めにｗ
+        query.skip = (page - 1) * limit // offset
+        
+        query.findObjectsInBackgroundWithBlock { (items, error) -> Void in
+            
+            var list: [HistoryEntity] = [HistoryEntity]()
+            
+            if let e = error {
+                println(e)
+                completion(items: list)
+                return
+            }
+            
+            for object in items {
+                if let obj = object as? PFObject {
+                    list.append(HistoryEntity(entryId: obj["entryId"] as String, title: obj["title"] as String, tags: obj["tags"] as [String]))
+                }
+            }
+            
+            completion(items: list)
+            
+        }
+    }
 }

@@ -29,16 +29,25 @@ struct TagEntity: EntityProtocol {
         followerCount = data["followers_count"].intValue ?? 0
     }
     
+    init (tagId: String) {
+        self.id = tagId
+        self.version = ""
+        self.iconUrl = ""
+        self.itemsCount = 0
+        self.followerCount = 0
+    }
+    
     mutating func loadThumb(imageView: UIImageView) {
         
         // icon urlが設定されていなければ、タグapi叩いて取ってくる
         if (self.iconUrl.isEmpty) {
-            self.updateDetail({ (isError) -> Void in
-                if isError || self.iconUrl.isEmpty {
+            self.updateDetail({ (isError, var entity) -> Void in
+                if isError || entity!.iconUrl.isEmpty {
                     return
                 }
-                self.loadThumb(imageView)
+                entity!.loadThumb(imageView)
             })
+            return
         }
 
         let url: NSURL = NSURL(string: self.iconUrl)!
@@ -50,30 +59,30 @@ struct TagEntity: EntityProtocol {
         
     }
     
-    mutating func updateDetail(completion:(isError: Bool) -> Void) {
+    mutating func updateDetail(completion:(isError: Bool, entity: TagEntity?) -> Void) {
         let qiitaApi: QiitaApiManager = QiitaApiManager.sharedInstance
         let capture: TagEntity = self
         qiitaApi.getTag(self.id, completion: { (item, isError) -> Void in
             
             if isError {
-                completion(isError: true)
+                completion(isError: true, entity:nil)
                 return
             }
             
             self.patchEntity(item!)
-            completion(isError: false)
+            completion(isError: false, entity:self)
             
         })
 
         
     }
     
-    mutating func patchEntity(tag: TagEntity) {
+    mutating func patchEntity(tag: TagEntity) -> TagEntity {
         self.version = tag.version
         self.iconUrl = tag.iconUrl
         self.itemsCount = tag.itemsCount
         self.followerCount = tag.followerCount
-        
+        return self
     }
     
     static func titles(tags: [TagEntity]) -> [String] {

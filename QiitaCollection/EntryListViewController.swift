@@ -14,7 +14,8 @@ class EntryListViewController: BaseViewController, UITableViewDataSource, UITabl
         case
         UserEntries = "投稿したもの",
         AuthedEntries = "フィード",
-        UserStocks = "ストックしたもの"
+        UserStocks = "ストックしたもの",
+        History = "閲覧履歴"
     }
     typealias DisplayItem = (type: ListType, userId:String?)
 
@@ -87,6 +88,11 @@ class EntryListViewController: BaseViewController, UITableViewDataSource, UITabl
             if let other = self.otherAccount {
                 other.stockEntries(self.tableView.page, entryId: self.displayItem!.userId!, completion: callback)
             }
+        case .History:
+            self.account.histories(self.tableView.page, completion: { (items) -> Void in
+                self.tableView.loadedItems(items)
+                NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoading.rawValue, object: nil)
+            })
         }
         
     }
@@ -98,7 +104,13 @@ class EntryListViewController: BaseViewController, UITableViewDataSource, UITabl
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: EntryTableViewCell = self.tableView.dequeueReusableCellWithIdentifier("CELL") as EntryTableViewCell
-        cell.showEntry(self.tableView.items[indexPath.row] as EntryEntity)
+        
+        if let history = self.tableView.items[indexPath.row] as? HistoryEntity {
+            cell.showHistory(history)
+        } else {
+            cell.showEntry(self.tableView.items[indexPath.row] as EntryEntity)
+        }
+        
         return cell
     }
     
