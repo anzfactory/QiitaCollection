@@ -222,4 +222,10 @@ class AnonymousAccount: NSObject {
         }
     }
     
+    func histories(page:Int, completion:(items: [HistoryEntity]) -> Void) {
+        ParseManager.sharedInstance.getHistory(page, completion: { (items) -> Void in
+            completion(items: items)
+        })
+    }
+    
 }
