@@ -47,4 +47,44 @@ extension NSURL {
         }
     }
     
+    func parse() -> (entryId: String?, userId: String?) {
+        
+        var result: (entryId: String?, userId: String?) = (entryId: nil, userId: nil)
+        
+        if let h = self.host {
+            if h != "qiita.com" {
+                return result
+            }
+        } else {
+            return result
+        }
+        
+        if var components = self.pathComponents {
+            
+            // 初めが url separator か
+            if components[0] as String == "/" {
+                components.removeAtIndex(0)
+            }
+            
+            if (components.count == 1) {
+                // ユーザーページの可能性
+                let path = components[0] as String
+                
+                // qiita の静的ページチェック
+                if !contains(["about", "tags", "advent-calendar", "organizations", "users", "license", "terms", "privacy", "asct", "drafts"], path) {
+                    result.userId = path
+                }
+            } else if (components.count >= 3) {
+                // 記事の可能性
+                let path2 = components[1] as String
+                if path2 == "items" {
+                    result.entryId = components[2] as? String
+                }
+            }
+            
+        }
+        
+        return result
+    }
+    
 }

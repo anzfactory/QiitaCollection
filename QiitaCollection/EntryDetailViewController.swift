@@ -416,10 +416,25 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
     
     func openURL(urlString: String) {
         if let url = NSURL(string: urlString) {
-            if UIApplication.sharedApplication().canOpenURL(url) {
-                UIApplication.sharedApplication().openURL(url)
+            
+            let result = url.parse()
+            if let userId = result.userId {
+                // ユーザーVCを開く
+                let vc: UserDetailViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("UserDetailVC") as UserDetailViewController
+                vc.displayUserId = userId
+                NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: vc)
+            } else if let entryId = result.entryId {
+                // 投稿VCを開く
+                let vc: EntryDetailViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("EntryDetailVC") as EntryDetailViewController
+                vc.displayEntryId = entryId
+                NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: vc)
             } else {
-                Toast.show("開くことが出来るURLではないようです…", style: JFMinimalNotificationStytle.StyleWarning)
+                // ブラウザで開く
+                if UIApplication.sharedApplication().canOpenURL(url) {
+                    UIApplication.sharedApplication().openURL(url)
+                } else {
+                    Toast.show("開くことが出来るURLではないようです…", style: JFMinimalNotificationStytle.StyleWarning)
+                }
             }
             
         } else {
