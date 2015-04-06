@@ -16,6 +16,10 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
     @IBOutlet weak var listSwitchContainer: UIView!
     @IBOutlet weak var triggerListType: UISegmentedControl!
     
+    // MARK: 制約
+    @IBOutlet weak var userInfoContainerHeight: NSLayoutConstraint!
+    @IBOutlet weak var userInfoContainerMarginTop: NSLayoutConstraint!
+    
     // MARK: プロパティ
     var navButtonFollowing: SelectedBarButton? = nil
     var showAuthenticatedUser: Bool = false
@@ -67,6 +71,7 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
         default:
             return
         }
+        self.userInfoContainerMarginTop.constant = 0.0
         self.entryListVC.tableView.items.removeAll(keepCapacity: false)
         self.entryListVC.tableView.reloadData()
         self.entryListVC.refresh()
@@ -199,6 +204,17 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
         self.listContainer.addSubview(vc.view)
         vc.view.addConstraintFill()
         vc.viewWillAppear(false)
+        
+        vc.observerScrollOffset = {(y, isBounce) -> Void in
+            if y <= 0.0 {
+                self.userInfoContainerMarginTop.constant = 0.0
+                return
+            } else if y > self.userInfoContainerHeight.constant || isBounce {
+                return
+            }
+            
+            self.userInfoContainerMarginTop.constant = y * -1.0
+        }
         
         return vc
     }

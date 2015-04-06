@@ -813,6 +813,8 @@
                         <outlet property="listSwitchContainer" destination="yKd-Od-XUg" id="cRk-mY-aL4"/>
                         <outlet property="triggerListType" destination="eZR-2O-8oy" id="ufk-zO-yIT"/>
                         <outlet property="userInfoContainer" destination="u3j-et-Hlr" id="uvp-Vb-PI9"/>
+                        <outlet property="userInfoContainerHeight" destination="ArE-Kf-G2G" id="PED-bK-rTV"/>
+                        <outlet property="userInfoContainerMarginTop" destination="UdF-jR-UVa" id="o6o-Gt-tel"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7uQ-Yd-BK7" userLabel="First Responder" sceneMemberID="firstResponder"/>

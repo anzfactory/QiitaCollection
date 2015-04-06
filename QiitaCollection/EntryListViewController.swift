@@ -34,6 +34,15 @@ class EntryListViewController: BaseViewController, UITableViewDataSource, UITabl
             }
         }
     }
+    var scrollContentHeight: CGFloat = 0.0
+    var scrollOffsetY: CGFloat = 0.0 {
+        willSet {
+            if let observer = self.observerScrollOffset {
+                observer(y: newValue, isBounceArea: newValue + self.tableView.frame.size.height > self.scrollContentHeight)
+            }
+        }
+    }
+    var observerScrollOffset: ((y: CGFloat, isBounceArea: Bool) -> Void)? = nil
     
     // MARK: ライフサイクル
     override func viewDidLoad() {
@@ -41,6 +50,7 @@ class EntryListViewController: BaseViewController, UITableViewDataSource, UITabl
         
         self.tableView.estimatedRowHeight = 76
         self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.separatorColor = UIColor.borderNavigationMenuSeparator()
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.setupRefreshControl { () -> Void in
@@ -134,5 +144,11 @@ class EntryListViewController: BaseViewController, UITableViewDataSource, UITabl
         
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: vc)
     }
-
+    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        self.scrollContentHeight = scrollView.contentSize.height
+    }
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        self.scrollOffsetY = scrollView.contentOffset.y
+    }
+    
 }
