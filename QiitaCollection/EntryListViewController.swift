@@ -123,7 +123,13 @@ class EntryListViewController: BaseViewController, UITableViewDataSource, UITabl
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let vc: EntryDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryDetailVC") as EntryDetailViewController
-        vc.displayEntry = self.tableView.items[indexPath.row] as? EntryEntity
+        
+        if let history = self.tableView.items[indexPath.row] as? HistoryEntity {
+            vc.displayEntryId = history.entryId
+        } else {
+            vc.displayEntry = self.tableView.items[indexPath.row] as? EntryEntity
+        }
+        
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: vc)
     }
 
