@@ -7,12 +7,14 @@
 //
 
 import SwiftyJSON
+import Parse
 
 struct HistoryEntity: EntityProtocol {
     
     let entryId: String
     let title: String
     let tags: [String]
+    let updated: NSDate
     
     init(data: JSON) {
         self.entryId = data["entryId"].string!
@@ -23,12 +25,15 @@ struct HistoryEntity: EntityProtocol {
             tags.append(item.string!)
         }
         self.tags = tags
+        
+        self.updated = NSDate()
     }
     
-    init(entryId: String, title: String, tags: [String]) {
-        self.entryId = entryId
-        self.title = title
-        self.tags = tags
+    init(object: PFObject) {
+        self.entryId = object["entryId"] as String
+        self.title = object["title"] as String
+        self.tags = object["tags"] as [String]
+        self.updated = object.updatedAt
     }
     
 }

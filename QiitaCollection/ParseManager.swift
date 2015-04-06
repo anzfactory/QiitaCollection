@@ -143,7 +143,7 @@ class ParseManager {
             
             for object in items {
                 if let obj = object as? PFObject {
-                    list.append(HistoryEntity(entryId: obj["entryId"] as String, title: obj["title"] as String, tags: obj["tags"] as [String]))
+                    list.append(HistoryEntity(object: obj))
                 }
             }
             
