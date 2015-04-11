@@ -58,12 +58,12 @@ class UserDataManager {
             UDKeys.QiitaAccessToken.rawValue        : self.qiitaAccessToken,
             UDKeys.QiitaAuthenticatedUserID.rawValue: self.qiitaAuthenticatedUserID
         ]
-        self.ud.registerDefaults(defaults)
-        self.muteUsers = self.ud.arrayForKey(UDKeys.MuteUsers.rawValue) as [String]
-        self.queries = self.ud.arrayForKey(UDKeys.Queries.rawValue) as [[String: String]]
-        self.pins = self.ud.arrayForKey(UDKeys.Pins.rawValue) as [[String: String]]
-        self.entryFiles = self.ud.arrayForKey(UDKeys.EntryFiles.rawValue) as [[String: String]]
-        self.displayedGuides = self.ud.arrayForKey(UDKeys.DisplayedGuides.rawValue) as [Int]
+        self.ud.registerDefaults(defaults as [NSObject : AnyObject])
+        self.muteUsers = self.ud.arrayForKey(UDKeys.MuteUsers.rawValue) as! [String]
+        self.queries = self.ud.arrayForKey(UDKeys.Queries.rawValue) as! [[String: String]]
+        self.pins = self.ud.arrayForKey(UDKeys.Pins.rawValue) as! [[String: String]]
+        self.entryFiles = self.ud.arrayForKey(UDKeys.EntryFiles.rawValue) as! [[String: String]]
+        self.displayedGuides = self.ud.arrayForKey(UDKeys.DisplayedGuides.rawValue) as! [Int]
         self.qiitaAccessToken = self.ud.stringForKey(UDKeys.QiitaAccessToken.rawValue)!
         self.qiitaAuthenticatedUserID = self.ud.stringForKey(UDKeys.QiitaAuthenticatedUserID.rawValue)!
     }

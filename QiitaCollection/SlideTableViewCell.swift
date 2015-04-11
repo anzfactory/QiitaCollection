@@ -19,7 +19,7 @@ class SlideTableViewCell: SWTableViewCell {
         // MEMO: パターンが増えてきたら場合分け
         var buttons: NSMutableArray = NSMutableArray()
         buttons.sw_addUtilityButtonWithColor(UIColor.backgroundSwipeCellDelete(), icon: UIImage(named: "icon_trash_white"))
-        self.setRightUtilityButtons(buttons, withButtonWidth: 60)
+        self.setRightUtilityButtons(buttons as [AnyObject], withButtonWidth: 60)
         
     }
 

@@ -183,7 +183,7 @@ class AnonymousAccount: NSObject {
     func cancelMute(atIndex: Int) {
         self.userDataManager.clearMutedUser(self.muteUserNames()[atIndex])
     }
-    func cancelMute(userId: String) {
+    func cancelMuteUser(userId: String) {
         self.userDataManager.clearMutedUser(userId)
     }
     

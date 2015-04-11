@@ -147,13 +147,13 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
         
         if self.account is QiitaAccount {
             // ストック
-            self.navButtonStock = SelectedBarButton(image: UIImage(named: "bar_item_bookmark"), style: UIBarButtonItemStyle.Bordered, target: self, action: "confirmAddStock")
+            self.navButtonStock = SelectedBarButton(image: UIImage(named: "bar_item_bookmark"), style: UIBarButtonItemStyle.Plain, target: self, action: "confirmAddStock")
             self.navButtonStock!.selectedColor = UIColor.tintSelectedBarButton()
             buttons.append(self.navButtonStock!)
         }
         
         // macへのブラウジング同期
-        self.navButtonHandOff = SelectedBarButton(image: UIImage(named: "bar_item_desktop"), style: UIBarButtonItemStyle.Bordered, target:self, action:"syncBrowsing")
+        self.navButtonHandOff = SelectedBarButton(image: UIImage(named: "bar_item_desktop"), style: UIBarButtonItemStyle.Plain, target:self, action:"syncBrowsing")
         buttons.append(self.navButtonHandOff!)
        
         self.navigationItem.rightBarButtonItems = buttons
@@ -207,11 +207,11 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
 
             // テンプレート読み込み
             let path: NSString = NSBundle.mainBundle().pathForResource("entry", ofType: "html")!
-            let template: NSString = NSString(contentsOfFile: path, encoding: NSUTF8StringEncoding, error: nil)!
+            let template: NSString = NSString(contentsOfFile: path as String, encoding: NSUTF8StringEncoding, error: nil)!
             
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 // テンプレートに組み込んで表示
-                self.webView.loadHTMLString(NSString(format: template, title, body), baseURL: nil)
+                self.webView.loadHTMLString(NSString(format: template, title, body) as String, baseURL: nil)
             })
             
         })
@@ -323,7 +323,7 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
         for item in self.links {
             linkTitles.append(item.label + ":" + item.value)
         }
-        let listVC: SimpleListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SimpleListVC") as SimpleListViewController
+        let listVC: SimpleListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SimpleListVC") as! SimpleListViewController
         listVC.title = "開くURLを選んで下さい"
         listVC.items = linkTitles
         listVC.swipableCell = false
@@ -350,7 +350,7 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
             codeHeadlines.append(item.label)
         }
         
-        let listVC: SimpleListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SimpleListVC") as SimpleListViewController
+        let listVC: SimpleListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SimpleListVC") as! SimpleListViewController
         listVC.title = "コピーするコードを選んでください"
         listVC.items = codeHeadlines
         listVC.swipableCell = false
@@ -385,7 +385,7 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
         let nsBody: NSString = NSString(string: body)
         var error: NSError?
         let regex: NSRegularExpression? = NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.CaseInsensitive, error: &error)
-        let mathes: [AnyObject]? = regex?.matchesInString(nsBody, options: NSMatchingOptions.allZeros, range: NSMakeRange(0, nsBody.length))
+        let mathes: [AnyObject]? = regex?.matchesInString(nsBody as String, options: NSMatchingOptions.allZeros, range: NSMakeRange(0, nsBody.length))
         var targets: [ParseItem] = [ParseItem]()
         
         let indexLabel: Int = pattern == self.patternLink ? 2 : 1
@@ -393,7 +393,7 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
         
         if let objects = mathes {
             for obj in objects {
-                let result: NSTextCheckingResult = obj as NSTextCheckingResult
+                let result: NSTextCheckingResult = obj as! NSTextCheckingResult
                 var label: String = nsBody.substringWithRange(result.rangeAtIndex(indexLabel))
                 let value: String = nsBody.substringWithRange(result.rangeAtIndex(indexValue))
                 
@@ -420,12 +420,12 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
             let result = url.parse()
             if let userId = result.userId {
                 // ユーザーVCを開く
-                let vc: UserDetailViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("UserDetailVC") as UserDetailViewController
+                let vc: UserDetailViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("UserDetailVC") as! UserDetailViewController
                 vc.displayUserId = userId
                 NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: vc)
             } else if let entryId = result.entryId {
                 // 投稿VCを開く
-                let vc: EntryDetailViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("EntryDetailVC") as EntryDetailViewController
+                let vc: EntryDetailViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("EntryDetailVC") as! EntryDetailViewController
                 vc.displayEntryId = entryId
                 NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: vc)
             } else {
@@ -450,7 +450,7 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
             return
         }
         
-        let vc: UserDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UserDetailVC") as UserDetailViewController
+        let vc: UserDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UserDetailVC") as! UserDetailViewController
         vc.displayUserId = self.displayEntry!.postUser.id
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: vc)
     }
@@ -461,7 +461,7 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
             return
         }
         
-        let vc: CommentListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("CommentsVC") as CommentListViewController
+        let vc: CommentListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("CommentsVC") as! CommentListViewController
         vc.displayEntryId = self.displayEntryId!
         vc.displayEntryTitle = self.displayEntry?.title ?? ""
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: vc)
@@ -473,7 +473,7 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
             return
         }
         
-        let vc: UserListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UserListVC") as UserListViewController
+        let vc: UserListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UserListVC") as! UserListViewController
         vc.listType = UserListViewController.UserListType.Stockers
         vc.targetEntryId = self.displayEntryId
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: vc)
@@ -544,7 +544,7 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
     func openTagList() {
         
         if let entity = self.displayEntry {
-            let vc: SimpleListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SimpleListVC") as SimpleListViewController
+            let vc: SimpleListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SimpleListVC") as! SimpleListViewController
             vc.items = entity.toTagList()
             vc.title = "タグリスト"
             vc.swipableCell = false
@@ -552,7 +552,7 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
                 // タグで検索
                 let selectedTag: String = vc.items[index]
                 vc.dismissGridMenuAnimated(true, completion: { () -> Void in
-                    let searchVC: EntryCollectionViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryCollectionVC") as EntryCollectionViewController
+                    let searchVC: EntryCollectionViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryCollectionVC") as! EntryCollectionViewController
                     searchVC.title = "タグ：" + selectedTag
                     searchVC.query = "tag:" + selectedTag
                     NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: searchVC)

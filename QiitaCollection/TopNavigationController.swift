@@ -197,9 +197,9 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
     
     func receiveShowActivityView(notification: NSNotification) {
         let args: [NSObject: AnyObject] = notification.userInfo!
-        let vc: UIViewController = notification.object! as UIViewController
+        let vc: UIViewController = notification.object! as! UIViewController
         
-        let message: String = args[QCKeys.ActivityView.Message.rawValue]! as String
+        let message: String = args[QCKeys.ActivityView.Message.rawValue]! as! String
         let link: String = args[QCKeys.ActivityView.Link.rawValue] as? String ?? ""
         let others: [UIActivity]? = args[QCKeys.ActivityView.Others.rawValue] as? Array ?? nil
         
@@ -220,12 +220,12 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
     }
     
     func receivePushViewController(notification: NSNotification) {
-        let vc: UIViewController = notification.object! as UIViewController
+        let vc: UIViewController = notification.object! as! UIViewController
         self.pushViewController(vc, animated: true)
     }
     
     func receivePresentedViewController(notification: NSNotification) {
-        let vc: UIViewController = notification.object! as UIViewController
+        let vc: UIViewController = notification.object! as! UIViewController
         self.presentViewController(vc, animated: true) { () -> Void in
             
         }
@@ -246,7 +246,7 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         
         var title: String = userInfo[QCKeys.MinimumNotification.Title.rawValue] as? String ?? ""
         let subTitle: String = userInfo[QCKeys.MinimumNotification.SubTitle.rawValue] as? String ?? ""
-        let styleNumber: NSNumber = userInfo[QCKeys.MinimumNotification.Style.rawValue] as NSNumber
+        let styleNumber: NSNumber = userInfo[QCKeys.MinimumNotification.Style.rawValue] as! NSNumber
         let style: JFMinimalNotificationStytle = JFMinimalNotificationStytle(rawValue: styleNumber.integerValue) ?? JFMinimalNotificationStytle.StyleDefault
         
         if (title.isEmpty) {
@@ -294,11 +294,11 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         let userInfo = notification.userInfo!
         
         let title: String = userInfo[QCKeys.AlertView.Title.rawValue] as? String ?? "注意"
-        let message: String = userInfo[QCKeys.AlertView.Message.rawValue]! as String    // 必須なんで想定外だったら落とす
+        let message: String = userInfo[QCKeys.AlertView.Message.rawValue]! as! String    // 必須なんで想定外だったら落とす
         let noTiltle: String = userInfo[QCKeys.AlertView.NoTitle.rawValue] as? String ?? "いいえ"
         
         // yesアクションは必須
-        let yesAction = userInfo[QCKeys.AlertView.YesAction.rawValue]! as AlertViewSender
+        let yesAction = userInfo[QCKeys.AlertView.YesAction.rawValue]! as! AlertViewSender
         self.alertView!.addButton(yesAction.title.isEmpty ? "はい" : yesAction.title, actionBlock: yesAction.action)
         
         self.alertView!.showWarning(self, title: title, subTitle: message, closeButtonTitle: noTiltle, duration: 0.0);
@@ -312,7 +312,7 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         let userInfo = notification.userInfo!
         
         let title: String = userInfo[QCKeys.AlertView.Title.rawValue] as? String ?? "お知らせ"
-        let message: String = userInfo[QCKeys.AlertView.Message.rawValue]! as String    // 必須なんで想定外だったら落とす
+        let message: String = userInfo[QCKeys.AlertView.Message.rawValue]! as! String    // 必須なんで想定外だったら落とす
         let noTiltle: String = userInfo[QCKeys.AlertView.NoTitle.rawValue] as? String ?? "OK"
         
         self.alertView!.showInfo(self, title: title, subTitle: message, closeButtonTitle: noTiltle, duration: 0.0);
@@ -327,11 +327,11 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         
         let editField: UITextField = self.alertView!.addTextField(userInfo[QCKeys.AlertView.PlaceHolder.rawValue] as? String ?? "")
         let title: String = userInfo[QCKeys.AlertView.Title.rawValue] as? String ?? "info"
-        let message: String = userInfo[QCKeys.AlertView.Message.rawValue]! as String    // 必須なんで想定外だったら落とす
+        let message: String = userInfo[QCKeys.AlertView.Message.rawValue]! as! String    // 必須なんで想定外だったら落とす
         let noTiltle: String = userInfo[QCKeys.AlertView.NoTitle.rawValue] as? String ?? "いいえ"
         
         // yesアクションは必須
-        let yesAction = userInfo[QCKeys.AlertView.YesAction.rawValue]! as AlertViewSender
+        let yesAction = userInfo[QCKeys.AlertView.YesAction.rawValue]! as! AlertViewSender
         var validationBlock: SCLValidationBlock = {() -> Bool in
             return true
         }
@@ -354,7 +354,7 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
     func receiveResetPublicMenuItems(notification: NSNotification) {
         if let vc: AnyObject = notification.object {
             if vc is BaseViewController {
-                self.resetPublicMenuItems(vc as BaseViewController)
+                self.resetPublicMenuItems(vc as! BaseViewController)
             }
         }
     }
@@ -372,7 +372,7 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         
         if viewController is BaseViewController {
             
-            self.resetPublicMenuItems(viewController as BaseViewController)
+            self.resetPublicMenuItems(viewController as! BaseViewController)
             
         } else {
             self.publicMenu.hidden = true
@@ -398,7 +398,7 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
     
     // MARK: PathMenuDelegate
     func pathMenu(menu: PathMenu, didSelectIndex idx: Int) {
-        (menu.menusArray[idx] as QCPathMenuItem).action?()
+        (menu.menusArray[idx] as! QCPathMenuItem).action?()
     }
     func pathMenuDidFinishAnimationClose(menu: PathMenu) {
         for item in menu.menusArray {
@@ -425,7 +425,7 @@ class AlertViewSender: NSObject {
     let action: SCLActionBlock?
     let actionWithText: AlertActionWithText?
     let title: String
-    let validation: AlertValidation? = nil
+    var validation: AlertValidation? = nil
     
     init (action: SCLActionBlock?, title: String) {
         self.action = action

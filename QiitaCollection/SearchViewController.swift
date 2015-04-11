@@ -153,7 +153,7 @@ class SearchViewController: BaseViewController, SearchConditionViewDelegate, UIT
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: SearchTableViewCell = self.tableView.dequeueReusableCellWithIdentifier("CELL") as SearchTableViewCell
+        let cell: SearchTableViewCell = self.tableView.dequeueReusableCellWithIdentifier("CELL") as! SearchTableViewCell
         cell.show(self.items[indexPath.row])
         cell.delegate = self
         cell.tag = indexPath.row

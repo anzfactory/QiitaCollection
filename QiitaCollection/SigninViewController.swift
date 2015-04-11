@@ -66,7 +66,7 @@ class SigninViewController: BaseViewController, UIWebViewDelegate {
     // MARK: UIWebViewDelegate
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         
-        let url: NSURL = request.URL
+        let url: NSURL = request.URL!
         
         if url.isQittaAfterSignIn() {
             if let code = url.getAccessCode() {

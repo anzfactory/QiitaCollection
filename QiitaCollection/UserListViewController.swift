@@ -90,16 +90,16 @@ class UserListViewController: BaseViewController, UITableViewDataSource, UITable
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: UserListTableViewCell = tableView.dequeueReusableCellWithIdentifier("CELL") as UserListTableViewCell
-        let user: UserEntity = self.tableView.items[indexPath.row] as UserEntity
+        let cell: UserListTableViewCell = tableView.dequeueReusableCellWithIdentifier("CELL") as! UserListTableViewCell
+        let user: UserEntity = self.tableView.items[indexPath.row] as! UserEntity
         cell.showUser(user)
         return cell
     }
     
     // MARK: UITableViewDelegate
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let user: UserEntity = self.tableView.items[indexPath.row] as UserEntity
-        let vc: UserDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UserDetailVC") as UserDetailViewController
+        let user: UserEntity = self.tableView.items[indexPath.row] as! UserEntity
+        let vc: UserDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UserDetailVC") as! UserDetailViewController
         vc.displayUserId = user.id
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: vc)
     }

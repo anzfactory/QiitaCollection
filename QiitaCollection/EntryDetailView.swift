@@ -25,16 +25,16 @@ class EntryDetailView: UIWebView, UIWebViewDelegate {
         if navigationType == UIWebViewNavigationType.LinkClicked {
             // リンククリックを無効化
             // 但し Qiita の 記事 あるいは ユーザー なら ViewController で開く
-            let result = request.URL.parse()
+            let result = request.URL!.parse()
             
             if let userId = result.userId {
                 // ユーザーVCを開く
-                let vc: UserDetailViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("UserDetailVC") as UserDetailViewController
+                let vc: UserDetailViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("UserDetailVC") as! UserDetailViewController
                 vc.displayUserId = userId
                 NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: vc)
             } else if let entryId = result.entryId {
                 // 投稿VCを開く
-                let vc: EntryDetailViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("EntryDetailVC") as EntryDetailViewController
+                let vc: EntryDetailViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("EntryDetailVC") as! EntryDetailViewController
                 vc.displayEntryId = entryId
                 NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: vc)
             }

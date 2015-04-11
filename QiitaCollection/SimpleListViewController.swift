@@ -89,7 +89,7 @@ class SimpleListViewController: BaseViewController, UITableViewDataSource, UITab
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: SlideTableViewCell = self.tableView.dequeueReusableCellWithIdentifier("CELL") as SlideTableViewCell
+        let cell: SlideTableViewCell = self.tableView.dequeueReusableCellWithIdentifier("CELL") as! SlideTableViewCell
 
         if !cell.isReused {
             cell.delegate = self
@@ -116,7 +116,7 @@ class SimpleListViewController: BaseViewController, UITableViewDataSource, UITab
     
     // MARK: SWTableViewCellDelegate
     func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerRightUtilityButtonWithIndex index: Int) {
-        self.swipeCellCallback?(self, cell as SlideTableViewCell, cell.tag)
+        self.swipeCellCallback?(self, cell as! SlideTableViewCell, cell.tag)
     }
     
     func swipeableTableViewCell(cell: SWTableViewCell!, canSwipeToState state: SWCellState) -> Bool {

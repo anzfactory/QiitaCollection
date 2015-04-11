@@ -65,7 +65,7 @@ class FileManager {
             NSSearchPathDirectory.DocumentDirectory,
             NSSearchPathDomainMask.UserDomainMask,
             true
-            )[0] as String
+            )[0] as! String
         
         let fullPath: String = directoryPath.stringByAppendingPathComponent(fileName)
         return fullPath

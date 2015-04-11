@@ -28,7 +28,7 @@ extension String {
         }
 
         var error: NSError? = nil
-        let regex: NSRegularExpression = NSRegularExpression(pattern: exceptionPattern, options: NSRegularExpressionOptions(rawValue: 0), error: &error)!
+        let regex: NSRegularExpression = NSRegularExpression(pattern: exceptionPattern as String, options: NSRegularExpressionOptions(rawValue: 0), error: &error)!
         let target: NSMutableString = NSMutableString(string: self)
         regex.replaceMatchesInString(target, options: NSMatchingOptions(rawValue: 0), range: NSMakeRange(0, target.length), withTemplate: "")
         

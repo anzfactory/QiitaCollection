@@ -51,7 +51,7 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
     
     // MARK: メソッド
     func displaySaveSearchCondition() {
-        let save: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "bar_item_lock"), style: UIBarButtonItemStyle.Bordered, target: self, action: "confirmSaveSearchCondition")
+        let save: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "bar_item_lock"), style: UIBarButtonItemStyle.Plain, target: self, action: "confirmSaveSearchCondition")
         self.navigationItem.rightBarButtonItem = save
         save.showGuide(GuideManager.GuideType.SearchConditionSaveIcon)
     }
@@ -90,7 +90,7 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
             // collection view 領域外をタップしたってこと
             return
         }
-        let tapEntry: EntryEntity = self.collectionView.items[tapIndexPath!.row] as EntryEntity
+        let tapEntry: EntryEntity = self.collectionView.items[tapIndexPath!.row] as! EntryEntity
         
         let actions: [UIAlertAction] = [
             UIAlertAction(title: "投稿詳細", style: .Default, handler: { (UIAlertAction) -> Void in
@@ -125,27 +125,27 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
     }
     
     func moveEntryDetail(entry: EntryEntity) {
-        let vc: EntryDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryDetailVC") as EntryDetailViewController
+        let vc: EntryDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryDetailVC") as! EntryDetailViewController
         vc.displayEntry = entry
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: vc)
     }
     
     func moveEntryComment(entry: EntryEntity) {
-        let vc: CommentListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("CommentsVC") as CommentListViewController
+        let vc: CommentListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("CommentsVC") as! CommentListViewController
         vc.displayEntryId = entry.id
         vc.displayEntryTitle = entry.title
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: vc)
     }
     
     func moveStockers(entry: EntryEntity) {
-        let vc: UserListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UserListVC") as UserListViewController
+        let vc: UserListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UserListVC") as! UserListViewController
         vc.listType = .Stockers
         vc.targetEntryId = entry.id
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: vc)
     }
     
     func moveUserDetail(userId: String) {
-        let vc: UserDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UserDetailVC") as UserDetailViewController
+        let vc: UserDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UserDetailVC") as! UserDetailViewController
         vc.displayUserId = userId
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: vc)
     }
@@ -175,7 +175,7 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
     
     func openTagList(entity: EntryEntity) {
         
-        let vc: SimpleListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SimpleListVC") as SimpleListViewController
+        let vc: SimpleListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SimpleListVC") as! SimpleListViewController
         vc.items = entity.toTagList()
         vc.title = "タグリスト"
         vc.swipableCell = false
@@ -183,7 +183,7 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
             // タグで検索
             let selectedTag: String = vc.items[index]
             vc.dismissGridMenuAnimated(true, completion: { () -> Void in
-                let searchVC: EntryCollectionViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryCollectionVC") as EntryCollectionViewController
+                let searchVC: EntryCollectionViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryCollectionVC") as! EntryCollectionViewController
                 searchVC.title = "タグ：" + selectedTag
                 searchVC.query = "tag:" + selectedTag
                 NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: searchVC)
@@ -199,9 +199,9 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell: EntryCollectionViewCell = self.collectionView.dequeueReusableCellWithReuseIdentifier("CELL", forIndexPath: indexPath) as EntryCollectionViewCell
+        let cell: EntryCollectionViewCell = self.collectionView.dequeueReusableCellWithReuseIdentifier("CELL", forIndexPath: indexPath) as! EntryCollectionViewCell
         
-        let entry: EntryEntity = self.collectionView.items[indexPath.row] as EntryEntity
+        let entry: EntryEntity = self.collectionView.items[indexPath.row] as! EntryEntity
         cell.display(entry)
         return cell
         
@@ -220,7 +220,7 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let tapEntry: EntryEntity = self.collectionView.items[indexPath.row] as EntryEntity
+        let tapEntry: EntryEntity = self.collectionView.items[indexPath.row] as! EntryEntity
         self.moveEntryDetail(tapEntry)
     }
     

@@ -20,7 +20,6 @@
 		A121AE181AA0CA60007E006E /* CommentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A121AE171AA0CA60007E006E /* CommentEntity.swift */; };
 		A121AE1A1AA0D41E007E006E /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A121AE191AA0D41E007E006E /* CommentTableViewCell.swift */; };
 		A121AE1C1AA0D5E7007E006E /* CommentListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A121AE1B1AA0D5E7007E006E /* CommentListViewController.swift */; };
-		A123D0431AAC33A70039EB5C /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A123D0421AAC33A70039EB5C /* GoogleMobileAds.framework */; };
 		A123D0451AAC33E60039EB5C /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A123D0441AAC33E60039EB5C /* AdSupport.framework */; };
 		A123D0471AAC33F10039EB5C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A123D0461AAC33F10039EB5C /* AudioToolbox.framework */; };
 		A123D0491AAC33FC0039EB5C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A123D0481AAC33FC0039EB5C /* AVFoundation.framework */; };
@@ -87,6 +86,7 @@
 		A1CF433F1A8B1E350016209C /* EntryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CF433E1A8B1E350016209C /* EntryDetailViewController.swift */; };
 		A1CF43421A8B54620016209C /* entry.html in Resources */ = {isa = PBXBuildFile; fileRef = A1CF43411A8B54620016209C /* entry.html */; };
 		A1CF43511A8BBE380016209C /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CF43501A8BBE380016209C /* BaseViewController.swift */; };
+		A1D3BD261AD8FB6E00E5630F /* UIOutlineLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D3BD251AD8FB6E00E5630F /* UIOutlineLabel.swift */; };
 		A1D8A8351A8750240040C195 /* UIImageView+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D8A8341A8750240040C195 /* UIImageView+App.swift */; };
 		A1D8A83A1A87917F0040C195 /* UIView+Constraint.m in Sources */ = {isa = PBXBuildFile; fileRef = A1D8A8391A87917F0040C195 /* UIView+Constraint.m */; };
 		A1D8DB281AA89D3700988656 /* NSURL+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D8DB271AA89D3700988656 /* NSURL+App.swift */; };
@@ -140,7 +140,6 @@
 		A121AE171AA0CA60007E006E /* CommentEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentEntity.swift; sourceTree = "<group>"; };
 		A121AE191AA0D41E007E006E /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		A121AE1B1AA0D5E7007E006E /* CommentListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentListViewController.swift; sourceTree = "<group>"; };
-		A123D0421AAC33A70039EB5C /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 		A123D0441AAC33E60039EB5C /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		A123D0461AAC33F10039EB5C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		A123D0481AAC33FC0039EB5C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -222,6 +221,7 @@
 		A1CF433E1A8B1E350016209C /* EntryDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryDetailViewController.swift; sourceTree = "<group>"; };
 		A1CF43411A8B54620016209C /* entry.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = entry.html; sourceTree = "<group>"; };
 		A1CF43501A8BBE380016209C /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		A1D3BD251AD8FB6E00E5630F /* UIOutlineLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIOutlineLabel.swift; sourceTree = "<group>"; };
 		A1D8A8341A8750240040C195 /* UIImageView+App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+App.swift"; sourceTree = "<group>"; };
 		A1D8A8381A87917F0040C195 /* UIView+Constraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Constraint.h"; sourceTree = "<group>"; };
 		A1D8A8391A87917F0040C195 /* UIView+Constraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Constraint.m"; sourceTree = "<group>"; };
@@ -276,7 +276,6 @@
 				A123D0471AAC33F10039EB5C /* AudioToolbox.framework in Frameworks */,
 				A123D0451AAC33E60039EB5C /* AdSupport.framework in Frameworks */,
 				A19C85301AD0E06800BCF59D /* ParseUI.framework in Frameworks */,
-				A123D0431AAC33A70039EB5C /* GoogleMobileAds.framework in Frameworks */,
 				8B9C88C9AF22F6B7D64935A3 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -307,6 +306,7 @@
 				A1DD3FFE1AA2C3F3006E4F7B /* UserListTableViewCell.swift */,
 				A11740371AA76BE000D2782A /* AdjustTableViewCell.swift */,
 				A10C8E881AA9CBDC00B6E958 /* SelectedBarButton.swift */,
+				A1D3BD251AD8FB6E00E5630F /* UIOutlineLabel.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -345,19 +345,9 @@
 			path = Swift;
 			sourceTree = "<group>";
 		};
-		A123D0401AAC33780039EB5C /* GoogleMobileAdsSdkiOS */ = {
-			isa = PBXGroup;
-			children = (
-				A123D0421AAC33A70039EB5C /* GoogleMobileAds.framework */,
-			);
-			name = GoogleMobileAdsSdkiOS;
-			path = AD/GoogleMobileAdsSdkiOS;
-			sourceTree = "<group>";
-		};
 		A123D0411AAC338F0039EB5C /* AD */ = {
 			isa = PBXGroup;
 			children = (
-				A123D0401AAC33780039EB5C /* GoogleMobileAdsSdkiOS */,
 			);
 			name = AD;
 			sourceTree = "<group>";
@@ -921,6 +911,7 @@
 				A1DD40071AA375E2006E4F7B /* CMPopTipView.m in Sources */,
 				A17D0C561A963A510020229B /* SCLAlertViewResponder.m in Sources */,
 				A121AE1C1AA0D5E7007E006E /* CommentListViewController.swift in Sources */,
+				A1D3BD261AD8FB6E00E5630F /* UIOutlineLabel.swift in Sources */,
 				A19C85341AD153CC00BCF59D /* App.swift in Sources */,
 				A1C321AB1ABF24180087CF85 /* AnonymousAccount.swift in Sources */,
 				A141493B1A9C2985003B7898 /* QCPathMenuItem.swift in Sources */,

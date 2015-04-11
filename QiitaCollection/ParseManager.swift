@@ -28,7 +28,7 @@ class ParseManager {
         Parse.setApplicationId(ThirdParty.Parse.ApplicationID.rawValue, clientKey: ThirdParty.Parse.ClientKey.rawValue)
 
         PFUser.enableAutomaticUser()
-        let defaultACL = PFACL(user: PFUser.currentUser())
+        let defaultACL = PFACL(user: PFUser.currentUser()!)
         defaultACL.setPublicReadAccess(true)
         defaultACL.setPublicWriteAccess(true)
         PFACL.setDefaultACL(defaultACL, withAccessForCurrentUser: true)
@@ -37,13 +37,13 @@ class ParseManager {
         // こうしておくと currentUser.username が設定される
         // (正しい手順かは・・ｗ)
         let currentUser = PFUser.currentUser()
-        currentUser.saveInBackgroundWithBlock { (result, error) -> Void in
+        currentUser!.saveInBackgroundWithBlock { (result, error) -> Void in
             
         }
     }
     
     func isAuthorized() -> Bool {
-        return !PFUser.currentUser().username.isEmpty
+        return !PFUser.currentUser()!.username!.isEmpty
     }
     
 //    func signup(parentVC: UIViewController) {
@@ -62,10 +62,10 @@ class ParseManager {
         }
         
         var data: PFObject = PFObject(className: "History")
-        let user: PFUser = PFUser.currentUser()
+        let user: PFUser = PFUser.currentUser()!
         
         let query: PFQuery = PFQuery(className: "History")
-        query.whereKey("userName", equalTo: user.username)
+        query.whereKey("userName", equalTo: user.username!)
         .whereKey("entryId", equalTo: entry.id)
         query.getFirstObjectInBackgroundWithBlock { (resultData, error) -> Void in
             if let e = error {
@@ -76,7 +76,7 @@ class ParseManager {
                 data["userName"] = user.username
                 data["entryId"] = entry.id
             } else {
-                data = resultData
+                data = resultData!
             }
             
             data["title"] = entry.title
@@ -103,7 +103,7 @@ class ParseManager {
                 }
                 data["entryId"] = entry.id
             } else {
-                data = resultData
+                data = resultData!
             }
             
             data["title"] = entry.title
@@ -126,7 +126,7 @@ class ParseManager {
         let limit: Int = 100
         let user = PFUser.currentUser()
         let query: PFQuery = PFQuery(className: "History")
-        query.whereKey("userName", equalTo: user.username)
+        query.whereKey("userName", equalTo: user!.username!)
         .orderByDescending("updatedAt")
         query.limit = limit   // リクエストを抑えたいから多めにｗ
         query.skip = (page - 1) * limit // offset
@@ -141,9 +141,11 @@ class ParseManager {
                 return
             }
             
-            for object in items {
-                if let obj = object as? PFObject {
-                    list.append(HistoryEntity(object: obj))
+            if let itemList = items {
+                for object in itemList {
+                    if let obj = object as? PFObject {
+                        list.append(HistoryEntity(object: obj))
+                    }
                 }
             }
             

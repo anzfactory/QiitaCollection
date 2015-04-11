@@ -206,7 +206,7 @@ class PathMenu: UIView, PathMenuItemDelegate {
     
     // UIGestureRecognizer
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         self.handleTap()
     }
     
@@ -296,7 +296,7 @@ class PathMenu: UIView, PathMenuItemDelegate {
         }
         
         let tag: Int = 1000 + self.flag!
-        var item: PathMenuItem = self.viewWithTag(tag) as PathMenuItem
+        var item: PathMenuItem = self.viewWithTag(tag) as! PathMenuItem
         
         let rotateAnimation: CAKeyframeAnimation = CAKeyframeAnimation(keyPath: "transform.rotation.z")
         rotateAnimation.values = [NSNumber(float: 0.0), NSNumber(float: Float(self.expandRotation!)), NSNumber(float: 0.0)]
@@ -339,7 +339,7 @@ class PathMenu: UIView, PathMenuItemDelegate {
         }
         
         let tag :Int = 1000 + self.flag!
-        var item: PathMenuItem = self.viewWithTag(tag) as PathMenuItem
+        var item: PathMenuItem = self.viewWithTag(tag) as! PathMenuItem
         
         let rotateAnimation: CAKeyframeAnimation = CAKeyframeAnimation(keyPath: "transform.rotation.z")
         rotateAnimation.values = [NSNumber(float: 0.0), NSNumber(float: Float(self.closeRotation!)), NSNumber(float: 0.0)]

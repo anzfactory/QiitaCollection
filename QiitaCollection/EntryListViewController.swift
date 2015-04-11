@@ -115,12 +115,12 @@ class EntryListViewController: BaseViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: EntryTableViewCell = self.tableView.dequeueReusableCellWithIdentifier("CELL") as EntryTableViewCell
+        let cell: EntryTableViewCell = self.tableView.dequeueReusableCellWithIdentifier("CELL") as! EntryTableViewCell
         
         if let history = self.tableView.items[indexPath.row] as? HistoryEntity {
             cell.showHistory(history)
         } else {
-            cell.showEntry(self.tableView.items[indexPath.row] as EntryEntity)
+            cell.showEntry(self.tableView.items[indexPath.row] as! EntryEntity)
         }
         
         return cell
@@ -134,7 +134,7 @@ class EntryListViewController: BaseViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let vc: EntryDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryDetailVC") as EntryDetailViewController
+        let vc: EntryDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryDetailVC") as! EntryDetailViewController
         
         if let history = self.tableView.items[indexPath.row] as? HistoryEntity {
             vc.displayEntryId = history.entryId

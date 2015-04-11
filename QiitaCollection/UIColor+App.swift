@@ -73,6 +73,9 @@ extension UIColor {
     class func textLight() -> UIColor {
         return UIColor.whiteColor()
     }
+    class func textShadow() -> UIColor {
+        return UIColor.darkGrayColor()
+    }
     
     class func borderImageViewCircle() -> UIColor {
         return backgroundBase()

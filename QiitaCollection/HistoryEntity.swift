@@ -30,10 +30,10 @@ struct HistoryEntity: EntityProtocol {
     }
     
     init(object: PFObject) {
-        self.entryId = object["entryId"] as String
-        self.title = object["title"] as String
-        self.tags = object["tags"] as [String]
-        self.updated = object.updatedAt
+        self.entryId = object["entryId"] as! String
+        self.title = object["title"] as! String
+        self.tags = object["tags"] as! [String]
+        self.updated = object.updatedAt!
     }
     
 }

@@ -9,7 +9,7 @@
 extension Array {
     mutating func removeObject<E: Equatable>(object: E) -> Array {
         for var i = 0; i < self.count; i++ {
-            if self[i] as E == object {
+            if self[i] as! E == object {
                 self.removeAtIndex(i)
                 break
             }
@@ -22,7 +22,7 @@ extension Array {
         for item in dict {
             if let keyValue = item[key] {
                 if keyValue is T {
-                    result.append(keyValue as T)
+                    result.append(keyValue as! T)
                 }
             }
         }

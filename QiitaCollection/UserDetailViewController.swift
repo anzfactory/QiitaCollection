@@ -83,7 +83,7 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
         
         var items: [PathMenuItem] = [PathMenuItem]()
         
-        if self.showAuthenticatedUser || ((self.account is QiitaAccount) && (self.account as QiitaAccount).isSelf(self.displayUserId!)) {
+        if self.showAuthenticatedUser || ((self.account is QiitaAccount) && (self.account as! QiitaAccount).isSelf(self.displayUserId!)) {
             return items
         }
         
@@ -187,13 +187,13 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
     }
     
     func setupNavigationBar() {
-        self.navButtonFollowing = SelectedBarButton(image: UIImage(named: "bar_item_heart"), style: UIBarButtonItemStyle.Bordered, target: self, action: "confirmFollowing")
+        self.navButtonFollowing = SelectedBarButton(image: UIImage(named: "bar_item_heart"), style: UIBarButtonItemStyle.Plain, target: self, action: "confirmFollowing")
         self.navButtonFollowing!.selectedColor = UIColor.tintSelectedFollowingBarButton()
         self.navigationItem.rightBarButtonItem = self.navButtonFollowing
     }
     
     func makeEntryListVC() -> EntryListViewController {
-        let vc: EntryListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryListVC") as EntryListViewController
+        let vc: EntryListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryListVC") as! EntryListViewController
 
         if self.showAuthenticatedUser {
             vc.displayItem = EntryListViewController.DisplayItem(type: EntryListViewController.ListType.AuthedEntries, self.displayUserId!)
@@ -255,7 +255,7 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
     
     func confirmAddedMuteUser() {
         
-        if self.showAuthenticatedUser || ((self.account is QiitaAccount) && (self.account as QiitaAccount).isSelf(self.displayUserId!)) {
+        if self.showAuthenticatedUser || ((self.account is QiitaAccount) && (self.account as! QiitaAccount).isSelf(self.displayUserId!)) {
             Toast.show("自分自身をミュートリストに…はちょっと…", style: JFMinimalNotificationStytle.StyleWarning)
             return
         }
@@ -276,7 +276,7 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
     
     func confirmClearMuted() {
         let action: SCLActionBlock = {() -> Void in
-            self.account.cancelMute(self.displayUserId!)
+            self.account.cancelMuteUser(self.displayUserId!)
             Toast.show("ミュートを解除しました", style: JFMinimalNotificationStytle.StyleSuccess)
             NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ResetPublicMenuItems.rawValue, object: self)
             return

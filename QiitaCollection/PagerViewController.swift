@@ -185,10 +185,10 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
     }
     
     func tapSearch() {
-        let vc: SearchViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SearchVC") as SearchViewController
+        let vc: SearchViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SearchVC") as! SearchViewController
         vc.callback = {(searchVC: SearchViewController, q: String) -> Void in
             
-            let entriesVC: EntryCollectionViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryCollectionVC") as EntryCollectionViewController
+            let entriesVC: EntryCollectionViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryCollectionVC") as! EntryCollectionViewController
             entriesVC.query = q
             entriesVC.title = "検索結果"
             NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: entriesVC)
@@ -209,7 +209,7 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
             return
         }
         
-        let muteVC: SimpleListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SimpleListVC") as SimpleListViewController
+        let muteVC: SimpleListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SimpleListVC") as! SimpleListViewController
         muteVC.items = mutedUsers
         muteVC.title = "ミュートリスト"
         muteVC.cellGuide = GuideManager.GuideType.MuteListSwaipeCell
@@ -218,7 +218,7 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
             // まずは閉じる
             vc.dismissViewControllerAnimated(true, completion: { () -> Void in
                 // user詳細
-                let userVC: UserDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UserDetailVC") as UserDetailViewController
+                let userVC: UserDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UserDetailVC") as! UserDetailViewController
                 userVC.displayUserId = self.account.muteUserId(index)
                 NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: userVC)
             })
@@ -240,7 +240,7 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
             return
         }
         
-        let vc: SimpleListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SimpleListVC") as SimpleListViewController
+        let vc: SimpleListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SimpleListVC") as! SimpleListViewController
         vc.items = pins
         vc.title = "pinリスト"
         vc.cellGuide = GuideManager.GuideType.PinListSwaipeCell
@@ -249,7 +249,7 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
             // まずは閉じる
             vc.dismissViewControllerAnimated(true, completion: { () -> Void in
                 // 記事詳細
-                let entryVC: EntryDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryDetailVC") as EntryDetailViewController
+                let entryVC: EntryDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryDetailVC") as! EntryDetailViewController
                 entryVC.displayEntryId = self.account.pinEntryId(index)
                 NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: entryVC)
             })
@@ -273,7 +273,7 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
             return
         }
         
-        let vc: SimpleListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SimpleListVC") as SimpleListViewController
+        let vc: SimpleListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SimpleListVC") as! SimpleListViewController
         vc.items = titles
         vc.title = "保存した検索条件"
         vc.cellGuide = GuideManager.GuideType.QueryListSwipeCell
@@ -295,7 +295,7 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
     }
     
     func openSigninVC() {
-        let vc: SigninViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SigninVC") as SigninViewController
+        let vc: SigninViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SigninVC") as! SigninViewController
         vc.authorizationAction = {(viewController: SigninViewController, qiitaAccount: QiitaAccount) -> Void in
             // ViewPager再構成
             self.menu = self.makeMenu()
@@ -321,7 +321,7 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
     }
     
     func openAboutApp() {
-        let vc: AboutAppViewController = self.storyboard?.instantiateViewControllerWithIdentifier("AboutAppVC") as AboutAppViewController
+        let vc: AboutAppViewController = self.storyboard?.instantiateViewControllerWithIdentifier("AboutAppVC") as! AboutAppViewController
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PresentedViewController.rawValue, object: vc)
     }
     
@@ -360,7 +360,7 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
             ]
         ]
         
-        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowAlertController.rawValue, object: self, userInfo: args)
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowAlertController.rawValue, object: self, userInfo: args as [NSObject : AnyObject])
         
     }
     
@@ -387,12 +387,12 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
     func viewPager(viewPager: ViewPagerController!, contentViewControllerForTabAtIndex index: UInt) -> UIViewController! {
         
         let current: ViewPagerItem = self.viewPagerItems[Int(index)]
-        let vc: UIViewController = self.storyboard?.instantiateViewControllerWithIdentifier(current.identifier) as UIViewController
+        let vc: UIViewController = self.storyboard?.instantiateViewControllerWithIdentifier(current.identifier) as! UIViewController
         
         if vc is EntryCollectionViewController {
-            (vc as EntryCollectionViewController).query = current.query
+            (vc as! EntryCollectionViewController).query = current.query
         } else if vc is SimpleListViewController {
-            let simpleVC: SimpleListViewController = vc as SimpleListViewController
+            let simpleVC: SimpleListViewController = vc as! SimpleListViewController
             
             simpleVC.removeNavigationBar = true
             simpleVC.items = self.account.downloadEntryTitles()
@@ -409,14 +409,14 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
             }
             simpleVC.tapCallback = {(vc:SimpleListViewController, index:Int) -> Void in
                 
-                let entryDetail: EntryDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryDetailVC") as EntryDetailViewController
+                let entryDetail: EntryDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryDetailVC") as! EntryDetailViewController
                 entryDetail.displayEntryId = self.account.downloadEntryId(index)
                 entryDetail.useLocalFile = true
                 NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: entryDetail)
                 
             }
         } else if vc is UserDetailViewController {
-            (vc as UserDetailViewController).showAuthenticatedUser = true
+            (vc as! UserDetailViewController).showAuthenticatedUser = true
         }
         return vc
     }
@@ -451,7 +451,7 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
     // MARK: CNPGridMenuDelegate
     func gridMenu(menu: CNPGridMenu!, didTapOnItem item: CNPGridMenuItem!) {
         menu.dismissGridMenuAnimated(true, completion: { () -> Void in
-            let qcitem = item as QCGridMenuItem
+            let qcitem = item as! QCGridMenuItem
             qcitem.action?()
             return
         })

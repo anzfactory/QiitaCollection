@@ -53,7 +53,7 @@ class AboutAppViewController: BaseViewController, UITableViewDataSource, UITable
     
     func findSectionTitle(section: Int) -> String {
         if let itemsInSection: NSDictionary = self.aboutAppInfo[section] as? NSDictionary {
-            return itemsInSection.allKeys[0] as String
+            return itemsInSection.allKeys[0] as! String
         }
         return ""
     }
@@ -61,8 +61,8 @@ class AboutAppViewController: BaseViewController, UITableViewDataSource, UITable
     func findItems(section: Int) -> NSArray {
         if let itemsInSection: NSDictionary = self.aboutAppInfo[section] as? NSDictionary {
             
-            let key: String = itemsInSection.allKeys[0] as String
-            return itemsInSection[key] as NSArray
+            let key: String = itemsInSection.allKeys[0] as! String
+            return itemsInSection[key] as! NSArray
             
         }
         println(" not find..... ")
@@ -79,17 +79,17 @@ class AboutAppViewController: BaseViewController, UITableViewDataSource, UITable
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: AdjustTableViewCell = self.tableView.dequeueReusableCellWithIdentifier("CELL") as AdjustTableViewCell
+        let cell: AdjustTableViewCell = self.tableView.dequeueReusableCellWithIdentifier("CELL") as! AdjustTableViewCell
         
         let items: NSArray = self.findItems(indexPath.section)
 
         if indexPath.section == 0 {
-            let abountQC = (items[indexPath.row] as NSDictionary).allValues[0] as? String ?? ""
+            let abountQC = (items[indexPath.row] as! NSDictionary).allValues[0] as? String ?? ""
             cell.title.textAlignment = .Left
             cell.title.font = UIFont(name: "07LogoTypeGothic7", size: 14.0)
             cell.title.text = abountQC.stringByReplacingOccurrencesOfString("[BR]", withString: "\n", options: nil, range: nil)
         } else {
-            cell.title.text = (items[indexPath.row] as NSDictionary).allKeys[0] as? String ?? ""
+            cell.title.text = (items[indexPath.row] as! NSDictionary).allKeys[0] as? String ?? ""
         }
         
         return cell
@@ -120,7 +120,7 @@ class AboutAppViewController: BaseViewController, UITableViewDataSource, UITable
         
         let items: NSArray = self.findItems(indexPath.section)
         if let item: NSDictionary = items[indexPath.row] as? NSDictionary {
-            let urlString: String = item.allValues[0] as String
+            let urlString: String = item.allValues[0] as! String
             if urlString.isEmpty {
                 return
             }

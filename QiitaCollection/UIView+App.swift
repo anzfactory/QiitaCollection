@@ -31,7 +31,7 @@ extension UIView {
             
             if let views = self.layer.sublayers {
                 if !views.isEmpty {
-                    for layer: CALayer in views.reverse() as [CALayer] {
+                    for layer: CALayer in views.reverse() as! [CALayer] {
                         layer.removeFromSuperlayer()
                     }
                 }

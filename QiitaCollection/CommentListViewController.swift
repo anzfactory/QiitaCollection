@@ -79,11 +79,11 @@ class CommentListViewController: BaseViewController, UITableViewDataSource, UITa
     // MARK: メソッド
     func setupNavigationBar() {
         if self.openTextView {
-            let edit: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "bar_item_check"), style: UIBarButtonItemStyle.Bordered, target: self, action: "tapCheck")
+            let edit: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "bar_item_check"), style: UIBarButtonItemStyle.Plain, target: self, action: "tapCheck")
             edit.tintColor = UIColor.tintAttention()
             self.navigationItem.rightBarButtonItem = edit
         } else {
-            let edit: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "bar_item_pencil"), style: UIBarButtonItemStyle.Bordered, target: self, action: "tapEdit")
+            let edit: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "bar_item_pencil"), style: UIBarButtonItemStyle.Plain, target: self, action: "tapEdit")
             self.navigationItem.rightBarButtonItem = edit
         }
         
@@ -113,8 +113,8 @@ class CommentListViewController: BaseViewController, UITableViewDataSource, UITa
     }
     
     func tapThumb(cell: CommentTableViewCell) {
-        let entity: CommentEntity = self.tableView.items[cell.tag] as CommentEntity
-        let vc: UserDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UserDetailVC") as UserDetailViewController
+        let entity: CommentEntity = self.tableView.items[cell.tag] as! CommentEntity
+        let vc: UserDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UserDetailVC") as! UserDetailViewController
         vc.displayUserId = entity.postUser.id
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: vc)
     }
@@ -137,9 +137,9 @@ class CommentListViewController: BaseViewController, UITableViewDataSource, UITa
             return
         }
         
-        let entity: CommentEntity = self.tableView.items[cell.tag] as CommentEntity
+        let entity: CommentEntity = self.tableView.items[cell.tag] as! CommentEntity
         
-        if (self.account as QiitaAccount).canCommentEdit(entity.postUser.id) == false {
+        if (self.account as! QiitaAccount).canCommentEdit(entity.postUser.id) == false {
             println("can not edit")
             return
         }
@@ -163,7 +163,7 @@ class CommentListViewController: BaseViewController, UITableViewDataSource, UITa
         ]
         
         self.targetComment = entity
-        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowAlertController.rawValue, object: self, userInfo: params)
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowAlertController.rawValue, object: self, userInfo: params as [NSObject : AnyObject])
         
     }
     
@@ -283,11 +283,11 @@ class CommentListViewController: BaseViewController, UITableViewDataSource, UITa
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: CommentTableViewCell = tableView.dequeueReusableCellWithIdentifier("CELL") as CommentTableViewCell
+        let cell: CommentTableViewCell = tableView.dequeueReusableCellWithIdentifier("CELL") as! CommentTableViewCell
         cell.account = self.account
         cell.tag = indexPath.row
         
-        let entity: CommentEntity = self.tableView.items[indexPath.row] as CommentEntity
+        let entity: CommentEntity = self.tableView.items[indexPath.row] as! CommentEntity
         cell.action = {(c: CommentTableViewCell) -> Void in
             self.tapThumb(c)
             return
@@ -369,7 +369,7 @@ class CommentListViewController: BaseViewController, UITableViewDataSource, UITa
             ]
         ]
         
-        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowAlertController.rawValue, object: self, userInfo: args)
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowAlertController.rawValue, object: self, userInfo: args as [NSObject : AnyObject])
         
     }
 }
