@@ -43,9 +43,23 @@ class UserDataManager {
     // 表示したガイド
     var displayedGuides: [Int] = [Int]()
     // Qiita AccessToken
-    var qiitaAccessToken: String = ""
+    var qiitaAccessToken: String = "" {
+        didSet {
+            if self.qiitaAccessToken.isEmpty {
+                return
+            }
+            self.saveAuth() // 即時保存させる
+        }
+    }
     // Qiita AuthenticatedUser ID
-    var qiitaAuthenticatedUserID: String = ""
+    var qiitaAuthenticatedUserID: String = "" {
+        didSet {
+            if self.qiitaAuthenticatedUserID.isEmpty {
+                return
+            }
+            self.saveAuth() // 即時保存させる
+        }
+    }
     
     // MARK: ライフサイクル
     init() {
@@ -69,6 +83,11 @@ class UserDataManager {
     }
     
     // MARK: メソッド
+    func saveAuth() {
+        self.ud.setObject(self.qiitaAccessToken, forKey: UDKeys.QiitaAccessToken.rawValue)
+        self.ud.setObject(self.qiitaAuthenticatedUserID, forKey: UDKeys.QiitaAuthenticatedUserID.rawValue)
+        self.ud.synchronize()
+    }
     func saveAll() {
         
         // プロパティで保持していたのをudへ書き込む

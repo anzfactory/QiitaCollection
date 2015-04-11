@@ -331,7 +331,6 @@
 		A118A6071A8F48A200350841 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				A123D0411AAC338F0039EB5C /* AD */,
 				A118A6081A8F490600350841 /* Swift */,
 				A1D8A8361A87914B0040C195 /* ObjC */,
 			);
@@ -343,13 +342,6 @@
 			children = (
 			);
 			path = Swift;
-			sourceTree = "<group>";
-		};
-		A123D0411AAC338F0039EB5C /* AD */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = AD;
 			sourceTree = "<group>";
 		};
 		A14149351A9C1544003B7898 /* PathMenu */ = {
@@ -1058,10 +1050,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: SHINGO ASATO (L2JKAT4K4R)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Libraries/AD/GoogleMobileAdsSdkiOS",
 					"$(PROJECT_DIR)/Frameworks",
 					"$(PROJECT_DIR)/Libraries/ObjC/ParseUI",
 				);
@@ -1083,10 +1074,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: SHINGO ASATO (L2JKAT4K4R)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Libraries/AD/GoogleMobileAdsSdkiOS",
 					"$(PROJECT_DIR)/Frameworks",
 					"$(PROJECT_DIR)/Libraries/ObjC/ParseUI",
 				);
