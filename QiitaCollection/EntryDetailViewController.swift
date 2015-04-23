@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
+class EntryDetailViewController: BaseViewController {
     
     typealias ParseItem = (label: String, value: String)
 
@@ -35,7 +35,7 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
     lazy var codes: [ParseItem] = self.parseCode()
     let patternLink: String = "<a.*?href=\\\"([http|https].*?)\\\".*?>(.*?)</a>"
     let patternCode: String = "\\`{3}(.*?)\\n((.|\\n)*?)\\`{3}"
-    let senderActivity: NSUserActivity? = nil
+    var senderActivity: NSUserActivity? = nil
     
     // MARK: ライフサイクル
     override func viewDidLoad() {
@@ -70,7 +70,7 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
     }
     
     override func viewWillDisappear(animated: Bool) {
-        if let activity = self.userActivity {
+        if let activity = self.senderActivity {
             activity.invalidate()
         }
         if self.isMovingFromParentViewController() || self.isBeingDismissed() {
@@ -232,15 +232,16 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
         
         if let entry = self.displayEntry {
             
-            if let activity = self.userActivity {
-                activity.invalidate()
+            if let activity = self.senderActivity {
+                
+            } else {
+                self.senderActivity = NSUserActivity(activityType: QCKeys.UserActivity.TypeSendURLToMac.rawValue)
+                self.senderActivity!.title = "QiitaCollection"
+                self.senderActivity!.becomeCurrent();
             }
+            self.senderActivity!.webpageURL = NSURL(string: entry.urlString)
             
-            self.userActivity = NSUserActivity(activityType: QCKeys.UserActivity.TypeSendURLToMac.rawValue)
-            self.userActivity!.webpageURL = NSURL(string: entry.urlString)
-            self.userActivity!.title = "QiitaCollection"
-            self.userActivity!.becomeCurrent()
-            self.userActivity!.delegate = self
+            Toast.show("閲覧中の投稿をHandoff対応デバイスとシンクロしました", style: JFMinimalNotificationStytle.StyleSuccess)
         } else {
             Toast.show("投稿データがないようです...", style: JFMinimalNotificationStytle.StyleWarning)
         }
@@ -561,21 +562,5 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
             NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PresentedViewController.rawValue, object: vc)
         }
     }
-    
-    // MARK: NSUserActivityDelegate
-    func userActivityWillSave(userActivity: NSUserActivity) {
-        dispatch_async(dispatch_get_main_queue(), {() -> Void in
-            Toast.show("お使いのデバイスのブラウザと同期しました", style: JFMinimalNotificationStytle.StyleSuccess)
-        })
-    }
-    func userActivityWasContinued(userActivity: NSUserActivity) {
-        userActivity.invalidate()
-        self.userActivity = nil
-    }
-    
-    func userActivity(userActivity: NSUserActivity, didReceiveInputStream inputStream: NSInputStream, outputStream: NSOutputStream) {
-        
-    }
-    
     
 }
