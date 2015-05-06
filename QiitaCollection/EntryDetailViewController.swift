@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EntryDetailViewController: BaseViewController {
+class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
     
     typealias ParseItem = (label: String, value: String)
 
@@ -236,12 +236,12 @@ class EntryDetailViewController: BaseViewController {
                 
             } else {
                 self.senderActivity = NSUserActivity(activityType: QCKeys.UserActivity.TypeSendURLToMac.rawValue)
+                self.senderActivity?.delegate = self
                 self.senderActivity!.title = "QiitaCollection"
                 self.senderActivity!.becomeCurrent();
             }
             self.senderActivity!.webpageURL = NSURL(string: entry.urlString)
             
-            Toast.show("閲覧中の投稿をHandoff対応デバイスとシンクロしました", style: JFMinimalNotificationStytle.StyleSuccess)
         } else {
             Toast.show("投稿データがないようです...", style: JFMinimalNotificationStytle.StyleWarning)
         }
@@ -561,6 +561,12 @@ class EntryDetailViewController: BaseViewController {
             }
             NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PresentedViewController.rawValue, object: vc)
         }
+    }
+    
+    func userActivityWillSave(userActivity: NSUserActivity) {
+        dispatch_async(dispatch_get_main_queue(), {() -> Void in
+            Toast.show("閲覧中の投稿をHandoff対応デバイスとシンクロしました", style: JFMinimalNotificationStytle.StyleSuccess)
+        })
     }
     
 }
