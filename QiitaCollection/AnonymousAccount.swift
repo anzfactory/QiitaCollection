@@ -228,4 +228,10 @@ class AnonymousAccount: NSObject {
         })
     }
     
+    func weekRanking(completion: (items: [RankEntity]) -> Void) {
+        ParseManager.sharedInstance.getWeekRanking(0, completion: { (items) -> Void in
+            completion(items: items)
+        })
+    }
+    
 }

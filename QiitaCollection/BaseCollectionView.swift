@@ -68,5 +68,26 @@ class BaseCollectionView: UICollectionView {
         self.page++
         self.reloadData()
     }
+    
+    func loadedItems<T:EntityProtocol>(items: [T], isError: Bool) {
+        
+        if isError {
+            Toast.show("取得に失敗しました...時間をあけて試してみてください", style: JFMinimalNotificationStytle.StyleWarning)
+            return
+        }
+        self.total = items.count
+        self.page = NSNotFound      // オートページング止めるために
+        
+        // リフレッシュ対象なのでリストクリア
+        self.items.removeAll(keepCapacity: false)
+        
+        
+        for item: T in items {
+            self.items.append(item)
+        }
+        
+//        self.page++
+        self.reloadData()
+    }
 
 }

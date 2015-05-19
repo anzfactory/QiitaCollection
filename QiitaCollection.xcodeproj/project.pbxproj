@@ -32,6 +32,7 @@
 		A123D0571AAC34310039EB5C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A123D0561AAC34310039EB5C /* SystemConfiguration.framework */; };
 		A123D0591AAC36F20039EB5C /* AdManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A123D0581AAC36F20039EB5C /* AdManager.swift */; };
 		A124A2201A87BF99007A42E9 /* PagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A124A21F1A87BF99007A42E9 /* PagerViewController.swift */; };
+		A13087E31B0A3F7F0068EA6B /* RankEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13087E21B0A3F7F0068EA6B /* RankEntity.swift */; };
 		A13A5A781AA61E0D00362731 /* light_novel.otf in Resources */ = {isa = PBXBuildFile; fileRef = A13A5A771AA61E0D00362731 /* light_novel.otf */; };
 		A14149381A9C1557003B7898 /* PathMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14149361A9C1557003B7898 /* PathMenu.swift */; };
 		A14149391A9C1557003B7898 /* PathMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14149371A9C1557003B7898 /* PathMenuItem.swift */; };
@@ -152,6 +153,7 @@
 		A123D0561AAC34310039EB5C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		A123D0581AAC36F20039EB5C /* AdManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdManager.swift; sourceTree = "<group>"; };
 		A124A21F1A87BF99007A42E9 /* PagerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagerViewController.swift; sourceTree = "<group>"; };
+		A13087E21B0A3F7F0068EA6B /* RankEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RankEntity.swift; sourceTree = "<group>"; };
 		A13A5A771AA61E0D00362731 /* light_novel.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = light_novel.otf; sourceTree = "<group>"; };
 		A14149361A9C1557003B7898 /* PathMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathMenu.swift; sourceTree = "<group>"; };
 		A14149371A9C1557003B7898 /* PathMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathMenuItem.swift; sourceTree = "<group>"; };
@@ -409,6 +411,7 @@
 				A103AF461A867A9100FF0B24 /* TagEntity.swift */,
 				A121AE171AA0CA60007E006E /* CommentEntity.swift */,
 				A19C85311AD126A300BCF59D /* HistoryEntity.swift */,
+				A13087E21B0A3F7F0068EA6B /* RankEntity.swift */,
 			);
 			name = Entities;
 			sourceTree = "<group>";
@@ -865,6 +868,7 @@
 				A17D0C551A963A510020229B /* SCLAlertView.m in Sources */,
 				A1EB791B1A9E3709007E931E /* CNPGridMenu.m in Sources */,
 				A1F294E51A986875005E1C02 /* SimpleListViewController.swift in Sources */,
+				A13087E31B0A3F7F0068EA6B /* RankEntity.swift in Sources */,
 				A1DD40091AA38373006E4F7B /* UIBarButtonItem+App.swift in Sources */,
 				A1824FD41A98AD03009604B2 /* NSMutableArray+SWUtilityButtons.m in Sources */,
 				A1824FDD1A98D816009604B2 /* Array+App.swift in Sources */,

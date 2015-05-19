@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Cts-Ai-uux">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Cts-Ai-uux">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -494,12 +494,20 @@
                                                         </constraint>
                                                     </constraints>
                                                 </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CH5-aY-xlH" userLabel="Num">
+                                                    <rect key="frame" x="88" y="93" width="30" height="30"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
+                                            <constraint firstItem="CH5-aY-xlH" firstAttribute="width" secondItem="tEQ-NH-l2n" secondAttribute="width" id="4Po-1H-exM"/>
                                             <constraint firstItem="ey1-cR-s46" firstAttribute="leading" secondItem="5en-NT-jN0" secondAttribute="leadingMargin" constant="-5" id="EcB-VK-cPN"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="fNl-vx-uQw" secondAttribute="trailing" constant="-8" id="Glx-Ds-VM0"/>
+                                            <constraint firstItem="CH5-aY-xlH" firstAttribute="centerY" secondItem="tEQ-NH-l2n" secondAttribute="centerY" id="HWb-9G-qPZ"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="ey1-cR-s46" secondAttribute="trailing" constant="-4" id="JnQ-bc-XbU"/>
                                             <constraint firstAttribute="bottomMargin" secondItem="h3L-sU-UNe" secondAttribute="bottom" constant="-8" id="RMq-0r-Zgn"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="h3L-sU-UNe" secondAttribute="trailing" constant="-8" id="SZ8-qA-y7f"/>
@@ -508,8 +516,10 @@
                                             <constraint firstItem="tEQ-NH-l2n" firstAttribute="trailing" secondItem="5en-NT-jN0" secondAttribute="trailingMargin" id="fv8-Sh-pdK"/>
                                             <constraint firstItem="h3L-sU-UNe" firstAttribute="leading" secondItem="5en-NT-jN0" secondAttribute="leadingMargin" constant="-8" id="kDN-1F-xCH"/>
                                             <constraint firstAttribute="bottomMargin" secondItem="tEQ-NH-l2n" secondAttribute="bottom" constant="29" id="pkY-iD-KrK"/>
+                                            <constraint firstItem="tEQ-NH-l2n" firstAttribute="leading" secondItem="CH5-aY-xlH" secondAttribute="trailing" constant="4" id="w0C-RE-URw"/>
                                             <constraint firstItem="ey1-cR-s46" firstAttribute="top" secondItem="5en-NT-jN0" secondAttribute="topMargin" constant="-8" id="xFO-3O-5Fd"/>
                                             <constraint firstItem="h3L-sU-UNe" firstAttribute="top" secondItem="5en-NT-jN0" secondAttribute="topMargin" constant="-8" id="yOk-SU-8aB"/>
+                                            <constraint firstItem="CH5-aY-xlH" firstAttribute="height" secondItem="tEQ-NH-l2n" secondAttribute="height" id="ymG-8Z-aPF"/>
                                         </constraints>
                                         <size key="customSize" width="160" height="160"/>
                                         <connections>
@@ -521,6 +531,7 @@
                                             <outlet property="iconStar" destination="3Fr-Ih-su9" id="ISl-aB-sR4"/>
                                             <outlet property="mainTag" destination="FBt-fj-E4F" id="EBN-Us-gxg"/>
                                             <outlet property="postDate" destination="g6S-zi-NAR" id="1Bd-fM-iPy"/>
+                                            <outlet property="rank" destination="CH5-aY-xlH" id="DBr-ID-ISd"/>
                                             <outlet property="stockCount" destination="let-Ar-XiK" id="rTl-2i-crr"/>
                                             <outlet property="tagImage" destination="tEQ-NH-l2n" id="GtO-qK-zoE"/>
                                             <outlet property="title" destination="ey1-cR-s46" id="1M5-Jd-GmV"/>

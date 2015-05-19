@@ -10,11 +10,19 @@ import UIKit
 
 class EntryCollectionViewController: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
+    enum ListType : Int {
+        case
+        New = 1,
+        Search = 2,
+        WeekRanking = 3
+    }
+    
     // MARK: UI
     @IBOutlet weak var collectionView: BaseCollectionView!
     
     // MARK: プロパティ
     var query: String = ""
+    var ShowType: ListType = .New
     
     // MARK: ライフサイクル
     override func viewDidLoad() {
@@ -70,18 +78,22 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
             })
             NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoading.rawValue, object: nil)
         }
-        if self.query.isEmpty {
-            // 新着
+        switch (self.ShowType) {
+        case .New:
             self.account.newEntries(self.collectionView.page, completion: fin)
-        } else {
-            // 検索
+        case .Search:
             self.account.searchEntries(self.collectionView.page, query: self.query, completion: fin)
+        case .WeekRanking:
+            self.account.weekRanking({ (items) -> Void in
+                self.collectionView.loadedItems(items, isError: items.count == 0)
+                NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoading.rawValue, object: nil)
+                return
+            })
         }
-        
     }
     
     func longPress(gesture: UILongPressGestureRecognizer) {
-        if gesture.state != UIGestureRecognizerState.Began {
+        if gesture.state != UIGestureRecognizerState.Began || self.ShowType == .WeekRanking {
             return
         }
         let tapPoint: CGPoint = gesture.locationInView(self.collectionView)
@@ -127,6 +139,12 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
     func moveEntryDetail(entry: EntryEntity) {
         let vc: EntryDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryDetailVC") as! EntryDetailViewController
         vc.displayEntry = entry
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: vc)
+    }
+    
+    func moveEntryDetail(entryId: String) {
+        let vc: EntryDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryDetailVC") as! EntryDetailViewController
+        vc.displayEntryId = entryId
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: vc)
     }
     
@@ -201,8 +219,11 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell: EntryCollectionViewCell = self.collectionView.dequeueReusableCellWithReuseIdentifier("CELL", forIndexPath: indexPath) as! EntryCollectionViewCell
         
-        let entry: EntryEntity = self.collectionView.items[indexPath.row] as! EntryEntity
-        cell.display(entry)
+        if let entry: EntryEntity = self.collectionView.items[indexPath.row] as? EntryEntity {
+            cell.display(entry)
+        } else if let rank: RankEntity = self.collectionView.items[indexPath.row] as? RankEntity {
+            cell.display(rank)
+        }
         return cell
         
     }
@@ -220,8 +241,11 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let tapEntry: EntryEntity = self.collectionView.items[indexPath.row] as! EntryEntity
-        self.moveEntryDetail(tapEntry)
+        if let tapEntry: EntryEntity = self.collectionView.items[indexPath.row] as? EntryEntity {
+            self.moveEntryDetail(tapEntry)
+        } else if let rank: RankEntity = self.collectionView.items[indexPath.row] as? RankEntity {
+            self.moveEntryDetail(rank.entryId)
+        }
     }
     
     // MARK: UICollectionViewDelegateFlowLayout

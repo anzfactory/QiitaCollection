@@ -153,4 +153,35 @@ class ParseManager {
             
         }
     }
+    
+    func getWeekRanking(page: Int, completion: (items: [RankEntity]) -> Void) {
+        
+        let limit: Int = 20
+        let user = PFUser.currentUser()
+        let query: PFQuery = PFQuery(className: "RankingWeek")
+        query.orderByAscending("rank")
+        query.limit = limit   // リクエストを抑えたいから多めにｗ
+        
+        query.findObjectsInBackgroundWithBlock { (items, error) -> Void in
+            
+            var list: [RankEntity] = [RankEntity]()
+            
+            if let e = error {
+                println(e)
+                completion(items: list)
+                return
+            }
+            
+            if let itemList = items {
+                for object in itemList {
+                    if let obj = object as? PFObject {
+                        list.append(RankEntity(object: obj))
+                    }
+                }
+            }
+            
+            completion(items: list)
+            
+        }
+    }
 }

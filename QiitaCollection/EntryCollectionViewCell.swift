@@ -21,6 +21,7 @@ class EntryCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var stockCount: UILabel!
     @IBOutlet weak var iconComment: UIImageView!
     @IBOutlet weak var commentCount: UILabel!
+    @IBOutlet weak var rank: UILabel!
     
     // MARK: Constraint
     @IBOutlet weak var constraintDateWidth: NSLayoutConstraint!
@@ -37,6 +38,7 @@ class EntryCollectionViewCell: UICollectionViewCell {
         self.iconComment.image = self.iconComment.image?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
         
         self.tagImage.backgroundColor = UIColor.backgroundDefaultImage()
+        self.rank.maskCircle(UIColor.whiteColor())
         
         self.prepare()
     }
@@ -58,9 +60,12 @@ class EntryCollectionViewCell: UICollectionViewCell {
         self.postDate.text = ""
         self.mainTag.text = ""
         self.backgroundImage.image = UIImage(named: "default");
+        self.rank.backgroundColor = UIColor.backgroundAccent()
     }
     
     func display(entry: EntryEntity) {
+        
+        self.rank.hidden = true
         
         // 背景(プロフサムネ)
         entry.postUser.loadThumb(self.backgroundImage)
@@ -86,6 +91,51 @@ class EntryCollectionViewCell: UICollectionViewCell {
         // 投稿日
         self.postDate.text = entry.shortUpdateDate
         self.postDate.sizeToFit()
+        
+    }
+    
+    func display(rank: RankEntity) {
+        
+        // 背景(default)
+        self.backgroundImage.image = UIImage(named: "default")
+        
+        // タグイメージ
+//        var tag: TagEntity = entry.tags[0]
+//        tag.loadThumb(self.tagImage)
+        
+        // title
+        self.title.font = UIFont(name: "07LightNovelPOP", size: self.title.font.pointSize)
+        self.title.text = rank.title
+        self.title.frame.size.height = self.title.sizeThatFits(CGSize(width: self.bounds.width, height: self.bounds.height)).height
+        // 著者
+        self.author.text = rank.author
+        // ストック
+        self.iconStar.hidden = false
+        self.stockCount.hidden = false
+        self.stockCount.text = String(rank.stockNum)
+        self.stockCount.sizeToFit()
+        self.constraintStockWidth.constant = self.stockCount.frame.size.width
+        // コメント
+        self.commentCount.text = "123"  // TODO: コメント数
+        // main tag
+        if rank.tags.count > 0 {
+            var tag: TagEntity = TagEntity(tagId: rank.tags[0])
+            self.mainTag.text = tag.id
+            tag.loadThumb(self.tagImage)
+        } else {
+            self.mainTag.text = ""
+        }
+        // 投稿日
+        self.postDate.text = ""
+        self.postDate.sizeToFit()
+        // ランク
+        self.rank.hidden = false
+        self.rank.text = String(rank.rank)
+        if rank.isNew {
+            self.rank.backgroundColor = UIColor.attintion()
+        } else {
+            self.rank.backgroundColor = UIColor.backgroundAccent()
+        }
         
     }
 }

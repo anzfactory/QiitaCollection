@@ -18,7 +18,7 @@ class QCGridMenuItem: CNPGridMenuItem {
 
 class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerDataSource, CNPGridMenuDelegate {
     
-    typealias ViewPagerItem = (title:String, identifier:String, query:String)
+    typealias ViewPagerItem = (title:String, identifier:String, query:String, type: Int)
 
     // MARK: プロパティ
     var leftBarItem: UIBarButtonItem?
@@ -80,19 +80,20 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
     
     func setupViewControllers() {
         self.viewPagerItems.removeAll(keepCapacity: false)
-        self.viewPagerItems.append(ViewPagerItem(title: "新着", identifier:"EntryCollectionVC", query:""))
+        self.viewPagerItems.append(ViewPagerItem(title: "週間ランキング", identifier:"EntryCollectionVC", query:"", type: EntryCollectionViewController.ListType.WeekRanking.rawValue))
+        self.viewPagerItems.append(ViewPagerItem(title: "新着", identifier:"EntryCollectionVC", query:"", type: EntryCollectionViewController.ListType.New.rawValue))
         
         // クエリで回す
         let queries: [[String: String]] = self.account.saveQueries()
         if !queries.isEmpty {
             for queryItem in queries {
-                self.viewPagerItems.append(ViewPagerItem(title: queryItem["title"]!, identifier:"EntryCollectionVC", query:queryItem["query"]!))
+                self.viewPagerItems.append(ViewPagerItem(title: queryItem["title"]!, identifier:"EntryCollectionVC", query:queryItem["query"]!, type: EntryCollectionViewController.ListType.Search.rawValue))
             }
         }
         
         // 保存した投稿リストがあるか
         if self.account.hasDownloadFiles() {
-            self.viewPagerItems.append(ViewPagerItem(title:"保存した投稿", identifier:"SimpleListVC", query: ""))
+            self.viewPagerItems.append(ViewPagerItem(title:"保存した投稿", identifier:"SimpleListVC", query: "", type: 0))
         }
         
         // 認証済みなら末尾にmypage 
@@ -100,7 +101,7 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
         // 最初の認証直後から account が QiitaAccount になるまで時間差があるので
         // userdata も参考にする
         if self.account is QiitaAccount || UserDataManager.sharedInstance.isAuthorizedQiita() {
-            self.viewPagerItems.append(ViewPagerItem(title:"マイページ", identifier:"UserDetailVC", query:""))
+            self.viewPagerItems.append(ViewPagerItem(title:"マイページ", identifier:"UserDetailVC", query:"", type: 0))
         }
         
         let width: CGFloat = self.view.frame.size.width / CGFloat(self.viewPagerItems.count)
@@ -390,6 +391,7 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
         let vc: UIViewController = self.storyboard?.instantiateViewControllerWithIdentifier(current.identifier) as! UIViewController
         
         if vc is EntryCollectionViewController {
+            (vc as! EntryCollectionViewController).ShowType = EntryCollectionViewController.ListType(rawValue: current.type)!
             (vc as! EntryCollectionViewController).query = current.query
         } else if vc is SimpleListViewController {
             let simpleVC: SimpleListViewController = vc as! SimpleListViewController
