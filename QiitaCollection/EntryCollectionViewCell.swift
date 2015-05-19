@@ -108,7 +108,7 @@ class EntryCollectionViewCell: UICollectionViewCell {
         self.title.text = rank.title
         self.title.frame.size.height = self.title.sizeThatFits(CGSize(width: self.bounds.width, height: self.bounds.height)).height
         // 著者
-        self.author.text = rank.author
+        self.author.text = rank.authorName()
         // ストック
         self.iconStar.hidden = false
         self.stockCount.hidden = false

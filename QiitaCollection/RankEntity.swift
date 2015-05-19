@@ -38,4 +38,12 @@ struct RankEntity: EntityProtocol {
         self.isNew = object["isNew"] as! Bool
     }
     
+    func authorName() -> String {
+        
+        if self.author.isEmpty {
+            return "Unknown"
+        }
+        return "@" + self.author
+    }
+    
 }
