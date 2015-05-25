@@ -190,6 +190,7 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
         vc.callback = {(searchVC: SearchViewController, q: String) -> Void in
             
             let entriesVC: EntryCollectionViewController = self.storyboard?.instantiateViewControllerWithIdentifier("EntryCollectionVC") as! EntryCollectionViewController
+            entriesVC.ShowType = EntryCollectionViewController.ListType.Search
             entriesVC.query = q
             entriesVC.title = "検索結果"
             NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: entriesVC)
