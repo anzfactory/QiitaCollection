@@ -33,7 +33,7 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "(ﾟ∀ﾟ)ｷﾀｺﾚ!!"
+        self.title = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleDisplayName") as? String
         
         let rightButtons: [UIBarButtonItem] = [
             UIBarButtonItem(image: UIImage(named: "bar_item_setting"), style: UIBarButtonItemStyle.Plain, target: self, action: "tapSetting"),
