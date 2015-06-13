@@ -89,34 +89,6 @@ class ParseManager {
         }
     }
     
-    func putRankingHistory(entry: EntryEntity) {
-        
-        var data: PFObject = PFObject(className: "RankingHistory")
-        
-        let query: PFQuery = PFQuery(className: "RankingHistory")
-        query.whereKey("entryId", equalTo: entry.id)
-        query.getFirstObjectInBackgroundWithBlock { (resultData, error) -> Void in
-            if let e = error {
-                // 101 は notresult のエラー (該当なし)
-                if e.code != 101 {
-                    return
-                }
-                data["entryId"] = entry.id
-            } else {
-                data = resultData!
-            }
-            
-            data["title"] = entry.title
-            data["tags"] = TagEntity.titles(entry.tags)
-            data.incrementKey("count")
-            
-            data.saveInBackgroundWithBlock({ (successed, error) -> Void in
-                // 履歴なので失敗しようが成功しようが関知しない
-            })
-            
-        }
-    }
-    
     func getHistory(page: Int, completion: (items: [HistoryEntity]) -> Void) {
         
         if !self.isAuthorized() {

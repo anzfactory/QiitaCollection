@@ -22,7 +22,7 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
         }
         didSet {
             if let entry = self.displayEntry {
-                self.account.saveHistory(entry, isRanking: false)
+                self.account.saveHistory(entry)
             }
         }
     }
@@ -72,11 +72,6 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
     override func viewWillDisappear(animated: Bool) {
         if let activity = self.senderActivity {
             activity.invalidate()
-        }
-        if self.isMovingFromParentViewController() || self.isBeingDismissed() {
-            if let entry = self.displayEntry {
-                self.account.saveHistory(entry, isRanking: true)
-            }
         }
         super.viewWillDisappear(animated)
     }
