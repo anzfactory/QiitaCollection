@@ -337,9 +337,17 @@ class QiitaApiManager {
             let json: JSON = JSON(res)
             if let dic: Dictionary = json.dictionary {
                 if dic["type"] == "rate_limit_exceeded" {
+                    
+                    let message: String
+                    if UserDataManager.sharedInstance.isAuthorizedQiita() {
+                        message = "リクエスト制限に達したためデータ取得ができませんでした\n1時間毎に制限はリセットされるので、しらばらく時間をあけてから再度お試し下さい"
+                    } else {
+                        message = "リクエスト制限に達したためデータ取得ができませんでした\nQiitaへサインインすると制限が緩和されるので是非！\nトップ画面の設定メニューから行えます"
+                    }
+                    
                     let args: [NSObject: AnyObject] = [
                         QCKeys.AlertController.Title.rawValue: "リクエスト制限",
-                        QCKeys.AlertController.Description.rawValue: "リクエスト制限に達したためデータ取得ができませんでした\n1時間毎に制限はリセットされるので、しらばらく時間をあけてから再度お試し下さい",
+                        QCKeys.AlertController.Description.rawValue: message,
                         QCKeys.AlertController.Actions.rawValue: [UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
                             return
                         })],
