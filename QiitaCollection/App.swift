@@ -17,12 +17,15 @@ public struct App {
 
     enum URL {
         case
-        Review
+        Review,
+        Wiki
         
         func string() -> String {
             switch self {
             case .Review:
                 return "itms-apps://itunes.apple.com/app/id" + App.Setting.ID.rawValue
+            case .Wiki:
+                return "https://github.com/anzfactory/QiitaCollection/wiki"
             }
         }
     }

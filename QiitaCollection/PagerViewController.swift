@@ -159,6 +159,14 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
             return
         }
         
+        let menuWiki: QCGridMenuItem = QCGridMenuItem()
+        menuWiki.icon = UIImage(named: "icon_question")
+        menuWiki.title = "Help"
+        menuWiki.action = {(item) -> Void in
+            self.openWiki()
+            return
+        }
+        
         let menuItemInfo: QCGridMenuItem = QCGridMenuItem()
         menuItemInfo.icon = UIImage(named: "icon_info")
         menuItemInfo.title = "About App"
@@ -166,7 +174,7 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
             self.openAboutApp()
         }
         
-        var items = [menuItemMuteUsers, menuItemPinEntries, menuItemQuery, menuReview, menuItemInfo];
+        var items = [menuItemMuteUsers, menuItemPinEntries, menuItemQuery, menuReview, menuWiki, menuItemInfo];
         // 未認証なら最初にsign in 認証済みなら最後に sign out
         if AccountManager.isAuthorized() {
             items.append(menuItemSigin)
@@ -311,6 +319,14 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
             return
         }
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PresentedViewController.rawValue, object: vc)
+    }
+    
+    func openWiki() {
+        let reviewUrl: NSURL = NSURL(string: App.URL.Wiki.string())!
+        
+        if UIApplication.sharedApplication().canOpenURL(reviewUrl) {
+            UIApplication.sharedApplication().openURL(reviewUrl)
+        }
     }
     
     func moveReview() {
