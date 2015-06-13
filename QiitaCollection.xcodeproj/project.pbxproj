@@ -221,13 +221,12 @@
 		A1C321AE1ABF2F910087CF85 /* AccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 		A1CF433C1A8B06190016209C /* QCKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QCKeys.swift; sourceTree = "<group>"; };
 		A1CF433E1A8B1E350016209C /* EntryDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryDetailViewController.swift; sourceTree = "<group>"; };
-		A1CF43411A8B54620016209C /* entry.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = entry.html; sourceTree = "<group>"; };
+		A1CF43411A8B54620016209C /* entry.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = entry.html; path = Resources/entry.html; sourceTree = "<group>"; };
 		A1CF43501A8BBE380016209C /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		A1D3BD251AD8FB6E00E5630F /* UIOutlineLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIOutlineLabel.swift; sourceTree = "<group>"; };
 		A1D8A8341A8750240040C195 /* UIImageView+App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+App.swift"; sourceTree = "<group>"; };
 		A1D8A8381A87917F0040C195 /* UIView+Constraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Constraint.h"; sourceTree = "<group>"; };
 		A1D8A8391A87917F0040C195 /* UIView+Constraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Constraint.m"; sourceTree = "<group>"; };
-		A1D8DB231AA899C100988656 /* Icon_120r.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon_120r.png; path = ../../Icon_120r.png; sourceTree = "<group>"; };
 		A1D8DB271AA89D3700988656 /* NSURL+App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURL+App.swift"; sourceTree = "<group>"; };
 		A1D8DB291AA8A9FC00988656 /* SigninViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigninViewController.swift; sourceTree = "<group>"; };
 		A1D8DB2B1AA8AE6500988656 /* ThirdParty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdParty.swift; sourceTree = "<group>"; };
@@ -483,7 +482,6 @@
 				A1EC9BE31AA69DBF0098AC2F /* Resources */,
 				A1824FC41A987FA2009604B2 /* Models */,
 				A1F294D51A979EC9005E1C02 /* Protocols */,
-				A1CF43401A8B54450016209C /* Resources */,
 				A1CF43391A8B04200016209C /* Const */,
 				A103AF411A865DAF00FF0B24 /* Extensions */,
 				A103AF381A8613DA00FF0B24 /* Views */,
@@ -563,15 +561,6 @@
 			name = Const;
 			sourceTree = "<group>";
 		};
-		A1CF43401A8B54450016209C /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				A1D8DB231AA899C100988656 /* Icon_120r.png */,
-				A1CF43411A8B54620016209C /* entry.html */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
 		A1D8A8361A87914B0040C195 /* ObjC */ = {
 			isa = PBXGroup;
 			children = (
@@ -627,6 +616,7 @@
 		A1EC9BE31AA69DBF0098AC2F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A1CF43411A8B54620016209C /* entry.html */,
 				A13A5A771AA61E0D00362731 /* light_novel.otf */,
 				A1EC9BE41AA69DEA0098AC2F /* AboutApp.plist */,
 			);
