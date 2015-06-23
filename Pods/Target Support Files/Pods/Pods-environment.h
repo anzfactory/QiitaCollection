@@ -18,6 +18,12 @@
 #define COCOAPODS_VERSION_MINOR_Bolts 1
 #define COCOAPODS_VERSION_PATCH_Bolts 4
 
+// DTIActivityIndicator
+#define COCOAPODS_POD_AVAILABLE_DTIActivityIndicator
+#define COCOAPODS_VERSION_MAJOR_DTIActivityIndicator 0
+#define COCOAPODS_VERSION_MINOR_DTIActivityIndicator 1
+#define COCOAPODS_VERSION_PATCH_DTIActivityIndicator 0
+
 // Google-Mobile-Ads-SDK
 #define COCOAPODS_POD_AVAILABLE_Google_Mobile_Ads_SDK
 #define COCOAPODS_VERSION_MAJOR_Google_Mobile_Ads_SDK 7
