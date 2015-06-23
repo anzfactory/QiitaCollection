@@ -25,4 +25,5 @@ DerivedData
 #
 # Pods/
 ThirdParty_.swift
+ThirdParty.swift
 RankingWeek.json
