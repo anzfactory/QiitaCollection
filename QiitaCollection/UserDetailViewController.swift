@@ -137,7 +137,7 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
         
         let completion: (item: UserEntity?) -> Void = {(item) -> Void in
             
-            NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoading.rawValue, object: nil);
+            NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoadingWave.rawValue, object: nil);
             
             if let userEntity = item {
                 
@@ -168,7 +168,7 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
             
         }
         
-        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowLoading.rawValue, object: nil);
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowLoadingWave.rawValue, object: nil);
         
         if self.showAuthenticatedUser {
             if let qiitaAccount = self.account as? QiitaAccount {
@@ -291,7 +291,6 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
         
         if let qiitaAccount = self.account as? QiitaAccount {
             let completion = {(isError: Bool) -> Void in
-                
                 if isError {
                     Toast.show("処理に失敗しました...", style: JFMinimalNotificationStytle.StyleError)
                     return
@@ -300,7 +299,7 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
                 self.getFollowingState()
                 return
             }
-            
+
             if self.navButtonFollowing!.selected {
                 // 解除処理
                 qiitaAccount.cancelFollow(self.displayUserId!, completion: completion)

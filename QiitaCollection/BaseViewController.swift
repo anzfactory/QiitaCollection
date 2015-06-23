@@ -18,15 +18,15 @@ class BaseViewController: UIViewController {
             // NavigatonBarのタイトルにカスタムタイトル(UILabek)をつかってるんで
             // VCの方で遅延的にタイトルを設定した場合、反映されないので…
             // 監視して、カスタムの方へ投げてる
-            if let customTitle = self.navigationItem.titleView as? UILabel {
-                customTitle.text = self.title
-                customTitle.sizeToFit()
+            if let navigationTitleView = self.navigationItem.titleView as? NavigationTitleView {
+                navigationTitleView.setTitleText(self.title!)
             }
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setupNavigation()
         self.afterDidLoad = true
     }
     

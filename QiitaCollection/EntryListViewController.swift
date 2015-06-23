@@ -69,19 +69,17 @@ class EntryListViewController: BaseViewController, UITableViewDataSource, UITabl
     // MARK: メソッド
     func refresh() {
         
-        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowLoading.rawValue, object: nil);
-        
         self.tableView.page = 1
         self.loadData()
         
     }
     func loadData() {
-        
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowLoadingWave.rawValue, object: nil);
         let callback = {(total: Int, items: [EntryEntity]) -> Void in
             self.tableView.loadedItems(total, items: items, isAppendable: { (item: EntryEntity) -> Bool in
                 return !self.account.existsMuteUser(item.postUser.id)
             })
-            NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoading.rawValue, object: nil)
+            NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoadingWave.rawValue, object: nil)
         }
         
         // リストタイプによってクエリ作成
@@ -103,7 +101,7 @@ class EntryListViewController: BaseViewController, UITableViewDataSource, UITabl
         case .History:
             self.account.histories(self.tableView.page, completion: { (items) -> Void in
                 self.tableView.loadedItems(items)
-                NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoading.rawValue, object: nil)
+                NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoadingWave.rawValue, object: nil)
             })
         }
         

@@ -34,6 +34,7 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
         super.viewDidLoad()
         
         self.title = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleDisplayName") as? String
+        self.setupNavigation()
         
         let rightButtons: [UIBarButtonItem] = [
             UIBarButtonItem(image: UIImage(named: "bar_item_setting"), style: UIBarButtonItemStyle.Plain, target: self, action: "tapSetting"),

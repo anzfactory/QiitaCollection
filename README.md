@@ -19,4 +19,5 @@ Swift勉強がてら作ってます
 * [SCLAlertView](https://github.com/dogo/SCLAlertView)  
 * [SWTableViewCell](https://github.com/CEWendel/SWTableViewCell)  
 * [UIView-Constrain](https://github.com/ShingoFukuyama/UIView-Constraint)  
-* [ParseUI-iOS](https://github.com/ParsePlatform/ParseUI-iOS)
+* [ParseUI-iOS](https://github.com/ParsePlatform/ParseUI-iOS)  
+* [DTIActivityIndicatorView](https://github.com/dtissera/DTIActivityIndicatorView-Swift.git)  

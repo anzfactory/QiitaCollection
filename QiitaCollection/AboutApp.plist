@@ -80,6 +80,10 @@
 				<key>UIView-Constrain</key>
 				<string>https://github.com/ShingoFukuyama/UIView-Constraint/blob/master/LICENSE</string>
 			</dict>
+			<dict>
+				<key>DTIActivityIndicatorView</key>
+				<string>https://github.com/dtissera/DTIActivityIndicatorView-Swift/blob/master/LICENCE</string>
+			</dict>
 		</array>
 	</dict>
 	<dict>

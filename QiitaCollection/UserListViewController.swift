@@ -72,7 +72,9 @@ class UserListViewController: BaseViewController, UITableViewDataSource, UITable
     }
     
     func loadUseList() {
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowLoadingWave.rawValue, object: nil)
         let completion = {(total: Int, items: [UserEntity]) -> Void in
+            NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoadingWave.rawValue, object: nil)
             self.tableView.loadedItems(total, items: items, isAppendable: nil)
         }
         
@@ -97,6 +99,11 @@ class UserListViewController: BaseViewController, UITableViewDataSource, UITable
     }
     
     // MARK: UITableViewDelegate
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        if self.tableView.page != NSNotFound && indexPath.row + 1 == self.tableView.items.count {
+            self.loadUseList()
+        }
+    }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let user: UserEntity = self.tableView.items[indexPath.row] as! UserEntity
         let vc: UserDetailViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UserDetailVC") as! UserDetailViewController

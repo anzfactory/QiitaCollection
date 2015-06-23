@@ -27,7 +27,6 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
     // MARK: ライフサイクル
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         let longPressGesture: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: "longPress:")
         self.collectionView.addGestureRecognizer(longPressGesture)
         
@@ -65,18 +64,17 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
     }
     
     func refresh() {
-        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowLoading.rawValue, object: nil)
         if !self.isViewLoaded() {return}
         self.collectionView.page = 1
         self.load()
     }
     func load() {
-        
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowLoadingWave.rawValue, object: nil)
         let fin = { (total:Int, items:[EntryEntity]) -> Void in
             self.collectionView.loadedItems(total, items: items, isError: false, isAppendable: { (item: EntryEntity) -> Bool in
                 return !self.account.existsMuteUser(item.postUser.id)
             })
-            NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoading.rawValue, object: nil)
+            NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoadingWave.rawValue, object: nil)
         }
         switch (self.ShowType) {
         case .New:
@@ -86,7 +84,7 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
         case .WeekRanking:
             self.account.weekRanking({ (items) -> Void in
                 self.collectionView.loadedItems(items, isError: items.count == 0)
-                NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoading.rawValue, object: nil)
+                NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoadingWave.rawValue, object: nil)
                 return
             })
         }

@@ -90,13 +90,12 @@ class CommentListViewController: BaseViewController, UITableViewDataSource, UITa
     }
     
     func refresh() {
-        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowLoading.rawValue, object: nil)
         self.tableView.page = 1
         self.load()
     }
     
     func load() {
-        
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowLoadingWave.rawValue, object: nil)
         self.account.comments(self.tableView.page, entryId: self.displayEntryId) { (total, items) -> Void in
             if total == 0 {
                 Toast.show("コメントが投稿されていません…", style: JFMinimalNotificationStytle.StyleInfo)
@@ -107,7 +106,7 @@ class CommentListViewController: BaseViewController, UITableViewDataSource, UITa
                 self.tableView.loadedItems(total, items: items, isAppendable: nil)
             }
             
-            NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoading.rawValue, object: nil)
+            NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.HideLoadingWave.rawValue, object: nil)
         }
         
     }
@@ -222,7 +221,6 @@ class CommentListViewController: BaseViewController, UITableViewDataSource, UITa
                     Toast.show("コメントできませんでした...", style: JFMinimalNotificationStytle.StyleError)
                     return
                 }
-                
                 self.fin()
             }
             
@@ -257,7 +255,6 @@ class CommentListViewController: BaseViewController, UITableViewDataSource, UITa
         
         if let qiitaAccount = self.account as? QiitaAccount {
             if let comm = self.targetComment {
-                
                 qiitaAccount.deleteComment(comm.id, completion: { (isError) -> Void in
                     if isError {
                         Toast.show("削除できませんでした...", style: JFMinimalNotificationStytle.StyleError)
@@ -302,6 +299,11 @@ class CommentListViewController: BaseViewController, UITableViewDataSource, UITa
     // MARK: UITableViewDelegate
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30.0
+    }
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        if self.tableView.page != NSNotFound && indexPath.row + 1 == self.tableView.items.count {
+            self.load()
+        }
     }
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.size.width, height: 30.0))

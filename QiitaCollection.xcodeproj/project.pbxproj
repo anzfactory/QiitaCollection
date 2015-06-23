@@ -112,6 +112,9 @@
 		A1F294DE1A97A270005E1C02 /* UserDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F294DD1A97A270005E1C02 /* UserDataManager.swift */; };
 		A1F294E51A986875005E1C02 /* SimpleListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F294E41A986875005E1C02 /* SimpleListViewController.swift */; };
 		A1F8D5091A88FC3C00660741 /* UIView+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F8D5081A88FC3C00660741 /* UIView+App.swift */; };
+		A1F9A4241B38EA6500B1693B /* UIViewController+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F9A4231B38EA6500B1693B /* UIViewController+App.swift */; };
+		A1F9A4271B38EA8000B1693B /* NavigationTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F9A4251B38EA8000B1693B /* NavigationTitleView.swift */; };
+		A1F9A4281B38EA8000B1693B /* NavigationTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1F9A4261B38EA8000B1693B /* NavigationTitleView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -257,6 +260,9 @@
 		A1F294DD1A97A270005E1C02 /* UserDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataManager.swift; sourceTree = "<group>"; };
 		A1F294E41A986875005E1C02 /* SimpleListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleListViewController.swift; sourceTree = "<group>"; };
 		A1F8D5081A88FC3C00660741 /* UIView+App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+App.swift"; sourceTree = "<group>"; };
+		A1F9A4231B38EA6500B1693B /* UIViewController+App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+App.swift"; sourceTree = "<group>"; };
+		A1F9A4251B38EA8000B1693B /* NavigationTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationTitleView.swift; sourceTree = "<group>"; };
+		A1F9A4261B38EA8000B1693B /* NavigationTitleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavigationTitleView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -294,6 +300,8 @@
 		A103AF381A8613DA00FF0B24 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A1F9A4251B38EA8000B1693B /* NavigationTitleView.swift */,
+				A1F9A4261B38EA8000B1693B /* NavigationTitleView.xib */,
 				A1C0B5B61A96C4E70086F92E /* Base */,
 				A103AF391A86141200FF0B24 /* EntryCollectionViewCell.swift */,
 				A118A61D1A8F4AA600350841 /* EntryDetailView.swift */,
@@ -315,6 +323,7 @@
 		A103AF411A865DAF00FF0B24 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				A1F9A4231B38EA6500B1693B /* UIViewController+App.swift */,
 				A1BA38201AB0B32400595568 /* String+App.swift */,
 				A103AF421A865DE700FF0B24 /* UIColor+App.swift */,
 				A103AF441A866A0D00FF0B24 /* UIImage+App.swift */,
@@ -766,6 +775,7 @@
 				A1A8D9EA1A82F92C00231D84 /* LaunchScreen.xib in Resources */,
 				A1EC9BE51AA69DEA0098AC2F /* AboutApp.plist in Resources */,
 				A1A8D9E71A82F92C00231D84 /* Images.xcassets in Resources */,
+				A1F9A4281B38EA8000B1693B /* NavigationTitleView.xib in Resources */,
 				A1CF43421A8B54620016209C /* entry.html in Resources */,
 				A13A5A781AA61E0D00362731 /* light_novel.otf in Resources */,
 			);
@@ -870,7 +880,9 @@
 				A103AF471A867A9100FF0B24 /* TagEntity.swift in Sources */,
 				A18030641A99CFF600EA8D4A /* SearchViewController.swift in Sources */,
 				A18A85D61A85D5190078436D /* EntryEntity.swift in Sources */,
+				A1F9A4271B38EA8000B1693B /* NavigationTitleView.swift in Sources */,
 				A1824FD61A98AD03009604B2 /* SWLongPressGestureRecognizer.m in Sources */,
+				A1F9A4241B38EA6500B1693B /* UIViewController+App.swift in Sources */,
 				A124A2201A87BF99007A42E9 /* PagerViewController.swift in Sources */,
 				A1A16E341A90842C0052A7C6 /* UserDetailView.swift in Sources */,
 				A121AE181AA0CA60007E006E /* CommentEntity.swift in Sources */,

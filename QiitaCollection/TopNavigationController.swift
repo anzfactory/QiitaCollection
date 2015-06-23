@@ -10,16 +10,9 @@ import UIKit
 
 class TopNavigationController: UINavigationController, UINavigationControllerDelegate, PathMenuDelegate {
     
-    enum AlertViewStatus {
-        case Dismiss,
-        Show,
-        Wait
-    }
-    
     // MARK: プロパティ
     lazy var notice: JFMinimalNotification = self.makeNotice()
-    var alertView: SCLAlertView?
-    var alertViewStatus: AlertViewStatus = .Dismiss
+    var alertView: SCLAlertView = SCLAlertView()
     var isDidAppear: Bool = false
     lazy var publicMenu: PathMenu = self.makePublicMenu()
 
@@ -41,8 +34,6 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         center.addObserver(self, selector: "receiveShowActivityView:", name: QCKeys.Notification.ShowActivityView.rawValue, object: nil)
         center.addObserver(self, selector: "receivePushViewController:", name: QCKeys.Notification.PushViewController.rawValue, object: nil)
         center.addObserver(self, selector: "receiveShowMinimumNotification:", name: QCKeys.Notification.ShowMinimumNotification.rawValue, object: nil)
-        center.addObserver(self, selector: "receiveShowLoading", name: QCKeys.Notification.ShowLoading.rawValue, object: nil)
-        center.addObserver(self, selector: "receiveHideLoading", name: QCKeys.Notification.HideLoading.rawValue, object: nil)
         center.addObserver(self, selector: "receiveConfirmYesNoAlert:", name: QCKeys.Notification.ShowAlertYesNo.rawValue, object: nil)
         center.addObserver(self, selector: "receivePresentedViewController:", name: QCKeys.Notification.PresentedViewController.rawValue, object: nil)
         center.addObserver(self, selector: "receiveShowAlertInputText:", name: QCKeys.Notification.ShowAlertInputText.rawValue, object: nil)
@@ -61,20 +52,9 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
     }
-    func hoge() -> Bool {
-        let s: String? = ""
-        if s?.hasPrefix("http://") ?? false {
-            
-        }
-        return true
-    }
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.isDidAppear = true
-        if self.alertView != nil && self.alertViewStatus == .Wait {
-            self.receiveShowLoading()
-        }
-        
         self.view.bringSubviewToFront(self.publicMenu)
         
     }
@@ -112,39 +92,18 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
     }
     
     func preShowAlert() -> Bool {
-
-        if let alert = self.alertView {
-            alert.removeView()
-        }
-        
         self.alertView = SCLAlertView()
-        self.alertViewStatus = .Dismiss
-        self.alertView!.alertIsDismissed({ () -> Void in
-            self.alertViewStatus = .Dismiss
-        })
-        self.alertView!.showAnimationType = .SlideInFromTop
-        self.alertView!.hideAnimationType = .SlideOutToTop
-        
-        if !self.isDidAppear {
-            // このタイミングで表示しちゃうと変になっちゃうので、待機
-            self.alertViewStatus = .Wait
-            return false
-        }
-        
+        self.alertView.showAnimationType = .SlideInFromTop
+        self.alertView.hideAnimationType = .SlideOutToTop
         return true
     }
     
     func hideAlert() {
-        if let view = self.alertView {
-            if self.alertViewStatus == .Show {
-                if view.view.superview != nil {
-                    view.hideView()
-                }
-                self.alertViewStatus = .Dismiss
-            } else if self.alertViewStatus == .Wait {
-                self.alertViewStatus = .Dismiss
-            }
+
+        if self.alertView.view.superview != nil {
+            self.alertView.hideView()
         }
+        
     }
     
     func resetPublicMenuItems(viewController: BaseViewController) {
@@ -158,12 +117,6 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
             self.publicMenu.startButton.showGuide(GuideManager.GuideType.PublicContextMenu, inView: self.view)
         }
         
-    }
-    
-    func tapNavigationBarTitle(gesture: UILongPressGestureRecognizer) {
-        if self.childViewControllers.count > 1 {
-            self.setViewControllers([self.childViewControllers[0]], animated: true)
-        }
     }
     
     // MARK: NSNotification 受信処理
@@ -277,13 +230,11 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         if !self.preShowAlert() {
             return
         }
-        
-        self.alertView!.showAnimationType = .FadeIn
-        self.alertView!.showWaiting(self, title: "Loading...", subTitle: "少々お待ちください...m(_ _)m", closeButtonTitle: nil, duration: 0.0);
-        self.alertViewStatus = .Show
+        self.alertView.showAnimationType = .FadeIn
+        self.alertView.showWaiting(self, title: "Loading...", subTitle: "少々お待ちください...m(_ _)m", closeButtonTitle: nil, duration: 0.0);
     }
     func receiveHideLoading() {
-        self.alertView!.hideAnimationType = .FadeOut
+        self.alertView.hideAnimationType = .FadeOut
         self.hideAlert()
     }
     
@@ -299,10 +250,9 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         
         // yesアクションは必須
         let yesAction = userInfo[QCKeys.AlertView.YesAction.rawValue]! as! AlertViewSender
-        self.alertView!.addButton(yesAction.title.isEmpty ? "はい" : yesAction.title, actionBlock: yesAction.action)
+        self.alertView.addButton(yesAction.title.isEmpty ? "はい" : yesAction.title, actionBlock: yesAction.action)
         
-        self.alertView!.showWarning(self, title: title, subTitle: message, closeButtonTitle: noTiltle, duration: 0.0);
-        self.alertViewStatus = .Show
+        self.alertView.showWarning(self, title: title, subTitle: message, closeButtonTitle: noTiltle, duration: 0.0);
         
     }
     
@@ -315,8 +265,7 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         let message: String = userInfo[QCKeys.AlertView.Message.rawValue]! as! String    // 必須なんで想定外だったら落とす
         let noTiltle: String = userInfo[QCKeys.AlertView.NoTitle.rawValue] as? String ?? "OK"
         
-        self.alertView!.showInfo(self, title: title, subTitle: message, closeButtonTitle: noTiltle, duration: 0.0);
-        self.alertViewStatus = .Show
+        self.alertView.showInfo(self, title: title, subTitle: message, closeButtonTitle: noTiltle, duration: 0.0);
     }
     
     func receiveShowAlertInputText(notification: NSNotification) {
@@ -325,7 +274,7 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         
         let userInfo = notification.userInfo!
         
-        let editField: UITextField = self.alertView!.addTextField(userInfo[QCKeys.AlertView.PlaceHolder.rawValue] as? String ?? "")
+        let editField: UITextField = self.alertView.addTextField(userInfo[QCKeys.AlertView.PlaceHolder.rawValue] as? String ?? "")
         let title: String = userInfo[QCKeys.AlertView.Title.rawValue] as? String ?? "info"
         let message: String = userInfo[QCKeys.AlertView.Message.rawValue]! as! String    // 必須なんで想定外だったら落とす
         let noTiltle: String = userInfo[QCKeys.AlertView.NoTitle.rawValue] as? String ?? "いいえ"
@@ -344,10 +293,9 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
             yesAction.actionWithText?(editField)
             return
         }
-        self.alertView!.addButton(yesAction.title, validationBlock: validationBlock, actionBlock: action)
+        self.alertView.addButton(yesAction.title, validationBlock: validationBlock, actionBlock: action)
         
-        self.alertView!.showEdit(self, title: title, subTitle: message, closeButtonTitle: noTiltle, duration: 0.0);
-        self.alertViewStatus = .Show
+        self.alertView.showEdit(self, title: title, subTitle: message, closeButtonTitle: noTiltle, duration: 0.0);
         
     }
     
@@ -371,25 +319,10 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         viewController.navigationItem.backBarButtonItem = backButton;
         
         if viewController is BaseViewController {
-            
             self.resetPublicMenuItems(viewController as! BaseViewController)
-            
         } else {
             self.publicMenu.hidden = true
         }
-
-        // タイトルタップ検知したいので…
-        let customTitle: UILabel = UILabel(frame: CGRect.zeroRect)
-        customTitle.textAlignment = NSTextAlignment.Center
-        customTitle.font = UIFont(name: "07LightNovelPOP", size: 16.0)
-        customTitle.textColor = UIColor.textLight()
-        customTitle.text = viewController.title
-        customTitle.sizeToFit()
-        customTitle.center = CGPointMake(self.navigationBar.frame.size.width * 0.5, self.navigationBar.frame.size.height * 0.5)
-        customTitle.userInteractionEnabled = true
-        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "tapNavigationBarTitle:")
-        customTitle.addGestureRecognizer(tapGesture)
-        viewController.navigationItem.titleView = customTitle
         
         if self.childViewControllers.count > 2 {
             self.navigationBar.showGuide(GuideManager.GuideType.BackTopGesture, inView: self.view)
