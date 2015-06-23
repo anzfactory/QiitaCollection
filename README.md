@@ -1,4 +1,4 @@
-# (ﾟ∀ﾟ)ｷﾀｺﾚ!! - Qiita Collection
+# きたこれ for Qiita
 
 Qittaの非公式クライアントアプリ
 
