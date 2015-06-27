@@ -29,7 +29,9 @@ class UserDataManager {
         EntryFiles = "ud-key-entry-files",
         DisplayedGuides = "ud-key-displayed-guide",
         QiitaAccessToken = "ud-key-qiita-access-token",
-        QiitaAuthenticatedUserID = "ud-key-qiita-authenticated-user-id"
+        QiitaAuthenticatedUserID = "ud-key-qiita-authenticated-user-id",
+        GridCoverImage = "ud-key-grid-cover-image",
+        ViewCoverImage = "ud-key-view-cover-image"
     }
     
     // ミュートユーザーのID
@@ -60,6 +62,8 @@ class UserDataManager {
             self.saveAuth() // 即時保存させる
         }
     }
+    var imageDataForGridCover: NSData? = nil
+    var imageDataForViewCover: NSData? = nil
     
     // MARK: ライフサイクル
     init() {
@@ -80,6 +84,8 @@ class UserDataManager {
         self.displayedGuides = self.ud.arrayForKey(UDKeys.DisplayedGuides.rawValue) as! [Int]
         self.qiitaAccessToken = self.ud.stringForKey(UDKeys.QiitaAccessToken.rawValue)!
         self.qiitaAuthenticatedUserID = self.ud.stringForKey(UDKeys.QiitaAuthenticatedUserID.rawValue)!
+        self.imageDataForGridCover = self.ud.dataForKey(UDKeys.GridCoverImage.rawValue)
+        self.imageDataForViewCover = self.ud.dataForKey(UDKeys.ViewCoverImage.rawValue)
     }
     
     // MARK: メソッド
@@ -98,6 +104,8 @@ class UserDataManager {
         self.ud.setObject(self.displayedGuides, forKey: UDKeys.DisplayedGuides.rawValue)
         self.ud.setObject(self.qiitaAccessToken, forKey: UDKeys.QiitaAccessToken.rawValue)
         self.ud.setObject(self.qiitaAuthenticatedUserID, forKey: UDKeys.QiitaAuthenticatedUserID.rawValue)
+        self.ud.setObject(self.imageDataForGridCover, forKey: UDKeys.GridCoverImage.rawValue)
+        self.ud.setObject(self.imageDataForViewCover, forKey: UDKeys.ViewCoverImage.rawValue)
         self.ud.synchronize()
     }
     
@@ -247,6 +255,31 @@ class UserDataManager {
     }
     func isAuthorizedQiita() -> Bool {
         return !self.qiitaAccessToken.isEmpty
+    }
+    
+    func setImageForGridCover(image: UIImage) {
+        self.imageDataForGridCover = UIImagePNGRepresentation(image)
+        self.imageDataForViewCover = nil
+    }
+    func setImageForViewCover(image: UIImage) {
+        self.imageDataForViewCover = UIImagePNGRepresentation(image)
+        self.imageDataForGridCover = nil
+    }
+    func clearImageCover() {
+        self.imageDataForViewCover = nil
+        self.imageDataForGridCover = nil
+    }
+    func hasImageForGridCover() -> Bool {
+        return self.imageDataForGridCover != nil
+    }
+    func hasImageForViewCover() -> Bool {
+        return self.imageDataForViewCover != nil
+    }
+    func imageForGridCover() -> UIImage? {
+        return UIImage(data: self.imageDataForGridCover!)
+    }
+    func imageForViewCover() -> UIImage? {
+        return UIImage(data: self.imageDataForViewCover!)
     }
     
 }

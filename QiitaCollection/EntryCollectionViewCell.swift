@@ -33,12 +33,17 @@ class EntryCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         
         self.backgroundImage.backgroundColor = UIColor.backgroundDefaultImage()
-        self.backgroundImage.setBlurView()
         self.iconStar.image = self.iconStar.image?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
         self.iconComment.image = self.iconComment.image?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-        
+        self.backgroundImage.setBlurView()
         self.tagImage.backgroundColor = UIColor.backgroundDefaultImage()
         self.rank.maskCircle(UIColor.whiteColor())
+        
+        if UserDataManager.sharedInstance.hasImageForGridCover()
+            || (!UserDataManager.sharedInstance.hasImageForGridCover() && !UserDataManager.sharedInstance.hasImageForViewCover()) {
+        } else {
+            self.drawBorder(UIColor.grayColor(), linewidth: 1.0, cornerRadius: 0)
+        }
         
         self.prepare()
     }
@@ -61,6 +66,13 @@ class EntryCollectionViewCell: UICollectionViewCell {
         self.mainTag.text = ""
         self.backgroundImage.image = UIImage(named: "default");
         self.rank.backgroundColor = UIColor.backgroundAccent()
+        if UserDataManager.sharedInstance.hasImageForGridCover()
+            || (!UserDataManager.sharedInstance.hasImageForGridCover() && !UserDataManager.sharedInstance.hasImageForViewCover()) {
+            self.backgroundImage.hidden = false
+        } else {
+            self.backgroundImage.hidden = true
+            self.drawBorder(UIColor.grayColor(), linewidth: 1.0, cornerRadius: 0)
+        }
     }
     
     func display(entry: EntryEntity) {
@@ -68,7 +80,13 @@ class EntryCollectionViewCell: UICollectionViewCell {
         self.rank.hidden = true
         
         // 背景(プロフサムネ)
-        entry.postUser.loadThumb(self.backgroundImage)
+        if !self.backgroundImage.hidden {
+            if UserDataManager.sharedInstance.hasImageForGridCover() {
+                self.backgroundImage.image = UserDataManager.sharedInstance.imageForGridCover()
+            } else {
+                entry.postUser.loadThumb(self.backgroundImage)
+            }
+        }
         
         // タグイメージ
         var tag: TagEntity = entry.tags[0]
@@ -97,11 +115,18 @@ class EntryCollectionViewCell: UICollectionViewCell {
     func display(rank: RankEntity) {
         
         // 背景(default)
-        self.backgroundImage.image = UIImage(named: "default")
+        if !self.backgroundImage.hidden {
+            if UserDataManager.sharedInstance.hasImageForGridCover() {
+                self.backgroundImage.image = UserDataManager.sharedInstance.imageForGridCover()
+            } else {
+                self.backgroundImage.image = UIImage(named: "default")
+            }
+        }
         
         // タグイメージ
 //        var tag: TagEntity = entry.tags[0]
 //        tag.loadThumb(self.tagImage)
+        
         
         // title
         self.title.font = UIFont(name: "07LightNovelPOP", size: self.title.font.pointSize)

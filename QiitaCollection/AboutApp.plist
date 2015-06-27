@@ -84,6 +84,10 @@
 				<key>DTIActivityIndicatorView</key>
 				<string>https://github.com/dtissera/DTIActivityIndicatorView-Swift/blob/master/LICENCE</string>
 			</dict>
+			<dict>
+				<key>SABlurImageView</key>
+				<string>https://github.com/szk-atmosphere/SABlurImageView/blob/master/LICENSE</string>
+			</dict>
 		</array>
 	</dict>
 	<dict>

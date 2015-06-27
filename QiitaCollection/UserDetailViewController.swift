@@ -89,14 +89,14 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
         
         if self.account.existsMuteUser(self.displayUserId!) {
             let menuItemMute: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "menu_eye")!)
-            menuItemMute.action = {() -> Void in
+            menuItemMute.action = {(sender: QCPathMenuItem) -> Void in
                 self.confirmClearMuted()
                 return
             }
             items.append(menuItemMute)
         } else {
             let menuItemMute: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "menu_circle_slash")!)
-            menuItemMute.action = {() -> Void in
+            menuItemMute.action = {(sender: QCPathMenuItem) -> Void in
                 self.confirmAddedMuteUser()
                 return
             }

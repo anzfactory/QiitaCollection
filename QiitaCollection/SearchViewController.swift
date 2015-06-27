@@ -116,6 +116,7 @@ class SearchViewController: BaseViewController, SearchConditionViewDelegate, UIT
     
     func dismiss() {
         self.view.endEditing(true)
+        self.transitionSenderPoint = self.searchConditionView.convertPoint(self.searchConditionView.doSearch.center, toView: self.view)
         self.dismissViewControllerAnimated(true, completion: { () -> Void in
             
         })

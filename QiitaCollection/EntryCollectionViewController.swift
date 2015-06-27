@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SABlurImageView
 
 class EntryCollectionViewController: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
@@ -23,6 +24,7 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
     // MARK: プロパティ
     var query: String = ""
     var ShowType: ListType = .New
+    var backgroundImageView: SABlurImageView? = nil
     
     // MARK: ライフサイクル
     override func viewDidLoad() {
@@ -48,6 +50,21 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
         
         if self.afterDidLoad {
             refresh()
+        }
+        
+        // view coverが設定されていたら画像セット
+        if UserDataManager.sharedInstance.hasImageForViewCover() {
+            if self.backgroundImageView != nil {
+                self.backgroundImageView!.removeFromSuperview()
+            }
+            self.backgroundImageView = SABlurImageView(image: UserDataManager.sharedInstance.imageForViewCover()!)
+            if let imageView = self.backgroundImageView {
+                imageView.frame = self.view.frame
+                imageView.contentMode = UIViewContentMode.ScaleAspectFill
+                imageView.addBlurEffect(30, times: 3)
+                self.view.addSubview(imageView)
+                self.view.sendSubviewToBack(imageView)
+            }
         }
         
     }

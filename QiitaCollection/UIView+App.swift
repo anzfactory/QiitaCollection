@@ -41,9 +41,12 @@ extension UIView {
     }
     
     func drawBorder(borderColor: UIColor, linewidth: CGFloat) {
+        self.drawBorder(borderColor, linewidth: linewidth, cornerRadius: 5.0)
+   }
+    func drawBorder(borderColor: UIColor, linewidth: CGFloat, cornerRadius: CGFloat) {
         self.layer.borderWidth = linewidth
         self.layer.borderColor = borderColor.CGColor
-        self.layer.cornerRadius = 5.0
+        self.layer.cornerRadius = cornerRadius
         self.layer.masksToBounds = true
     }
     

@@ -8,10 +8,17 @@
 
 import UIKit
 
-class BaseViewController: UIViewController {
+class BaseViewController: UIViewController, UIViewControllerTransitioningDelegate {
     
     private(set) var afterDidLoad: Bool = false
     lazy var account: AnonymousAccount = self.setupAccount();
+    var transitionSenderPoint: CGPoint? = nil
+    
+    private var navBar: UINavigationBar? = nil
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.transitioningDelegate = self
+    }
     
     override var title: String? {
         didSet {
@@ -33,6 +40,14 @@ class BaseViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.afterDidLoad = false
+        
+        if let item = navBar?.topItem {
+            if let view = item.leftBarButtonItem?.valueForKey("view") as? UIView {
+                self.transitionSenderPoint = navBar!.convertPoint(view.center, toView: self.view)
+            } else {
+                println("can not find view")
+            }
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -57,11 +72,37 @@ class BaseViewController: UIViewController {
         navigationbar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.textNavigationBar()]
         navigationbar.barTintColor = UIColor.backgroundNavigationBar()
         navigationbar.tintColor = UIColor.textNavigationBar()
+        
+        navBar = navigationbar
     }
     
     
     func setupAccount() -> AnonymousAccount {
         return AccountManager.account()
+    }
+    
+    // MARK: UIViewControllerTransitioningDelegate
+    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        var point: CGPoint = CGPointZero
+        if let p = self.transitionSenderPoint {
+            point = p
+        } else {
+            point = self.view.center
+        }
+        self.transitionSenderPoint = nil
+        return CircularRevealAnimator(center: point, duration: 0.3, spreading: true)
+        
+    }
+    
+    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        var point: CGPoint = CGPointZero
+        if let p = self.transitionSenderPoint {
+            point = p
+        } else {
+            point = self.view.center
+        }
+        self.transitionSenderPoint = nil
+        return CircularRevealAnimator(center: point, duration: 0.3, spreading: false)
     }
 
 }

@@ -15,7 +15,7 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
     var alertView: SCLAlertView = SCLAlertView()
     var isDidAppear: Bool = false
     lazy var publicMenu: PathMenu = self.makePublicMenu()
-
+    
     // MARK: ライフサイクル
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -179,6 +179,10 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
     
     func receivePresentedViewController(notification: NSNotification) {
         let vc: UIViewController = notification.object! as! UIViewController
+        
+        if let baseVC = vc as? BaseViewController, let center = notification.userInfo?[QCKeys.Transition.CenterPoint.rawValue] as? NSValue {
+            baseVC.transitionSenderPoint = center.CGPointValue()
+        }
         self.presentViewController(vc, animated: true) { () -> Void in
             
         }
@@ -299,6 +303,27 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         
     }
     
+    func receiveShowCustomAlert(notification: NSNotification) {
+        self.preShowAlert()
+        
+        let userInfo = notification.userInfo!
+        
+        let title: String = userInfo[QCKeys.AlertView.Title.rawValue] as? String ?? "お知らせ"
+        let message: String = userInfo[QCKeys.AlertView.Message.rawValue]! as! String    // 必須なんで想定外だったら落とす
+        let yesTitle: String = userInfo[QCKeys.AlertView.YesTitle.rawValue] as! String
+        let yesAction = userInfo[QCKeys.AlertView.YesAction.rawValue]! as! AlertViewSender
+        self.alertView.addButton(yesTitle, actionBlock: yesAction.action)
+        
+        let noTiltle: String = userInfo[QCKeys.AlertView.NoTitle.rawValue] as! String
+        
+        if let otherTitle = userInfo[QCKeys.AlertView.OtherTitle.rawValue] as? String,
+            let otherAction = userInfo[QCKeys.AlertView.OtherAction.rawValue] as? AlertViewSender {
+            self.alertView.addButton(otherTitle, actionBlock: otherAction.action)
+        }
+        
+        self.alertView.showInfo(self, title: title, subTitle: message, closeButtonTitle: noTiltle, duration: 0.0);
+    }
+    
     func receiveResetPublicMenuItems(notification: NSNotification) {
         if let vc: AnyObject = notification.object {
             if vc is BaseViewController {
@@ -331,7 +356,9 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
     
     // MARK: PathMenuDelegate
     func pathMenu(menu: PathMenu, didSelectIndex idx: Int) {
-        (menu.menusArray[idx] as! QCPathMenuItem).action?()
+        if let item = menu.menusArray[idx] as? QCPathMenuItem {
+            item.action?(sender: item)
+        }
     }
     func pathMenuDidFinishAnimationClose(menu: PathMenu) {
         for item in menu.menusArray {
@@ -345,7 +372,7 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
             item.hidden = false
         }
     }
-    
+        
 }
 
 

@@ -53,12 +53,20 @@ struct QCKeys {
         Title = "Title",
         Message = "Message",
         YesAction = "Yes-Action",
+        YesTitle = "Yes-Title",
         NoTitle = "No-Title",
-        PlaceHolder = "Place-Holder"
+        PlaceHolder = "Place-Holder",
+        OtherAction = "Other-Action",
+        OtherTitle = "Other-Title"
     }
     
     enum UserActivity: String {
         case
         TypeSendURLToMac = "xyz.anzfactory.qiita-collection"
+    }
+    
+    enum Transition: String {
+        case
+        CenterPoint = "center-point"
     }
 }

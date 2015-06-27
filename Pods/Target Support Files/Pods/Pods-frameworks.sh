@@ -51,6 +51,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework 'Alamofire.framework'
   install_framework 'Bolts.framework'
   install_framework 'DTIActivityIndicator.framework'
+  install_framework 'SABlurImageView.framework'
   install_framework 'SDWebImage.framework'
   install_framework 'SwiftyJSON.framework'
 fi
@@ -58,6 +59,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework 'Alamofire.framework'
   install_framework 'Bolts.framework'
   install_framework 'DTIActivityIndicator.framework'
+  install_framework 'SABlurImageView.framework'
   install_framework 'SDWebImage.framework'
   install_framework 'SwiftyJSON.framework'
 fi
