@@ -88,6 +88,10 @@
 				<key>SABlurImageView</key>
 				<string>https://github.com/szk-atmosphere/SABlurImageView/blob/master/LICENSE</string>
 			</dict>
+			<dict>
+				<key>CircularRevealAnimator</key>
+				<string>https://github.com/kitoko552/CircularRevealAnimator/blob/master/LICENSE</string>
+			</dict>
 		</array>
 	</dict>
 	<dict>
