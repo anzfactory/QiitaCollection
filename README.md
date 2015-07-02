@@ -21,3 +21,6 @@ Swift勉強がてら作ってます
 * [UIView-Constrain](https://github.com/ShingoFukuyama/UIView-Constraint)  
 * [ParseUI-iOS](https://github.com/ParsePlatform/ParseUI-iOS)  
 * [DTIActivityIndicatorView](https://github.com/dtissera/DTIActivityIndicatorView-Swift.git)  
+* [DTIActivityIndicatorView](https://github.com/dtissera/DTIActivityIndicatorView-Swift.git)  
+* [SABlurImageView](https://github.com/szk-atmosphere/SABlurImageView)  
+* [CircularRevealAnimator](https://github.com/kitoko552/CircularRevealAnimator)
