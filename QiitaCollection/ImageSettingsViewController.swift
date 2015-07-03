@@ -15,6 +15,7 @@ class ImageSettingsViewController: BaseViewController, UIImagePickerControllerDe
     @IBOutlet weak var segmentCoverType: UISegmentedControl!
     @IBOutlet weak var picker: UIButton!
     @IBOutlet weak var coverImage: UIImageView!
+    @IBOutlet weak var coverDescription: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,13 +59,20 @@ class ImageSettingsViewController: BaseViewController, UIImagePickerControllerDe
     }
     
     @IBAction func changeCoverType(sender: AnyObject) {
-        self.picker.hidden = self.segmentCoverType.selectedSegmentIndex == 2
+        switch self.segmentCoverType.selectedSegmentIndex {
+        case 0:
+            self.coverDescription.text = "設定された画像を View Cover（画面を覆う様に）として表示します"
+        case 1:
+            self.coverDescription.text = "設定された画像を Grid Cover（グリッドの1つ1つの背景）として表示します"
+        case 2: fallthrough
+        default:
+            self.coverDescription.text = "記事投稿者のプロフィール画像を Grid Cover として表示します（デフォルトはコチラ）"
+        }
     }
     
     func setupCoverImage() {
         var index = 2
         var image: UIImage? = nil
-        var hidden = false
         if UserDataManager.sharedInstance.hasImageForGridCover() {
             image = UserDataManager.sharedInstance.imageForGridCover()
             index = 0
@@ -72,19 +80,13 @@ class ImageSettingsViewController: BaseViewController, UIImagePickerControllerDe
             image = UserDataManager.sharedInstance.imageForViewCover()
             index = 1
         } else {
-            hidden = true
             self.coverImage.hidden = true
         }
         self.segmentCoverType.selectedSegmentIndex = index
         self.coverImage.image = image
-        self.picker.hidden = hidden
     }
     
     func openImagePicker() {
-        
-        if self.segmentCoverType.selectedSegmentIndex > 1 {
-            return
-        }
         
         if (UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary)) {
             let picker = UIImagePickerController()
