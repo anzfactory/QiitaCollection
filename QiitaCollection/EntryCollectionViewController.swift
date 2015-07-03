@@ -250,7 +250,7 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
             self.load()
         }
         
-        if indexPath.row == 0 {
+        if indexPath.row == 0 && ShowType != .WeekRanking  {
             cell.showGuide(GuideManager.GuideType.EntryCollectionCell, inView: self.view)
         }
     }
