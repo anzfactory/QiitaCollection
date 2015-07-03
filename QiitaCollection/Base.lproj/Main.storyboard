@@ -1267,6 +1267,136 @@
             </objects>
             <point key="canvasLocation" x="-587" y="-796"/>
         </scene>
+        <!--Image Settings View Controller-->
+        <scene sceneID="Xu9-CD-MwM">
+            <objects>
+                <viewController storyboardIdentifier="ImageSettingsVC" id="Uw2-GG-yMA" customClass="ImageSettingsViewController" customModule="QiitaCollection" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="LRx-iC-5fj"/>
+                        <viewControllerLayoutGuide type="bottom" id="70E-Pa-ruR"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Vxm-lb-PV3">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Trm-Gu-R1x" userLabel="Control Panel">
+                                <rect key="frame" x="0.0" y="438" width="320" height="130"/>
+                                <subviews>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="KFE-33-KO4" userLabel="Cover Type">
+                                        <rect key="frame" x="8" y="20" width="304" height="29"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="28" id="IAP-OP-KVa"/>
+                                        </constraints>
+                                        <segments>
+                                            <segment title="Grid Cover"/>
+                                            <segment title="View Cover"/>
+                                            <segment title="設定しない"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="changeCoverType:" destination="Uw2-GG-yMA" eventType="valueChanged" id="vr4-VM-j4N"/>
+                                        </connections>
+                                    </segmentedControl>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BAF-BE-4iA" userLabel="Picker">
+                                        <rect key="frame" x="268" y="66" width="44" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="Qcf-qp-20a"/>
+                                            <constraint firstAttribute="width" constant="44" id="nd7-Um-xle"/>
+                                        </constraints>
+                                        <state key="normal" image="icon_media">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="tapMedia:" destination="Uw2-GG-yMA" eventType="touchUpInside" id="ymG-Ou-bOl"/>
+                                        </connections>
+                                    </button>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" editable="NO" text="投稿したユーザーのプロフィール画像が Grid Cover として表示されるようになります" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y8m-HY-6GP">
+                                        <rect key="frame" x="8" y="61" width="252" height="61"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.40000000596046448" green="1" blue="0.80000001192092896" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="BAF-BE-4iA" firstAttribute="top" secondItem="KFE-33-KO4" secondAttribute="bottom" constant="18" id="2GO-Jq-K2f"/>
+                                    <constraint firstItem="KFE-33-KO4" firstAttribute="top" secondItem="Trm-Gu-R1x" secondAttribute="top" constant="20" id="7Tm-mk-eqk"/>
+                                    <constraint firstItem="Y8m-HY-6GP" firstAttribute="top" secondItem="KFE-33-KO4" secondAttribute="bottom" constant="13" id="Ufy-z3-LHH"/>
+                                    <constraint firstAttribute="trailing" secondItem="KFE-33-KO4" secondAttribute="trailing" constant="8" id="c4X-zy-99r"/>
+                                    <constraint firstItem="BAF-BE-4iA" firstAttribute="trailing" secondItem="KFE-33-KO4" secondAttribute="trailing" id="cbW-Gc-jJF"/>
+                                    <constraint firstAttribute="bottom" secondItem="Y8m-HY-6GP" secondAttribute="bottom" constant="8" id="e96-M8-eDG"/>
+                                    <constraint firstItem="BAF-BE-4iA" firstAttribute="leading" secondItem="Y8m-HY-6GP" secondAttribute="trailing" constant="8" id="hNb-l6-woq"/>
+                                    <constraint firstItem="KFE-33-KO4" firstAttribute="leading" secondItem="Trm-Gu-R1x" secondAttribute="leading" constant="8" id="shh-8i-aUb"/>
+                                    <constraint firstAttribute="height" constant="130" id="uHA-LF-rRX"/>
+                                    <constraint firstItem="Y8m-HY-6GP" firstAttribute="leading" secondItem="Trm-Gu-R1x" secondAttribute="leading" constant="8" id="xje-0z-0Y9"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ovE-lF-lcV" userLabel="Image Panel">
+                                <rect key="frame" x="0.0" y="64" width="320" height="374"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="設定されていません" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Iq-98-dij">
+                                        <rect key="frame" x="83" y="177" width="153" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pIi-D4-9GR">
+                                        <rect key="frame" x="8" y="8" width="304" height="358"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="centerX" secondItem="4Iq-98-dij" secondAttribute="centerX" id="4pk-Wq-Sqg"/>
+                                    <constraint firstAttribute="centerY" secondItem="4Iq-98-dij" secondAttribute="centerY" id="6G6-xp-4Dk"/>
+                                    <constraint firstItem="pIi-D4-9GR" firstAttribute="leading" secondItem="ovE-lF-lcV" secondAttribute="leading" constant="8" id="AKC-pz-aBL"/>
+                                    <constraint firstAttribute="trailing" secondItem="pIi-D4-9GR" secondAttribute="trailing" constant="8" id="TOS-fe-1nZ"/>
+                                    <constraint firstItem="pIi-D4-9GR" firstAttribute="top" secondItem="ovE-lF-lcV" secondAttribute="top" constant="8" id="gvD-Q6-9vZ"/>
+                                    <constraint firstAttribute="bottom" secondItem="pIi-D4-9GR" secondAttribute="bottom" constant="8" id="y4x-FG-sax"/>
+                                </constraints>
+                            </view>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nbi-hO-e1Q">
+                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="03J-EM-ol7"/>
+                                </constraints>
+                                <items>
+                                    <navigationItem title="Cover Image" id="woZ-TG-iq1">
+                                        <barButtonItem key="leftBarButtonItem" image="bar_item_x" id="3pT-me-kQc">
+                                            <connections>
+                                                <action selector="tapClose:" destination="Uw2-GG-yMA" id="wfM-Mb-CzE"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="Nbi-hO-e1Q" secondAttribute="trailing" constant="-16" id="4Qa-uZ-naM"/>
+                            <constraint firstItem="Nbi-hO-e1Q" firstAttribute="top" secondItem="LRx-iC-5fj" secondAttribute="bottom" id="4zf-3a-9eQ"/>
+                            <constraint firstAttribute="trailing" secondItem="ovE-lF-lcV" secondAttribute="trailing" id="Haa-l0-UEE"/>
+                            <constraint firstItem="ovE-lF-lcV" firstAttribute="top" secondItem="Nbi-hO-e1Q" secondAttribute="bottom" id="SbM-0h-PCm"/>
+                            <constraint firstItem="70E-Pa-ruR" firstAttribute="top" secondItem="Trm-Gu-R1x" secondAttribute="bottom" id="Tc0-90-K68"/>
+                            <constraint firstItem="Nbi-hO-e1Q" firstAttribute="leading" secondItem="Vxm-lb-PV3" secondAttribute="leadingMargin" constant="-16" id="eZ2-oV-bOR"/>
+                            <constraint firstAttribute="trailing" secondItem="Trm-Gu-R1x" secondAttribute="trailing" id="f7s-qa-3cO"/>
+                            <constraint firstItem="Trm-Gu-R1x" firstAttribute="leading" secondItem="Vxm-lb-PV3" secondAttribute="leading" id="iQ4-gl-eAA"/>
+                            <constraint firstItem="ovE-lF-lcV" firstAttribute="leading" secondItem="Vxm-lb-PV3" secondAttribute="leading" id="uH4-Og-JhE"/>
+                            <constraint firstItem="Trm-Gu-R1x" firstAttribute="top" secondItem="ovE-lF-lcV" secondAttribute="bottom" id="ui5-is-Qn9"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="controlPanel" destination="Trm-Gu-R1x" id="WMe-da-mK9"/>
+                        <outlet property="coverDescription" destination="Y8m-HY-6GP" id="0fV-tZ-CiR"/>
+                        <outlet property="coverImage" destination="pIi-D4-9GR" id="8Ci-Lh-GPX"/>
+                        <outlet property="navigationBar" destination="Nbi-hO-e1Q" id="uwp-15-c9W"/>
+                        <outlet property="picker" destination="BAF-BE-4iA" id="CUW-ym-RTU"/>
+                        <outlet property="segmentCoverType" destination="KFE-33-KO4" id="M0b-Kr-vi2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NBp-ey-JR4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-226" y="-796"/>
+        </scene>
         <!--Signin View Controller-->
         <scene sceneID="GKR-9p-IPn">
             <objects>
@@ -1361,6 +1491,7 @@
         <image name="icon_facebook" width="32" height="32"/>
         <image name="icon_github" width="32" height="32"/>
         <image name="icon_linkedin" width="32" height="32"/>
+        <image name="icon_media" width="44" height="44"/>
         <image name="icon_pencil_w" width="44" height="44"/>
         <image name="icon_star" width="44" height="44"/>
         <image name="icon_twitter" width="32" height="32"/>

@@ -83,7 +83,7 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
         // ローカルファイルから読みだしてる場合は、リロードだけ
         if self.useLocalFile {
             let menuItemReload: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "menu_reload")!)
-            menuItemReload.action = {() -> Void in
+            menuItemReload.action = {(sender: QCPathMenuItem) -> Void in
                 self.confirmReload()
                 return
             }
@@ -91,46 +91,46 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
         }
         
         let menuItemLink: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "menu_link")!)
-        menuItemLink.action = {() -> Void in
-            self.openLinks()
+        menuItemLink.action = {(sender: QCPathMenuItem) -> Void in
+            self.openLinks(sender)
             return
         }
         let menuItemClip: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "menu_clipboard")!)
-        menuItemClip.action = {() -> Void in
-            self.copyCode()
+        menuItemClip.action = {(sender: QCPathMenuItem) -> Void in
+            self.copyCode(sender)
             return
         }
         let menuItemPin: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "menu_pin")!)
-        menuItemPin.action = {() -> Void in
+        menuItemPin.action = {(sender: QCPathMenuItem) -> Void in
             self.confirmPinEntry()
             return
         }
         let menuItemShare: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "menu_share")!)
-        menuItemShare.action = {() -> Void in
+        menuItemShare.action = {(sender: QCPathMenuItem) -> Void in
             self.shareEntry()
             return
         }
         let menuPerson: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "menu_person")!)
-        menuPerson.action = {() -> Void in
+        menuPerson.action = {(sender: QCPathMenuItem) -> Void in
             self.moveUserDetail()
             return
         }
         let menuDiscus: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "menu_discus")!)
-        menuDiscus.action = {() -> Void in
+        menuDiscus.action = {(sender: QCPathMenuItem) -> Void in
             self.moveCommentList()
             return
         }
         let menuTags: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "menu_tag")!)
-        menuTags.action = {() -> Void in
-            self.openTagList()
+        menuTags.action = {(sender: QCPathMenuItem) -> Void in
+            self.openTagList(sender)
             return
         }
         let menuDownload: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "menu_download")!)
-        menuDownload.action = {() -> Void in
+        menuDownload.action = {(sender: QCPathMenuItem) -> Void in
             self.confirmDownload()
         }
         let menuStockers: QCPathMenuItem = QCPathMenuItem(mainImage: UIImage(named: "menu_star")!)
-        menuStockers.action = {() -> Void in
+        menuStockers.action = {(sender: QCPathMenuItem) -> Void in
             self.moveStockers()
         }
         return [menuItemLink, menuItemClip, menuItemPin, menuDownload, menuItemShare, menuPerson, menuDiscus, menuTags, menuStockers]
@@ -309,7 +309,7 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowActivityView.rawValue, object: self, userInfo: args)
     }
     
-    func openLinks() {
+    func openLinks(sender: QCPathMenuItem) {
         
         if self.links.count == 0 {
             Toast.show("開けるリンクがありません...", style: JFMinimalNotificationStytle.StyleWarning)
@@ -331,11 +331,12 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
             })
         }
         
+        listVC.transitionSenderPoint = sender.superview?.convertPoint(sender.endPoint!, toView: self.view)
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PresentedViewController.rawValue, object: listVC)
         
     }
     
-    func copyCode() {
+    func copyCode(sender: QCPathMenuItem) {
         if self.codes.count == 0 {
             Toast.show("コードブロックがないようです...", style: JFMinimalNotificationStytle.StyleWarning)
             return
@@ -358,6 +359,7 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
             })
         }
         
+        listVC.transitionSenderPoint = sender.superview!.convertPoint(sender.endPoint!, toView: self.view)
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PresentedViewController.rawValue, object: listVC)
     }
     
@@ -537,7 +539,7 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
         ])
     }
     
-    func openTagList() {
+    func openTagList(sender: QCPathMenuItem) {
         
         if let entity = self.displayEntry {
             let vc: SimpleListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SimpleListVC") as! SimpleListViewController
@@ -554,6 +556,7 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
                     NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: searchVC)
                 })
             }
+            vc.transitionSenderPoint = sender.superview!.convertPoint(sender.endPoint!, toView: self.view)
             NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PresentedViewController.rawValue, object: vc)
         }
     }

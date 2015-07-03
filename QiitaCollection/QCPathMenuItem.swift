@@ -10,7 +10,7 @@ import UIKit
 
 class QCPathMenuItem: PathMenuItem {
     
-    typealias TapAction = () -> Void
+    typealias TapAction = (sender: QCPathMenuItem) -> Void
     
     // MARK: プロパティ
     var action: TapAction? = nil

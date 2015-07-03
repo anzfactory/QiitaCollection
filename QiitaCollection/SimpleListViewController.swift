@@ -104,6 +104,9 @@ class SimpleListViewController: BaseViewController, UITableViewDataSource, UITab
     // MARK: UITableViewDelegate
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if let callback = self.tapCallback {
+            if let cell = self.tableView.cellForRowAtIndexPath(indexPath) {
+                self.transitionSenderPoint = cell.superview!.convertPoint(cell.center, toView: self.view)
+            }
             callback(self, indexPath.row)
         }
     }
@@ -116,6 +119,7 @@ class SimpleListViewController: BaseViewController, UITableViewDataSource, UITab
     
     // MARK: SWTableViewCellDelegate
     func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerRightUtilityButtonWithIndex index: Int) {
+        self.transitionSenderPoint = cell.superview!.convertPoint(cell.center, toView: self.view)
         self.swipeCellCallback?(self, cell as! SlideTableViewCell, cell.tag)
     }
     

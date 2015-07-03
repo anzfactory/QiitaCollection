@@ -11,8 +11,9 @@ import UIKit
 // selectionHandlerにセットすると自動でよばれてしまって使いづらいので…
 class QCGridMenuItem: CNPGridMenuItem {
     
-    typealias TapAction = () -> Void
+    typealias TapAction = (item: QCGridMenuItem) -> Void
     var action: TapAction? = nil
+    var center: CGPoint? = nil
     
 }
 
@@ -28,6 +29,7 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
     var viewPagerTabWidth: CGFloat = 120.0
     var viewPagerTabHeight: CGFloat = 0.0
     lazy var account: AnonymousAccount = self.setupAccount();
+    var barItemSearch: UIBarButtonItem? = nil
  
     // MARK: ライフサイクル
     override func viewDidLoad() {
@@ -36,9 +38,10 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
         self.title = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleDisplayName") as? String
         self.setupNavigation()
         
+        self.barItemSearch = UIBarButtonItem(image: UIImage(named: "bar_item_search"), style: UIBarButtonItemStyle.Plain, target: self, action: "tapSearch")
         let rightButtons: [UIBarButtonItem] = [
             UIBarButtonItem(image: UIImage(named: "bar_item_setting"), style: UIBarButtonItemStyle.Plain, target: self, action: "tapSetting"),
-            UIBarButtonItem(image: UIImage(named: "bar_item_search"), style: UIBarButtonItemStyle.Plain, target: self, action: "tapSearch")
+            self.barItemSearch!
         ]
         self.navigationItem.rightBarButtonItems = rightButtons
         rightButtons[1].showGuide(GuideManager.GuideType.SearchIcon)
@@ -118,7 +121,7 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
         menuItemMuteUsers.icon = UIImage(named: "icon_circle_slash")
         menuItemMuteUsers.title = "Mute User"
         menuItemMuteUsers.action = {(item) -> Void in
-            self.openMuteUserList()
+            self.openMuteUserList(item)
             return
         }
         
@@ -126,7 +129,7 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
         menuItemPinEntries.icon = UIImage(named: "icon_pin")
         menuItemPinEntries.title = "Pins"
         menuItemPinEntries.action = {(item) -> Void in
-            self.openPinEntryList()
+            self.openPinEntryList(item)
             return
         }
         
@@ -134,7 +137,7 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
         menuItemQuery.icon = UIImage(named: "icon_lock")
         menuItemQuery.title = "Query"
         menuItemQuery.action = {(item) -> Void in
-            self.openQueryList()
+            self.openQueryList(item)
         }
         
         let menuItemSigin: QCGridMenuItem = QCGridMenuItem()
@@ -148,7 +151,7 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
             menuItemSigin.icon = UIImage(named: "icon_sign_in")
             menuItemSigin.title = "Sign in"
             menuItemSigin.action = {(item) -> Void in
-                self.openSigninVC()
+                self.openSigninVC(item)
             }
         }
         
@@ -172,10 +175,17 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
         menuItemInfo.icon = UIImage(named: "icon_info")
         menuItemInfo.title = "About App"
         menuItemInfo.action = {(item) -> Void in
-            self.openAboutApp()
+            self.openAboutApp(item)
         }
         
-        var items = [menuItemMuteUsers, menuItemPinEntries, menuItemQuery, menuReview, menuWiki, menuItemInfo];
+        let menuImageSettings: QCGridMenuItem = QCGridMenuItem()
+        menuImageSettings.icon = UIImage(named: "icon_media")
+        menuImageSettings.title = "Cover"
+        menuImageSettings.action = {(item) -> Void in
+            self.openImageSetting(item)
+        }
+        
+        var items = [menuItemMuteUsers, menuItemPinEntries, menuItemQuery, menuImageSettings, menuReview, menuWiki, menuItemInfo];
         // 未認証なら最初にsign in 認証済みなら最後に sign out
         if AccountManager.isAuthorized() {
             items.append(menuItemSigin)
@@ -204,16 +214,16 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
             entriesVC.title = "検索結果"
             NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PushViewController.rawValue, object: entriesVC)
             
-            searchVC.dismissViewControllerAnimated(true, completion: { () -> Void in
-                
-            })
+            searchVC.dismiss()
             
+        }
+        if let v = self.barItemSearch?.valueForKey("view") as? UIView {
+            vc.transitionSenderPoint = self.navigationController?.navigationBar.convertPoint(v.center, toView: self.view)
         }
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PresentedViewController.rawValue, object: vc)
     }
     
-    func openMuteUserList() {
-        
+    func openMuteUserList(item: QCGridMenuItem) {
         let mutedUsers: [String] = self.account.muteUserNames()
         if (mutedUsers.isEmpty) {
             Toast.show("ミュートユーザーが追加されていません", style: JFMinimalNotificationStytle.StyleInfo)
@@ -240,10 +250,17 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
             vc.removeItem(index)
             Toast.show("ミュートを解除しました", style: JFMinimalNotificationStytle.StyleSuccess, title: "", targetView: vc.view)
         }
-        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PresentedViewController.rawValue, object: muteVC)
+        
+        if let p = item.center {
+            muteVC.transitionSenderPoint = p
+        }
+        NSNotificationCenter.defaultCenter().postNotificationName(
+            QCKeys.Notification.PresentedViewController.rawValue,
+            object: muteVC
+        )
     }
     
-    func openPinEntryList() {
+    func openPinEntryList(item: QCGridMenuItem) {
         
         let pins: [String] = self.account.pinEntryTitles()
         if (pins.isEmpty) {
@@ -272,11 +289,14 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
             vc.removeItem(index)
             Toast.show("pinした投稿を解除しました", style: JFMinimalNotificationStytle.StyleSuccess, title: "", targetView: vc.view)
         }
+        if let p = item.center {
+            vc.transitionSenderPoint = p
+        }
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PresentedViewController.rawValue, object: vc)
         
     }
     
-    func openQueryList() {
+    func openQueryList(item: QCGridMenuItem) {
         let titles = self.account.saveQueryTitles()
         
         if titles.isEmpty {
@@ -302,10 +322,13 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
             })
             return
         }
+        if let p = item.center {
+            vc.transitionSenderPoint = p
+        }
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PresentedViewController.rawValue, object: vc)
     }
     
-    func openSigninVC() {
+    func openSigninVC(item: QCGridMenuItem) {
         let vc: SigninViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SigninVC") as! SigninViewController
         vc.authorizationAction = {(viewController: SigninViewController, qiitaAccount: QiitaAccount) -> Void in
             // ViewPager再構成
@@ -318,6 +341,9 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
                 
             })
             return
+        }
+        if let p = item.center {
+            vc.transitionSenderPoint = p
         }
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PresentedViewController.rawValue, object: vc)
     }
@@ -339,8 +365,19 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
         }
     }
     
-    func openAboutApp() {
+    func openAboutApp(item: QCGridMenuItem) {
         let vc: AboutAppViewController = self.storyboard?.instantiateViewControllerWithIdentifier("AboutAppVC") as! AboutAppViewController
+        if let p = item.center {
+            vc.transitionSenderPoint = p
+        }
+        NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PresentedViewController.rawValue, object: vc)
+    }
+    
+    func openImageSetting(item: QCGridMenuItem) {
+        let vc = self.storyboard?.instantiateViewControllerWithIdentifier("ImageSettingsVC") as! ImageSettingsViewController
+        if let p = item.center {
+            vc.transitionSenderPoint = p
+        }
         NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.PresentedViewController.rawValue, object: vc)
     }
     
@@ -470,9 +507,22 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
     
     // MARK: CNPGridMenuDelegate
     func gridMenu(menu: CNPGridMenu!, didTapOnItem item: CNPGridMenuItem!) {
+        
+        var i  = 0
+        for i = 0; i < menu.menuItems.count; i++ {
+            if item == menu.menuItems[i] as! CNPGridMenuItem {
+                break
+            }
+        }
+        
+        var targetCell = menu.collectionView?.cellForItemAtIndexPath(NSIndexPath(forRow: i, inSection: 0))
+        
         menu.dismissGridMenuAnimated(true, completion: { () -> Void in
             let qcitem = item as! QCGridMenuItem
-            qcitem.action?()
+            if let cell = targetCell {
+                qcitem.center = menu.collectionView!.convertPoint(cell.center, toView: menu.collectionView!.superview)
+            }
+            qcitem.action?(item: qcitem)
             return
         })
     }
