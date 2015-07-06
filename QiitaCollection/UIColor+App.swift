@@ -76,6 +76,9 @@ extension UIColor {
     class func textShadow() -> UIColor {
         return UIColor.darkGrayColor()
     }
+    class func textAdventCalendar() -> UIColor {
+        return backgroundBase()
+    }
     
     class func borderImageViewCircle() -> UIColor {
         return backgroundBase()

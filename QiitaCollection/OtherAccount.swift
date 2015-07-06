@@ -28,7 +28,10 @@ class OtherAccount: AnonymousAccount {
     
     func sync(completion: (user: UserEntity?) -> Void) {
         self.qiitaApiManager.getUser(self.qiitaId, completion: { (item, isError) -> Void in
-            self.entity = item!
+            if let user = item {
+                self.entity = user
+            }
+            
             completion(user: item)
         })
     }

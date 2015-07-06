@@ -70,7 +70,7 @@ class BaseTableView: UITableView {
 
     }
     
-    func loadedItems(items: [HistoryEntity]) {
+    func loadedItems<T:EntityProtocol>(items: [T]) {
         
         if items.count == 0 && self.page == 1 {
             Toast.show("結果0件でした...", style: JFMinimalNotificationStytle.StyleWarning)
@@ -85,7 +85,7 @@ class BaseTableView: UITableView {
             self.items.removeAll(keepCapacity: false)
         }
         
-        for item: HistoryEntity in items {
+        for item: T in items {
 
             self.items.append(item)
     

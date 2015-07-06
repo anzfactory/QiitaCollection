@@ -230,4 +230,16 @@ class AnonymousAccount: NSObject {
         })
     }
     
+    func adventList(year: Int, page: Int, completion: (items: [KimonoEntity]) -> Void) {
+        ParseManager.sharedInstance.getAdventList(year, page: page) { (items) -> Void in
+            completion(items: items)
+        }
+    }
+    
+    func adventEntires(objectId: String, completion: (items: [AdventEntity]) -> Void) {
+        ParseManager.sharedInstance.getAdventEntries(objectId, completion: { (items) -> Void in
+            completion(items:items)
+        })
+    }
+    
 }

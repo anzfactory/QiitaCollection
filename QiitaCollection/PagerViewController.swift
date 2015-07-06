@@ -95,6 +95,9 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
             }
         }
         
+        // advent
+        self.viewPagerItems.append(ViewPagerItem(title:"Advent Calendar", identifier:"AdventListVC", query: "", type: 0))
+        
         // 保存した投稿リストがあるか
         if self.account.hasDownloadFiles() {
             self.viewPagerItems.append(ViewPagerItem(title:"保存した投稿", identifier:"SimpleListVC", query: "", type: 0))

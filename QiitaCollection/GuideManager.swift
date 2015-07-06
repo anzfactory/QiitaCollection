@@ -24,7 +24,8 @@ class GuideManager: NSObject, CMPopTipViewDelegate {
         QueryListSwipeCell,
         PublicContextMenu,
         AddStock,
-        SyncBrowsing
+        SyncBrowsing,
+        AdventCalendarCell
         
         func message() -> String {
             switch self {
@@ -52,6 +53,8 @@ class GuideManager: NSObject, CMPopTipViewDelegate {
                 return "スットクの追加・解除はこちら"
             case .SyncBrowsing:
                 return "Handoff対応のお使いのMacなどのブラウザに閲覧している投稿を同期表示させることができます"
+            case .AdventCalendarCell:
+                return "タップで記事詳細へ。長押しで記事を書いたユーザーの詳細画面へ遷移します"
             case .None:
                 fallthrough
             default:
