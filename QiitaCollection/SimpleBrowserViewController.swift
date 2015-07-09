@@ -54,6 +54,19 @@ class SimpleBrowserViewController: BaseViewController, UIWebViewDelegate {
         })
     }
     
+    @IBAction func tapShare(sender: AnyObject) {
+        
+        if let advent = self.displayAdvent {
+            let args: [NSObject: AnyObject] = [
+                QCKeys.ActivityView.Message.rawValue: advent.title,
+                QCKeys.ActivityView.Link.rawValue   : advent.url
+            ]
+            
+            NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowActivityView.rawValue, object: self, userInfo: args)
+        }
+        
+    }
+    
     // MARK: UIWebviewDelegate
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         

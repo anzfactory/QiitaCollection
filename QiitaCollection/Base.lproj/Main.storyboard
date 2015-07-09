@@ -1475,6 +1475,11 @@
                                                 <action selector="tapClose:" destination="Kn4-gV-E0b" id="a8m-Rf-zLj"/>
                                             </connections>
                                         </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" image="bar_item_share" id="9Wi-cK-56w">
+                                            <connections>
+                                                <action selector="tapShare:" destination="Kn4-gV-E0b" id="HAj-RI-HJ9"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -1697,6 +1702,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="bar_item_share" width="20" height="20"/>
         <image name="bar_item_x" width="20" height="20"/>
         <image name="icon_check" width="44" height="44"/>
         <image name="icon_comment" width="44" height="44"/>
