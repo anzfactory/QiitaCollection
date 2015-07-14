@@ -167,7 +167,7 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
         shareVC.popoverPresentationController?.sourceView = vc.view// TODO: 表示位置を受け取れるようにする (あとArrowDirectionも)
         shareVC.popoverPresentationController?.sourceRect = CGRect(x: self.view.frame.size.width * 0.5, y: self.view.frame.size.height, width: 0, height: 0 )
         shareVC.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection(rawValue:0)
-        self.presentViewController(shareVC, animated: true) { () -> Void in
+        vc.presentViewController(shareVC, animated: true) { () -> Void in
             
         }
     }

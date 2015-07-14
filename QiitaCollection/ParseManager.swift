@@ -132,7 +132,7 @@ class ParseManager {
         let user = PFUser.currentUser()
         let query: PFQuery = PFQuery(className: "RankingWeek")
         query.orderByAscending("rank")
-        query.limit = limit   // リクエストを抑えたいから多めにｗ
+        query.limit = limit
         
         query.findObjectsInBackgroundWithBlock { (items, error) -> Void in
             
@@ -148,6 +148,69 @@ class ParseManager {
                 for object in itemList {
                     if let obj = object as? PFObject {
                         list.append(RankEntity(object: obj))
+                    }
+                }
+            }
+            
+            completion(items: list)
+            
+        }
+    }
+    
+    func getAdventList(year: Int, page: Int, completion: (items: [KimonoEntity]) -> Void) {
+        
+        let limit: Int = 50
+        let user = PFUser.currentUser()
+        let query: PFQuery = PFQuery(className: "KimonoApis")
+        query.whereKey("year", equalTo: year)
+        query.orderByAscending("title")
+        query.limit = limit   // リクエストを抑えたいから多めにｗ
+        query.skip = (page - 1) * limit // offset
+        
+        query.findObjectsInBackgroundWithBlock { (items, error) -> Void in
+            
+            var list: [KimonoEntity] = [KimonoEntity]()
+            
+            if let e = error {
+                println(e)
+                completion(items: list)
+                return
+            }
+            
+            if let itemList = items {
+                for object in itemList {
+                    if let obj = object as? PFObject {
+                        list.append(KimonoEntity(object: obj))
+                    }
+                }
+            }
+            
+            completion(items: list)
+            
+        }
+    }
+    
+    func getAdventEntries(objectId: String, completion: (items: [AdventEntity]) -> Void) {
+        
+        let user = PFUser.currentUser()
+        let query: PFQuery = PFQuery(className: "Advents")
+        query.whereKey("adventId", equalTo: objectId)
+        query.orderByAscending("date")
+        
+        query.findObjectsInBackgroundWithBlock { (items, error) -> Void in
+            
+            var list: [AdventEntity] = [AdventEntity]()
+            
+            if let e = error {
+                println(e)
+                completion(items: list)
+                return
+            }
+            
+            if let itemList = items {
+                for object in itemList {
+                    if let obj = object as? PFObject {
+                        list.append(AdventEntity(object: obj))
                     }
                 }
             }
