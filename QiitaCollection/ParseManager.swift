@@ -29,8 +29,10 @@ class ParseManager {
 
         PFUser.enableAutomaticUser()
         let defaultACL = PFACL(user: PFUser.currentUser()!)
-        defaultACL.setPublicReadAccess(true)
-        defaultACL.setPublicWriteAccess(true)
+        // 基本的にはprivateなデータを作成する
+        // もし、publicにしたい時は、save()するときに都度指定して
+        defaultACL.setPublicReadAccess(false)
+        defaultACL.setPublicWriteAccess(false)
         PFACL.setDefaultACL(defaultACL, withAccessForCurrentUser: true)
         
         // 初回で端末内に保持させるためにもsaveする
