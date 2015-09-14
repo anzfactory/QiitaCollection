@@ -37,7 +37,7 @@ class SearchViewController: BaseViewController, SearchConditionViewDelegate, UIT
         self.searchConditionView.showGuide(GuideManager.GuideType.SearchConditionView, inView: self.view)
         
         self.tableView.separatorColor = UIColor.borderTableView()
-        self.tableView.tableFooterView = UIView(frame: CGRect.zeroRect)
+        self.tableView.tableFooterView = UIView(frame: CGRect.zero)
         self.tableView.dataSource = self
         self.tableView.delegate = self
         
@@ -66,12 +66,12 @@ class SearchViewController: BaseViewController, SearchConditionViewDelegate, UIT
     func tapSearch() {
         
         // もし入力中のものがあればついか
-        if !self.searchConditionView.query.text.isEmpty {
+        if !self.searchConditionView.query.text!.isEmpty {
             self.addCondition()
         }
         
         if self.items.isEmpty {
-            if self.searchConditionView.query.text.isEmpty {
+            if self.searchConditionView.query.text!.isEmpty {
                 Toast.show("検索キーワードを入力してください", style: JFMinimalNotificationStytle.StyleWarning, title: "", targetView: self.searchConditionView)
                 return
             }
@@ -123,7 +123,7 @@ class SearchViewController: BaseViewController, SearchConditionViewDelegate, UIT
     }
     
     func addCondition() {
-        let item: SearchConditionItem = SearchConditionItem(query: self.searchConditionView.query.text, isExclude: self.searchConditionView.excludeCheck.selected, type: SearchConditionView.SearchType(rawValue: self.searchConditionView.searchType.selectedSegmentIndex)!)
+        let item: SearchConditionItem = SearchConditionItem(query: self.searchConditionView.query.text!, isExclude: self.searchConditionView.excludeCheck.selected, type: SearchConditionView.SearchType(rawValue: self.searchConditionView.searchType.selectedSegmentIndex)!)
         self.items.append(item)
         
         self.tableView.reloadData()

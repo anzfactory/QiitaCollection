@@ -97,7 +97,7 @@ class QiitaApiManager {
             }
         }
         
-        var URLRequest: NSURLRequest {
+        var URLRequest: NSMutableURLRequest {
             
             let URL = NSURL(string: Router.baseUrlString)!
             let endpoint = self.endpoint
@@ -179,9 +179,8 @@ class QiitaApiManager {
     func getBool(request: URLRequestConvertible, completion:(_: Bool) -> Void) {
         self.manager.request(request)
             .validate(statusCode: 204..<205)    // code:204 が返ってくるので 204 以外を error扱いにしちゃう
-            .responseJSON { (request, response, jsonData, error) -> Void in
-                let isError: Bool = error == nil ? false : true
-                completion(!isError)
+            .responseJSON { (request, response, jsonData) -> Void in
+                completion(jsonData.isSuccess)
         }
     }
     
@@ -189,18 +188,17 @@ class QiitaApiManager {
         
         self.manager.request(request)
             .validate(statusCode: 200..<300)    // ステータスコードの200台以外をエラーとするように
-            .responseJSON { (request, response, jsonData, error) -> Void in
-                let isError: Bool = error == nil ? false : true
+            .responseJSON { (request, response, jsonData) -> Void in
+                let isError: Bool = jsonData.isFailure
                 
                 var items: [T] = [T]()
                 if isError {
-                    println(jsonData)
-                    self.alertLimitRequest(jsonData)
+                    self.alertLimitRequest(jsonData.value)
                     completion(total:0, items:items, isError: isError);
                     return;
                 }
                 
-                let json: JSON = JSON(jsonData!)
+                let json: JSON = JSON(jsonData.value!)
                 let total: Int = response?.allHeaderFields["Total-Count"]?.integerValue ?? 0
                 if let list = json.array {
                     for obj in list {
@@ -217,17 +215,16 @@ class QiitaApiManager {
     func getItem<T:EntityProtocol>(request: URLRequestConvertible, completion: (item:T?, isError: Bool) -> Void) {
         self.manager.request(request)
             .validate(statusCode: 200..<300)    // ステータスコードの200台以外をエラーとするように
-            .responseJSON { (request, response, jsonData, error) -> Void in
+            .responseJSON { (request, response, jsonData) -> Void in
                 
-                let isError: Bool = error == nil ? false : true
+                let isError: Bool = jsonData.isFailure
                 
                 if isError {
-                    println(jsonData)
-                    self.alertLimitRequest(jsonData)
+                    self.alertLimitRequest(jsonData.value)
                     completion(item: nil, isError: isError);
                     return;
                 }
-                let json = JSON(jsonData!)
+                let json = JSON(jsonData.value!)
                 completion(item: T(data: json), isError: isError);
         }
     }
@@ -235,15 +232,14 @@ class QiitaApiManager {
     func postAuthorize(clientId: String, clientSecret: String, code: String, completion: ((token: String, isError: Bool) -> Void)) {
         self.manager.request(Router.PostAuthorize(clientId: clientId, clientSecret: clientSecret, code: code))
             .validate(statusCode: 200..<300)    // ステータスコードの200台以外をエラーとするように
-            .responseJSON { (request, response, jsonData, error) -> Void in
+            .responseJSON { (request, response, jsonData) -> Void in
                 
-                let isError: Bool = error == nil ? false : true
+                let isError: Bool = jsonData.isFailure
                 if isError {
-                    println("post autholize:\(jsonData)")
                     completion(token: "", isError: isError);
                     return;
                 }
-                let json = JSON(jsonData!)
+                let json = JSON(jsonData.value!)
                 completion(token: json["token"].string!, isError: isError);
         }
     }
@@ -251,12 +247,9 @@ class QiitaApiManager {
     func postComment(entryId: String, body: String, completion:((isError: Bool) -> Void)) {
         self.manager.request(Router.PostComment(entryId: entryId, body: body))
             .validate(statusCode: 200..<300)    // ステータスコードの200台以外をエラーとするように
-            .responseJSON { (request, response, jsonData, error) -> Void in
+            .responseJSON { (request, response, jsonData) -> Void in
                 
-                let isError: Bool = error == nil ? false : true
-                if isError {
-                    println(jsonData)
-                }
+                let isError: Bool = jsonData.isFailure
                 completion(isError: isError)
         }
     }
@@ -272,13 +265,11 @@ class QiitaApiManager {
     func put(request: URLRequestConvertible, completion: (isError: Bool) -> Void) {
         self.manager.request(request)
             .validate(statusCode: 200..<300)    // ステータスコードの200台以外をエラーとするように
-            .responseJSON { (request, response, jsonData, error) -> Void in
+            .responseJSON { (request, response, jsonData) -> Void in
                 
-                let isError: Bool = error == nil ? false : true
+                let isError: Bool = jsonData.isFailure
                 
-                if isError {
-                    println(jsonData)
-                } else {
+                if !isError {
                     NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowInterstitial.rawValue, object: nil)
                 }
                 
@@ -289,12 +280,10 @@ class QiitaApiManager {
     func patchComment(commentId: String, body: String, completion: ((isError: Bool) -> Void)) {
         self.manager.request(Router.PatchComment(commentId: commentId, body: body))
         .validate(statusCode: 200..<300)    // ステータスコードの200台以外をエラーとするように
-        .responseJSON { (request, response, jsonData, error) -> Void in
+        .responseJSON { (request, response, jsonData) -> Void in
             
-            let isError: Bool = error == nil ? false : true
-            if isError {
-                println(jsonData)
-            } else {
+            let isError: Bool = jsonData.isFailure
+            if !isError {
                 NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowInterstitial.rawValue, object: nil)
             }
             completion(isError: isError)
@@ -320,11 +309,9 @@ class QiitaApiManager {
     func delete(request: URLRequestConvertible, completion: (isError: Bool) -> Void) {
         self.manager.request(request)
             .validate(statusCode: 200..<300)    // ステータスコードの200台以外をエラーとするように
-            .responseJSON { (request, response, jsonData, error) -> Void in
-                let isError: Bool = error == nil ? false : true
-                if isError {
-                    println(jsonData)
-                } else {
+            .responseJSON { (request, response, jsonData) -> Void in
+                let isError: Bool = jsonData.isFailure
+                if !isError {
                     NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ShowInterstitial.rawValue, object: nil)
                 }
                 completion(isError: isError);

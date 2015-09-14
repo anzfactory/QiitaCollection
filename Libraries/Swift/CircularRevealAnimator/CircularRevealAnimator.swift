@@ -21,12 +21,12 @@ class CircularRevealAnimator : NSObject {
 }
 
 extension CircularRevealAnimator : UIViewControllerAnimatedTransitioning {
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval {
+    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
         return duration
     }
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        let containerView = transitionContext.containerView()
+        let containerView = transitionContext.containerView()!
         let source = transitionContext.viewForKey(UITransitionContextFromViewKey)!
         let target = transitionContext.viewForKey(UITransitionContextToViewKey)!
         
@@ -58,12 +58,12 @@ extension CircularRevealAnimator : UIViewControllerAnimatedTransitioning {
             let animation = CABasicAnimation(keyPath: "path", fromValue: startPath, toValue: endPath, duration: duration, timingFunction: timingFunction, delegate: delegate)
             
             target.layer.mask = CAShapeLayer()
-            target.layer.mask.addAnimation(animation, forKey: "circular")
+            target.layer.mask!.addAnimation(animation, forKey: "circular")
         } else {
             containerView.insertSubview(target, belowSubview: source)
             let animation = CABasicAnimation(keyPath: "path", fromValue: endPath, toValue: startPath, duration: duration, timingFunction: timingFunction, delegate: delegate)
             source.layer.mask = CAShapeLayer()
-            source.layer.mask.addAnimation(animation, forKey: "circular")
+            source.layer.mask!.addAnimation(animation, forKey: "circular")
         }
     }
 }

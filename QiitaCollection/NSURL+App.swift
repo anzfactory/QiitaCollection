@@ -62,23 +62,22 @@ extension NSURL {
         if var components = self.pathComponents {
             
             // 初めが url separator か
-            if components[0] as! String == "/" {
+            if components[0] == "/" {
                 components.removeAtIndex(0)
             }
             
             if (components.count == 1) {
                 // ユーザーページの可能性
-                let path = components[0] as! String
+                let path = components[0]
                 
                 // qiita の静的ページチェック
-                if !contains(["about", "tags", "advent-calendar", "organizations", "users", "license", "terms", "privacy", "asct", "drafts"], path) {
+                if !["about", "tags", "advent-calendar", "organizations", "users", "license", "terms", "privacy", "asct", "drafts"].contains(path) {
                     result.userId = path
                 }
             } else if (components.count >= 3) {
                 // 記事の可能性
-                let path2 = components[1] as! String
-                if path2 == "items" {
-                    result.entryId = components[2] as? String
+                if components[1] == "items" {
+                    result.entryId = components[2]
                 }
             }
             

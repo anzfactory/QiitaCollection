@@ -39,7 +39,7 @@ class PathMenuItem: UIImageView {
         super.init(frame: frame)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
    
@@ -74,14 +74,14 @@ class PathMenuItem: UIImageView {
         }
     }
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.highlighted = true
         if self.delegate.respondsToSelector("PathMenuItemTouchesBegan:") {
             self.delegate.PathMenuItemTouchesBegan(self)
         }
     }
     
-    override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
         if let any: AnyObject = touches.first as? AnyObject {
             let location:CGPoint? = any.locationInView(self)
@@ -95,7 +95,7 @@ class PathMenuItem: UIImageView {
         
     }
     
-    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.highlighted = false
         if let any: AnyObject = touches.first as? AnyObject {
             let location: CGPoint? = any.locationInView(self)
@@ -110,7 +110,7 @@ class PathMenuItem: UIImageView {
 
     }
     
-    override func touchesCancelled(touches: Set<NSObject>!, withEvent event: UIEvent!) {
+    override func touchesCancelled(touches: Set<UITouch>!, withEvent event: UIEvent?) {
         self.highlighted = false
     }
     

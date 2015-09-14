@@ -15,11 +15,16 @@ class FileManager {
         let fullPath: String = self.fileFullPath(fileName)
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-            var error: NSError? = nil
-            let result = dataString.writeToFile(fullPath, atomically: false, encoding:NSUTF8StringEncoding, error: &error)
             
+            var isError: Bool = true
+            do {
+                try dataString.writeToFile(fullPath, atomically: false, encoding:NSUTF8StringEncoding)
+                isError = false
+            } catch {
+                
+            }
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                completion(isError: (!result || error != nil))
+                completion(isError: isError)
             })
             
         })
@@ -29,8 +34,13 @@ class FileManager {
         let fullPath: String = self.fileFullPath(fileName)
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-            var error: NSError? = nil
-            let result = String(contentsOfFile: fullPath, encoding: NSUTF8StringEncoding, error: &error) ?? ""
+            
+            var result = ""
+            do {
+                result = try String(contentsOfFile: fullPath, encoding: NSUTF8StringEncoding)
+            } catch {
+                
+            }
             
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                completion(text: result)
@@ -44,16 +54,18 @@ class FileManager {
         let fullPath: String = self.fileFullPath(fileName)
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-            var error: NSError? = nil
             let fileMam = NSFileManager()
-            let result = fileMam.removeItemAtPath(fullPath, error: &error)
+            var isError = true
             
-            if let e = error {
-                println(e)
+            do {
+                try fileMam.removeItemAtPath(fullPath)
+                isError = false
+            } catch {
+                
             }
             
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                completion(isError: (!result || error != nil))
+                completion(isError: isError)
             })
             
         })
@@ -65,9 +77,9 @@ class FileManager {
             NSSearchPathDirectory.DocumentDirectory,
             NSSearchPathDomainMask.UserDomainMask,
             true
-            )[0] as! String
+            )[0]
         
-        let fullPath: String = directoryPath.stringByAppendingPathComponent(fileName)
+        let fullPath: String = NSString(string: directoryPath).stringByAppendingPathComponent(fileName)
         return fullPath
     }
     

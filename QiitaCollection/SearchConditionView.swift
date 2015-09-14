@@ -31,7 +31,6 @@ class SearchConditionView: UIView {
             case .Code: return "コード"
             case .Tag: return "タグ"
             case .User: return "ユーザー"
-            default: return ""
             }
         }
         
@@ -43,7 +42,6 @@ class SearchConditionView: UIView {
             case .Code: return "code:"
             case .Tag: return "tag:"
             case .User: return "user:"
-            default: return ""
             }
         }
     }

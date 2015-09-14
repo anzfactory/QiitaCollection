@@ -169,7 +169,7 @@ class AnonymousAccount: NSObject {
     }
     
     func existsMuteUser(userId: String) -> Bool {
-        return contains(self.userDataManager.muteUsers, userId)
+        return self.userDataManager.muteUsers.contains(userId)
     }
     
     func muteUserNames() -> [String] {

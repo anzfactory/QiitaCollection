@@ -32,7 +32,7 @@ class SimpleListViewController: BaseViewController, UITableViewDataSource, UITab
         
         self.setupForPresentedVC(self.navigationBar)
         
-        let dummy: UIView = UIView(frame: CGRect.zeroRect)
+        let dummy: UIView = UIView(frame: CGRect.zero)
         self.tableView.tableFooterView = dummy
         self.tableView.separatorColor = UIColor.borderTableView()
         

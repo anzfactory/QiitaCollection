@@ -49,8 +49,7 @@ class CommentTableViewCell: UITableViewCell {
         comment.postUser.loadThumb(self.thumb)
         self.name.text = comment.postUser.displayName
         self.postDate.text = comment.shortUpdateDate
-        var error: NSError? = nil
-        self.body.attributedText = NSAttributedString(data: comment.htmlBody.dataUsingEncoding(NSUnicodeStringEncoding, allowLossyConversion: true)!, options: [NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType], documentAttributes: nil, error: &error)
+        self.body.attributedText = try! NSAttributedString(data: comment.htmlBody.dataUsingEncoding(NSUnicodeStringEncoding, allowLossyConversion: true)!, options: [NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType], documentAttributes: nil)
         
         if let qiitaAccount = self.account as? QiitaAccount {
             self.edit.hidden = !qiitaAccount.canCommentEdit(comment.postUser.id)

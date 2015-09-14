@@ -46,7 +46,7 @@ class PathMenu: UIView, PathMenuItemDelegate {
         case Expand
     }
         
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -193,7 +193,7 @@ class PathMenu: UIView, PathMenuItemDelegate {
         }
     }
     
-    override func animationDidStop(anim: CAAnimation!, finished flag: Bool) {
+    override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
         if let animId: AnyObject = anim.valueForKey("id") {
             if (animId.isEqual("lastAnimation")) {
                 self.delegate?.pathMenuDidFinishAnimationClose?(self)
@@ -206,7 +206,7 @@ class PathMenu: UIView, PathMenuItemDelegate {
     
     // UIGestureRecognizer
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.handleTap()
     }
     
@@ -255,7 +255,7 @@ class PathMenu: UIView, PathMenuItemDelegate {
     // Animation, Position
     
     func handleTap() {
-        var state = self.motionState!
+        let state = self.motionState!
         var selector: Selector?
         var angle: CGFloat?
         
@@ -275,7 +275,7 @@ class PathMenu: UIView, PathMenuItemDelegate {
             angle = 0.0
         }
         
-        if let rotateAddButton = self.rotateAddButton {
+        if let _ = self.rotateAddButton {
             UIView.animateWithDuration(Double(self.startMenuAnimationDuration!), animations: { () -> Void in
                 self.startButton.transform = CGAffineTransformMakeRotation(angle!)
             })
@@ -296,7 +296,7 @@ class PathMenu: UIView, PathMenuItemDelegate {
         }
         
         let tag: Int = 1000 + self.flag!
-        var item: PathMenuItem = self.viewWithTag(tag) as! PathMenuItem
+        let item: PathMenuItem = self.viewWithTag(tag) as! PathMenuItem
         
         let rotateAnimation: CAKeyframeAnimation = CAKeyframeAnimation(keyPath: "transform.rotation.z")
         rotateAnimation.values = [NSNumber(float: 0.0), NSNumber(float: Float(self.expandRotation!)), NSNumber(float: 0.0)]
@@ -339,7 +339,7 @@ class PathMenu: UIView, PathMenuItemDelegate {
         }
         
         let tag :Int = 1000 + self.flag!
-        var item: PathMenuItem = self.viewWithTag(tag) as! PathMenuItem
+        let item: PathMenuItem = self.viewWithTag(tag) as! PathMenuItem
         
         let rotateAnimation: CAKeyframeAnimation = CAKeyframeAnimation(keyPath: "transform.rotation.z")
         rotateAnimation.values = [NSNumber(float: 0.0), NSNumber(float: Float(self.closeRotation!)), NSNumber(float: 0.0)]
@@ -376,7 +376,7 @@ class PathMenu: UIView, PathMenuItemDelegate {
         var denominator: Int?
         
         for (var i = 0; i < self.menusArray.count; i++) {
-            var item: PathMenuItem = self.menusArray[i]
+            let item: PathMenuItem = self.menusArray[i]
             item.tag = 1000 + i
             item.startPoint = self.startPoint
             
@@ -394,17 +394,17 @@ class PathMenu: UIView, PathMenuItemDelegate {
             let i1 = Float(self.endRadius) * sinf(Float(i) * Float(menuWholeAngle!) / Float(denominator!))
             let i2 = Float(self.endRadius) * cosf(Float(i) * Float(menuWholeAngle!) / Float(denominator!))
             let endPoint: CGPoint = CGPointMake(startPoint.x + CGFloat(i1), startPoint.y - CGFloat(i2))
-            item.endPoint = RotateCGPointAroundCenter(endPoint, startPoint, rotateAngle!)
+            item.endPoint = RotateCGPointAroundCenter(endPoint, center:startPoint, angle:rotateAngle!)
             
             let j1 = Float(self.nearRadius) * sinf(Float(i) * Float(menuWholeAngle!) / Float(denominator!))
             let j2 = Float(self.nearRadius) * cosf(Float(i) * Float(menuWholeAngle!) / Float(denominator!))
             let nearPoint: CGPoint = CGPointMake(startPoint.x + CGFloat(j1), startPoint.y - CGFloat(j2))
-            item.nearPoint = RotateCGPointAroundCenter(nearPoint, startPoint, rotateAngle!)
+            item.nearPoint = RotateCGPointAroundCenter(nearPoint, center:startPoint, angle:rotateAngle!)
 
             let k1 = Float(self.farRadius) * sinf(Float(i) * Float(menuWholeAngle!) / Float(denominator!))
             let k2 = Float(self.farRadius) * cosf(Float(i) * Float(menuWholeAngle!) / Float(denominator!))
             let farPoint: CGPoint = CGPointMake(startPoint.x + CGFloat(k1), startPoint.y - CGFloat(k2))
-            item.farPoint = RotateCGPointAroundCenter(farPoint, startPoint, rotateAngle!)
+            item.farPoint = RotateCGPointAroundCenter(farPoint, center:startPoint, angle:rotateAngle!)
             
             item.center = item.startPoint!
             item.delegate = self

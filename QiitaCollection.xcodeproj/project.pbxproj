@@ -64,7 +64,6 @@
 		A18A85D41A85D4EA0078436D /* QiitaApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18A85D31A85D4EA0078436D /* QiitaApiManager.swift */; };
 		A18A85D61A85D5190078436D /* EntryEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18A85D51A85D5190078436D /* EntryEntity.swift */; };
 		A191F1C71A85A3A20076C8C5 /* TopNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A191F1C61A85A3A20076C8C5 /* TopNavigationController.swift */; };
-		A19C85301AD0E06800BCF59D /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A19C852F1AD0E06800BCF59D /* ParseUI.framework */; };
 		A19C85321AD126A300BCF59D /* HistoryEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19C85311AD126A300BCF59D /* HistoryEntity.swift */; };
 		A19C85341AD153CC00BCF59D /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19C85331AD153CC00BCF59D /* App.swift */; };
 		A1A16E321A90757C0052A7C6 /* UserDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A16E311A90757C0052A7C6 /* UserDetailViewController.swift */; };
@@ -208,7 +207,6 @@
 		A18A85D31A85D4EA0078436D /* QiitaApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QiitaApiManager.swift; sourceTree = "<group>"; };
 		A18A85D51A85D5190078436D /* EntryEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryEntity.swift; sourceTree = "<group>"; };
 		A191F1C61A85A3A20076C8C5 /* TopNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopNavigationController.swift; sourceTree = "<group>"; };
-		A19C852F1AD0E06800BCF59D /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
 		A19C85311AD126A300BCF59D /* HistoryEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryEntity.swift; sourceTree = "<group>"; };
 		A19C85331AD153CC00BCF59D /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		A1A16E311A90757C0052A7C6 /* UserDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetailViewController.swift; sourceTree = "<group>"; };
@@ -300,7 +298,6 @@
 				A123D0491AAC33FC0039EB5C /* AVFoundation.framework in Frameworks */,
 				A123D0471AAC33F10039EB5C /* AudioToolbox.framework in Frameworks */,
 				A123D0451AAC33E60039EB5C /* AdSupport.framework in Frameworks */,
-				A19C85301AD0E06800BCF59D /* ParseUI.framework in Frameworks */,
 				8B9C88C9AF22F6B7D64935A3 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -491,14 +488,6 @@
 			name = ViewControllers;
 			sourceTree = "<group>";
 		};
-		A19C852E1AD0E04F00BCF59D /* ParseUI */ = {
-			isa = PBXGroup;
-			children = (
-				A19C852F1AD0E06800BCF59D /* ParseUI.framework */,
-			);
-			path = ParseUI;
-			sourceTree = "<group>";
-		};
 		A1A8D9D11A82F92C00231D84 = {
 			isa = PBXGroup;
 			children = (
@@ -608,7 +597,6 @@
 		A1D8A8361A87914B0040C195 /* ObjC */ = {
 			isa = PBXGroup;
 			children = (
-				A19C852E1AD0E04F00BCF59D /* ParseUI */,
 				A1DD40041AA375CD006E4F7B /* CMPopTipView */,
 				A1EB79181A9E36EF007E931E /* CNPGridMenu */,
 				A1EB79141A9E1F1F007E931E /* ICViewPager */,
@@ -1100,13 +1088,11 @@
 			baseConfigurationReference = 6517A45D668260FDADA92DBD /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
-					"$(PROJECT_DIR)/Libraries/ObjC/ParseUI",
 				);
 				INFOPLIST_FILE = QiitaCollection/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1125,13 +1111,11 @@
 			baseConfigurationReference = 838D04FEA8FB0D070F2360E6 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
-					"$(PROJECT_DIR)/Libraries/ObjC/ParseUI",
 				);
 				INFOPLIST_FILE = QiitaCollection/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

@@ -92,7 +92,7 @@ class SimpleBrowserViewController: BaseViewController, UIWebViewDelegate {
         self.titleView.stopIndicator()
     }
     
-    func webView(webView: UIWebView, didFailLoadWithError error: NSError) {
+    func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
         self.titleView.stopIndicator()
     }
 }

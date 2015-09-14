@@ -45,9 +45,8 @@ struct EntryEntity: EntityProtocol {
     var beginning: String {
         get {
             let str: NSString = NSString(string: body)
-            let result = body.substringToIndex(advance(body.startIndex, min(50, str.length)))
-            return body.substringToIndex(advance(body.startIndex, min(50, str.length)))
-                .stringByReplacingOccurrencesOfString("\n", withString: " ", options: nil, range: nil) + "…"
+            return body.substringToIndex(body.startIndex.advancedBy(min(50, str.length)))
+                .stringByReplacingOccurrencesOfString("\n", withString: " ") + "…"
         }
     }
     

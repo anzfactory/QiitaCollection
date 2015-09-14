@@ -21,7 +21,7 @@ class BaseTableView: UITableView {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        let dummy: UIView = UIView(frame: CGRect.zeroRect)
+        let dummy: UIView = UIView(frame: CGRect.zero)
         self.tableFooterView = dummy
         
     }

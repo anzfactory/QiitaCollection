@@ -123,7 +123,7 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
     
     func receiveShowAlertController(notification: NSNotification) {
         let args: [NSObject: AnyObject] = notification.userInfo!
-        let vc: UIViewController = notification.object as? UIViewController ?? self.topViewController
+        let vc: UIViewController = notification.object as? UIViewController ?? self.topViewController!
         
         let title: String = args[QCKeys.AlertController.Title.rawValue] as? String ?? ""
         let desc: String = args[QCKeys.AlertController.Description.rawValue] as? String ?? ""
@@ -333,7 +333,7 @@ class TopNavigationController: UINavigationController, UINavigationControllerDel
     }
     
     func receiveShowInterstitial(notification: NSNotification) {
-        AdManager.sharedInstance.showInterstitial(self.topViewController)
+        AdManager.sharedInstance.showInterstitial(self.topViewController!)
     }
     
     // MARK: UINavigationControllerDelegate

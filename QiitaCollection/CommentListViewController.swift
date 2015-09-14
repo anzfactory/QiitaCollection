@@ -139,7 +139,7 @@ class CommentListViewController: BaseViewController, UITableViewDataSource, UITa
         let entity: CommentEntity = self.tableView.items[cell.tag] as! CommentEntity
         
         if (self.account as! QiitaAccount).canCommentEdit(entity.postUser.id) == false {
-            println("can not edit")
+            print("can not edit")
             return
         }
         

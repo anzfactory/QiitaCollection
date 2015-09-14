@@ -186,12 +186,12 @@ class EntryCollectionViewController: BaseViewController, UICollectionViewDataSou
     func confirmSaveSearchCondition() {
 
         let doAciton: AlertViewSender.AlertActionWithText = {(sender: UITextField) -> Void in
-            self.account.saveQuery(self.query, title: sender.text)
+            self.account.saveQuery(self.query, title: sender.text!)
             Toast.show("検索条件を保存しました", style: JFMinimalNotificationStytle.StyleSuccess)
             NSNotificationCenter.defaultCenter().postNotificationName(QCKeys.Notification.ReloadViewPager.rawValue, object: nil)
         }
         let validation: AlertViewSender.AlertValidation = {(sender: UITextField) -> Bool in
-            return !sender.text.isEmpty
+            return !sender.text!.isEmpty
         }
         let action: AlertViewSender = AlertViewSender(validation: validation, action: doAciton, title: "OK")
         

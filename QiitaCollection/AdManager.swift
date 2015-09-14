@@ -26,8 +26,7 @@ class AdManager: NSObject, GADInterstitialDelegate {
     }
     
     func setupInterstitial() {
-        self.interstitial = GADInterstitial()
-        self.interstitial!.adUnitID = ThirdParty.AdMob.AdUnitID.rawValue
+        self.interstitial = GADInterstitial.init(adUnitID: ThirdParty.AdMob.AdUnitID.rawValue)
         self.interstitial!.delegate = self
         self.interstitial!.loadRequest(GADRequest())
     }

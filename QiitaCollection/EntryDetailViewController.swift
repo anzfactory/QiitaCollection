@@ -202,7 +202,7 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
 
             // テンプレート読み込み
             let path: NSString = NSBundle.mainBundle().pathForResource("entry", ofType: "html")!
-            let template: NSString = NSString(contentsOfFile: path as String, encoding: NSUTF8StringEncoding, error: nil)!
+            let template: NSString = try! NSString(contentsOfFile: path as String, encoding: NSUTF8StringEncoding)
             
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 // テンプレートに組み込んで表示
@@ -227,7 +227,7 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
         
         if let entry = self.displayEntry {
             
-            if let activity = self.senderActivity {
+            if let _ = self.senderActivity {
                 
             } else {
                 self.senderActivity = NSUserActivity(activityType: QCKeys.UserActivity.TypeSendURLToMac.rawValue)
@@ -381,9 +381,8 @@ class EntryDetailViewController: BaseViewController, NSUserActivityDelegate {
     
     func parseHtml(body:String, pattern: String) -> [ParseItem] {
         let nsBody: NSString = NSString(string: body)
-        var error: NSError?
-        let regex: NSRegularExpression? = NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.CaseInsensitive, error: &error)
-        let mathes: [AnyObject]? = regex?.matchesInString(nsBody as String, options: NSMatchingOptions.allZeros, range: NSMakeRange(0, nsBody.length))
+        let regex: NSRegularExpression = try! NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.CaseInsensitive)
+        let mathes: [AnyObject]? = regex.matchesInString(nsBody as String, options: [], range: NSMakeRange(0, nsBody.length))
         var targets: [ParseItem] = [ParseItem]()
         
         let indexLabel: Int = pattern == self.patternLink ? 2 : 1

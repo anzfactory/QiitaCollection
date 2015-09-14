@@ -17,12 +17,12 @@ extension Array {
         return self
     }
     
-    static func convert(dict: [[String: String]], key: String) -> [T] {
-        var result: [T] = [T]()
+    static func convert(dict: [[String: String]], key: String) -> [Element] {
+        var result: [Element] = [Element]()
         for item in dict {
             if let keyValue = item[key] {
-                if keyValue is T {
-                    result.append(keyValue as! T)
+                if keyValue is Element {
+                    result.append(keyValue as! Element)
                 }
             }
         }

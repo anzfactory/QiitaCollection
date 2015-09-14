@@ -74,7 +74,7 @@ struct UserEntity: EntityProtocol {
         imageView.sd_setImageWithURL(self.profUrl, completed: { (image, error, cacheType, url) -> Void in
             if error != nil {
                 imageView.image = UIImage(named: "default")
-                println("error..." + error.localizedDescription)
+                print("error..." + error.localizedDescription)
             }
         })
     }
@@ -87,7 +87,7 @@ struct UserEntity: EntityProtocol {
         button.sd_setImageWithURL(self.profUrl, forState: UIControlState.Normal, completed: { (image, error, cacheType, url) -> Void in
             if error != nil {
                 button.setImage(UIImage(named: "default"), forState: UIControlState.Normal)
-                println("error..." + error.localizedDescription)
+                print("error..." + error.localizedDescription)
             }
         })
     }

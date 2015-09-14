@@ -15,7 +15,7 @@ class BaseViewController: UIViewController, UIViewControllerTransitioningDelegat
     var transitionSenderPoint: CGPoint? = nil
     
     private var navBar: UINavigationBar? = nil
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.transitioningDelegate = self
     }
@@ -45,7 +45,7 @@ class BaseViewController: UIViewController, UIViewControllerTransitioningDelegat
             if let view = item.leftBarButtonItem?.valueForKey("view") as? UIView {
                 self.transitionSenderPoint = navBar!.convertPoint(view.center, toView: self.view)
             } else {
-                println("can not find view")
+                print("can not find view")
             }
         }
     }

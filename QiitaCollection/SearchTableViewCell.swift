@@ -19,7 +19,7 @@ class SearchTableViewCell: SWTableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        var buttons: NSMutableArray = NSMutableArray()
+        let buttons: NSMutableArray = NSMutableArray()
         buttons.sw_addUtilityButtonWithColor(UIColor.backgroundSwipeCellDelete(), icon: UIImage(named: "icon_trash_white"))
         self.setRightUtilityButtons(buttons as [AnyObject], withButtonWidth: 60)
         

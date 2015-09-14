@@ -446,7 +446,7 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
     func viewPager(viewPager: ViewPagerController!, contentViewControllerForTabAtIndex index: UInt) -> UIViewController! {
         
         let current: ViewPagerItem = self.viewPagerItems[Int(index)]
-        let vc: UIViewController = self.storyboard?.instantiateViewControllerWithIdentifier(current.identifier) as! UIViewController
+        let vc: UIViewController = self.storyboard!.instantiateViewControllerWithIdentifier(current.identifier)
         
         if vc is EntryCollectionViewController {
             (vc as! EntryCollectionViewController).ShowType = EntryCollectionViewController.ListType(rawValue: current.type)!
@@ -518,7 +518,7 @@ class PagerViewController: ViewPagerController, ViewPagerDelegate, ViewPagerData
             }
         }
         
-        var targetCell = menu.collectionView?.cellForItemAtIndexPath(NSIndexPath(forRow: i, inSection: 0))
+        let targetCell = menu.collectionView?.cellForItemAtIndexPath(NSIndexPath(forRow: i, inSection: 0))
         
         menu.dismissGridMenuAnimated(true, completion: { () -> Void in
             let qcitem = item as! QCGridMenuItem

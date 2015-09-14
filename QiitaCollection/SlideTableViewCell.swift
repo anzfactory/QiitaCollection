@@ -17,7 +17,7 @@ class SlideTableViewCell: SWTableViewCell {
       
         self.textLabel?.textColor = UIColor.textBase()
         // MEMO: パターンが増えてきたら場合分け
-        var buttons: NSMutableArray = NSMutableArray()
+        let buttons: NSMutableArray = NSMutableArray()
         buttons.sw_addUtilityButtonWithColor(UIColor.backgroundSwipeCellDelete(), icon: UIImage(named: "icon_trash_white"))
         self.setRightUtilityButtons(buttons as [AnyObject], withButtonWidth: 60)
         

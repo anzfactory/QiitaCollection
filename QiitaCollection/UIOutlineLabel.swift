@@ -22,16 +22,19 @@ class UIOutlineLabel: UILabel {
 
     override func drawTextInRect(rect: CGRect) {
         // 縁取り描画
-        let cr: CGContextRef = UIGraphicsGetCurrentContext()
+        let cr: CGContextRef = UIGraphicsGetCurrentContext()!
         let textColor: UIColor = self.textColor
         
         CGContextSetLineWidth(cr, self.outlineSize)
-        CGContextSetLineJoin(cr, kCGLineJoinRound)
-        CGContextSetTextDrawingMode(cr, kCGTextStroke)
+//        CGContextSetLineJoin(cr, kCGLineJoinRound)
+        CGContextSetLineJoin(cr, CGLineJoin.Round)
+//        CGContextSetTextDrawingMode(cr, kCGTextStroke)
+        CGContextSetTextDrawingMode(cr, CGTextDrawingMode.Stroke)
         self.textColor = UIColor.textShadow()
         super.drawTextInRect(rect)
         
-        CGContextSetTextDrawingMode(cr, kCGTextFill)
+//        CGContextSetTextDrawingMode(cr, kCGTextFill)
+        CGContextSetTextDrawingMode(cr, CGTextDrawingMode.Fill)
         self.textColor = textColor
         super.drawTextInRect(rect)
     }

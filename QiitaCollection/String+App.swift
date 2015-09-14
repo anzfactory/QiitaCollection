@@ -27,8 +27,8 @@ extension String {
             exceptionPattern.appendFormat("\\u%@|", unicode)
         }
 
-        var error: NSError? = nil
-        let regex: NSRegularExpression = NSRegularExpression(pattern: exceptionPattern as String, options: NSRegularExpressionOptions(rawValue: 0), error: &error)!
+        let regex: NSRegularExpression = try! NSRegularExpression(pattern: exceptionPattern as String, options: NSRegularExpressionOptions(rawValue: 0))
+        
         let target: NSMutableString = NSMutableString(string: self)
         regex.replaceMatchesInString(target, options: NSMatchingOptions(rawValue: 0), range: NSMakeRange(0, target.length), withTemplate: "")
         

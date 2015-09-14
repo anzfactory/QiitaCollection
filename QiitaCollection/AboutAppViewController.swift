@@ -67,7 +67,7 @@ class AboutAppViewController: BaseViewController, UITableViewDataSource, UITable
             return itemsInSection[key] as! NSArray
             
         }
-        println(" not find..... ")
+        print(" not find..... ")
         return NSArray()
     }
     
@@ -89,7 +89,7 @@ class AboutAppViewController: BaseViewController, UITableViewDataSource, UITable
             let abountQC = (items[indexPath.row] as! NSDictionary).allValues[0] as? String ?? ""
             cell.title.textAlignment = .Left
             cell.title.font = UIFont(name: "07LogoTypeGothic7", size: 14.0)
-            cell.title.text = abountQC.stringByReplacingOccurrencesOfString("[BR]", withString: "\n", options: nil, range: nil)
+            cell.title.text = abountQC.stringByReplacingOccurrencesOfString("[BR]", withString: "\n")
         } else {
             cell.title.text = (items[indexPath.row] as! NSDictionary).allKeys[0] as? String ?? ""
         }

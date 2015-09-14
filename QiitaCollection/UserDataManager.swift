@@ -67,7 +67,7 @@ class UserDataManager {
     
     // MARK: ライフサイクル
     init() {
-        var defaults = [
+        let defaults: [String : AnyObject] = [
             UDKeys.MuteUsers.rawValue               : self.muteUsers,
             UDKeys.Queries.rawValue                 : self.queries,
             UDKeys.Pins.rawValue                    : self.pins,
@@ -76,7 +76,7 @@ class UserDataManager {
             UDKeys.QiitaAccessToken.rawValue        : self.qiitaAccessToken,
             UDKeys.QiitaAuthenticatedUserID.rawValue: self.qiitaAuthenticatedUserID
         ]
-        self.ud.registerDefaults(defaults as [NSObject : AnyObject])
+        self.ud.registerDefaults(defaults)
         self.muteUsers = self.ud.arrayForKey(UDKeys.MuteUsers.rawValue) as! [String]
         self.queries = self.ud.arrayForKey(UDKeys.Queries.rawValue) as! [[String: String]]
         self.pins = self.ud.arrayForKey(UDKeys.Pins.rawValue) as! [[String: String]]
@@ -119,7 +119,7 @@ class UserDataManager {
     }
     
     func isMutedUser(userId: String) -> Bool {
-        return contains(self.muteUsers, userId)
+        return self.muteUsers.contains(userId)
     }
     
     func clearMutedUser(userId: String) -> [String] {
@@ -227,7 +227,7 @@ class UserDataManager {
     
     
     func isDisplayedGuide(guide: Int) -> Bool {
-        return contains(self.displayedGuides, guide)
+        return self.displayedGuides.contains(guide)
     }
     func appendDisplayedGuide(guide: Int) {
         if self.isDisplayedGuide(guide) {

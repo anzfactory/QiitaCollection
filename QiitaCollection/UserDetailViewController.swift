@@ -332,7 +332,7 @@ class UserDetailViewController: BaseViewController, UserDetailViewDelegate {
                 return
             }
             
-            var url: NSURL = NSURL(string: urlString)!
+            let url: NSURL = NSURL(string: urlString)!
             UIApplication.sharedApplication().openURL(url)
         }
         

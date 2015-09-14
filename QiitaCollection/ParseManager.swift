@@ -8,7 +8,7 @@
 
 import UIKit
 import Parse
-import ParseUI
+//import ParseUI
 
 class ParseManager {
     
@@ -110,16 +110,14 @@ class ParseManager {
             var list: [HistoryEntity] = [HistoryEntity]()
             
             if let e = error {
-                println(e)
+                print(e)
                 completion(items: list)
                 return
             }
             
             if let itemList = items {
                 for object in itemList {
-                    if let obj = object as? PFObject {
-                        list.append(HistoryEntity(object: obj))
-                    }
+                    list.append(HistoryEntity(object: object))
                 }
             }
             
@@ -131,7 +129,7 @@ class ParseManager {
     func getWeekRanking(page: Int, completion: (items: [RankEntity]) -> Void) {
         
         let limit: Int = 20
-        let user = PFUser.currentUser()
+        let _ = PFUser.currentUser()
         let query: PFQuery = PFQuery(className: "RankingWeek")
         query.orderByAscending("rank")
         query.limit = limit
@@ -141,16 +139,14 @@ class ParseManager {
             var list: [RankEntity] = [RankEntity]()
             
             if let e = error {
-                println(e)
+                print(e)
                 completion(items: list)
                 return
             }
             
             if let itemList = items {
                 for object in itemList {
-                    if let obj = object as? PFObject {
-                        list.append(RankEntity(object: obj))
-                    }
+                    list.append(RankEntity(object: object))
                 }
             }
             
@@ -162,7 +158,7 @@ class ParseManager {
     func getAdventList(year: Int, page: Int, completion: (items: [KimonoEntity]) -> Void) {
         
         let limit: Int = 50
-        let user = PFUser.currentUser()
+        let _ = PFUser.currentUser()
         let query: PFQuery = PFQuery(className: "KimonoApis")
         query.whereKey("year", equalTo: year)
         query.orderByAscending("title")
@@ -174,16 +170,14 @@ class ParseManager {
             var list: [KimonoEntity] = [KimonoEntity]()
             
             if let e = error {
-                println(e)
+                print(e)
                 completion(items: list)
                 return
             }
             
             if let itemList = items {
                 for object in itemList {
-                    if let obj = object as? PFObject {
-                        list.append(KimonoEntity(object: obj))
-                    }
+                    list.append(KimonoEntity(object: object))
                 }
             }
             
@@ -194,7 +188,7 @@ class ParseManager {
     
     func getAdventEntries(objectId: String, completion: (items: [AdventEntity]) -> Void) {
         
-        let user = PFUser.currentUser()
+        let _ = PFUser.currentUser()
         let query: PFQuery = PFQuery(className: "Advents")
         query.whereKey("adventId", equalTo: objectId)
         query.orderByAscending("date")
@@ -204,16 +198,14 @@ class ParseManager {
             var list: [AdventEntity] = [AdventEntity]()
             
             if let e = error {
-                println(e)
+                print(e)
                 completion(items: list)
                 return
             }
             
             if let itemList = items {
                 for object in itemList {
-                    if let obj = object as? PFObject {
-                        list.append(AdventEntity(object: obj))
-                    }
+                    list.append(AdventEntity(object: object))
                 }
             }
             
