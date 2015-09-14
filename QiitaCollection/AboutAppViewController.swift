@@ -26,6 +26,8 @@ class AboutAppViewController: BaseViewController, UITableViewDataSource, UITable
         self.tableView.separatorColor = UIColor.borderTableView()
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        self.tableView.estimatedRowHeight = 44
+        self.tableView.rowHeight = UITableViewAutomaticDimension
     }
     
     override func viewWillAppear(animated: Bool) {
