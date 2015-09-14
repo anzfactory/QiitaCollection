@@ -768,7 +768,8 @@
 		A1A8D9D21A82F92C00231D84 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = anz;
 				TargetAttributes = {
 					A1A8D9D91A82F92C00231D84 = {
@@ -1033,6 +1034,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1109,6 +1111,7 @@
 				INFOPLIST_FILE = QiitaCollection/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "xyz.anzfactory.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "81d56439-4784-4b83-b309-15927168c163";
 				SWIFT_OBJC_BRIDGING_HEADER = "QiitaCollection/QiitaCollection-Bridging-Header.h";
@@ -1133,6 +1136,7 @@
 				INFOPLIST_FILE = QiitaCollection/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "xyz.anzfactory.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "329c3990-a642-42db-92e2-ff607ef83ff3";
 				SWIFT_OBJC_BRIDGING_HEADER = "QiitaCollection/QiitaCollection-Bridging-Header.h";
@@ -1155,6 +1159,7 @@
 				);
 				INFOPLIST_FILE = QiitaCollectionTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "xyz.anzfactory.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "b9c81ab2-0725-43b9-930a-ac2c667a17e7";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/QiitaCollection.app/QiitaCollection";
@@ -1172,6 +1177,7 @@
 				);
 				INFOPLIST_FILE = QiitaCollectionTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "xyz.anzfactory.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "b9c81ab2-0725-43b9-930a-ac2c667a17e7";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/QiitaCollection.app/QiitaCollection";

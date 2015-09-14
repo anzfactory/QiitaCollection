@@ -1,42 +1,55 @@
 PODS:
-  - Alamofire (1.2.1)
-  - Bolts (1.1.4)
+  - Alamofire (2.0.0)
+  - Bolts/Tasks (1.2.2)
   - DTIActivityIndicator (0.1.0)
-  - Google-Mobile-Ads-SDK (7.1.0)
-  - Parse (1.7.1):
-    - Bolts (~> 1.1)
-  - SABlurImageView (1.1.1)
-  - SDWebImage (3.7.2):
-    - SDWebImage/Core (= 3.7.2)
-  - SDWebImage/Core (3.7.2)
-  - SwiftyJSON (2.1.3)
+  - Google-Mobile-Ads-SDK (7.4.1)
+  - Parse (1.8.3):
+    - Bolts/Tasks (>= 1.2.2)
+  - SABlurImageView (2.0.0)
+  - SDWebImage (3.7.3):
+    - SDWebImage/Core (= 3.7.3)
+  - SDWebImage/Core (3.7.3)
+  - SwiftyJSON (2.2.1)
 
 DEPENDENCIES:
-  - Alamofire (~> 1.2)
-  - DTIActivityIndicator (from `https://github.com/dtissera/DTIActivityIndicatorView-Swift.git`)
+  - Alamofire (~> 2.0)
+  - DTIActivityIndicator (from `https://github.com/dtissera/DTIActivityIndicatorView-Swift.git`,
+    branch `swift-2.0`)
   - Google-Mobile-Ads-SDK (~> 7.1)
   - Parse (>= 1.7.0)
-  - SABlurImageView
-  - SDWebImage (~> 3.6)
-  - SwiftyJSON (= 2.1.3)
+  - SABlurImageView (from `https://github.com/szk-atmosphere/SABlurImageView.git`)
+  - SDWebImage (~> 3.7)
+  - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`, branch `xcode7`)
 
 EXTERNAL SOURCES:
   DTIActivityIndicator:
+    :branch: swift-2.0
     :git: https://github.com/dtissera/DTIActivityIndicatorView-Swift.git
+  SABlurImageView:
+    :git: https://github.com/szk-atmosphere/SABlurImageView.git
+  SwiftyJSON:
+    :branch: xcode7
+    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 CHECKOUT OPTIONS:
   DTIActivityIndicator:
-    :commit: 714fccd5878a65375fdd08570c9d26008cf0ecd9
+    :commit: ad78dfaaaa2fd0fd647e4b18482dbd9e437e2004
     :git: https://github.com/dtissera/DTIActivityIndicatorView-Swift.git
+  SABlurImageView:
+    :commit: 2f86991b96ecee0046705a81581fd139d058da23
+    :git: https://github.com/szk-atmosphere/SABlurImageView.git
+  SwiftyJSON:
+    :commit: d4df13c66146a8e9c8d96c852746a08363003d36
+    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 SPEC CHECKSUMS:
-  Alamofire: 1acfdf179aff68b41a48dff70c1ac7fa263e2bcb
-  Bolts: f8e2f94edbf9fec7bb8de5ecaaa3aa6b7de6f64e
+  Alamofire: 2f13548b29d25a58ecd91c9225fb51493e2b782b
+  Bolts: 20a2bd788273360cb1e31530dc19b8544eef2544
   DTIActivityIndicator: ace0cc993398c52fecf8babc1aa7415ec1b0fb08
-  Google-Mobile-Ads-SDK: 9b7c22345f13de4164e9e6d90ad49cce42124c3c
-  Parse: fa8ec29de6d82035635986c11946299fb1b38316
-  SABlurImageView: fa4bfab661332d7989338b68cd81702c72d6fcdd
-  SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
-  SwiftyJSON: a561c2a840121085bec8a2dfeac97a360fc66901
+  Google-Mobile-Ads-SDK: dce4c2728daa0bcbd88b6e3dc111b718a07b1eb6
+  Parse: 4b251ac63b76d12b334a32579cc3b174446f0c39
+  SABlurImageView: 16636ea067f5d1f9a963e3b4a4f1476f19714e20
+  SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
+  SwiftyJSON: ae2d0a3d68025d136602a33c4ee215091ced3e33
 
-COCOAPODS: 0.36.4
+COCOAPODS: 0.37.2

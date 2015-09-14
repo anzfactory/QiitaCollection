@@ -11,11 +11,15 @@
 
 You can use blur effect and it's animation easily to call only two methods.
 
+[ManiacDev.com](https://maniacdev.com/) referred.  
+[https://maniacdev.com/2015/04/open-source-ios-library-for-easily-adding-animated-blurunblur-effects-to-an-image](https://maniacdev.com/2015/04/open-source-ios-library-for-easily-adding-animated-blurunblur-effects-to-an-image)
+
 ## Features
 
 - [x] Blur effect with box size
 - [x] Blur animation
 - [x] 0.0 to 1.0 parameter blur
+- [x] Support Swift2.0
 
 ## Installation
 
@@ -28,7 +32,7 @@ it, simply add the following line to your Podfile:
 
 #### Manually
 
-Add the [SABlurImageView](./SABlurImageView) directory to your project. 
+Add the [SABlurImageView](./SABlurImageView) directory to your project.
 
 ## Usage
 
@@ -40,7 +44,7 @@ If you want to apply blur effect for image
 
 ```swift
 	let imageView = SABlurImageView(image: image)
-	imageView.addBlurEffect(30, times: 1)	
+	imageView.addBlurEffect(30, times: 1)
 ```
 
 If you want to animate
@@ -79,6 +83,10 @@ pod "SABlurImageView"
 ## Author
 
 Taiki Suzuki, s1180183@gmail.com
+
+## Other
+
+Objective-C version of this project is [SABlurImageViewObjc](https://github.com/szk-atmosphere/SABlurImageViewObjc).
 
 ## License
 
