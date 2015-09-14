@@ -1,6 +1,0 @@
-framework module DTIActivityIndicator {
-  umbrella header "Pods-DTIActivityIndicator-umbrella.h"
-
-  export *
-  module * { export * }
-}
