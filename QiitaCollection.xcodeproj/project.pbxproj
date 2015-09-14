@@ -43,6 +43,7 @@
 		A16150531AD0576000A59395 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A16150521AD0576000A59395 /* Social.framework */; };
 		A16150551AD057AC00A59395 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A16150541AD057AC00A59395 /* Accounts.framework */; };
 		A16BA04C1A96EA4800FF7ACA /* BaseTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16BA04B1A96EA4800FF7ACA /* BaseTableView.swift */; };
+		A1735F601BA6C80200E1EB2E /* AppSafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1735F5F1BA6C80200E1EB2E /* AppSafariViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		A17D0C551A963A510020229B /* SCLAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = A17D0C4C1A963A510020229B /* SCLAlertView.m */; };
 		A17D0C561A963A510020229B /* SCLAlertViewResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = A17D0C4E1A963A510020229B /* SCLAlertViewResponder.m */; };
 		A17D0C571A963A510020229B /* SCLAlertViewStyleKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A17D0C501A963A510020229B /* SCLAlertViewStyleKit.m */; };
@@ -175,6 +176,7 @@
 		A16150521AD0576000A59395 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		A16150541AD057AC00A59395 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		A16BA04B1A96EA4800FF7ACA /* BaseTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableView.swift; sourceTree = "<group>"; };
+		A1735F5F1BA6C80200E1EB2E /* AppSafariViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSafariViewController.swift; sourceTree = "<group>"; };
 		A17D0C4B1A963A510020229B /* SCLAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCLAlertView.h; path = SCLAlertView/SCLAlertView.h; sourceTree = "<group>"; };
 		A17D0C4C1A963A510020229B /* SCLAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCLAlertView.m; path = SCLAlertView/SCLAlertView.m; sourceTree = "<group>"; };
 		A17D0C4D1A963A510020229B /* SCLAlertViewResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCLAlertViewResponder.h; path = SCLAlertView/SCLAlertViewResponder.h; sourceTree = "<group>"; };
@@ -484,6 +486,7 @@
 				A1E852FF1B49FC8300F9E59A /* AdventListViewController.swift */,
 				A1E853011B49FC9200F9E59A /* AdventCalendarViewController.swift */,
 				A1E8530D1B4A255600F9E59A /* SimpleBrowserViewController.swift */,
+				A1735F5F1BA6C80200E1EB2E /* AppSafariViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -943,6 +946,7 @@
 				A121AE1C1AA0D5E7007E006E /* CommentListViewController.swift in Sources */,
 				A1D3BD261AD8FB6E00E5630F /* UIOutlineLabel.swift in Sources */,
 				A19C85341AD153CC00BCF59D /* App.swift in Sources */,
+				A1735F601BA6C80200E1EB2E /* AppSafariViewController.swift in Sources */,
 				A1C321AB1ABF24180087CF85 /* AnonymousAccount.swift in Sources */,
 				A141493B1A9C2985003B7898 /* QCPathMenuItem.swift in Sources */,
 				A1DD3FFD1AA2C396006E4F7B /* UserListViewController.swift in Sources */,

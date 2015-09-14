@@ -120,9 +120,12 @@ class AdventCalendarViewController: BaseViewController, UITableViewDataSource, U
             entryVc.displayEntryId = entryId
             vc = entryVc
         } else {
-            let browserVc = self.storyboard?.instantiateViewControllerWithIdentifier("SimpleBrowserVC") as! SimpleBrowserViewController
-            browserVc.displayAdvent = item
-            vc = browserVc
+            if #available(iOS 9.0, *) {
+                vc = AppSafariViewController(URL: NSURL(string: item.url)!)
+            } else {
+                vc = self.storyboard?.instantiateViewControllerWithIdentifier("SimpleBrowserVC") as! SimpleBrowserViewController
+                (vc as! SimpleBrowserViewController).displayAdvent = item
+            }
             notificationKey = QCKeys.Notification.PresentedViewController.rawValue
         }
         NSNotificationCenter.defaultCenter().postNotificationName(notificationKey, object: vc)
