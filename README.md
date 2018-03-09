@@ -4,8 +4,6 @@ Qittaの非公式クライアントアプリ
 
 Swift勉強がてら作ってます
 
-[ストアで配信中](https://itunes.apple.com/jp/app/id973532800?mt=8&uo=4)
-
 ## 使用ライブラリ
 
 **感謝です!!**
